@@ -21,8 +21,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Guru")
-public class Guru {
+@Table(name = "Teacher")
+public class Teacher {
 
     @Id
     @Column(name = "ID", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
@@ -35,6 +35,6 @@ public class Guru {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "guru", fetch = FetchType.LAZY)
-    private Set<Murid> murid;
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+    private Set<Student> student;
 }

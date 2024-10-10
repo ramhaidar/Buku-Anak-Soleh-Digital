@@ -20,8 +20,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Murid")
-public class Murid {
+@Table(name = "Student")
+public class Student {
 
     @Id
     @Column(name = "ID", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
@@ -36,6 +36,6 @@ public class Murid {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "guru_id", nullable=false, insertable = false, updatable = false)
-    private Guru guru;
+    @JoinColumn(name = "teacher_id", nullable=false, insertable = false, updatable = false)
+    private Teacher teacher;
 }
