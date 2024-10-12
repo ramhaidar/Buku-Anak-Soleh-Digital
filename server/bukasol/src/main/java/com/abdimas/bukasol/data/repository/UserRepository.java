@@ -9,5 +9,6 @@ import com.abdimas.bukasol.data.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID>{
-    User findUserByUsernameAndPassword(String username, String password);
+    User findByUsernameAndPassword(String username, String password);
+    User findByUsername(String username);
 }
