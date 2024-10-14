@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeacherDTO {
+    private UserDTO user;
+    
     private UUID id;
     private String nip;
     private String className;
-
-    private UUID userId;
-    private String userName;
 }

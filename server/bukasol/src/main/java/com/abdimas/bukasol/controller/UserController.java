@@ -16,6 +16,8 @@ import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
+import com.abdimas.bukasol.dto.StudentDTO;
+import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.UserDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
@@ -23,6 +25,8 @@ import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
+import com.abdimas.bukasol.mapper.StudentMapper;
+import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
@@ -37,7 +41,10 @@ public class UserController {
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
+
     private final UserMapper userMapper;
+    private final TeacherMapper teacherMapper;
+    private final StudentMapper studentMapper;
 
     @GetMapping(value = "/auth/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO userLogin) {
@@ -77,13 +84,16 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> testing() {
+    public ResponseEntity<List<StudentDTO>> testing() {
         List<User> teachs = userRepository.findAll();
         List<UserDTO> userDTOs = userMapper.toUserDTOList(teachs);
 
         List<Teacher> teachss = teacherRepository.findAll();
-        List<Student> teachsss = studentRepository.findAll();
+        List<TeacherDTO> teacherDTOs = teacherMapper.toTeacherDTOList(teachss);
 
-        return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
+        List<Student> teachsss = studentRepository.findAll();
+        List<StudentDTO> studentDTOs = studentMapper.toStudentDTOList(teachsss);
+
+        return ResponseEntity.status(HttpStatus.OK).body(studentDTOs);
     }
 }

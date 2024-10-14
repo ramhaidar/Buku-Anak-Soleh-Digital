@@ -14,5 +14,7 @@ public class StudentDTO {
     private String nisn;
     private String className;
     private String parentName;
+    
+    private UserDTO user;
     private TeacherDTO teacher;
 }
