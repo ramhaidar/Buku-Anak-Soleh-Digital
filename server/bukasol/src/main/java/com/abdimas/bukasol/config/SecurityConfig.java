@@ -39,18 +39,16 @@ public class SecurityConfig {
                 .csrf(csrfCustomizer -> csrfCustomizer.disable()) // Disable CSRF
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/users/auth/login",
-                                "/api/v1/users/auth/register-admin"
+                                "/api/v1/users/auth/login"
+                                // "/api/v1/users/auth/register-admin"
                                 )
                         .permitAll()
                         .requestMatchers(
-                                // "/api/v1/users/auth/register-admin",
+                                "/api/v1/users/auth/register-admin",
                                 "/api/v1/users/auth/register-teacher",
-                                "/api/v1/users/auth/register-student")
+                                "/api/v1/users/auth/register-student",
+                                "/api/v1/users/admin/*")
                         .hasAnyAuthority("SUPERADMIN", "ROLE_SUPERADMIN")
-                        // .requestMatchers(
-                        //         "/api/v1/movies/**")
-                        // .hasRole("ADMIN") // Allow public access to register and login
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -58,9 +56,6 @@ public class SecurityConfig {
                         .jwtAuthenticationConverter(jwtAuthenticationConverter())
                     )
                 );
-                // .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT-based
-                //                                                                         // authentication for protected
-                //                                                                         // endpoints
 
         return http.build();
     }

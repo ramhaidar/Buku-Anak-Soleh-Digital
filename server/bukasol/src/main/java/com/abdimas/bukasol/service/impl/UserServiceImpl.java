@@ -1,7 +1,11 @@
 package com.abdimas.bukasol.service.impl;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,12 +23,16 @@ import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
+import com.abdimas.bukasol.dto.StudentDTO;
+import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.UserDetailsDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
+import com.abdimas.bukasol.mapper.StudentMapper;
+import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +44,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
+
+    private final StudentMapper studentMapper;
+    private final TeacherMapper teacherMapper;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
@@ -134,5 +146,65 @@ public class UserServiceImpl implements UserService {
         studentRepository.save(newStudent);
         
         return user;
+    }
+
+    @Override
+    public Page<StudentDTO> findAllStudentAccount(Pageable pageable) {
+        return studentRepository.findAll(pageable).map(studentMapper::toStudentDTO);
+    }
+
+    @Override
+    public Page<TeacherDTO> findAllTeacherAccount(Pageable pageable) {
+        return teacherRepository.findAll(pageable).map(teacherMapper::toTeacherDTO);
+    }
+
+    @Override
+    public String deleteStudentAccount(UUID studentId) {
+        Student student = studentRepository.findById(studentId).orElse(null);
+
+        if(student == null) {
+            return "None";
+        }
+
+        User user = student.getUser();
+        
+        studentRepository.delete(student);
+
+        userRepository.delete(user);
+
+        return "Deleted";
+    }
+
+    @Override
+    public String deleteTeacherAccount(UUID teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).orElse(null);
+
+        if(teacher == null) {
+            return "None";
+        }
+
+        User userTeacher = teacher.getUser();
+        List<Student> students = studentRepository.findByTeacher(teacher);
+
+        studentRepository.deleteAll(students);
+
+        for(Student student : students) {
+            userRepository.delete(student.getUser());
+        }
+        
+        teacherRepository.delete(teacher);
+
+        userRepository.delete(userTeacher);
+
+        return "Deleted";
+    }
+
+    @Override
+    public List<Student> getAllStudentByTeacher(UUID id) {
+        Teacher teacher = teacherRepository.findById(id).orElse(null);
+        
+        List<Student> student = studentRepository.findByTeacher(teacher);
+        
+        return student;
     }
 }
