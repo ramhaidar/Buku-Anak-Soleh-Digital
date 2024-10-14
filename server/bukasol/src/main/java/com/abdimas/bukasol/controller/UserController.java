@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.User;
-import com.abdimas.bukasol.dto.LoginRequest;
+import com.abdimas.bukasol.dto.LoginRequestDTO;
 import com.abdimas.bukasol.dto.LoginResponseDTO;
-import com.abdimas.bukasol.dto.RegisterRequest;
+import com.abdimas.bukasol.dto.RegisterRequestDTO;
+import com.abdimas.bukasol.dto.RegisterResponseDTO;
 import com.abdimas.bukasol.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -23,20 +24,21 @@ public class UserController {
 
     private final UserService userService;
 
-
     @GetMapping(value = "/auth/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequest userLogin) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO userLogin) {
         LoginResponseDTO response = userService.login(userLogin);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping(value = "/auth/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest userRegister) {
-        // LoginResponseDTO response = auth;
+    @PostMapping(value = "/auth/register-admin")
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO userRegister) {
         User user = userService.register(userRegister);
+
+        RegisterResponseDTO registerResponse = new RegisterResponseDTO();
+        registerResponse.setMessage("Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
     }
 
     @GetMapping

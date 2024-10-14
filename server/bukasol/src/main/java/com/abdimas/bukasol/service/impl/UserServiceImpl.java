@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.UserRepository;
-import com.abdimas.bukasol.dto.LoginRequest;
+import com.abdimas.bukasol.dto.LoginRequestDTO;
 import com.abdimas.bukasol.dto.LoginResponseDTO;
-import com.abdimas.bukasol.dto.RegisterRequest;
+import com.abdimas.bukasol.dto.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.UserDetailsDTO;
 import com.abdimas.bukasol.service.UserService;
 
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginResponseDTO login(LoginRequest userLogin) {
+    public LoginResponseDTO login(LoginRequestDTO userLogin) {
         try {
             // Get user authentication
             Authentication authentication = authenticationManager.authenticate(
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(RegisterRequest userRegister) {
+    public User register(RegisterRequestDTO userRegister) {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());

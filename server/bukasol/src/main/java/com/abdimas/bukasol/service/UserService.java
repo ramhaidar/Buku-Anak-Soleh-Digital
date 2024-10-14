@@ -1,12 +1,12 @@
 package com.abdimas.bukasol.service;
 
 import com.abdimas.bukasol.data.model.User;
-import com.abdimas.bukasol.dto.LoginRequest;
+import com.abdimas.bukasol.dto.LoginRequestDTO;
 import com.abdimas.bukasol.dto.LoginResponseDTO;
-import com.abdimas.bukasol.dto.RegisterRequest;
+import com.abdimas.bukasol.dto.RegisterRequestDTO;
 
 public interface UserService {
-    LoginResponseDTO login(LoginRequest userLogin);
+    LoginResponseDTO login(LoginRequestDTO userLogin);
     User findByUsername(String username);
-    User register(RegisterRequest userRegister);
+    User register(RegisterRequestDTO userRegister);
 }

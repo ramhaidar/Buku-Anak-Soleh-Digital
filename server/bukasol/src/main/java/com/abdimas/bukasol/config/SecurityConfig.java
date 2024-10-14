@@ -36,9 +36,13 @@ public class SecurityConfig {
                 .csrf(csrfCustomizer -> csrfCustomizer.disable()) // Disable CSRF
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/users/auth/login",
-                                "/api/v1/users/auth/register")
+                                "/api/v1/users/auth/login"
+                                // "/api/v1/users/auth/register-admin"
+                                )
                         .permitAll()
+                        .requestMatchers(
+                                "/api/v1/users/auth/register-admin")
+                        .hasRole("SUPERADMIN")
                         // .requestMatchers(
                         //         "/api/v1/movies/**")
                         // .hasRole("ADMIN") // Allow public access to register and login
