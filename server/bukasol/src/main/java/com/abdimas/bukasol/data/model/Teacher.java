@@ -3,8 +3,7 @@ package com.abdimas.bukasol.data.model;
 import java.util.Set;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,10 +37,8 @@ public class Teacher {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable=false)
-    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Student> student;
 }

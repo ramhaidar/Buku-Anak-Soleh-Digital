@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.abdimas.bukasol.data.model.Student;
+import com.abdimas.bukasol.data.model.Teacher;
 import com.abdimas.bukasol.data.model.User;
+import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
-import com.abdimas.bukasol.dto.LoginRequestDTO;
-import com.abdimas.bukasol.dto.LoginResponseDTO;
+import com.abdimas.bukasol.dto.UserDTO;
+import com.abdimas.bukasol.dto.login.LoginRequestDTO;
+import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
+import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +36,8 @@ public class UserController {
     private final UserService userService;
     private final TeacherRepository teacherRepository;
     private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
+    private final UserMapper userMapper;
 
     @GetMapping(value = "/auth/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO userLogin) {
@@ -70,8 +77,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> testing() {
+    public ResponseEntity<List<UserDTO>> testing() {
         List<User> teachs = userRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(teachs);
+        List<UserDTO> userDTOs = userMapper.toUserDTOList(teachs);
+
+        List<Teacher> teachss = teacherRepository.findAll();
+        List<Student> teachsss = studentRepository.findAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOs);
     }
 }
