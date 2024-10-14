@@ -13,12 +13,18 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.abdimas.bukasol.data.model.Student;
+import com.abdimas.bukasol.data.model.Teacher;
 import com.abdimas.bukasol.data.model.User;
+import com.abdimas.bukasol.data.repository.StudentRepository;
+import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.LoginRequestDTO;
 import com.abdimas.bukasol.dto.LoginResponseDTO;
-import com.abdimas.bukasol.dto.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.UserDetailsDTO;
+import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
+import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
+import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +34,8 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
@@ -72,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(RegisterRequestDTO userRegister) {
+    public User registerAdmin(RegisterRequestDTO userRegister) {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
@@ -81,6 +89,50 @@ public class UserServiceImpl implements UserService {
         
         User user = userRepository.save(newUser);
 
+        return user;
+    }
+
+    @Override
+    public User registerTeacher(RegisterTeacherRequestDTO userRegister) {
+        User newUser = new User();
+        newUser.setName(userRegister.getName());
+        newUser.setUsername(userRegister.getUsername());
+        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setRole("TEACHER");
+
+        User user = userRepository.save(newUser);
+
+        Teacher newTeacher = new Teacher();
+        newTeacher.setUser(user);
+        newTeacher.setNip(userRegister.getNip());
+        newTeacher.setClassName(userRegister.getClassName());
+        newTeacher.setStudent(null);
+        
+        teacherRepository.save(newTeacher);
+        
+        return user;
+    }
+
+    @Override
+    public User registerStudent(RegisterStudentRequestDTO userRegister) {
+        User newUser = new User();
+        newUser.setName(userRegister.getName());
+        newUser.setUsername(userRegister.getUsername());
+        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setRole("STUDENT");
+
+        User user = userRepository.save(newUser);
+        Teacher teacher = teacherRepository.findById(userRegister.getTeacherId()).orElse(null);
+
+        Student newStudent = new Student();
+        newStudent.setUser(user);
+        newStudent.setTeacher(teacher);
+        newStudent.setNisn(userRegister.getNisn());
+        newStudent.setClassName(userRegister.getClassName());
+        newStudent.setParentName(userRegister.getParentName());
+
+        studentRepository.save(newStudent);
+        
         return user;
     }
 }

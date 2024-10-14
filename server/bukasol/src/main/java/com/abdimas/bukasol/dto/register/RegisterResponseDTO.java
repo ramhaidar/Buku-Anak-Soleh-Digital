@@ -1,4 +1,4 @@
-package com.abdimas.bukasol.dto;
+package com.abdimas.bukasol.dto.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

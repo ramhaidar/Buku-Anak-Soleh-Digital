@@ -2,21 +2,24 @@ package com.abdimas.bukasol.config;
 
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.Collection;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.abdimas.bukasol.utils.PemUtils;
@@ -36,23 +39,48 @@ public class SecurityConfig {
                 .csrf(csrfCustomizer -> csrfCustomizer.disable()) // Disable CSRF
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/users/auth/login"
-                                // "/api/v1/users/auth/register-admin"
+                                "/api/v1/users/auth/login",
+                                "/api/v1/users/auth/register-admin"
                                 )
                         .permitAll()
                         .requestMatchers(
-                                "/api/v1/users/auth/register-admin")
-                        .hasRole("SUPERADMIN")
+                                // "/api/v1/users/auth/register-admin",
+                                "/api/v1/users/auth/register-teacher",
+                                "/api/v1/users/auth/register-student")
+                        .hasAnyAuthority("SUPERADMIN", "ROLE_SUPERADMIN")
                         // .requestMatchers(
                         //         "/api/v1/movies/**")
                         // .hasRole("ADMIN") // Allow public access to register and login
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT-based
-                                                                                        // authentication for protected
-                                                                                        // endpoints
+                .oauth2ResourceServer(oauth2 -> oauth2
+                    .jwt(jwt -> jwt
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                    )
+                );
+                // .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // Enable JWT-based
+                //                                                                         // authentication for protected
+                //                                                                         // endpoints
 
         return http.build();
+    }
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles"); // Use "roles" claim
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_"); // Add "ROLE_" prefix
+
+        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+        jwtConverter.setJwtGrantedAuthoritiesConverter(jwtAuthenticationConverter -> {
+            Collection<GrantedAuthority> authorities = jwtGrantedAuthoritiesConverter.convert(jwtAuthenticationConverter);
+            authorities.forEach(authority -> {
+                System.out.println("Extracted Authority: " + authority.getAuthority());
+            });
+            return authorities;
+        });
+
+        return jwtConverter;
     }
 
     @Bean
