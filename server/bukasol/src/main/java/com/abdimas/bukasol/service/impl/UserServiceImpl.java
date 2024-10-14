@@ -24,7 +24,9 @@ import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.StudentDTO;
+import com.abdimas.bukasol.dto.StudentSaveDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
+import com.abdimas.bukasol.dto.TeacherSaveDTO;
 import com.abdimas.bukasol.dto.UserDetailsDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
@@ -197,6 +199,41 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userTeacher);
 
         return "Deleted";
+    }
+
+    @Override
+    public StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO) {
+        Student checkStudent = studentRepository.findById(studentId).orElse(null);
+
+        if(checkStudent == null) {
+            return null;
+        }
+
+        checkStudent.setNisn(studentSaveDTO.getNisn());
+        checkStudent.setClassName(studentSaveDTO.getClassName());
+        checkStudent.setParentName(studentSaveDTO.getParentName());
+
+        Student updatedStudent = studentRepository.save(checkStudent);
+        StudentDTO student = studentMapper.toStudentDTO(updatedStudent);
+        
+        return student;
+    }
+
+    @Override
+    public TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO) {
+        Teacher checkTeacher = teacherRepository.findById(teacherId).orElse(null);
+
+        if(checkTeacher == null) {
+            return null;
+        }
+
+        checkTeacher.setNip(teacherSaveDTO.getNip());
+        checkTeacher.setClassName(teacherSaveDTO.getClassName());
+
+        Teacher updatedTeacher = teacherRepository.save(checkTeacher);
+        TeacherDTO teacher = teacherMapper.toTeacherDTO(updatedTeacher);
+
+        return teacher;
     }
 
     @Override

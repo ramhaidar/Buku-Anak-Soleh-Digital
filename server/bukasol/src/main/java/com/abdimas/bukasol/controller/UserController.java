@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,9 @@ import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
+import com.abdimas.bukasol.dto.StudentSaveDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
+import com.abdimas.bukasol.dto.TeacherSaveDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
@@ -130,6 +133,28 @@ public class UserController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(deleteResponse);
+    }
+
+    @PutMapping(value = "/admin/edit-student/{id}")
+    public ResponseEntity<StudentDTO> updateStudentAccount(@PathVariable("id") UUID studentId, @RequestBody StudentSaveDTO studentSaveDTO) {
+        StudentDTO student = userService.updateStudentDetail(studentId, studentSaveDTO);
+
+        if(student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(student);
+    }
+
+    @PutMapping(value = "/admin/edit-teacher/{id}")
+    public ResponseEntity<TeacherDTO> updateTeacherAccount(@PathVariable("id") UUID teacherId, @RequestBody TeacherSaveDTO teacherSaveDTO) {
+        TeacherDTO teacher = userService.updateTeacherDetail(teacherId, teacherSaveDTO);
+
+        if(teacher == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
     @GetMapping(value = "/{id}")
