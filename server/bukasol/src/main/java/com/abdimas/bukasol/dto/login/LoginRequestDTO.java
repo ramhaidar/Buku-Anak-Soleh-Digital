@@ -12,6 +12,6 @@ public class LoginRequestDTO {
     @NotBlank(message="Username is Required")
     private String username;
 
-    @NotBlank(message="Guru Wali Kelas is Required")
+    @NotBlank(message="Password is Required")
     private String password;
 }
