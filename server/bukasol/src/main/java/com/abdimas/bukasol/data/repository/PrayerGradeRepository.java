@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.data.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -13,4 +14,6 @@ import com.abdimas.bukasol.data.model.PrayerGrade;
 public interface PrayerGradeRepository extends JpaRepository<PrayerGrade, UUID> {
     
     Page<PrayerGrade> findAllByStudentId(Pageable pageable, UUID studentId);
+    
+    Optional<PrayerGrade> findByStudentIdAndMotionCategory(UUID studentId, String motionCategory);
 }

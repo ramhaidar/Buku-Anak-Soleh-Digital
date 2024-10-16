@@ -49,6 +49,9 @@ public class SecurityConfig {
                                 "/api/v1/users/auth/register-student",
                                 "/api/v1/users/admin/*")
                         .hasAnyAuthority("SUPERADMIN", "ROLE_SUPERADMIN")
+                        .requestMatchers(
+                                "/api/v1/grades/teacher/*")
+                        .hasAnyAuthority("TEACHER", "ROLE_TEACHER")
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
