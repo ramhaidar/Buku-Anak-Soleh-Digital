@@ -131,26 +131,22 @@ public class UserController {
     }
 
     @PutMapping(value = "/admin/edit-student/{id}")
-    public ResponseEntity<StudentDTO> updateStudentAccount(@PathVariable("id") UUID studentId, @RequestBody StudentSaveDTO studentSaveDTO) {
+    public ResponseEntity<StudentDTO> updateStudentAccount(@PathVariable("id") UUID studentId, @Valid @RequestBody StudentSaveDTO studentSaveDTO) {
         StudentDTO student = userService.updateStudentDetail(studentId, studentSaveDTO);
         
         return ResponseEntity.status(HttpStatus.OK).body(student);
     }
 
     @PutMapping(value = "/admin/edit-teacher/{id}")
-    public ResponseEntity<TeacherDTO> updateTeacherAccount(@PathVariable("id") UUID teacherId, @RequestBody TeacherSaveDTO teacherSaveDTO) {
+    public ResponseEntity<TeacherDTO> updateTeacherAccount(@PathVariable("id") UUID teacherId, @Valid @RequestBody TeacherSaveDTO teacherSaveDTO) {
         TeacherDTO teacher = userService.updateTeacherDetail(teacherId, teacherSaveDTO);
         
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
     @PutMapping(value = "/admin/change-password/{id}")
-    public ResponseEntity<UserDTO> changePasswordAdming(@PathVariable("id") UUID userId, @RequestBody ChangePasswordDTO changePasswordDTO) {
+    public ResponseEntity<UserDTO> changePasswordAdming(@PathVariable("id") UUID userId, @Valid @RequestBody ChangePasswordDTO changePasswordDTO) {
         UserDTO user = userService.changePasswordUser(userId, changePasswordDTO);
-
-        if(user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }

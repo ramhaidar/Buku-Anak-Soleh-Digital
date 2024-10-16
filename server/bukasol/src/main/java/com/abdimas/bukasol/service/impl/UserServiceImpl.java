@@ -38,6 +38,7 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.exception.AuthenticationInvalidException;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.PasswordMismatchException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
@@ -284,18 +285,22 @@ public class UserServiceImpl implements UserService {
     public UserDTO changePasswordUser(UUID userId, ChangePasswordDTO changePasswordDTO) {
         User user = findUserById(userId);
 
-        if(passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
-            if(changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {
-                user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
-
-                User updatedUser = userRepository.save(user);
-                UserDTO userDTO = userMapper.toUserDTO(updatedUser);
-
-                return userDTO;
-            }
+        // Check if current password matches
+        if(!passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
+            throw new PasswordMismatchException("Does not match with Current Password");
         }
 
-        return null;
+        // Check if new password and confirm password are equal
+        if(!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {
+            throw new PasswordMismatchException("New Password does not match with Confirm Password");
+        }
+
+        user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+
+        User updatedUser = userRepository.save(user);
+        UserDTO userDTO = userMapper.toUserDTO(updatedUser);
+
+        return userDTO;
     }
 
     @Override
