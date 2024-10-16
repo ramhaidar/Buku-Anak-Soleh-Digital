@@ -32,7 +32,7 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(unique=true, nullable = false)
     private String nip;
 
     @Column(nullable = false)

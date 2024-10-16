@@ -36,11 +36,14 @@ import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.exception.AuthenticationInvalidException;
+import com.abdimas.bukasol.exception.DuplicateEntityException;
+import com.abdimas.bukasol.exception.EntityNotFoundException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -99,7 +102,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(UUID userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User Not Found"));
+    }
+
+    @Override
+    public Teacher findTeacherById(UUID teacherId) {
+        return teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new EntityNotFoundException("Teacher Not Found"));
+    }
+
+    @Override
+    public Student findStudentById(UUID studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student Not Found"));
+    }
+
+    @Override
     public User registerAdmin(RegisterRequestDTO userRegister) {
+        
+        if(userRepository.existsByUsername(userRegister.getUsername())) {
+            throw new DuplicateEntityException("User with Username '" + userRegister.getUsername() + "' is already exist");
+        }
+        
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
@@ -112,7 +138,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User registerTeacher(RegisterTeacherRequestDTO userRegister) {
+        if(userRepository.existsByUsername(userRegister.getUsername())) {
+            throw new DuplicateEntityException("User with Username '" + userRegister.getUsername() + "' is already exist");
+        }
+
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
@@ -121,11 +152,14 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.save(newUser);
 
+        if(teacherRepository.existsByNip(userRegister.getNip())) {
+            throw new DuplicateEntityException("Teacher with NIP '" + userRegister.getNip() + "' is already exist"); 
+        }
+
         Teacher newTeacher = new Teacher();
         newTeacher.setUser(user);
         newTeacher.setNip(userRegister.getNip());
         newTeacher.setClassName(userRegister.getClassName());
-        newTeacher.setStudent(null);
         
         teacherRepository.save(newTeacher);
         
@@ -133,7 +167,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User registerStudent(RegisterStudentRequestDTO userRegister) {
+        if(userRepository.existsByUsername(userRegister.getUsername())) {
+            throw new DuplicateEntityException("User with Username '" + userRegister.getUsername() + "' is already exist");
+        }
+
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
@@ -141,7 +180,11 @@ public class UserServiceImpl implements UserService {
         newUser.setRole("STUDENT");
 
         User user = userRepository.save(newUser);
-        Teacher teacher = teacherRepository.findById(userRegister.getTeacherId()).orElse(null);
+        Teacher teacher = findTeacherById(userRegister.getTeacherId());
+
+        if(studentRepository.existsByNisn(userRegister.getNisn())) {
+            throw new DuplicateEntityException("Student with NISN '" + userRegister.getNisn() + "' is already exist"); 
+        }
 
         Student newStudent = new Student();
         newStudent.setUser(user);
@@ -166,12 +209,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String deleteStudentAccount(UUID studentId) {
-        Student student = studentRepository.findById(studentId).orElse(null);
-
-        if(student == null) {
-            return "None";
-        }
+        Student student = findStudentById(studentId);
 
         User user = student.getUser();
         
@@ -179,16 +219,13 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(user);
 
-        return "Deleted";
+        return "Student Successfully Deleted";
     }
 
     @Override
+    @Transactional
     public String deleteTeacherAccount(UUID teacherId) {
-        Teacher teacher = teacherRepository.findById(teacherId).orElse(null);
-
-        if(teacher == null) {
-            return "None";
-        }
+        Teacher teacher = findTeacherById(teacherId);
 
         User userTeacher = teacher.getUser();
         List<Student> students = studentRepository.findByTeacher(teacher);
@@ -203,7 +240,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(userTeacher);
 
-        return "Deleted";
+        return "Teacher Successfully Deleted";
     }
 
     @Override

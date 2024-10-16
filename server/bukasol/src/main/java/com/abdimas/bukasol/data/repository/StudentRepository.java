@@ -13,4 +13,5 @@ import com.abdimas.bukasol.data.model.Teacher;
 public interface StudentRepository extends JpaRepository<Student, UUID>{
 
     List<Student> findByTeacher(Teacher teacher);
+    boolean existsByNisn(String nisn);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.abdimas.bukasol.data.model.Student;
+import com.abdimas.bukasol.data.model.Teacher;
 import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.dto.ChangePasswordDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
@@ -23,6 +24,10 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 public interface UserService {
     LoginResponseDTO login(LoginRequestDTO userLogin);
     User findByUsername(String username);
+    
+    User findUserById(UUID userId);
+    Teacher findTeacherById(UUID teacherId);
+    Student findStudentById(UUID studentId);
     
     User registerAdmin(RegisterRequestDTO userRegister);
     User registerTeacher(RegisterTeacherRequestDTO userRegister);

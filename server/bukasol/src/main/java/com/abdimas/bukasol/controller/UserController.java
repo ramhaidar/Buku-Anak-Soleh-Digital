@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/auth/register-admin")
-    public ResponseEntity<MessageResponseDTO> registerAdmin(@RequestBody RegisterRequestDTO userRegister) {
+    public ResponseEntity<MessageResponseDTO> registerAdmin(@Valid @RequestBody RegisterRequestDTO userRegister) {
         User user = userService.registerAdmin(userRegister);
 
         MessageResponseDTO registerResponse = new MessageResponseDTO();
@@ -117,10 +117,6 @@ public class UserController {
         String message = userService.deleteStudentAccount(studentId);
 
         MessageResponseDTO deleteResponse = new MessageResponseDTO(message);
-
-        if(message.equals("None")) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(deleteResponse);
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(deleteResponse);
     }

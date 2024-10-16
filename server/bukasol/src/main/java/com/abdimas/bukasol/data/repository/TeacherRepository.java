@@ -10,4 +10,5 @@ import com.abdimas.bukasol.data.model.Teacher;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, UUID>{
 
+    boolean existsByNip(String nip);
 }

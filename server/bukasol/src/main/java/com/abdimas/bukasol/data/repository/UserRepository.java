@@ -11,4 +11,5 @@ import com.abdimas.bukasol.data.model.User;
 public interface UserRepository extends JpaRepository<User, UUID>{
     
     User findByUsername(String username);
+    boolean existsByUsername(String username);
 }
