@@ -8,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 
 import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.model.User;
+import com.abdimas.bukasol.dto.ChangePasswordDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
 import com.abdimas.bukasol.dto.StudentSaveDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.TeacherSaveDTO;
+import com.abdimas.bukasol.dto.UserDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
@@ -35,4 +37,6 @@ public interface UserService {
 
     StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO);
     TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO);
+
+    UserDTO changePasswordUser(UUID userId, ChangePasswordDTO changePasswordDTO);
 }

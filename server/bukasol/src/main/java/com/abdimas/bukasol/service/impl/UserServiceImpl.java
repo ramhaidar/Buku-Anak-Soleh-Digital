@@ -23,10 +23,12 @@ import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
+import com.abdimas.bukasol.dto.ChangePasswordDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
 import com.abdimas.bukasol.dto.StudentSaveDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.TeacherSaveDTO;
+import com.abdimas.bukasol.dto.UserDTO;
 import com.abdimas.bukasol.dto.UserDetailsDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
@@ -35,6 +37,7 @@ import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
+import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -47,6 +50,7 @@ public class UserServiceImpl implements UserService {
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
 
+    private final UserMapper userMapper;
     private final StudentMapper studentMapper;
     private final TeacherMapper teacherMapper;
 
@@ -234,6 +238,28 @@ public class UserServiceImpl implements UserService {
         TeacherDTO teacher = teacherMapper.toTeacherDTO(updatedTeacher);
 
         return teacher;
+    }
+
+    @Override
+    public UserDTO changePasswordUser(UUID userId, ChangePasswordDTO changePasswordDTO) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if(user == null) {
+            return null;
+        }
+
+        if(passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
+            if(changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {
+                user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+
+                User updatedUser = userRepository.save(user);
+                UserDTO userDTO = userMapper.toUserDTO(updatedUser);
+
+                return userDTO;
+            }
+        }
+
+        return null;
     }
 
     @Override

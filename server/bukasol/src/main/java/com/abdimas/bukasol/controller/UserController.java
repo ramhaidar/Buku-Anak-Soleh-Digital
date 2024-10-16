@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.UserRepository;
+import com.abdimas.bukasol.dto.ChangePasswordDTO;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
 import com.abdimas.bukasol.dto.StudentSaveDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.TeacherSaveDTO;
+import com.abdimas.bukasol.dto.UserDTO;
 import com.abdimas.bukasol.dto.login.LoginRequestDTO;
 import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
@@ -157,11 +159,25 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
+    @PutMapping(value = "/admin/change-password/{id}")
+    public ResponseEntity<UserDTO> changePasswordAdming(@PathVariable("id") UUID userId, @RequestBody ChangePasswordDTO changePasswordDTO) {
+        UserDTO user = userService.changePasswordUser(userId, changePasswordDTO);
+
+        if(user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<StudentDTO>> testing(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserDTO> testing(@PathVariable("id") UUID id) {
+        User user = userRepository.findById(id).orElse(null);
+        UserDTO userDTO = userMapper.toUserDTO(user);
+        
         List<Student> students = userService.getAllStudentByTeacher(id);
         List<StudentDTO> studentss = studentMapper.toStudentDTOList(students);
 
-        return ResponseEntity.status(HttpStatus.OK).body(studentss);
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 }
