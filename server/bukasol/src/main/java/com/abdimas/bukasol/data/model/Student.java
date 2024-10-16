@@ -5,6 +5,8 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,17 +27,23 @@ public class Student {
 
     @Id
     @Column(name = "ID", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private int nisn;
+    @Column(unique=true, nullable=false)
+    private String nisn;
+
+    @Column(nullable=false)
     private String className;
+
+    @Column(nullable=false)
     private String parentName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable=false, insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable=false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id", nullable=false, insertable = false, updatable = false)
+    @JoinColumn(name = "teacher_id", nullable=false)
     private Teacher teacher;
 }
