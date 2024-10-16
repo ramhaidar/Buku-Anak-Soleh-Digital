@@ -245,13 +245,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO) {
-        Student checkStudent = studentRepository.findById(studentId).orElse(null);
+        Student checkStudent = findStudentById(studentId);
 
-        if(checkStudent == null) {
-            return null;
+        if (!checkStudent.getNisn().equals(studentSaveDTO.getNisn())
+                && studentRepository.existsByNisn(studentSaveDTO.getNisn())) {
+            throw new DuplicateEntityException("Student with NISN '" + studentSaveDTO.getNisn() + "' is already exist");
         }
 
-        checkStudent.setNisn(studentSaveDTO.getNisn());
+        checkStudent.setNisn(studentSaveDTO.getNisn()); //Check NISN
         checkStudent.setClassName(studentSaveDTO.getClassName());
         checkStudent.setParentName(studentSaveDTO.getParentName());
 
@@ -263,13 +264,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO) {
-        Teacher checkTeacher = teacherRepository.findById(teacherId).orElse(null);
+        Teacher checkTeacher = findTeacherById(teacherId);
 
-        if(checkTeacher == null) {
-            return null;
+        if (!checkTeacher.getNip().equals(teacherSaveDTO.getNip())
+                && teacherRepository.existsByNip(teacherSaveDTO.getNip())) {
+            throw new DuplicateEntityException("Teacher with NIP '" + teacherSaveDTO.getNip() + "' is already exist");
         }
 
-        checkTeacher.setNip(teacherSaveDTO.getNip());
+        checkTeacher.setNip(teacherSaveDTO.getNip()); //Check NIP
         checkTeacher.setClassName(teacherSaveDTO.getClassName());
 
         Teacher updatedTeacher = teacherRepository.save(checkTeacher);
@@ -280,11 +282,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO changePasswordUser(UUID userId, ChangePasswordDTO changePasswordDTO) {
-        User user = userRepository.findById(userId).orElse(null);
-
-        if(user == null) {
-            return null;
-        }
+        User user = findUserById(userId);
 
         if(passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
             if(changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {

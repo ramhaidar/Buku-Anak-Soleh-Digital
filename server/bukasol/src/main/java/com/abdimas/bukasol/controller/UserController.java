@@ -127,20 +127,12 @@ public class UserController {
 
         MessageResponseDTO deleteResponse = new MessageResponseDTO(message);
 
-        if(message.equals("None")) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(deleteResponse);
-        }
-
         return ResponseEntity.status(HttpStatus.OK).body(deleteResponse);
     }
 
     @PutMapping(value = "/admin/edit-student/{id}")
     public ResponseEntity<StudentDTO> updateStudentAccount(@PathVariable("id") UUID studentId, @RequestBody StudentSaveDTO studentSaveDTO) {
         StudentDTO student = userService.updateStudentDetail(studentId, studentSaveDTO);
-
-        if(student == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         
         return ResponseEntity.status(HttpStatus.OK).body(student);
     }
@@ -148,10 +140,6 @@ public class UserController {
     @PutMapping(value = "/admin/edit-teacher/{id}")
     public ResponseEntity<TeacherDTO> updateTeacherAccount(@PathVariable("id") UUID teacherId, @RequestBody TeacherSaveDTO teacherSaveDTO) {
         TeacherDTO teacher = userService.updateTeacherDetail(teacherId, teacherSaveDTO);
-
-        if(teacher == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
         
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
