@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.dto.login;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginRequestDTO {
+    @NotBlank(message="Username is Required")
     private String username;
+
+    @NotBlank(message="Guru Wali Kelas is Required")
     private String password;
 }

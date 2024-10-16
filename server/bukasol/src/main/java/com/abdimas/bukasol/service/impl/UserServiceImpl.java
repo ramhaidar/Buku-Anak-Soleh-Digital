@@ -35,6 +35,7 @@ import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
+import com.abdimas.bukasol.exception.AuthenticationInvalidException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
             return new LoginResponseDTO(token, user.getRole());
         } catch (AuthenticationException e) {
-            throw e;
+            throw new AuthenticationInvalidException("Invalid Username or Password");
         }
     }
 

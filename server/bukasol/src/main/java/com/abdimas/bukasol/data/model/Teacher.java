@@ -32,7 +32,10 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private String nip;
+
+    @Column(nullable = false)
     private String className;
 
     @OneToOne(fetch = FetchType.LAZY)

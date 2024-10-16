@@ -30,8 +30,13 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique=true, nullable=false)
     private String nisn;
+
+    @Column(nullable=false)
     private String className;
+
+    @Column(nullable=false)
     private String parentName;
 
     @OneToOne(fetch = FetchType.LAZY)

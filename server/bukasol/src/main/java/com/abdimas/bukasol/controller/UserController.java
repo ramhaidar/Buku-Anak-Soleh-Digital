@@ -1,6 +1,5 @@
 package com.abdimas.bukasol.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -8,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.ChangePasswordDTO;
@@ -37,10 +36,12 @@ import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@Validated
 @AllArgsConstructor
 public class UserController {
 
@@ -51,7 +52,7 @@ public class UserController {
     private final StudentMapper studentMapper;
 
     @GetMapping(value = "/auth/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO userLogin) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO userLogin) {
         LoginResponseDTO response = userService.login(userLogin);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -68,7 +69,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/auth/register-teacher")
-    public ResponseEntity<MessageResponseDTO> registerTeacher(@RequestBody RegisterTeacherRequestDTO userRegister) {
+    public ResponseEntity<MessageResponseDTO> registerTeacher(@Valid @RequestBody RegisterTeacherRequestDTO userRegister) {
         User user = userService.registerTeacher(userRegister);
 
         MessageResponseDTO registerResponse = new MessageResponseDTO();
@@ -78,7 +79,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/auth/register-student")
-    public ResponseEntity<MessageResponseDTO> registerTeacher(@RequestBody RegisterStudentRequestDTO userRegister) {
+    public ResponseEntity<MessageResponseDTO> registerStudent(@Valid @RequestBody RegisterStudentRequestDTO userRegister) {
         User user = userService.registerStudent(userRegister);
 
         MessageResponseDTO registerResponse = new MessageResponseDTO();
@@ -174,9 +175,6 @@ public class UserController {
     public ResponseEntity<UserDTO> testing(@PathVariable("id") UUID id) {
         User user = userRepository.findById(id).orElse(null);
         UserDTO userDTO = userMapper.toUserDTO(user);
-        
-        List<Student> students = userService.getAllStudentByTeacher(id);
-        List<StudentDTO> studentss = studentMapper.toStudentDTOList(students);
 
         return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
