@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.User;
-import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.ChangePasswordDTO;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
@@ -32,8 +31,6 @@ import com.abdimas.bukasol.dto.login.LoginResponseDTO;
 import com.abdimas.bukasol.dto.register.RegisterRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterStudentRequestDTO;
 import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
-import com.abdimas.bukasol.mapper.StudentMapper;
-import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
 
 import jakarta.validation.Valid;
@@ -46,10 +43,6 @@ import lombok.AllArgsConstructor;
 public class UserController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
-
-    private final UserMapper userMapper;
-    private final StudentMapper studentMapper;
 
     @GetMapping(value = "/auth/login")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO userLogin) {
@@ -149,13 +142,5 @@ public class UserController {
         UserDTO user = userService.changePasswordUser(userId, changePasswordDTO);
         
         return ResponseEntity.status(HttpStatus.OK).body(user);
-    }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> testing(@PathVariable("id") UUID id) {
-        User user = userRepository.findById(id).orElse(null);
-        UserDTO userDTO = userMapper.toUserDTO(user);
-
-        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 }

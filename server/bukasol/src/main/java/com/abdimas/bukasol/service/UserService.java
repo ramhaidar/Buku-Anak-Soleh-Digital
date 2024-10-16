@@ -1,6 +1,5 @@
 package com.abdimas.bukasol.service;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -38,7 +37,6 @@ public interface UserService {
 
     String deleteStudentAccount(UUID studentId);
     String deleteTeacherAccount(UUID teacherId);
-    List<Student> getAllStudentByTeacher(UUID id);
 
     StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO);
     TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO);

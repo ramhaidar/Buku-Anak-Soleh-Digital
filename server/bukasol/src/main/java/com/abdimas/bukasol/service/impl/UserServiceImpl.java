@@ -302,13 +302,4 @@ public class UserServiceImpl implements UserService {
 
         return userDTO;
     }
-
-    @Override
-    public List<Student> getAllStudentByTeacher(UUID id) {
-        Teacher teacher = teacherRepository.findById(id).orElse(null);
-        
-        List<Student> student = studentRepository.findByTeacher(teacher);
-        
-        return student;
-    }
 }
