@@ -86,10 +86,6 @@ public class UserController {
         Pageable pageable = PageRequest.of(page, size);
         Page<StudentDTO> studentAccPage = userService.findAllStudentAccount(pageable);
 
-        if(studentAccPage.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-
         return ResponseEntity.status(HttpStatus.OK).body(studentAccPage);
     }
 
@@ -97,10 +93,6 @@ public class UserController {
     public ResponseEntity<Page<TeacherDTO>> getAllTeacherAccount(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<TeacherDTO> teacherAccPage = userService.findAllTeacherAccount(pageable);
-
-        if(teacherAccPage.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(teacherAccPage);
     }
