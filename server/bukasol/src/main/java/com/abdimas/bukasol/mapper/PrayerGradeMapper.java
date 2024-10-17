@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.abdimas.bukasol.data.model.PrayerGrade;
-import com.abdimas.bukasol.dto.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
 
 @Mapper(componentModel = "spring")
 public interface PrayerGradeMapper {

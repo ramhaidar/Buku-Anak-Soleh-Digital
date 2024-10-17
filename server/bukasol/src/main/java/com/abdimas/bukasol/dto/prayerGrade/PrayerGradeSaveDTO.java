@@ -1,4 +1,4 @@
-package com.abdimas.bukasol.dto;
+package com.abdimas.bukasol.dto.prayerGrade;
 
 import java.util.UUID;
 

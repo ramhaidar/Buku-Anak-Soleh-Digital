@@ -58,7 +58,7 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Admin Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @PostMapping(value = "/auth/register-teacher")
@@ -68,7 +68,7 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Teacher Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @PostMapping(value = "/auth/register-student")
@@ -78,7 +78,7 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Student Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @GetMapping(value = "/admin/student-account")

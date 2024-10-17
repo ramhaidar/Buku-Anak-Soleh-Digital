@@ -47,11 +47,14 @@ public class SecurityConfig {
                                 "/api/v1/users/auth/register-admin",
                                 "/api/v1/users/auth/register-teacher",
                                 "/api/v1/users/auth/register-student",
-                                "/api/v1/users/admin/*")
+                                "/api/v1/users/admin/**")
                         .hasAnyAuthority("SUPERADMIN", "ROLE_SUPERADMIN")
                         .requestMatchers(
-                                "/api/v1/grades/teacher/*")
+                                "/api/v1/grades/teacher/**")
                         .hasAnyAuthority("TEACHER", "ROLE_TEACHER")
+                        .requestMatchers(
+                                "/api/v1/grades/student/**")
+                        .hasAnyAuthority("STUDENT", "ROLE_STUDENT")
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

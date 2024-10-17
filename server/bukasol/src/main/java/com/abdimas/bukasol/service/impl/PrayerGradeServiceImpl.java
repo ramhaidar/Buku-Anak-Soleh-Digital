@@ -11,25 +11,33 @@ import org.springframework.stereotype.Service;
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.repository.PrayerGradeRepository;
-import com.abdimas.bukasol.data.repository.StudentRepository;
-import com.abdimas.bukasol.dto.PrayerGradeDTO;
-import com.abdimas.bukasol.dto.PrayerGradeSaveDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
-import com.abdimas.bukasol.exception.EntityNotFoundException;
 import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerGradeMapper;
 import com.abdimas.bukasol.service.PrayerGradeService;
+import com.abdimas.bukasol.service.UserService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class PrayerGradeServiceImpl implements PrayerGradeService {
 
+    private final UserService userService;
+
     private final PrayerGradeRepository prayerGradeRepository;
-    private final StudentRepository studentRepository;
 
     private final PrayerGradeMapper prayerGradeMapper;
+
+    @Override
+    public PrayerGrade findGradeById(UUID gradeId) {
+        return prayerGradeRepository.findById(gradeId)
+                .orElseThrow(() -> new EntityNotFoundException("Student Grade Not Found"));
+    }
 
     @Override
     public Page<PrayerGradeDTO> showAllPrayerGradeByStudentId(Pageable pageable, UUID studentId) {
@@ -44,8 +52,7 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
 
     @Override
     public PrayerGrade createPrayerGradeStudent(PrayerGradeSaveDTO prayerGradeSaveDTO) {
-        Student student = studentRepository.findById(prayerGradeSaveDTO.getStudentId())
-                .orElseThrow(() -> new EntityNotFoundException("Student Not Found"));
+        Student student = userService.findStudentById(prayerGradeSaveDTO.getStudentId());
 
         Optional<PrayerGrade> existingGrade = prayerGradeRepository.findByStudentIdAndMotionCategory(prayerGradeSaveDTO.getStudentId(), prayerGradeSaveDTO.getMotionCategory());
 
@@ -63,5 +70,56 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
         prayerGrade.setParentSign(false);
 
         return prayerGradeRepository.save(prayerGrade);
+    }
+
+    @Override
+    public PrayerGradeDTO updatePrayerGradeStudent(UUID gradeId, PrayerGradeUpdateDTO prayerGradeUpdateDTO) {
+        PrayerGrade studentPrayerGrade = findGradeById(gradeId);
+
+        Optional<PrayerGrade> existingGrade = prayerGradeRepository.findByStudentIdAndMotionCategory(studentPrayerGrade.getStudent().getId(), prayerGradeUpdateDTO.getMotionCategory());
+
+        if(existingGrade.isPresent() && !studentPrayerGrade.getMotionCategory().equals(prayerGradeUpdateDTO.getMotionCategory())) {
+            throw new DuplicateEntityException("Prayer grade for this motion category already exists for the student");
+        }
+
+        studentPrayerGrade.setMotionCategory(prayerGradeUpdateDTO.getMotionCategory());
+        studentPrayerGrade.setGradeSemester1(prayerGradeUpdateDTO.getGradeSemester1());
+        studentPrayerGrade.setGradeSemester2(prayerGradeUpdateDTO.getGradeSemester2());
+
+        PrayerGrade updatedStudentPrayerGrade = prayerGradeRepository.save(studentPrayerGrade);
+        
+        return prayerGradeMapper.toPrayerGradeDTO(updatedStudentPrayerGrade);
+    }
+
+    @Override
+    public String deletePrayerGradeStudent(UUID gradeId) {
+        PrayerGrade prayerGrade = findGradeById(gradeId);
+
+        prayerGradeRepository.delete(prayerGrade);
+
+        return "Prayer Grade of Student '" + prayerGrade.getStudent().getUser().getName() + "' Successfully Deleted";
+    }
+
+    @Override
+    public PrayerGradeDTO teacherSignPrayerGrade(UUID gradeId) {
+        PrayerGrade prayerGrade = findGradeById(gradeId);
+
+        prayerGrade.setTeacherSign(!prayerGrade.isTeacherSign());
+
+        PrayerGrade updatedPrayerGrade = prayerGradeRepository.save(prayerGrade);
+        
+        return prayerGradeMapper.toPrayerGradeDTO(updatedPrayerGrade);
+    }
+
+
+    @Override
+    public PrayerGradeDTO parentSignPrayerGrade(UUID gradeId) {
+        PrayerGrade prayerGrade = findGradeById(gradeId);
+
+        prayerGrade.setParentSign(!prayerGrade.isParentSign());
+
+        PrayerGrade updatedPrayerGrade = prayerGradeRepository.save(prayerGrade);
+        
+        return prayerGradeMapper.toPrayerGradeDTO(updatedPrayerGrade);
     }
 }
