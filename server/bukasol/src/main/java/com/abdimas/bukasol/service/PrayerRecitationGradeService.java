@@ -5,10 +5,9 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
-import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeUpdateDTO;
 
 public interface PrayerRecitationGradeService {
@@ -16,7 +15,7 @@ public interface PrayerRecitationGradeService {
 
     PrayerRecitationGrade findGradeById(UUID gradeId);
 
-    PrayerGrade createPrayerRecitationGradeStudent(PrayerGradeSaveDTO prayerGradeSaveDTO);
+    PrayerRecitationGrade createPrayerRecitationGradeStudent(PrayerRecitationGradeSaveDTO prayerGradeSaveDTO);
 
     PrayerRecitationGradeDTO updatePrayerRecitationGradeStudent(UUID gradeId, PrayerRecitationGradeUpdateDTO prayerRecitationGradeUpdateDTO);
 

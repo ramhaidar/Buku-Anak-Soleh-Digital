@@ -1,17 +1,22 @@
 package com.abdimas.bukasol.service.impl;
 
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
+import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.repository.PrayerRecitationGradeRepository;
-import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeUpdateDTO;
+import com.abdimas.bukasol.exception.DuplicateEntityException;
+import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerRecitationGradeMapper;
 import com.abdimas.bukasol.service.PrayerRecitationGradeService;
 import com.abdimas.bukasol.service.UserService;
@@ -30,36 +35,90 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
 
     @Override
     public Page<PrayerRecitationGradeDTO> showAllPrayerRecitationGradeByStudentId(Pageable pageable, UUID studentId) {
-        return null;
+        Page<PrayerRecitationGradeDTO> prayerRecitationGrades = prayerRecitationGradeRepository.findAllByStudentId(pageable, studentId).map(prayerRecitationGradeMapper::toPrayerRecitationGradeDTO);
+        
+        if(prayerRecitationGrades.isEmpty()) {
+            throw new NoContentException("Student Does not Has Prayer Recitation Grade");
+        }
+
+        return prayerRecitationGrades;
     }
 
     @Override
     public PrayerRecitationGrade findGradeById(UUID gradeId) {
-        return null;
+        return prayerRecitationGradeRepository.findById(gradeId)
+                .orElseThrow(() -> new EntityNotFoundException("Student Recitation Grade Not Found"));
     }
 
     @Override
-    public PrayerGrade createPrayerRecitationGradeStudent(PrayerGradeSaveDTO prayerGradeSaveDTO) {
-        return null;
+    public PrayerRecitationGrade createPrayerRecitationGradeStudent(PrayerRecitationGradeSaveDTO prayerRecitationGradeSaveDTO) {
+        Student student = userService.findStudentById(prayerRecitationGradeSaveDTO.getStudentId());
+
+        Optional<PrayerRecitationGrade> existingRecitationGrade = prayerRecitationGradeRepository.findByStudentIdAndReadingCategory(prayerRecitationGradeSaveDTO.getStudentId(), prayerRecitationGradeSaveDTO.getReadingCategory());
+
+        if(existingRecitationGrade.isPresent()) {
+            throw new DuplicateEntityException("Prayer Recitation grade for this reading category already exists for the student");
+        }
+
+        PrayerRecitationGrade prayerRecitationGrade = new PrayerRecitationGrade();
+        prayerRecitationGrade.setStudent(student);
+        prayerRecitationGrade.setTimeStamp(LocalDate.now());
+        prayerRecitationGrade.setReadingCategory(prayerRecitationGradeSaveDTO.getReadingCategory());
+        prayerRecitationGrade.setGradeSemester1(prayerRecitationGradeSaveDTO.getGradeSemester1());
+        prayerRecitationGrade.setGradeSemester2(prayerRecitationGradeSaveDTO.getGradeSemester2());
+        prayerRecitationGrade.setTeacherSign(false);
+        prayerRecitationGrade.setParentSign(false);
+        
+        return prayerRecitationGradeRepository.save(prayerRecitationGrade);
     }
 
     @Override
     public PrayerRecitationGradeDTO updatePrayerRecitationGradeStudent(UUID gradeId, PrayerRecitationGradeUpdateDTO prayerRecitationGradeUpdateDTO) {
-        return null;
+        PrayerRecitationGrade studentPrayerRecitationGrade = findGradeById(gradeId);
+
+        Optional<PrayerRecitationGrade> existingRecitationGrade = prayerRecitationGradeRepository.findByStudentIdAndReadingCategory(studentPrayerRecitationGrade.getStudent().getId(), prayerRecitationGradeUpdateDTO.getReadingCategory());
+
+        if(existingRecitationGrade.isPresent() && !studentPrayerRecitationGrade.getReadingCategory().equals(prayerRecitationGradeUpdateDTO.getReadingCategory())) {
+            throw new DuplicateEntityException("Prayer Recitation grade for this reading category already exists for the student");
+        }
+
+        studentPrayerRecitationGrade.setReadingCategory(prayerRecitationGradeUpdateDTO.getReadingCategory());
+        studentPrayerRecitationGrade.setGradeSemester1(prayerRecitationGradeUpdateDTO.getGradeSemester1());
+        studentPrayerRecitationGrade.setGradeSemester2(prayerRecitationGradeUpdateDTO.getGradeSemester2());
+
+        PrayerRecitationGrade updatedStudentPrayerRecitationGrade = prayerRecitationGradeRepository.save(studentPrayerRecitationGrade);
+        
+        return prayerRecitationGradeMapper.toPrayerRecitationGradeDTO(updatedStudentPrayerRecitationGrade);
     }
 
     @Override
     public String deletePrayerRecitationGradeStudent(UUID gradeId) {
-        return null;
+        PrayerRecitationGrade prayerRecitationGrade = findGradeById(gradeId);
+
+        prayerRecitationGradeRepository.delete(prayerRecitationGrade);
+        
+        return "Prayer Recitation Grade '" + prayerRecitationGrade.getReadingCategory() + "' of Student '" + prayerRecitationGrade.getStudent().getUser().getName() + "' Successfully Deleted";
     }
 
     @Override
     public PrayerRecitationGradeDTO teacherSignPrayerRecitationGrade(UUID gradeId) {
-        return null;
+        PrayerRecitationGrade prayerRecitationGrade = findGradeById(gradeId);
+
+        prayerRecitationGrade.setTeacherSign(!prayerRecitationGrade.isTeacherSign());
+
+        PrayerRecitationGrade updatedPrayerRecitationGrade = prayerRecitationGradeRepository.save(prayerRecitationGrade);
+        
+        return prayerRecitationGradeMapper.toPrayerRecitationGradeDTO(updatedPrayerRecitationGrade);
     }
 
     @Override
     public PrayerRecitationGradeDTO parentSignPrayerRecitationGrade(UUID gradeId) {
-        return null;
+        PrayerRecitationGrade prayerRecitationGrade = findGradeById(gradeId);
+
+        prayerRecitationGrade.setParentSign(!prayerRecitationGrade.isParentSign());
+
+        PrayerRecitationGrade updatedPrayerRecitationGrade = prayerRecitationGradeRepository.save(prayerRecitationGrade);
+        
+        return prayerRecitationGradeMapper.toPrayerRecitationGradeDTO(updatedPrayerRecitationGrade);
     }
 }

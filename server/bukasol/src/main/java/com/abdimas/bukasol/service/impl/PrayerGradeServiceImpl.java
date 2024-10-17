@@ -97,7 +97,7 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
 
         prayerGradeRepository.delete(prayerGrade);
 
-        return "Prayer Grade of Student '" + prayerGrade.getStudent().getUser().getName() + "' Successfully Deleted";
+        return "Prayer Grade '" + prayerGrade.getMotionCategory() + "' of Student '" + prayerGrade.getStudent().getUser().getName() + "' Successfully Deleted";
     }
 
     @Override
