@@ -1,6 +1,8 @@
 package com.abdimas.bukasol.service.impl;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerGradeMapper;
 import com.abdimas.bukasol.service.PrayerGradeService;
 import com.abdimas.bukasol.service.UserService;
+import com.abdimas.bukasol.utils.PDFGenerator;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -32,6 +35,8 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
     private final PrayerGradeRepository prayerGradeRepository;
 
     private final PrayerGradeMapper prayerGradeMapper;
+
+    private final PDFGenerator pdfGenerator;
 
     @Override
     public PrayerGrade findGradeById(UUID gradeId) {
@@ -121,5 +126,14 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
         PrayerGrade updatedPrayerGrade = prayerGradeRepository.save(prayerGrade);
         
         return prayerGradeMapper.toPrayerGradeDTO(updatedPrayerGrade);
+    }
+
+    @Override
+    public byte[] generateGradeReportPdf(UUID studentId) throws IOException {
+        List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(studentId);
+        
+        List<PrayerGradeDTO> prayerGradeDTOs = prayerGradeMapper.toPrayerGradeDTOs(prayerGrades);
+        
+        return pdfGenerator.generateGradeReport(prayerGradeDTOs);
     }
 }

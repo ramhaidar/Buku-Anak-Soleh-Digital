@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>Student Report</h2>
+    <p>Nama Siswa: <span th:text="${prayerGradeInfo.student.user.name}"></span></p>
+    <p>Nama Kelas: <span th:text="${prayerGradeInfo.student.className}"></span></p>
+    <p>Nama Gurus: <span th:text="${prayerGradeInfo.student.teacher.user.name}"></span></p>
+
+    <table>
+        <tr>
+            <th>Kategori Nilai</th>
+            <th>Nilai Semester 1</th>
+            <th>Nilai Semester 2</th>
+            <th>Paraf Guru</th>
+            <th>Paraf Orang Tua</th>
+        </tr>
+        <tr th:each="prayerGrade : ${prayerGrade}">
+            <td th:text="${prayerGrade.motionCategory}"></td>
+            <td th:text="${prayerGrade.gradeSemester1}"></td>
+            <td th:text="${prayerGrade.gradeSemester2}"></td>
+            <td th:text="${prayerGrade.teacherSign}"></td>
+            <td th:text="${prayerGrade.parentSign}"></td>
+        </tr>
+    </table>
+</body>
+</html>

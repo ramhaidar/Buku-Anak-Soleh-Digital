@@ -1,11 +1,15 @@
 package com.abdimas.bukasol.controller;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -136,5 +140,20 @@ public class GradeController {
         PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId);
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrade);
+    }
+
+    @GetMapping(value = "/teacher/grade-report/{id}")
+    public ResponseEntity<byte[]> getGradeReportPdf(@PathVariable("id") UUID studentId) {
+        try {
+            byte[] pdfBytes = prayerGradeService.generateGradeReportPdf(studentId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename("grade-report.pdf").build());
+
+            return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
+        } catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
