@@ -15,5 +15,5 @@ public interface PrayerRecitationGradeRepository extends JpaRepository<PrayerRec
     
     Page<PrayerRecitationGrade> findAllByStudentId(Pageable pageable, UUID studentId);
     
-    Optional<PrayerRecitationGrade> findByStudentIdAndMotionCategory(UUID studentId, String motionCategory);
+    Optional<PrayerRecitationGrade> findByStudentIdAndReadingCategory(UUID studentId, String readingCategory);
 }
