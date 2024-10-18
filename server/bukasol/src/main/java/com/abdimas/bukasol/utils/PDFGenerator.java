@@ -2,6 +2,7 @@ package com.abdimas.bukasol.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -20,19 +21,17 @@ public class PDFGenerator {
     private final SpringTemplateEngine templateEngine;
 
     public byte[] generateGradeReport(List<PrayerGradeDTO> prayerGradeStudent) throws IOException {
-        try(ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-            Context context = new Context();
-            context.setVariable("prayerGrade", prayerGradeStudent);
-            context.setVariable("prayerGradeInfo", prayerGradeStudent.get(0));
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-            String htmlPage = templateEngine.process("grade-template", context);
+        Context context = new Context();
+        context.setVariable("prayerGrade", prayerGradeStudent);
+        context.setVariable("prayerGradeInfo", prayerGradeStudent.get(0));
+        context.setVariable("dateToday", LocalDate.now());
 
-            HtmlConverter.convertToPdf(htmlPage, stream);
+        String htmlPage = templateEngine.process("grade-template", context);
+
+        HtmlConverter.convertToPdf(htmlPage, stream);
             
-            return stream.toByteArray();
-        } catch(IOException e) {
-            e.printStackTrace();
-            return null;  // You could also throw a custom exception here
-        }
+        return stream.toByteArray();
     }
 }

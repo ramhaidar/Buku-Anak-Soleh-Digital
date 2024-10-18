@@ -6,7 +6,7 @@
     <title>Grade Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family:Arial, sans-serif;
             margin: 20px;
         }
         table {
@@ -20,23 +20,27 @@
             padding: 10px;
             text-align: left;
         }
+        .tanggal {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <h2>Student Report</h2>
+    <h2>LEMBAR UJI GERAKAN WUDHU, TAYAMUM, DAN SHALAT</h2>
     <p>Nama Siswa: <span th:text="${prayerGradeInfo.student.user.name}"></span></p>
     <p>Nama Kelas: <span th:text="${prayerGradeInfo.student.className}"></span></p>
-    <p>Nama Gurus: <span th:text="${prayerGradeInfo.student.teacher.user.name}"></span></p>
 
     <table>
         <tr>
-            <th>Kategori Nilai</th>
+            <th>No</th>
+            <th>Jenis Bacaan</th>
             <th>Nilai Semester 1</th>
             <th>Nilai Semester 2</th>
             <th>Paraf Guru</th>
             <th>Paraf Orang Tua</th>
         </tr>
-        <tr th:each="prayerGrade : ${prayerGrade}">
+        <tr th:each="prayerGrade, itemStat : ${prayerGrade}">
+            <td th:text="${itemStat.count}"></td>
             <td th:text="${prayerGrade.motionCategory}"></td>
             <td th:text="${prayerGrade.gradeSemester1}"></td>
             <td th:text="${prayerGrade.gradeSemester2}"></td>
@@ -44,5 +48,31 @@
             <td th:text="${prayerGrade.parentSign}"></td>
         </tr>
     </table>
+
+    <p>Nilai Rata-Rata Semester 1 : <span th:text="${#lists.size(prayerGrade) > 0 ? #numbers.formatDecimal(#aggregates.avg(prayerGrade.![gradeSemester1]), 1, 2) : '0.00'}"></span></p>
+    <p>Nilai Rata-Rata Semester 2 : <span th:text="${#lists.size(prayerGrade) > 0 ? #numbers.formatDecimal(#aggregates.avg(prayerGrade.![gradeSemester2]), 1, 2) : '0.00'}"></span></p>
+
+    <p class="tanggal">Bandung, <span th:text="${dateToday}"></span></p>
+
+
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="width: 50%; border: none;">
+                <p style="text-align: center;">Nama Orang tua : <span th:text="${prayerGradeInfo.student.parentName}"></span></p>
+            </td>
+            <td style="width: 50%; border: none;">
+                <p style="text-align: center;">Nama Guru : <span th:text="${prayerGradeInfo.student.teacher.user.name}"></span></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%; border: none;">
+                <p style="text-align: center;">Paraf</p>
+            </td>
+            <td style="width: 50%; border: none;">
+                <p style="text-align: center;">Paraf</p>
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>

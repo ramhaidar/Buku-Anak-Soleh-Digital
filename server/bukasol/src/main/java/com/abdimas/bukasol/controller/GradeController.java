@@ -143,17 +143,13 @@ public class GradeController {
     }
 
     @GetMapping(value = "/teacher/grade-report/{id}")
-    public ResponseEntity<byte[]> getGradeReportPdf(@PathVariable("id") UUID studentId) {
-        try {
-            byte[] pdfBytes = prayerGradeService.generateGradeReportPdf(studentId);
+    public ResponseEntity<byte[]> getGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
+        byte[] pdfBytes = prayerGradeService.generateGradeReportPdf(studentId);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDisposition(ContentDisposition.builder("attachment").filename("grade-report.pdf").build());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename("grade-report.pdf").build());
 
-            return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
-        } catch(IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
     }
 }
