@@ -39,12 +39,12 @@ public class SecurityConfig {
                 .csrf(csrfCustomizer -> csrfCustomizer.disable()) // Disable CSRF
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/users/auth/login"
-                                // "/api/v1/users/auth/register-admin"
+                                "/api/v1/users/auth/login",
+                                "/api/v1/users/auth/register-admin"
                                 )
                         .permitAll()
                         .requestMatchers(
-                                "/api/v1/users/auth/register-admin",
+                                // "/api/v1/users/auth/register-admin",
                                 "/api/v1/users/auth/register-teacher",
                                 "/api/v1/users/auth/register-student",
                                 "/api/v1/users/admin/**")
