@@ -38,6 +38,7 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.exception.AuthenticationInvalidException;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.exception.PasswordMismatchException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
@@ -201,12 +202,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<StudentDTO> findAllStudentAccount(Pageable pageable) {
-        return studentRepository.findAll(pageable).map(studentMapper::toStudentDTO);
+        Page<StudentDTO> studentAcc = studentRepository.findAll(pageable).map(studentMapper::toStudentDTO);
+
+        if(studentAcc.isEmpty()) {
+            throw new NoContentException("There is no Student Account");
+        }
+
+        return studentAcc;
     }
 
     @Override
     public Page<TeacherDTO> findAllTeacherAccount(Pageable pageable) {
-        return teacherRepository.findAll(pageable).map(teacherMapper::toTeacherDTO);
+        Page<TeacherDTO> teacherAcc = teacherRepository.findAll(pageable).map(teacherMapper::toTeacherDTO);
+
+        if(teacherAcc.isEmpty()) {
+            throw new NoContentException("There is no Teacher Account");
+        }
+
+        return teacherAcc;
     }
 
     @Override

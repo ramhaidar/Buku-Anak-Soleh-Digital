@@ -58,7 +58,7 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Admin Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @PostMapping(value = "/auth/register-teacher")
@@ -68,7 +68,7 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Teacher Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @PostMapping(value = "/auth/register-student")
@@ -78,17 +78,13 @@ public class UserController {
         MessageResponseDTO registerResponse = new MessageResponseDTO();
         registerResponse.setMessage("Student Account Successfully Created with Username: " + user.getUsername());
         
-        return ResponseEntity.status(HttpStatus.OK).body(registerResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }
 
     @GetMapping(value = "/admin/student-account")
     public ResponseEntity<Page<StudentDTO>> getAllStudentAccount(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<StudentDTO> studentAccPage = userService.findAllStudentAccount(pageable);
-
-        if(studentAccPage.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(studentAccPage);
     }
@@ -97,10 +93,6 @@ public class UserController {
     public ResponseEntity<Page<TeacherDTO>> getAllTeacherAccount(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<TeacherDTO> teacherAccPage = userService.findAllTeacherAccount(pageable);
-
-        if(teacherAccPage.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(teacherAccPage);
     }

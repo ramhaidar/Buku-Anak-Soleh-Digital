@@ -65,6 +65,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    // Handle No Content
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<Map<String, String>> handleNoContentException(NoContentException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put(MESSAGE_KEY, ex.getMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+    }
+
     // Handle any other exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGlobalException(Exception ex) {

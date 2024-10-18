@@ -18,6 +18,8 @@ public interface StudentMapper {
 
     @Mapping(target="teacher", ignore=true)
     @Mapping(target="user", ignore=true)
+    @Mapping(target="prayerGrade", ignore=true)
+    @Mapping(target="prayerRecitationGrade", ignore=true)
     Student toStudent(StudentDTO studentDTO);
 
     List<StudentDTO> toStudentDTOList(List<Student> students);
