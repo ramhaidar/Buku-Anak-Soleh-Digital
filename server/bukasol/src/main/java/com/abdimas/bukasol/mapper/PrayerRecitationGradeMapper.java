@@ -1,5 +1,7 @@
 package com.abdimas.bukasol.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,4 +18,6 @@ public interface PrayerRecitationGradeMapper {
 
     @Mapping(target="student", ignore=true)
     PrayerRecitationGrade toPrayerRecitationGrade(PrayerRecitationGradeDTO prayerRecitationGradeDTO);
+
+    List<PrayerRecitationGradeDTO> toPrayerRecitationGradeDTOs(List<PrayerRecitationGrade> prayerRecitationGrade);
 }

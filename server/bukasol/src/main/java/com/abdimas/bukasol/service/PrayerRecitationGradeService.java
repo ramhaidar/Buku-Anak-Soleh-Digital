@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.service;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,6 @@ public interface PrayerRecitationGradeService {
 
     PrayerRecitationGradeDTO teacherSignPrayerRecitationGrade(UUID gradeId);
     PrayerRecitationGradeDTO parentSignPrayerRecitationGrade(UUID gradeId);
+
+    byte[] generateRecitationGradeReportPdf(UUID studentId) throws IOException;
 }

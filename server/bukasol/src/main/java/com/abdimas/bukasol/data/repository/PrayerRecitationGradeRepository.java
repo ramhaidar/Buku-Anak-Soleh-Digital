@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.data.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 @Repository
 public interface PrayerRecitationGradeRepository extends JpaRepository<PrayerRecitationGrade, UUID>{
     
+    List<PrayerRecitationGrade> findAllByStudentId(UUID studentId);
     Page<PrayerRecitationGrade> findAllByStudentId(Pageable pageable, UUID studentId);
     
     Optional<PrayerRecitationGrade> findByStudentIdAndReadingCategory(UUID studentId, String readingCategory);

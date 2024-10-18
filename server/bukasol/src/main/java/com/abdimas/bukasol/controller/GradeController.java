@@ -152,4 +152,15 @@ public class GradeController {
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
     }
+
+    @GetMapping(value = "/teacher/recitation-grade-report/{id}")
+    public ResponseEntity<byte[]> getRecitationGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
+        byte[] pdfBytes = prayerRecitationGradeService.generateRecitationGradeReportPdf(studentId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename("grade-report.pdf").build());
+
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
+    }
 }

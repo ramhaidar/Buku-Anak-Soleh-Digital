@@ -10,6 +10,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
 import com.itextpdf.html2pdf.HtmlConverter;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,21 @@ public class PDFGenerator {
         context.setVariable("dateToday", LocalDate.now());
 
         String htmlPage = templateEngine.process("grade-template", context);
+
+        HtmlConverter.convertToPdf(htmlPage, stream);
+            
+        return stream.toByteArray();
+    }
+
+    public byte[] generateRecitationGradeReport(List<PrayerRecitationGradeDTO> prayerGradeStudent) throws IOException {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        Context context = new Context();
+        context.setVariable("prayerRecitationGrade", prayerGradeStudent);
+        context.setVariable("prayerRecitationGradeGradeInfo", prayerGradeStudent.get(0));
+        context.setVariable("dateToday", LocalDate.now());
+
+        String htmlPage = templateEngine.process("recitation-grade-template", context);
 
         HtmlConverter.convertToPdf(htmlPage, stream);
             

@@ -1,6 +1,8 @@
 package com.abdimas.bukasol.service.impl;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +22,7 @@ import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerRecitationGradeMapper;
 import com.abdimas.bukasol.service.PrayerRecitationGradeService;
 import com.abdimas.bukasol.service.UserService;
+import com.abdimas.bukasol.utils.PDFGenerator;
 
 import lombok.AllArgsConstructor;
 
@@ -32,6 +35,8 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
     private final PrayerRecitationGradeRepository prayerRecitationGradeRepository;
 
     private final PrayerRecitationGradeMapper prayerRecitationGradeMapper;
+
+    private final PDFGenerator pdfGenerator;
 
     @Override
     public Page<PrayerRecitationGradeDTO> showAllPrayerRecitationGradeByStudentId(Pageable pageable, UUID studentId) {
@@ -120,5 +125,14 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
         PrayerRecitationGrade updatedPrayerRecitationGrade = prayerRecitationGradeRepository.save(prayerRecitationGrade);
         
         return prayerRecitationGradeMapper.toPrayerRecitationGradeDTO(updatedPrayerRecitationGrade);
+    }
+
+    @Override
+    public byte[] generateRecitationGradeReportPdf(UUID studentId) throws IOException {
+        List<PrayerRecitationGrade> prayerGrades = prayerRecitationGradeRepository.findAllByStudentId(studentId);
+        
+        List<PrayerRecitationGradeDTO> prayerGradeDTOs = prayerRecitationGradeMapper.toPrayerRecitationGradeDTOs(prayerGrades);
+        
+        return pdfGenerator.generateRecitationGradeReport(prayerGradeDTOs);
     }
 }
