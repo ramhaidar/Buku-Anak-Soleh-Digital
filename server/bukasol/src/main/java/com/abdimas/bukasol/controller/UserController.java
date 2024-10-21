@@ -44,7 +44,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/auth/login")
+    @PostMapping(value = "/auth/login")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO userLogin) {
         LoginResponseDTO response = userService.login(userLogin);
 
