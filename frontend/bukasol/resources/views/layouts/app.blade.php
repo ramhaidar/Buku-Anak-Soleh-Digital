@@ -54,7 +54,7 @@
         <!-- Footer -->
         <footer class="footer text-center bg-transparent py-3">
             <div class="container">
-                <span class="text-secondary">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>
+                <span class="text-light fw-light">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>
             </div>
         </footer>
     </div>
