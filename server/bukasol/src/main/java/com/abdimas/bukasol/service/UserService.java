@@ -22,7 +22,6 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 
 public interface UserService {
     LoginResponseDTO login(LoginRequestDTO userLogin);
-    User findByUsername(String username);
     
     User findUserById(UUID userId);
     Teacher findTeacherById(UUID teacherId);

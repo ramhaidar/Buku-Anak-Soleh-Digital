@@ -14,6 +14,9 @@ public interface TeacherMapper {
 
     TeacherMapper INSTANCE = Mappers.getMapper(TeacherMapper.class);
 
+    @Mapping(source="user.name", target="name")
+    @Mapping(source="user.username", target="username")
+    @Mapping(source="user.password", target="password")
     TeacherDTO toTeacherDTO(Teacher teacher);
 
     @Mapping(target="student", ignore=true)

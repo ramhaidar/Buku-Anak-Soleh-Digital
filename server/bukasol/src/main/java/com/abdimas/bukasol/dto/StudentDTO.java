@@ -12,9 +12,14 @@ import lombok.NoArgsConstructor;
 public class StudentDTO {
     private UUID id;
     private String nisn;
+    private String name;
     private String className;
     private String parentName;
-    
-    private UserDTO user;
-    private TeacherDTO teacher;
+    private String parentCode;
+
+    private String teacherNip;
+    private String teacherName;
+
+    private String username;
+    private String password;
 }

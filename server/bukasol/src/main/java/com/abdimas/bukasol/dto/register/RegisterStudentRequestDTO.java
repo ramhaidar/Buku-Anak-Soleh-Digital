@@ -21,9 +21,6 @@ public class RegisterStudentRequestDTO {
     @NotBlank(message="Username is Required")
     private String username;
 
-    @NotBlank(message="Password is Required")
-    private String password;
-
     @NotBlank(message="NISN is Required")
     private String nisn;
 
