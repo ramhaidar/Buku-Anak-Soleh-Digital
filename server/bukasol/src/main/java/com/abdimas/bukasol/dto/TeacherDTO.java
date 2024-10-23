@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TeacherDTO {
     private UUID id;
+    private String name;
     private String nip;
     private String className;
-
-    private UserDTO user;
+    private String username;
+    private String password;
 }

@@ -44,6 +44,7 @@ import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
+import com.abdimas.bukasol.utils.RandomCodeGenerator;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -63,12 +64,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
+    private final RandomCodeGenerator randomCodeGenerator;
+    
     @Override
     public LoginResponseDTO login(LoginRequestDTO userLogin) {
         try {
@@ -97,7 +94,7 @@ public class UserServiceImpl implements UserService {
             // Encode JWT using claim
             String token = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-            return new LoginResponseDTO(token, user.getRole());
+            return new LoginResponseDTO(token, user.getRole(), user.getName());
         } catch (AuthenticationException e) {
             throw new AuthenticationInvalidException("Invalid Username or Password");
         }
@@ -149,7 +146,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(randomCodeGenerator.generateAlphaNumericCode(userRegister.getName(), userRegister.getNip())));
         newUser.setRole("TEACHER");
 
         User user = userRepository.save(newUser);
@@ -178,7 +175,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(randomCodeGenerator.generateAlphaNumericCode(userRegister.getName(), userRegister.getNisn())));
         newUser.setRole("STUDENT");
 
         User user = userRepository.save(newUser);
@@ -194,6 +191,7 @@ public class UserServiceImpl implements UserService {
         newStudent.setNisn(userRegister.getNisn());
         newStudent.setClassName(userRegister.getClassName());
         newStudent.setParentName(userRegister.getParentName());
+        newStudent.setParentCode(randomCodeGenerator.generateNumericCode());
 
         studentRepository.save(newStudent);
         
@@ -269,6 +267,7 @@ public class UserServiceImpl implements UserService {
         checkStudent.setNisn(studentSaveDTO.getNisn()); //Check NISN
         checkStudent.setClassName(studentSaveDTO.getClassName());
         checkStudent.setParentName(studentSaveDTO.getParentName());
+        checkStudent.getUser().setPassword(passwordEncoder.encode(randomCodeGenerator.generateAlphaNumericCode(checkStudent.getUser().getName(), studentSaveDTO.getNisn())));
 
         Student updatedStudent = studentRepository.save(checkStudent);
         StudentDTO student = studentMapper.toStudentDTO(updatedStudent);
@@ -287,6 +286,7 @@ public class UserServiceImpl implements UserService {
 
         checkTeacher.setNip(teacherSaveDTO.getNip()); //Check NIP
         checkTeacher.setClassName(teacherSaveDTO.getClassName());
+        checkTeacher.getUser().setPassword(passwordEncoder.encode(randomCodeGenerator.generateAlphaNumericCode(checkTeacher.getUser().getName(), teacherSaveDTO.getNip())));
 
         Teacher updatedTeacher = teacherRepository.save(checkTeacher);
         TeacherDTO teacher = teacherMapper.toTeacherDTO(updatedTeacher);
