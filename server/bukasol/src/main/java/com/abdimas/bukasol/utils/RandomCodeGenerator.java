@@ -18,7 +18,7 @@ public class RandomCodeGenerator {
         return code.toString();
     }
 
-    public String generateAlphaNumericCode(String name, String number) {
+    public String generatePassword(String name, String number) {
         String letters = name.split(" ")[0].toLowerCase();
         String numbers = number.substring(number.length() - 4);
 
