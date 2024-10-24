@@ -13,5 +13,5 @@ public class PrayerGradeInfoDTO {
     private String className;
     private String teacherName;
 
-    private List<PrayerGradeTeacherShowDTO> prayerGrade;
+    private List<PrayerGradeTeacherShowDTO> prayerGrades;
 }

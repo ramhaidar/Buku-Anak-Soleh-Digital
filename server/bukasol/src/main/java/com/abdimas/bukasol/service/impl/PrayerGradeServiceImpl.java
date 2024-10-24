@@ -83,12 +83,11 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
             long parentSignTrue = prayerGradeRepository.countParentSignTrueByStudentId(student.getId());
             long parentSignFalse = prayerGradeRepository.countParentSignFalseByStudentId(student.getId());
 
-            if(teacherSignTrue == teacherSignFalse) {
+            if(teacherSignTrue >= teacherSignFalse && teacherSignFalse == 0) {
                 teacherSign = true;
             }
 
-
-            if(parentSignTrue == parentSignFalse) {
+            if(parentSignTrue >= parentSignFalse && parentSignFalse == 0) {
                 parentSign = true;
             }
 
@@ -103,7 +102,7 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
             prayerGradeTeacherShowDTOs.add(prayerGradeTeacherShowDTO);
         }
 
-        prayerGradeinfoDTO.setPrayerGrade(prayerGradeTeacherShowDTOs);
+        prayerGradeinfoDTO.setPrayerGrades(prayerGradeTeacherShowDTOs);
 
         return prayerGradeinfoDTO;
     }
