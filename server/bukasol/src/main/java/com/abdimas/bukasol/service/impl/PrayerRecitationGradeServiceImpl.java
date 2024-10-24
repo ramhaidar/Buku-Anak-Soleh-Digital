@@ -19,6 +19,7 @@ import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeTeache
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeUpdateDTO;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.MismatchException;
 import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerRecitationGradeMapper;
 import com.abdimas.bukasol.service.PrayerRecitationGradeService;
@@ -168,10 +169,15 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
     }
 
     @Override
-    public PrayerRecitationGradeDTO parentSignPrayerRecitationGrade(UUID gradeId) {
+    public PrayerRecitationGradeDTO parentSignPrayerRecitationGrade(UUID gradeId, String parentCode) {
         PrayerRecitationGrade prayerRecitationGrade = findGradeById(gradeId);
+        Student student = userService.findStudentById(prayerRecitationGrade.getStudent().getId());
 
-        prayerRecitationGrade.setParentSign(!prayerRecitationGrade.isParentSign());
+        if(student.getParentCode().equals(parentCode)) {
+            prayerRecitationGrade.setParentSign(!prayerRecitationGrade.isParentSign());
+        } else {
+            throw new MismatchException("Wrong Parent Code");
+        }
 
         PrayerRecitationGrade updatedPrayerRecitationGrade = prayerRecitationGradeRepository.save(prayerRecitationGrade);
         
