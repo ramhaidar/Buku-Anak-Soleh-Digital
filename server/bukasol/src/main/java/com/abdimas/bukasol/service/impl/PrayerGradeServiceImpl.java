@@ -2,19 +2,20 @@ package com.abdimas.bukasol.service.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.repository.PrayerGradeRepository;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeTeacherShowDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.NoContentException;
@@ -45,14 +46,66 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
     }
 
     @Override
-    public Page<PrayerGradeDTO> showAllPrayerGradeByStudentId(Pageable pageable, UUID studentId) {
-        Page<PrayerGradeDTO> prayerGrades = prayerGradeRepository.findAllByStudentId(pageable, studentId).map(prayerGradeMapper::toPrayerGradeDTO);
-
+    public List<PrayerGradeDTO> showAllPrayerGradeByStudentId(UUID studentId) {
+        List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(studentId);
+        
         if(prayerGrades.isEmpty()) {
-            throw new NoContentException("Student Does not Has Prayer Grade");
+            throw new NoContentException("There is No Prayer Grade for This Student");
+        }
+        
+        return prayerGradeMapper.toPrayerGradeDTOs(prayerGrades);
+    }
+
+    @Override
+    public PrayerGradeInfoDTO showAllPrayerGradeByClass(String className) {
+        PrayerGradeInfoDTO prayerGradeinfoDTO = new PrayerGradeInfoDTO();
+        List<PrayerGradeTeacherShowDTO> prayerGradeTeacherShowDTOs = new ArrayList<>();
+        
+        List<Student> students = userService.findStudentByClassName(className);
+
+        prayerGradeinfoDTO.setClassName(className);
+        prayerGradeinfoDTO.setTeacherName(students.get(0).getTeacher().getUser().getName());
+
+        for(Student student : students) {
+            PrayerGradeTeacherShowDTO prayerGradeTeacherShowDTO = new PrayerGradeTeacherShowDTO();
+
+            List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(student.getId());
+            
+            boolean teacherSign = false;
+            boolean parentSign = false;
+
+            double avgSemester1 = prayerGrades.stream().mapToDouble(PrayerGrade::getGradeSemester1).average().orElse(0.0);
+            double avgSemester2 = prayerGrades.stream().mapToDouble(PrayerGrade::getGradeSemester2).average().orElse(0.0);
+
+            long teacherSignTrue = prayerGradeRepository.countTeacherSignTrueByStudentId(student.getId());
+            long teacherSignFalse = prayerGradeRepository.countTeacherSignFalseByStudentId(student.getId());
+
+            long parentSignTrue = prayerGradeRepository.countParentSignTrueByStudentId(student.getId());
+            long parentSignFalse = prayerGradeRepository.countParentSignFalseByStudentId(student.getId());
+
+            if(teacherSignTrue == teacherSignFalse) {
+                teacherSign = true;
+            }
+
+
+            if(parentSignTrue == parentSignFalse) {
+                parentSign = true;
+            }
+
+            prayerGradeTeacherShowDTO.setStudentId(student.getId());
+            prayerGradeTeacherShowDTO.setStudentNisn(student.getNisn());
+            prayerGradeTeacherShowDTO.setStudentName(student.getUser().getName());
+            prayerGradeTeacherShowDTO.setAvgSemester1(avgSemester1);
+            prayerGradeTeacherShowDTO.setAvgSemester2(avgSemester2);
+            prayerGradeTeacherShowDTO.setTeacherSign(teacherSign);
+            prayerGradeTeacherShowDTO.setParentSign(parentSign);
+
+            prayerGradeTeacherShowDTOs.add(prayerGradeTeacherShowDTO);
         }
 
-       return prayerGrades;
+        prayerGradeinfoDTO.setPrayerGrade(prayerGradeTeacherShowDTOs);
+
+        return prayerGradeinfoDTO;
     }
 
     @Override

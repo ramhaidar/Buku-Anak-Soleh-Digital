@@ -26,6 +26,7 @@ import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
@@ -46,12 +47,11 @@ public class GradeController {
     private final PrayerGradeService prayerGradeService;
     private final PrayerRecitationGradeService prayerRecitationGradeService;
 
-    @GetMapping(value = "/teacher/prayer/{id}")
-    public ResponseEntity<Page<PrayerGradeDTO>> getAllPrayerGradeByStudentId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @PathVariable("id") UUID studentId) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<PrayerGradeDTO> prayerGrades = prayerGradeService.showAllPrayerGradeByStudentId(pageable, studentId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(prayerGrades);
+    @GetMapping(value = "/teacher/prayer/{className}")
+    public ResponseEntity<PrayerGradeInfoDTO> getAllPrayerGradeByClassName(@PathVariable("className") String className) {
+        PrayerGradeInfoDTO prayerGradeInfoDTO = prayerGradeService.showAllPrayerGradeByClass(className);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeInfoDTO);
     }
 
     @GetMapping(value = "/teacher/prayer-recitation/{id}")

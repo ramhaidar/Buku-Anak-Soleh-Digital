@@ -121,6 +121,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Student> findStudentByClassName(String className) {
+        return studentRepository.findByClassName(className)
+                .orElseThrow(() -> new NoContentException("No Student of This Class"));
+    }
+
+    @Override
     public TeacherAdminDTO adminGetTeacher(UUID teacherId) {
         Teacher teacher = findTeacherById(teacherId);
 
