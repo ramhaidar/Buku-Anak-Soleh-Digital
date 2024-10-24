@@ -1,4 +1,4 @@
-package com.abdimas.bukasol.dto.prayerGrade;
+package com.abdimas.bukasol.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

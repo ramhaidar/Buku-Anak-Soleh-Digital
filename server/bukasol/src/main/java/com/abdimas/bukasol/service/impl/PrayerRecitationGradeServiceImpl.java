@@ -2,19 +2,20 @@ package com.abdimas.bukasol.service.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.repository.PrayerRecitationGradeRepository;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeSaveDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeTeacherShowDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeUpdateDTO;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
@@ -39,20 +40,70 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
     private final PDFGenerator pdfGenerator;
 
     @Override
-    public Page<PrayerRecitationGradeDTO> showAllPrayerRecitationGradeByStudentId(Pageable pageable, UUID studentId) {
-        Page<PrayerRecitationGradeDTO> prayerRecitationGrades = prayerRecitationGradeRepository.findAllByStudentId(pageable, studentId).map(prayerRecitationGradeMapper::toPrayerRecitationGradeDTO);
-        
-        if(prayerRecitationGrades.isEmpty()) {
-            throw new NoContentException("Student Does not Has Prayer Recitation Grade");
-        }
-
-        return prayerRecitationGrades;
-    }
-
-    @Override
     public PrayerRecitationGrade findGradeById(UUID gradeId) {
         return prayerRecitationGradeRepository.findById(gradeId)
                 .orElseThrow(() -> new EntityNotFoundException("Student Recitation Grade Not Found"));
+    }
+
+    @Override
+    public List<PrayerRecitationGradeDTO> showAllPrayerRecitationGradeByStudentId(UUID studentId) {
+        List<PrayerRecitationGrade> prayerRecitationGrades = prayerRecitationGradeRepository.findAllByStudentId(studentId);
+
+        if(prayerRecitationGrades.isEmpty()) {
+            throw new NoContentException("There is No Prayer Recitation Grade for The Student");
+        }
+        
+        return prayerRecitationGradeMapper.toPrayerRecitationGradeDTOs(prayerRecitationGrades);
+    }
+
+    @Override
+    public PrayerRecitationGradeInfoDTO showAllPrayerRecitationGradeByClass(String className) {
+        PrayerRecitationGradeInfoDTO prayerRecitationGradeInfoDTO = new PrayerRecitationGradeInfoDTO();
+        List<PrayerRecitationGradeTeacherShowDTO> prayerRecitationGradeTeacherShowDTOs = new ArrayList<>();
+
+        List<Student> students = userService.findStudentByClassName(className);
+
+        prayerRecitationGradeInfoDTO.setClassName(className);
+        prayerRecitationGradeInfoDTO.setTeacherName(students.get(0).getTeacher().getUser().getName());
+
+        for(Student student : students) {
+            PrayerRecitationGradeTeacherShowDTO prayerRecitationGradeTeacherShowDTO = new PrayerRecitationGradeTeacherShowDTO();
+            List<PrayerRecitationGrade> prayerRecitationGrades = prayerRecitationGradeRepository.findAllByStudentId(student.getId());
+
+            boolean teacherSign = false;
+            boolean parentSign = false;
+
+            double avgSemester1 = prayerRecitationGrades.stream().mapToDouble(PrayerRecitationGrade::getGradeSemester1).average().orElse(0.0);
+            double avgSemester2 = prayerRecitationGrades.stream().mapToDouble(PrayerRecitationGrade::getGradeSemester2).average().orElse(0.0);
+
+            long teacherSignTrue = prayerRecitationGradeRepository.countTeacherSignTrueByStudentId(student.getId());
+            long teacherSignFalse = prayerRecitationGradeRepository.countTeacherSignFalseByStudentId(student.getId());
+
+            long parentSignTrue = prayerRecitationGradeRepository.countParentSignTrueByStudentId(student.getId());
+            long parentSignFalse = prayerRecitationGradeRepository.countParentSignFalseByStudentId(student.getId());
+
+            if(teacherSignTrue >= teacherSignFalse && teacherSignFalse == 0) {
+                teacherSign = true;
+            }
+
+            if(parentSignTrue >= parentSignFalse && parentSignFalse == 0) {
+                parentSign = true;
+            }
+
+            prayerRecitationGradeTeacherShowDTO.setStudentId(student.getId());
+            prayerRecitationGradeTeacherShowDTO.setStudentNisn(student.getNisn());
+            prayerRecitationGradeTeacherShowDTO.setStudentName(student.getUser().getName());
+            prayerRecitationGradeTeacherShowDTO.setAvgSemester1(avgSemester1);
+            prayerRecitationGradeTeacherShowDTO.setAvgSemester2(avgSemester2);
+            prayerRecitationGradeTeacherShowDTO.setTeacherSign(teacherSign);
+            prayerRecitationGradeTeacherShowDTO.setParentSign(parentSign);
+
+            prayerRecitationGradeTeacherShowDTOs.add(prayerRecitationGradeTeacherShowDTO);
+        }
+
+        prayerRecitationGradeInfoDTO.setPrayerRecitationGrades(prayerRecitationGradeTeacherShowDTOs);
+        
+        return prayerRecitationGradeInfoDTO;
     }
 
     @Override

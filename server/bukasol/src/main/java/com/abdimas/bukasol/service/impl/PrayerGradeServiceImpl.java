@@ -51,7 +51,7 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
         List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(studentId);
         
         if(prayerGrades.isEmpty()) {
-            throw new NoContentException("There is No Prayer Grade for This Student");
+            throw new NoContentException("There is No Prayer Grade for The Student");
         }
         
         return prayerGradeMapper.toPrayerGradeDTOs(prayerGrades);
