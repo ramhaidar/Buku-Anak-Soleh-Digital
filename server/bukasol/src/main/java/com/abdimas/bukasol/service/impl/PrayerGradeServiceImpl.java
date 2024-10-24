@@ -18,6 +18,7 @@ import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeTeacherShowDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
+import com.abdimas.bukasol.exception.MismatchException;
 import com.abdimas.bukasol.exception.NoContentException;
 import com.abdimas.bukasol.mapper.PrayerGradeMapper;
 import com.abdimas.bukasol.service.PrayerGradeService;
@@ -170,11 +171,16 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
 
 
     @Override
-    public PrayerGradeDTO parentSignPrayerGrade(UUID gradeId) {
+    public PrayerGradeDTO parentSignPrayerGrade(UUID gradeId, String parentCode) {
         PrayerGrade prayerGrade = findGradeById(gradeId);
+        Student student = userService.findStudentById(prayerGrade.getStudent().getId());
 
-        prayerGrade.setParentSign(!prayerGrade.isParentSign());
-
+        if(student.getParentCode().equals(parentCode)) {
+            prayerGrade.setParentSign(!prayerGrade.isParentSign());
+        } else {
+            throw new MismatchException("Wrong Parent Code");
+        }
+        
         PrayerGrade updatedPrayerGrade = prayerGradeRepository.save(prayerGrade);
         
         return prayerGradeMapper.toPrayerGradeDTO(updatedPrayerGrade);

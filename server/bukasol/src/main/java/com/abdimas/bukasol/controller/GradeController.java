@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
+import com.abdimas.bukasol.dto.prayerGrade.ParentCodeDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
@@ -129,8 +130,8 @@ public class GradeController {
     }
 
     @PutMapping(value = "/student/prayer-sign/{id}")
-    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId) {
-        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId);
+    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @RequestBody ParentCodeDTO parentCode) {
+        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId, parentCode.getParentCode());
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerGrade);
     }

@@ -24,7 +24,7 @@ public interface PrayerGradeService {
     String deletePrayerGradeStudent(UUID gradeId);
 
     PrayerGradeDTO teacherSignPrayerGrade(UUID gradeId);
-    PrayerGradeDTO parentSignPrayerGrade(UUID gradeId);
+    PrayerGradeDTO parentSignPrayerGrade(UUID gradeId, String parentCode);
 
     byte[] generateGradeReportPdf(UUID studentId) throws IOException;
 }
