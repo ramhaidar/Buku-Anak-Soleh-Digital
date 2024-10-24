@@ -3,7 +3,7 @@ package com.abdimas.bukasol.dto.prayerGrade;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import com.abdimas.bukasol.dto.StudentDTO;
+import com.abdimas.bukasol.dto.StudentAdminDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +21,5 @@ public class PrayerGradeDTO {
     private boolean teacherSign;
     private boolean parentSign;
     
-    private StudentDTO student;
+    private StudentAdminDTO student;
 }
