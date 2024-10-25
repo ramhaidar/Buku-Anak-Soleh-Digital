@@ -126,14 +126,14 @@ public class GradeController {
     }
 
     @PutMapping(value = "/student/prayer-sign/{id}")
-    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @RequestBody ParentCodeDTO parentCode) {
+    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCode) {
         PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId, parentCode.getParentCode());
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerGrade);
     }
 
     @PutMapping(value = "/student/prayer-recitation-sign/{id}")
-    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId, @RequestBody ParentCodeDTO parentCodeDTO) {
+    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCodeDTO) {
         PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId, parentCodeDTO.getParentCode());
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrade);

@@ -189,7 +189,22 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
         List<PrayerRecitationGrade> prayerGrades = prayerRecitationGradeRepository.findAllByStudentId(studentId);
         
         List<PrayerRecitationGradeDTO> prayerGradeDTOs = prayerRecitationGradeMapper.toPrayerRecitationGradeDTOs(prayerGrades);
+
+        String teacherSign = "Belum";
+        String parentSign = "Belum";
+
+        long teacherSignFalse = prayerRecitationGradeRepository.countTeacherSignFalseByStudentId(prayerGradeDTOs.get(0).getStudent().getId());
+
+        long parentSignFalse = prayerRecitationGradeRepository.countParentSignFalseByStudentId(prayerGradeDTOs.get(0).getStudent().getId());
+
+        if(teacherSignFalse == 0) {
+            teacherSign = "Sudah";
+        }
+
+        if(parentSignFalse == 0) {
+            parentSign = "Sudah";
+        }
         
-        return pdfGenerator.generateRecitationGradeReport(prayerGradeDTOs);
+        return pdfGenerator.generateRecitationGradeReport(prayerGradeDTOs, teacherSign, parentSign);
     }
 }

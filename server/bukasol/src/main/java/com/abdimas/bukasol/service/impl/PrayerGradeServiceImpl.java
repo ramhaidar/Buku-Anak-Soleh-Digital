@@ -191,7 +191,22 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
         List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(studentId);
         
         List<PrayerGradeDTO> prayerGradeDTOs = prayerGradeMapper.toPrayerGradeDTOs(prayerGrades);
+
+        String teacherSign = "Belum";
+        String parentSign = "Belum";
+
+        long teacherSignFalse = prayerGradeRepository.countTeacherSignFalseByStudentId(prayerGradeDTOs.get(0).getStudent().getId());
+
+        long parentSignFalse = prayerGradeRepository.countParentSignFalseByStudentId(prayerGradeDTOs.get(0).getStudent().getId());
+
+        if(teacherSignFalse == 0) {
+            teacherSign = "Sudah";
+        }
+
+        if(parentSignFalse == 0) {
+            parentSign = "Sudah";
+        }
         
-        return pdfGenerator.generateGradeReport(prayerGradeDTOs);
+        return pdfGenerator.generateGradeReport(prayerGradeDTOs, teacherSign, parentSign);
     }
 }
