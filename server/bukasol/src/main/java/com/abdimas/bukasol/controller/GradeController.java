@@ -1,6 +1,7 @@
 package com.abdimas.bukasol.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ContentDisposition;
@@ -57,6 +58,20 @@ public class GradeController {
         PrayerRecitationGradeInfoDTO prayerRecitationGradeInfoDTO = prayerRecitationGradeService.showAllPrayerRecitationGradeByClass(className);
 
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeInfoDTO);
+    }
+
+    @GetMapping(value = "/prayer/{id}")
+    public ResponseEntity<List<PrayerGradeDTO>> getAllPrayerGradeByStudentId(@PathVariable("id") UUID studentId) {
+        List<PrayerGradeDTO> prayerGradeDTOs = prayerGradeService.showAllPrayerGradeByStudentId(studentId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeDTOs);
+    }
+    
+    @GetMapping(value = "/prayer-recitation/{id}")
+    public ResponseEntity<List<PrayerRecitationGradeDTO>> getAllPrayerRecitationGradeByStudentId(@PathVariable("id") UUID studentId) {
+        List<PrayerRecitationGradeDTO> prayerRecitationGradeDTOs = prayerRecitationGradeService.showAllPrayerRecitationGradeByStudentId(studentId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeDTOs);
     }
 
     @PostMapping(value = "/teacher/create-prayer")
@@ -139,7 +154,7 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrade);
     }
 
-    @GetMapping(value = "/teacher/grade-report/{id}")
+    @GetMapping(value = "/grade-report/{id}")
     public ResponseEntity<byte[]> getGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
         byte[] pdfBytes = prayerGradeService.generateGradeReportPdf(studentId);
 
@@ -150,7 +165,7 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
     }
 
-    @GetMapping(value = "/teacher/recitation-grade-report/{id}")
+    @GetMapping(value = "/recitation-grade-report/{id}")
     public ResponseEntity<byte[]> getRecitationGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
         byte[] pdfBytes = prayerRecitationGradeService.generateRecitationGradeReportPdf(studentId);
 
