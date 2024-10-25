@@ -60,18 +60,32 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeInfoDTO);
     }
 
-    @GetMapping(value = "/prayer/{id}")
+    @GetMapping(value = "/prayer/student/{id}")
     public ResponseEntity<List<PrayerGradeDTO>> getAllPrayerGradeByStudentId(@PathVariable("id") UUID studentId) {
         List<PrayerGradeDTO> prayerGradeDTOs = prayerGradeService.showAllPrayerGradeByStudentId(studentId);
 
         return ResponseEntity.status(HttpStatus.OK).body(prayerGradeDTOs);
     }
     
-    @GetMapping(value = "/prayer-recitation/{id}")
+    @GetMapping(value = "/prayer-recitation/student/{id}")
     public ResponseEntity<List<PrayerRecitationGradeDTO>> getAllPrayerRecitationGradeByStudentId(@PathVariable("id") UUID studentId) {
         List<PrayerRecitationGradeDTO> prayerRecitationGradeDTOs = prayerRecitationGradeService.showAllPrayerRecitationGradeByStudentId(studentId);
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeDTOs);
+    }
+
+    @GetMapping(value = "/prayer/{id}")
+    public ResponseEntity<PrayerGradeDTO> getPrayerGradeByGradeid(@PathVariable("id") UUID gradeId) {
+        PrayerGradeDTO prayerGradeDTO = prayerGradeService.showPrayerGradeByGradeId(gradeId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeDTO);
+    }
+
+    @GetMapping(value = "/prayer-recitation/{id}")
+    public ResponseEntity<PrayerRecitationGradeDTO> getPrayerRecitationGradeByGradeid(@PathVariable("id") UUID gradeId) {
+        PrayerRecitationGradeDTO prayerRecitationGradeDTO = prayerRecitationGradeService.showPrayerRecitationGradeByGradeId(gradeId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeDTO);
     }
 
     @PostMapping(value = "/teacher/create-prayer")

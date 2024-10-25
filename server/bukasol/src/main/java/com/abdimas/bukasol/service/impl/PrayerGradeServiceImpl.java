@@ -47,6 +47,13 @@ public class PrayerGradeServiceImpl implements PrayerGradeService {
     }
 
     @Override
+    public PrayerGradeDTO showPrayerGradeByGradeId(UUID gradeId) {
+        PrayerGrade prayerGrade = findGradeById(gradeId);
+        
+        return prayerGradeMapper.toPrayerGradeDTO(prayerGrade);
+    }
+
+    @Override
     public List<PrayerGradeDTO> showAllPrayerGradeByStudentId(UUID studentId) {
         List<PrayerGrade> prayerGrades = prayerGradeRepository.findAllByStudentId(studentId);
         

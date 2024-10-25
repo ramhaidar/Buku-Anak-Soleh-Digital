@@ -17,6 +17,8 @@ public interface PrayerRecitationGradeService {
 
     PrayerRecitationGrade findGradeById(UUID gradeId);
 
+    PrayerRecitationGradeDTO showPrayerRecitationGradeByGradeId(UUID gradeId);
+
     PrayerRecitationGrade createPrayerRecitationGradeStudent(PrayerRecitationGradeSaveDTO prayerGradeSaveDTO);
 
     PrayerRecitationGradeDTO updatePrayerRecitationGradeStudent(UUID gradeId, PrayerRecitationGradeUpdateDTO prayerRecitationGradeUpdateDTO);

@@ -47,6 +47,13 @@ public class PrayerRecitationGradeServiceImpl implements PrayerRecitationGradeSe
     }
 
     @Override
+    public PrayerRecitationGradeDTO showPrayerRecitationGradeByGradeId(UUID gradeId) {
+        PrayerRecitationGrade prayerRecitationGrade = findGradeById(gradeId);
+        
+        return prayerRecitationGradeMapper.toPrayerRecitationGradeDTO(prayerRecitationGrade);
+    }
+
+    @Override
     public List<PrayerRecitationGradeDTO> showAllPrayerRecitationGradeByStudentId(UUID studentId) {
         List<PrayerRecitationGrade> prayerRecitationGrades = prayerRecitationGradeRepository.findAllByStudentId(studentId);
 
