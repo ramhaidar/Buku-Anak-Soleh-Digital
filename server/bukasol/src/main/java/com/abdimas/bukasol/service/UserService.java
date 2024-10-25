@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -28,6 +29,8 @@ public interface UserService {
     User findUserById(UUID userId);
     Teacher findTeacherById(UUID teacherId);
     Student findStudentById(UUID studentId);
+
+    List<Student> findStudentByClassName(String className);
 
     TeacherAdminDTO adminGetTeacher(UUID teacherId);
     StudentAdminDTO adminGetStudent(UUID studentId);

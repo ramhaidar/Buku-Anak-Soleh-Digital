@@ -56,9 +56,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    // Handle Password Mismatch
-    @ExceptionHandler(PasswordMismatchException.class)
-    public ResponseEntity<Map<String, String>> handlePasswordMismatchException(PasswordMismatchException ex) {
+    // Handle Mismatch
+    @ExceptionHandler(MismatchException.class)
+    public ResponseEntity<Map<String, String>> handleMismatchException(MismatchException ex) {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put(MESSAGE_KEY, ex.getMessage());
 

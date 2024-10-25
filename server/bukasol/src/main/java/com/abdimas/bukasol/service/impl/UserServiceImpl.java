@@ -40,8 +40,8 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.exception.AuthenticationInvalidException;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.MismatchException;
 import com.abdimas.bukasol.exception.NoContentException;
-import com.abdimas.bukasol.exception.PasswordMismatchException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
@@ -118,6 +118,12 @@ public class UserServiceImpl implements UserService {
     public Student findStudentById(UUID studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student Not Found"));
+    }
+
+    @Override
+    public List<Student> findStudentByClassName(String className) {
+        return studentRepository.findByClassName(className)
+                .orElseThrow(() -> new NoContentException("No Student of This Class"));
     }
 
     @Override
@@ -361,12 +367,12 @@ public class UserServiceImpl implements UserService {
 
         // Check if current password matches
         if(!passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
-            throw new PasswordMismatchException("Does not match with Current Password");
+            throw new MismatchException("Does not match with Current Password");
         }
 
         // Check if new password and confirm password are equal
         if(!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {
-            throw new PasswordMismatchException("New Password does not match with Confirm Password");
+            throw new MismatchException("New Password does not match with Confirm Password");
         }
 
         user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));

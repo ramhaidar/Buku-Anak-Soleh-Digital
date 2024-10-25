@@ -1,20 +1,23 @@
 package com.abdimas.bukasol.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 
 public interface PrayerGradeService {
-    Page<PrayerGradeDTO> showAllPrayerGradeByStudentId(Pageable pageable, UUID studentId);
+    List<PrayerGradeDTO> showAllPrayerGradeByStudentId(UUID studentId);
+
+    PrayerGradeInfoDTO showAllPrayerGradeByClass(String className);
 
     PrayerGrade findGradeById(UUID gradeId);
+
+    PrayerGradeDTO showPrayerGradeByGradeId(UUID gradeId);
 
     PrayerGrade createPrayerGradeStudent(PrayerGradeSaveDTO prayerGradeSaveDTO);
 
@@ -23,7 +26,7 @@ public interface PrayerGradeService {
     String deletePrayerGradeStudent(UUID gradeId);
 
     PrayerGradeDTO teacherSignPrayerGrade(UUID gradeId);
-    PrayerGradeDTO parentSignPrayerGrade(UUID gradeId);
+    PrayerGradeDTO parentSignPrayerGrade(UUID gradeId, String parentCode);
 
     byte[] generateGradeReportPdf(UUID studentId) throws IOException;
 }

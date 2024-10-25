@@ -1,11 +1,9 @@
 package com.abdimas.bukasol.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,16 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
+import com.abdimas.bukasol.dto.ParentCodeDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
+import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeUpdateDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeDTO;
+import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeSaveDTO;
 import com.abdimas.bukasol.dto.prayerRecitationGrade.PrayerRecitationGradeUpdateDTO;
 import com.abdimas.bukasol.service.PrayerGradeService;
@@ -46,20 +46,46 @@ public class GradeController {
     private final PrayerGradeService prayerGradeService;
     private final PrayerRecitationGradeService prayerRecitationGradeService;
 
-    @GetMapping(value = "/teacher/prayer/{id}")
-    public ResponseEntity<Page<PrayerGradeDTO>> getAllPrayerGradeByStudentId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @PathVariable("id") UUID studentId) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<PrayerGradeDTO> prayerGrades = prayerGradeService.showAllPrayerGradeByStudentId(pageable, studentId);
-
-        return ResponseEntity.status(HttpStatus.OK).body(prayerGrades);
+    @GetMapping(value = "/teacher/prayer/{className}")
+    public ResponseEntity<PrayerGradeInfoDTO> getAllPrayerGradeByClassName(@PathVariable("className") String className) {
+        PrayerGradeInfoDTO prayerGradeInfoDTO = prayerGradeService.showAllPrayerGradeByClass(className);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeInfoDTO);
     }
 
-    @GetMapping(value = "/teacher/prayer-recitation/{id}")
-    public ResponseEntity<Page<PrayerRecitationGradeDTO>> getAllPrayerRecitationGradeByStudentId(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @PathVariable("id") UUID studentId) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<PrayerRecitationGradeDTO> prayerRecitationGrades = prayerRecitationGradeService.showAllPrayerRecitationGradeByStudentId(pageable, studentId);
+    @GetMapping(value = "/teacher/prayer-recitation/{className}")
+    public ResponseEntity<PrayerRecitationGradeInfoDTO> getAllPrayerRecitationGradeByClassName(@PathVariable("className") String className) {
+        PrayerRecitationGradeInfoDTO prayerRecitationGradeInfoDTO = prayerRecitationGradeService.showAllPrayerRecitationGradeByClass(className);
 
-        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrades);
+        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeInfoDTO);
+    }
+
+    @GetMapping(value = "/prayer/student/{id}")
+    public ResponseEntity<List<PrayerGradeDTO>> getAllPrayerGradeByStudentId(@PathVariable("id") UUID studentId) {
+        List<PrayerGradeDTO> prayerGradeDTOs = prayerGradeService.showAllPrayerGradeByStudentId(studentId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeDTOs);
+    }
+    
+    @GetMapping(value = "/prayer-recitation/student/{id}")
+    public ResponseEntity<List<PrayerRecitationGradeDTO>> getAllPrayerRecitationGradeByStudentId(@PathVariable("id") UUID studentId) {
+        List<PrayerRecitationGradeDTO> prayerRecitationGradeDTOs = prayerRecitationGradeService.showAllPrayerRecitationGradeByStudentId(studentId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeDTOs);
+    }
+
+    @GetMapping(value = "/prayer/{id}")
+    public ResponseEntity<PrayerGradeDTO> getPrayerGradeByGradeid(@PathVariable("id") UUID gradeId) {
+        PrayerGradeDTO prayerGradeDTO = prayerGradeService.showPrayerGradeByGradeId(gradeId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerGradeDTO);
+    }
+
+    @GetMapping(value = "/prayer-recitation/{id}")
+    public ResponseEntity<PrayerRecitationGradeDTO> getPrayerRecitationGradeByGradeid(@PathVariable("id") UUID gradeId) {
+        PrayerRecitationGradeDTO prayerRecitationGradeDTO = prayerRecitationGradeService.showPrayerRecitationGradeByGradeId(gradeId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGradeDTO);
     }
 
     @PostMapping(value = "/teacher/create-prayer")
@@ -129,20 +155,20 @@ public class GradeController {
     }
 
     @PutMapping(value = "/student/prayer-sign/{id}")
-    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId) {
-        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId);
+    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCode) {
+        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId, parentCode.getParentCode());
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerGrade);
     }
 
     @PutMapping(value = "/student/prayer-recitation-sign/{id}")
-    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId) {
-        PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId);
+    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCodeDTO) {
+        PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId, parentCodeDTO.getParentCode());
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrade);
     }
 
-    @GetMapping(value = "/teacher/grade-report/{id}")
+    @GetMapping(value = "/grade-report/{id}")
     public ResponseEntity<byte[]> getGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
         byte[] pdfBytes = prayerGradeService.generateGradeReportPdf(studentId);
 
@@ -153,7 +179,7 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(pdfBytes);
     }
 
-    @GetMapping(value = "/teacher/recitation-grade-report/{id}")
+    @GetMapping(value = "/recitation-grade-report/{id}")
     public ResponseEntity<byte[]> getRecitationGradeReportPdf(@PathVariable("id") UUID studentId) throws IOException {
         byte[] pdfBytes = prayerRecitationGradeService.generateRecitationGradeReportPdf(studentId);
 
