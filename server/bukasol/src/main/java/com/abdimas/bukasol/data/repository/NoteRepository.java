@@ -9,5 +9,5 @@ import com.abdimas.bukasol.data.model.Note;
 
 @Repository
 public interface NoteRepository extends JpaRepository<Note, UUID>{
-
+    
 }
