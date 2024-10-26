@@ -2,24 +2,30 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
+// Route::get ( '/', function ()
+// {
+//     return view ( 'welcome' );
+// } );
 
 Route::get ( '/', function ()
 {
-    return view ( 'welcome' );
+    return redirect ()->route ( 'login.index' );
 } );
 
-// LOGIN RETURN VIEW
-Route::get ( '/login', function ()
+Route::get ( '/dashboard', function ()
 {
-    return view ( 'auth.login' );
+    return view ( 'dashboard' );
 } );
 
-Route::get ( '/test', function ()
-{
-    return view ( 'test' );
-} );
+Route::get ( '/login', [ UserController::class, 'index' ] )->name ( 'login.index' );
 
-// LOGIN POST
 Route::post ( '/login', [ UserController::class, 'login' ] )->name ( 'login.post' );
 
 Route::get ( '/check-cookie', [ UserController::class, 'checkCookie' ] );
+
+Route::get (
+    '/dashboard',
+    [ DashboardController::class, 'index' ]
+)->name ( 'dashboard.index' );

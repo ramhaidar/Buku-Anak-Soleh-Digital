@@ -1,4 +1,8 @@
-@extends('layouts.app') @push('styles')
+@extends('layouts.app')
+
+@section('title', 'Halaman Login')
+
+@push('styles')
     <style>
         body {
             background-color: #527900;
@@ -6,11 +10,13 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0
+            margin: 0;
+            min-height: 100vh;
         }
 
         .login-box {
             width: 100%;
+            min-width: 450px;
             max-width: 500px;
             background-color: white;
             padding: 50px;
@@ -95,13 +101,21 @@
             }
         }
     </style>
-    @endpush @section('content')
-    <div class="login-box">
-        <div class="logo-container container-fluid text-center px-0 py-0"><img id="LoginLogo" src="{{ asset('Logo.png') }}" alt="Logo"></div>
-        <h2 class="text-center rounded-1 fw-light pt-0 mt-2">Buku Anak Soleh Digital</h2>
-        <form action="{{ route('login.post') }}" method="POST">@csrf <div class="mb-3"><input class="form-control border border-4 rounded-3" id="username" name="username" type="text" placeholder="Username" required autocomplete=""></div>
-            <div class="mb-3"><input class="form-control border border-4 rounded-3" id="password" name="password" type="password" placeholder="Password" required autocomplete=""></div>
-            <div class="d-flex justify-content-between button-group gap-2 pt-2 px-0 py-0 mx-0 my-0"><button class="container-fluid btn btn-secondary fw-medium" type="submit">Login</button></div>
-        </form>
+@endpush
+
+@section('content')
+    <div class="container-fluid h-100" id="LoginPage" style="align-content: center">
+        <div class="container-fluid align-items-center">
+            <div class="align-items-center align-content-center d-flex justify-content-center container-fluid">
+                <div class="login-box">
+                    <div class="logo-container container-fluid text-center px-0 py-0"><img id="LoginLogo" src="{{ asset('Logo.png') }}" alt="Logo"></div>
+                    <h2 class="text-center rounded-1 fw-light pt-0 mt-2">Buku Anak Soleh Digital</h2>
+                    <form action="{{ route('login.post') }}" method="POST">@csrf <div class="mb-3"><input class="form-control border border-4 rounded-3" id="username" name="username" type="text" placeholder="Username" required autocomplete=""></div>
+                        <div class="mb-3"><input class="form-control border border-4 rounded-3" id="password" name="password" type="password" placeholder="Password" required autocomplete=""></div>
+                        <div class="d-flex justify-content-between button-group gap-2 pt-2 px-0 py-0 mx-0 my-0"><button class="container-fluid btn btn-secondary fw-medium" type="submit">Login</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

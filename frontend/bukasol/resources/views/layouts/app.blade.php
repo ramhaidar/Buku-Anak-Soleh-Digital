@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
-    {{-- Poppins Font --}}
+    <!-- Poppins Font -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -22,21 +22,27 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <style>
-        body,
-        html {
+        html,
+        body {
             height: 100%;
+            width: 100%;
             margin: 0;
             font-family: 'Poppins', sans-serif;
-        }
-
-        #app {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        main {
-            flex: 1;
+        /* main {
+            flex: 1 0 auto;
+        } */
+        footer {
+            flex-shrink: 0;
+        }
+
+        .footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 
@@ -45,18 +51,21 @@
 </head>
 
 <body>
-    <div class="container-fluid align-items-center" id="app">
+
+    <div class="w-100 h-100" style="display: flex; flex-direction: column;">
+
         <!-- Main Content -->
-        <main class="align-items-center align-content-center d-flex justify-content-center container-fluid">
+        <main class="container-fluid w-100 h-100">
             @yield('content')
         </main>
 
         <!-- Footer -->
-        <footer class="footer text-center bg-transparent py-3">
+        <footer class="footer fixed-bottom text-center bg-transparent py-3">
             <div class="container">
                 <span class="text-light fw-light">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>
             </div>
         </footer>
+
     </div>
 
     <!-- Scripts -->

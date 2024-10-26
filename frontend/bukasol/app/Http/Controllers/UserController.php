@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
+    public function index ()
+    {
+        return view ( 'auth.login' );
+    }
     public function login ( Request $request )
     {
         // Validasi input
@@ -33,30 +37,35 @@ class UserController extends Controller
         ] )->post ( 'http://localhost:8080/api/v1/users/auth/login', $data );
 
         // Cek apakah respons sukses dan memiliki token dan role
-        if ( $response->successful () && isset ( $response[ 'token' ], $response[ 'role' ] ) )
+        if ( $response->successful () && isset ( $response[ 'token' ], $response[ 'role' ], $response[ 'name' ] ) )
         {
             $token = $response[ 'token' ];
             $role  = $response[ 'role' ];
+            $name  = $response[ 'name' ];
 
             // Set cookie untuk token dan role
             return redirect ()->back ()
-                ->withCookie ( cookie ( 'token', $token, 60 ) )  // Simpan cookie token dengan waktu kedaluwarsa 60 menit
-                ->withCookie ( cookie ( 'role', $role, 60 ) );   // Simpan cookie role dengan waktu kedaluwarsa 60 menit
+                ->withCookie ( cookie ( 'token', $token, 60 ) )
+                ->withCookie ( cookie ( 'role', $role, 60 ) )
+                ->withCookie ( cookie ( 'name', $name, 60 ) );
         }
 
         // Jika tidak berhasil, kembalikan dengan error
         return redirect ()->back ()->with ( 'error', 'Invalid credentials' );
     }
+
     public function checkCookie ()
     {
         // Ambil nilai cookie 'token' dan 'role'
         $token = Cookie::get ( 'token' );
         $role  = Cookie::get ( 'role' );
+        $name  = Cookie::get ( 'name' );
 
         // Tampilkan nilai cookie untuk debugging
         dd ( [ 
             'token' => $token,
-            'role'  => $role
+            'role'  => $role,
+            'name'  => $name
         ] );
     }
 }
