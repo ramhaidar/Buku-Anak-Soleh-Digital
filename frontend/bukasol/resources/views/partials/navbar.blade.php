@@ -1,18 +1,77 @@
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom mx-5">
-    <div class="col-md-3 mb-2 mb-md-0">
-        <h4>{{ isset($role) ? $role : 'ROLE' }}</h4>
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom mx-5 pt-3">
+    <div class="col-md-3 p-0 m-0 text-start">
+        {{-- <h4>{{ isset($role) ? $role : 'ROLE' }}</h4> --}}
+        <h4 class="pt-2">SD AR-RAFI</h4>
     </div>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a class="nav-link px-2 link-secondary" href="#">Home</a></li>
-        <li><a class="nav-link px-2" href="#">Features</a></li>
-        <li><a class="nav-link px-2" href="#">Pricing</a></li>
-        <li><a class="nav-link px-2" href="#">FAQs</a></li>
-        <li><a class="nav-link px-2" href="#">About</a></li>
+        <li class="px-2"><a class="btn btn-secondary px-3" href="#">Siswa</a></li>
+        <li class="px-2"><a class="btn btn-secondary px-3" href="#">Guru</a></li>
     </ul>
 
+    <style>
+        .outer-border {
+            width: 60px;
+            /* Slightly larger than the inner container */
+            height: 60px;
+            /* Slightly larger than the inner container */
+            padding: 5px;
+            /* Space between outer border and inner image */
+            border: 2px solid black;
+            /* Black border */
+            border-radius: 50%;
+            /* Makes the outer container rounded */
+            display: flex;
+            /* Center the inner container */
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+            /* Center horizontally */
+        }
+
+        .icon-wrapper {
+            width: 60px;
+            /* Adjust the width as needed */
+            height: 60px;
+            /* Adjust the height as needed */
+            overflow: hidden;
+            /* Crop the image to stay within the border */
+            border-radius: 50%;
+            /* Makes the image circular */
+            display: flex;
+            /* Center the image inside */
+            align-items: center;
+            /* Center vertically */
+            justify-content: center;
+        }
+
+        #ProfilePhoto {
+            width: 100%;
+            /* Make the image take up full width of the container */
+            height: 100%;
+            /* Make the image take up full height of the container */
+            object-fit: cover;
+        }
+    </style>
+
     <div class="col-md-3 text-end">
-        <button class="btn btn-outline-primary me-2" type="button">Login</button>
-        <button class="btn btn-primary" type="button">Sign-up</button>
+        <div class="col float-end text-end">
+            <div class="row d-flex align-items-end align-content-end justify-content-end">
+                <div class="outer-border">
+                    <div class="col icon-wrapper mb-1">
+                        <i class="fa-solid fa-user-tie" id="ProfilePhoto"></i>
+                    </div>
+                </div>
+                <div class="col p-0 m-0 ps-2">
+                    <p>—</p>
+                </div>
+                <div class="col d-flex mt-2">
+                    <p class="">{{ isset($name) ? $name : 'NAME' }}</p>
+                </div>
+            </div>
+        </div>
+
+        {{-- <button class="btn btn-outline-primary me-2" type="button">Login</button>
+        <button class="btn btn-primary" type="button">Sign-up</button> --}}
     </div>
 </header>
