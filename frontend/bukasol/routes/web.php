@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckUserCookies;
 use App\Http\Controllers\DashboardController;
 
 // Route::get ( '/', function ()
@@ -28,4 +29,6 @@ Route::get ( '/check-cookie', [ UserController::class, 'checkCookie' ] );
 Route::get (
     '/dashboard',
     [ DashboardController::class, 'index' ]
-)->name ( 'dashboard.index' );
+)
+    ->middleware ( CheckUserCookies::class)
+    ->name ( 'dashboard.index' );

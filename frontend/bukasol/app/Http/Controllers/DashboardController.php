@@ -11,12 +11,14 @@ class DashboardController extends Controller
     {
         $token = Cookie::get ( 'token' );
         $role  = Cookie::get ( 'role' );
+        $name  = Cookie::get ( 'name' );
 
         if ( $token && $role )
         {
             return view ( 'dashboard', [ 
                 'token' => $token,
-                'role'  => $role
+                'role'  => $role,
+                'name'  => $name
             ] );
         }
 

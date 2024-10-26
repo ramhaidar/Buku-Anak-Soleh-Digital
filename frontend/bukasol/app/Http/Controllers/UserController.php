@@ -43,11 +43,11 @@ class UserController extends Controller
             $role  = $response[ 'role' ];
             $name  = $response[ 'name' ];
 
-            // Set cookie untuk token dan role
-            return redirect ()->back ()
-                ->withCookie ( cookie ( 'token', $token, 60 ) )
-                ->withCookie ( cookie ( 'role', $role, 60 ) )
-                ->withCookie ( cookie ( 'name', $name, 60 ) );
+            // Set cookie untuk token dan role lalu redirect ke dashboard
+            return redirect ( '/dashboard' )
+                ->withCookie ( cookie ( 'token', $token ) )
+                ->withCookie ( cookie ( 'role', $role ) )
+                ->withCookie ( cookie ( 'name', $name ) );
         }
 
         // Jika tidak berhasil, kembalikan dengan error
