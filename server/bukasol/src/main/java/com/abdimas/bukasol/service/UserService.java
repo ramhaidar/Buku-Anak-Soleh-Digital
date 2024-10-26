@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -9,8 +10,10 @@ import com.abdimas.bukasol.data.model.Student;
 import com.abdimas.bukasol.data.model.Teacher;
 import com.abdimas.bukasol.data.model.User;
 import com.abdimas.bukasol.dto.ChangePasswordDTO;
+import com.abdimas.bukasol.dto.StudentAdminDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
 import com.abdimas.bukasol.dto.StudentSaveDTO;
+import com.abdimas.bukasol.dto.TeacherAdminDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.TeacherSaveDTO;
 import com.abdimas.bukasol.dto.UserDTO;
@@ -22,24 +25,32 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 
 public interface UserService {
     LoginResponseDTO login(LoginRequestDTO userLogin);
-    User findByUsername(String username);
     
     User findUserById(UUID userId);
     Teacher findTeacherById(UUID teacherId);
     Student findStudentById(UUID studentId);
+
+    List<Student> findStudentByClassName(String className);
+
+    TeacherAdminDTO adminGetTeacher(UUID teacherId);
+    StudentAdminDTO adminGetStudent(UUID studentId);
+
+    UserDTO getAdmin(UUID adminId);
+    TeacherDTO getTeacher(UUID teacherId);
+    StudentDTO getStudent(UUID studentId);
     
     User registerAdmin(RegisterRequestDTO userRegister);
     User registerTeacher(RegisterTeacherRequestDTO userRegister);
     User registerStudent(RegisterStudentRequestDTO userRegister);
 
-    Page<StudentDTO> findAllStudentAccount(Pageable pageable);
-    Page<TeacherDTO> findAllTeacherAccount(Pageable pageable);
+    Page<StudentAdminDTO> findAllStudentAccount(Pageable pageable);
+    Page<TeacherAdminDTO> findAllTeacherAccount(Pageable pageable);
 
     String deleteStudentAccount(UUID studentId);
     String deleteTeacherAccount(UUID teacherId);
 
-    StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO);
-    TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO);
+    StudentAdminDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO);
+    TeacherAdminDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO);
 
     UserDTO changePasswordUser(UUID userId, ChangePasswordDTO changePasswordDTO);
 }

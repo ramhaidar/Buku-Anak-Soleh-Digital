@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDTO {
+public class TeacherAdminDTO {
     private UUID id;
-    private String nisn;
+    private String name;
+    private String nip;
     private String className;
-    private String parentName;
-    private String parentCode;
-
-    private TeacherDTO teacher;
-    private UserDTO user;
+    private String username;
+    private String password;
 }

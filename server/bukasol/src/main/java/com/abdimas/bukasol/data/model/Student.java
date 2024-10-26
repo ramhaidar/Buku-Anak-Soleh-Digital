@@ -42,6 +42,9 @@ public class Student {
     @Column(nullable=false)
     private String parentName;
 
+    @Column(nullable=false)
+    private String parentCode;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable=false)
     private User user;

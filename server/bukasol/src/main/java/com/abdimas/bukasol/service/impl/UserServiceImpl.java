@@ -24,8 +24,10 @@ import com.abdimas.bukasol.data.repository.StudentRepository;
 import com.abdimas.bukasol.data.repository.TeacherRepository;
 import com.abdimas.bukasol.data.repository.UserRepository;
 import com.abdimas.bukasol.dto.ChangePasswordDTO;
+import com.abdimas.bukasol.dto.StudentAdminDTO;
 import com.abdimas.bukasol.dto.StudentDTO;
 import com.abdimas.bukasol.dto.StudentSaveDTO;
+import com.abdimas.bukasol.dto.TeacherAdminDTO;
 import com.abdimas.bukasol.dto.TeacherDTO;
 import com.abdimas.bukasol.dto.TeacherSaveDTO;
 import com.abdimas.bukasol.dto.UserDTO;
@@ -38,12 +40,13 @@ import com.abdimas.bukasol.dto.register.RegisterTeacherRequestDTO;
 import com.abdimas.bukasol.exception.AuthenticationInvalidException;
 import com.abdimas.bukasol.exception.DuplicateEntityException;
 import com.abdimas.bukasol.exception.EntityNotFoundException;
+import com.abdimas.bukasol.exception.MismatchException;
 import com.abdimas.bukasol.exception.NoContentException;
-import com.abdimas.bukasol.exception.PasswordMismatchException;
 import com.abdimas.bukasol.mapper.StudentMapper;
 import com.abdimas.bukasol.mapper.TeacherMapper;
 import com.abdimas.bukasol.mapper.UserMapper;
 import com.abdimas.bukasol.service.UserService;
+import com.abdimas.bukasol.utils.RandomCodeGenerator;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -63,12 +66,8 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
+    private final RandomCodeGenerator randomCodeGenerator;
+    
     @Override
     public LoginResponseDTO login(LoginRequestDTO userLogin) {
         try {
@@ -97,7 +96,7 @@ public class UserServiceImpl implements UserService {
             // Encode JWT using claim
             String token = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-            return new LoginResponseDTO(token, user.getRole());
+            return new LoginResponseDTO(token, user.getRole(), user.getName());
         } catch (AuthenticationException e) {
             throw new AuthenticationInvalidException("Invalid Username or Password");
         }
@@ -119,6 +118,61 @@ public class UserServiceImpl implements UserService {
     public Student findStudentById(UUID studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student Not Found"));
+    }
+
+    @Override
+    public List<Student> findStudentByClassName(String className) {
+        return studentRepository.findByClassName(className)
+                .orElseThrow(() -> new NoContentException("No Student of This Class"));
+    }
+
+    @Override
+    public TeacherAdminDTO adminGetTeacher(UUID teacherId) {
+        Teacher teacher = findTeacherById(teacherId);
+
+        TeacherAdminDTO teacherDTO = teacherMapper.toTeacherAdminDTO(teacher);
+
+        teacherDTO.setPassword(randomCodeGenerator.generatePassword(teacherDTO.getName(), teacherDTO.getNip()));
+        
+        return teacherDTO;
+    }
+
+    @Override
+    public StudentAdminDTO adminGetStudent(UUID studentId) {
+        Student student = findStudentById(studentId);
+
+        StudentAdminDTO studentDTO = studentMapper.toStudentAdminDTO(student);
+
+        studentDTO.setPassword(randomCodeGenerator.generatePassword(studentDTO.getName(), studentDTO.getNisn()));
+        
+        return studentDTO;
+    }
+
+    @Override
+    public UserDTO getAdmin(UUID adminId) {
+        User user = findUserById(adminId);
+
+        UserDTO userDTO = userMapper.toUserDTO(user);
+        
+        return userDTO;
+    }
+
+    @Override
+    public TeacherDTO getTeacher(UUID teacherId) {
+        Teacher teacher = findTeacherById(teacherId);
+
+        TeacherDTO teacherDTO = teacherMapper.toTeacherDTO(teacher);
+        
+        return teacherDTO;
+    }
+
+    @Override
+    public StudentDTO getStudent(UUID studentId) {
+        Student student = findStudentById(studentId);
+
+        StudentDTO studentDTO = studentMapper.toStudentDTO(student);
+        
+        return studentDTO;
     }
 
     @Override
@@ -149,7 +203,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(randomCodeGenerator.generatePassword(userRegister.getName(), userRegister.getNip())));
         newUser.setRole("TEACHER");
 
         User user = userRepository.save(newUser);
@@ -178,7 +232,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setName(userRegister.getName());
         newUser.setUsername(userRegister.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(randomCodeGenerator.generatePassword(userRegister.getName(), userRegister.getNisn())));
         newUser.setRole("STUDENT");
 
         User user = userRepository.save(newUser);
@@ -194,6 +248,7 @@ public class UserServiceImpl implements UserService {
         newStudent.setNisn(userRegister.getNisn());
         newStudent.setClassName(userRegister.getClassName());
         newStudent.setParentName(userRegister.getParentName());
+        newStudent.setParentCode(randomCodeGenerator.generateNumericCode());
 
         studentRepository.save(newStudent);
         
@@ -201,8 +256,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<StudentDTO> findAllStudentAccount(Pageable pageable) {
-        Page<StudentDTO> studentAcc = studentRepository.findAll(pageable).map(studentMapper::toStudentDTO);
+    public Page<StudentAdminDTO> findAllStudentAccount(Pageable pageable) {
+        Page<StudentAdminDTO> studentAcc = studentRepository.findAll(pageable)
+            .map(student -> {
+                StudentAdminDTO dto = studentMapper.toStudentAdminDTO(student);
+                dto.setPassword(randomCodeGenerator.generatePassword(dto.getName(), dto.getNisn()));
+                return dto;
+            });
 
         if(studentAcc.isEmpty()) {
             throw new NoContentException("There is no Student Account");
@@ -212,8 +272,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<TeacherDTO> findAllTeacherAccount(Pageable pageable) {
-        Page<TeacherDTO> teacherAcc = teacherRepository.findAll(pageable).map(teacherMapper::toTeacherDTO);
+    public Page<TeacherAdminDTO> findAllTeacherAccount(Pageable pageable) {
+        Page<TeacherAdminDTO> teacherAcc = teacherRepository.findAll(pageable)
+            .map(teacher -> {
+                TeacherAdminDTO dto = teacherMapper.toTeacherAdminDTO(teacher);
+                dto.setPassword(randomCodeGenerator.generatePassword(dto.getName(), dto.getNip()));
+                return dto;
+            });
 
         if(teacherAcc.isEmpty()) {
             throw new NoContentException("There is no Teacher Account");
@@ -258,7 +323,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public StudentDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO) {
+    public StudentAdminDTO updateStudentDetail(UUID studentId, StudentSaveDTO studentSaveDTO) {
         Student checkStudent = findStudentById(studentId);
 
         if (!checkStudent.getNisn().equals(studentSaveDTO.getNisn())
@@ -269,15 +334,16 @@ public class UserServiceImpl implements UserService {
         checkStudent.setNisn(studentSaveDTO.getNisn()); //Check NISN
         checkStudent.setClassName(studentSaveDTO.getClassName());
         checkStudent.setParentName(studentSaveDTO.getParentName());
+        checkStudent.getUser().setPassword(passwordEncoder.encode(randomCodeGenerator.generatePassword(checkStudent.getUser().getName(), studentSaveDTO.getNisn())));
 
         Student updatedStudent = studentRepository.save(checkStudent);
-        StudentDTO student = studentMapper.toStudentDTO(updatedStudent);
+        StudentAdminDTO student = studentMapper.toStudentAdminDTO(updatedStudent);
         
         return student;
     }
 
     @Override
-    public TeacherDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO) {
+    public TeacherAdminDTO updateTeacherDetail(UUID teacherId, TeacherSaveDTO teacherSaveDTO) {
         Teacher checkTeacher = findTeacherById(teacherId);
 
         if (!checkTeacher.getNip().equals(teacherSaveDTO.getNip())
@@ -287,9 +353,10 @@ public class UserServiceImpl implements UserService {
 
         checkTeacher.setNip(teacherSaveDTO.getNip()); //Check NIP
         checkTeacher.setClassName(teacherSaveDTO.getClassName());
+        checkTeacher.getUser().setPassword(passwordEncoder.encode(randomCodeGenerator.generatePassword(checkTeacher.getUser().getName(), teacherSaveDTO.getNip())));
 
         Teacher updatedTeacher = teacherRepository.save(checkTeacher);
-        TeacherDTO teacher = teacherMapper.toTeacherDTO(updatedTeacher);
+        TeacherAdminDTO teacher = teacherMapper.toTeacherAdminDTO(updatedTeacher);
 
         return teacher;
     }
@@ -300,12 +367,12 @@ public class UserServiceImpl implements UserService {
 
         // Check if current password matches
         if(!passwordEncoder.matches(changePasswordDTO.getCurrentPassword(), user.getPassword())) {
-            throw new PasswordMismatchException("Does not match with Current Password");
+            throw new MismatchException("Does not match with Current Password");
         }
 
         // Check if new password and confirm password are equal
         if(!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getConfirmNewPassword())) {
-            throw new PasswordMismatchException("New Password does not match with Confirm Password");
+            throw new MismatchException("New Password does not match with Confirm Password");
         }
 
         user.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
