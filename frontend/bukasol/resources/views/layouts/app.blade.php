@@ -25,6 +25,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <style>
         html,
         body {
