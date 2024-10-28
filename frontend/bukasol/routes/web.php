@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckUserCookies;
@@ -32,3 +33,10 @@ Route::get (
 )
     ->middleware ( CheckUserCookies::class)
     ->name ( 'dashboard.index' );
+
+// Route::get (
+//     '/dashboard',
+//     [ Dashboard::class, 'render' ]
+// )
+//     ->middleware ( CheckUserCookies::class)
+//     ->name ( 'dashboard.index' );

@@ -5,8 +5,15 @@
     </div>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li class="px-2"><a class="btn btn-secondary px-3" href="#">Siswa</a></li>
-        <li class="px-2"><a class="btn btn-secondary px-3" href="#">Guru</a></li>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li class="px-2">
+                <a class="btn btn-secondary px-3">Siswa</a>
+            </li>
+            <li class="px-2">
+                <a class="btn btn-secondary px-3" wire:click='showTeacherTable'>Guru</a>
+
+            </li>
+        </ul>
     </ul>
 
     <style>
