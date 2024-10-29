@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.ReadActivity;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
-import com.abdimas.bukasol.dto.ParentCodeDTO;
 import com.abdimas.bukasol.dto.readActivity.ReadActivityDTO;
 import com.abdimas.bukasol.dto.readActivity.ReadActivityInfoDTO;
 import com.abdimas.bukasol.dto.readActivity.ReadActivitySaveDTO;
@@ -75,8 +75,8 @@ public class ActivityController {
     }
 
     @PutMapping(value = "/student/read-activity-sign/{id}")
-    public ResponseEntity<ReadActivityDTO> parentSignReadActivity(@PathVariable("id") UUID readActivityId, @Valid @RequestBody ParentCodeDTO parentCodeDTO) {
-        ReadActivityDTO readActivityDTO = readActivityService.parentSignReadActivity(readActivityId, parentCodeDTO.getParentCode());
+    public ResponseEntity<ReadActivityDTO> parentSignReadActivity(@PathVariable("id") UUID readActivityId, @RequestParam String parentCode) {
+        ReadActivityDTO readActivityDTO = readActivityService.parentSignReadActivity(readActivityId, parentCode);
 
         return ResponseEntity.status(HttpStatus.OK).body(readActivityDTO);
     }
