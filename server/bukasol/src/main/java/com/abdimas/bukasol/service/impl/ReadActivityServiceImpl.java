@@ -117,7 +117,7 @@ public class ReadActivityServiceImpl implements ReadActivityService {
         Optional<ReadActivity> existingReadActivity = readActivityRepository.findByStudentIdAndTimeStampAndBookTitleAndPage(readActivitySaveDTO.getStudentId(), readActivitySaveDTO.getTimeStamp(), readActivitySaveDTO.getBookTitle(), readActivitySaveDTO.getPage());
 
         if(existingReadActivity.isPresent()) {
-            throw new DuplicateEntityException("Read Activity for this Book, Page, same Date already exists");
+            throw new DuplicateEntityException("Read Activity for this Book, Page, and Date already exists");
         }
 
         ReadActivity readActivity = new ReadActivity();
