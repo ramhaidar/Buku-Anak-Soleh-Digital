@@ -25,7 +25,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    {{--
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -69,12 +70,7 @@
             @yield('content')
         </main>
 
-        <!-- Footer -->
-        <footer class="footer fixed-bottom text-center bg-transparent py-3">
-            <div class="container">
-                <span class="text-light fw-light">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>
-            </div>
-        </footer>
+        @livewire('footer')
 
     </div>
 

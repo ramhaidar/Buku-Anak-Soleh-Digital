@@ -12,20 +12,12 @@
                     <th>Username</th>
                     <th>Password</th>
                     <th>Action</th>
-
-                    {{-- <th>ID</th>
-                    <th>Nama</th>
-                    <th>NIP</th>
-                    <th>Kelas</th>
-                    <th>Username</th>
-                    <th>Password</th> --}}
                 </tr>
             </thead>
             <tbody>
                 @forelse ($teachers as $teacher)
                     <tr>
                         <td>{{ $teacher['nip'] }}</td>
-                        {{-- <td>{{ $teacher['id'] }}</td> --}}
                         <td>{{ $teacher['name'] }}</td>
                         <td>{{ $teacher['className'] }}</td>
                         <td>{{ $teacher['username'] }}</td>

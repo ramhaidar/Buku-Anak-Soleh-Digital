@@ -1,18 +1,40 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom mx-5 pt-3">
-    <style href="/resources/css/app.css" rel="stylesheet"></style>
-    <div class="col-md-3 p-0 m-0 text-start test">
+    <div class="col-md-3 p-0 m-0 text-start">
         {{-- <h4>{{ isset($role) ? $role : 'ROLE' }}</h4> --}}
         <h4 class="pt-2 poppins-bold">SD AR-RAFI</h4>
     </div>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li class="px-2">
-                <a class="btn btn-secondary px-3">Siswa</a>
-            </li>
-            <li class="px-2">
-                <a class="btn btn-secondary px-3" wire:click='showTeacherTable'>Guru</a>
-            </li>
+            {{-- SET BUTTON BASE ON ROLE --}}
+            @if (isset($role) && $role == 'SUPERADMIN')
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='showStudentTable'>Siswa</a>
+                </li>
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='showTeacherTable'>Guru</a>
+                </li>
+            @elseif (isset($role) && $role == 'TEACHER')
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Laporan</a>
+                </li>
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Aktivitas</a>
+                </li>
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Nilai</a>
+                </li>
+            @elseif (isset($role) && $role == 'STUDENT')
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Laporan</a>
+                </li>
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Aktivitas</a>
+                </li>
+                <li class="px-2">
+                    <a class="btn btn-secondary px-3" wire:click='#'>Nilai</a>
+                </li>
+            @endif
         </ul>
     </ul>
 
@@ -61,18 +83,20 @@
         }
     </style>
 
-    <div class="col-md-3 text-end">
+    <div class="col-md-3 text-end d-flex justify-content-end">
         <div class="col float-end text-end">
             <div class="row d-flex align-items-end align-content-end justify-content-end">
-                <div class="outer-border">
-                    <div class="col icon-wrapper mb-1">
-                        <i class="fa-solid fa-user-tie" id="ProfilePhoto"></i>
+                <div class="col-auto align-content-center align-items-center justify-content-center">
+                    <div class="outer-border">
+                        <div class="col icon-wrapper mb-1">
+                            <i class="fa-solid fa-user-tie" id="ProfilePhoto"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="col p-0 m-0 ps-2">
+                <div class="col-1 p-0 m-0 ps-2">
                     <p>—</p>
                 </div>
-                <div class="col d-flex mt-2">
+                <div class="col-auto mt-2">
                     <p class="">{{ isset($name) ? $name : 'NAME' }}</p>
                 </div>
             </div>

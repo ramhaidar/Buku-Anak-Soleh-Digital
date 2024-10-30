@@ -16,6 +16,15 @@ class Dashboard extends Component
         $this->name  = Cookie::get ( 'name' );
     }
 
+    public function renderFromController ( $token, $role, $name )
+    {
+        $this->token = $token;
+        $this->role  = $role;
+        $this->name  = $name;
+
+        return $this->render ();
+    }
+
     public function render ()
     {
         return view ( 'livewire.dashboard', [ 

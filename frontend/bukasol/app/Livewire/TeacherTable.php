@@ -13,8 +13,14 @@ class TeacherTable extends Component
     public $showTeacherTable = false;
 
     protected $listeners = [ 
-        'loadTeacherTable' => 'loadTeachers'
+        'loadTeacherTable' => 'loadTeachers',
+        'loadStudentTable' => 'hideTeacherTable',
     ];
+
+    public function hideTeacherTable ()
+    {
+        $this->showTeacherTable = false;
+    }
 
     public function displayTeacherTable ()
     {

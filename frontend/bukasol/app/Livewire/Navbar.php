@@ -21,6 +21,11 @@ class Navbar extends Component
         $this->dispatch ( 'loadTeacherTable' );
     }
 
+    public function showStudentTable ()
+    {
+        $this->dispatch ( 'loadStudentTable' );
+    }
+
     public function render ()
     {
         $this->mount ();

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', $role)
 
 @if ($role == 'SUPERADMIN')

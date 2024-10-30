@@ -1,3 +1,4 @@
-<div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
+<div class="container-fluid w-100 h-100 px-5">
+    @livewire('teacher-table')
+    @livewire('student-table')
 </div>
