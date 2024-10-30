@@ -42,7 +42,7 @@ public class Note {
     @Column(nullable = true)
     private String parentQuestion;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String teacherAnswer;
 
     @Column(nullable = false)

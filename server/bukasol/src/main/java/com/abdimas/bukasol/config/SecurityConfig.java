@@ -68,7 +68,8 @@ public class SecurityConfig {
                             "/api/v1/grades/recitation-grade-report/{id}",
                             "/api/v1/grades/prayer/student/{id}",
                             "/api/v1/grades/prayer-recitation/student/{id}",
-                            "/api/v1/activities/read-activity/student/{id}")
+                            "/api/v1/activities/read-activity/student/{id}",
+                            "/api/v1/activities/note-activity/student/{id}")
                         .hasAnyAuthority("STUDENT", "ROLE_STUDENT", "TEACHER", "ROLE_TEACHER")
                         
                         .anyRequest().authenticated() // Protect all other endpoints

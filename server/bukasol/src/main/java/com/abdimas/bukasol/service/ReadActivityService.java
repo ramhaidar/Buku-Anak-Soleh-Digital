@@ -9,6 +9,8 @@ import com.abdimas.bukasol.dto.readActivity.ReadActivityInfoDTO;
 import com.abdimas.bukasol.dto.readActivity.ReadActivitySaveDTO;
 
 public interface ReadActivityService {
+    List<ReadActivity> findAllReadActivityByStudentId(UUID studentId);
+    
     List<ReadActivityDTO> showAllReadActivityByStudentId(UUID studentId);
 
     ReadActivityInfoDTO showAllReadActivityByClass(String className);

@@ -1,4 +1,4 @@
-package com.abdimas.bukasol.dto.notes;
+package com.abdimas.bukasol.dto.note;
 
 import java.time.LocalDate;
 import java.util.UUID;

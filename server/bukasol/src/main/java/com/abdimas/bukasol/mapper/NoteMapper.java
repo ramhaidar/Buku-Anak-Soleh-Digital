@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.abdimas.bukasol.data.model.Note;
-import com.abdimas.bukasol.dto.notes.NoteDTO;
+import com.abdimas.bukasol.dto.note.NoteDTO;
 
 @Mapper(componentModel = "spring")
 public interface NoteMapper {

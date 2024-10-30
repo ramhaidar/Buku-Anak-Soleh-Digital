@@ -39,6 +39,7 @@ public class ReadActivityServiceImpl implements ReadActivityService {
                 .orElseThrow(() -> new EntityNotFoundException("Reading Activity Not Found"));
     }
 
+    @Override
     public List<ReadActivity> findAllReadActivityByStudentId(UUID studentId) {
         List<ReadActivity> readActivities = readActivityRepository.findAllByStudentId(studentId);
 
