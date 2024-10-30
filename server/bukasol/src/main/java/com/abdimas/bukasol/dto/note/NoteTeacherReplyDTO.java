@@ -1,4 +1,4 @@
-package com.abdimas.bukasol.dto;
+package com.abdimas.bukasol.dto.note;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParentCodeDTO {
-    @NotBlank(message="Parent Code is Required")
-    private String parentCode;
+public class NoteTeacherReplyDTO {
+    @NotBlank(message="Reply is Required")
+    private String teacherAnswer;
 }

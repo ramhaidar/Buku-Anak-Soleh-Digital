@@ -54,18 +54,22 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/v1/grades/teacher/**",
                                 "/api/v1/grades/prayer/{id}",
-                                "/api/v1/grades/prayer-recitation/{id}")
+                                "/api/v1/grades/prayer-recitation/{id}",
+                                "/api/v1/activities/teacher/**")
                         .hasAnyAuthority("TEACHER", "ROLE_TEACHER")
                         
                         .requestMatchers(
-                                "/api/v1/grades/student/**")
+                                "/api/v1/grades/student/**",
+                                "/api/v1/activities/student/**")
                         .hasAnyAuthority("STUDENT", "ROLE_STUDENT")
 
                         .requestMatchers(
                             "/api/v1/grades/grade-report/{id}",
                             "/api/v1/grades/recitation-grade-report/{id}",
                             "/api/v1/grades/prayer/student/{id}",
-                            "/api/v1/grades/prayer-recitation/student/{id}")
+                            "/api/v1/grades/prayer-recitation/student/{id}",
+                            "/api/v1/activities/read-activity/student/{id}",
+                            "/api/v1/activities/note-activity/student/{id}")
                         .hasAnyAuthority("STUDENT", "ROLE_STUDENT", "TEACHER", "ROLE_TEACHER")
                         
                         .anyRequest().authenticated() // Protect all other endpoints

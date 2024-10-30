@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.PrayerGrade;
 import com.abdimas.bukasol.data.model.PrayerRecitationGrade;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
-import com.abdimas.bukasol.dto.ParentCodeDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeInfoDTO;
 import com.abdimas.bukasol.dto.prayerGrade.PrayerGradeSaveDTO;
@@ -155,15 +155,15 @@ public class GradeController {
     }
 
     @PutMapping(value = "/student/prayer-sign/{id}")
-    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCode) {
-        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId, parentCode.getParentCode());
+    public ResponseEntity<PrayerGradeDTO> parentSignPrayerGrade(@PathVariable("id") UUID gradeId, @RequestParam String parentCode) {
+        PrayerGradeDTO prayerGrade = prayerGradeService.parentSignPrayerGrade(gradeId, parentCode);
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerGrade);
     }
 
     @PutMapping(value = "/student/prayer-recitation-sign/{id}")
-    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId, @Valid @RequestBody ParentCodeDTO parentCodeDTO) {
-        PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId, parentCodeDTO.getParentCode());
+    public ResponseEntity<PrayerRecitationGradeDTO> parentSignPrayerRecitationGrade(@PathVariable("id") UUID gradeId, @RequestParam String parentCode) {
+        PrayerRecitationGradeDTO prayerRecitationGrade = prayerRecitationGradeService.parentSignPrayerRecitationGrade(gradeId, parentCode);
         
         return ResponseEntity.status(HttpStatus.OK).body(prayerRecitationGrade);
     }
