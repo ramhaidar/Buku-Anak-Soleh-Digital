@@ -1,5 +1,12 @@
 @extends('layouts.app')
-@section('title', $role)
+
+@if ($role == 'SUPERADMIN')
+    @section('title', 'Dashboard Admin')
+@elseif ($role == 'TEACHER')
+    @section('title', 'Dashboard Guru')
+@elseif ($role == 'STUDENT')
+    @section('title', 'Dashboard Siswa')
+@endif
 
 @if ($role == 'SUPERADMIN')
     @section('content')
