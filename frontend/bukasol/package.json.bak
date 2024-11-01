@@ -2,10 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "clear": "cls && php artisan config:clear && php artisan cache:clear && php artisan route:clear",
-        "build": "npm run clear",
-        "start": "concurrently \"php artisan schedule:work\" \"php artisan serve --host=0.0.0.0\"",
-        "dev": "vite | npm run start"
+        "build": "vite build",
+        "dev": "vite"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
