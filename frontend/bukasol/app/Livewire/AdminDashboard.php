@@ -3,11 +3,12 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Livewire\Footer;
 use Illuminate\Support\Facades\Cookie;
 
 class AdminDashboard extends Component
 {
-    public $token, $role, $name;
+    private $token, $role, $name;
     public $showTeacherTable = false;
 
     // listen for showTeacherTable if found then set showTeacherTable to true
@@ -20,6 +21,11 @@ class AdminDashboard extends Component
         $this->name  = Cookie::get ( 'name' );
     }
 
+    public function test () : void
+    {
+        $this->dispatch ( 'BroadcastCurrentPageTitle', 'Dashboard Admin' );
+    }
+
     public function displayTeacherTable ()
     {
         $this->showTeacherTable = true;
@@ -27,6 +33,7 @@ class AdminDashboard extends Component
 
     public function render ()
     {
+        // $this->mount ();
         return view ( 'livewire.admin.admin-dashboard' );
     }
 }

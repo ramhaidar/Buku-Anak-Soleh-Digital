@@ -12,6 +12,7 @@ class UserController extends Controller
     {
         return view ( 'auth.login' );
     }
+
     public function login ( Request $request )
     {
         // Validasi input
@@ -52,6 +53,15 @@ class UserController extends Controller
 
         // Jika tidak berhasil, kembalikan dengan error
         return redirect ()->back ()->with ( 'error', 'Invalid credentials' );
+    }
+
+    public function logout ()
+    {
+        // Hapus cookie 'token' dan 'role' dan 'name'
+        return redirect ( '/' )
+            ->withCookie ( Cookie::forget ( 'token' ) )
+            ->withCookie ( Cookie::forget ( 'role' ) )
+            ->withCookie ( Cookie::forget ( 'name' ) );
     }
 
     public function checkCookie ()

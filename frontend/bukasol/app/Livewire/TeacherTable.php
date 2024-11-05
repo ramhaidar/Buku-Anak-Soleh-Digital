@@ -41,6 +41,6 @@ class TeacherTable extends Component
 
     public function render ()
     {
-        return view ( 'livewire.teacher.teacher-table' );
+        return view ( 'livewire.admin.teacher-table' );
     }
 }

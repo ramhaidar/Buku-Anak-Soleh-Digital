@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Login;
 use App\Livewire\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -16,27 +17,38 @@ Route::get ( '/', function ()
     return redirect ()->route ( 'login.index' );
 } );
 
-Route::get ( '/dashboard', function ()
-{
-    return view ( 'dashboard' );
-} );
+// Route::get ( '/dashboard', function ()
+// {
+//     return view ( 'dashboard' );
+// } );
 
-Route::get ( '/login', [ UserController::class, 'index' ] )->name ( 'login.index' );
+// Route::get ( '/login', [ UserController::class, 'index' ] )->name ( 'login.index' );
+Route::get (
+    '/login',
+    [ Login::class, 'render' ]
+)->name ( 'login.index' );
 
-Route::post ( '/login', [ UserController::class, 'login' ] )->name ( 'login.post' );
+Route::post ( '/login', [ UserController::class, 'login' ] )->name ( 'login' );
+
+Route::post ( '/logout', [ UserController::class, 'logout' ] )->name ( 'logout' );
 
 Route::get ( '/check-cookie', [ UserController::class, 'checkCookie' ] );
 
+// Route::get (
+//     '/dashboard',
+//     [ DashboardController::class, 'index' ]
+// )
+//     ->middleware ( CheckUserCookies::class)
+//     ->name ( 'dashboard.index' );
+
 Route::get (
     '/dashboard',
-    [ DashboardController::class, 'index' ]
+    [ Dashboard::class, 'render' ]
 )
     ->middleware ( CheckUserCookies::class)
     ->name ( 'dashboard.index' );
 
-// Route::get (
-//     '/dashboard',
-//     [ Dashboard::class, 'render' ]
-// )
-//     ->middleware ( CheckUserCookies::class)
-//     ->name ( 'dashboard.index' );
+Route::get ( '/test', function ()
+{
+    return view ( 'test' );
+} );

@@ -43,7 +43,7 @@ class StudentTable extends Component
 
     public function render ()
     {
-        return view ( 'livewire.student.student-table' );
+        return view ( 'livewire.admin.student-table' );
     }
 
 }
