@@ -1,6 +1,5 @@
 package com.abdimas.bukasol.service.impl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +61,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public NoteInfoDTO showAllNoteActivityByClassAndTimeStamp(String className, LocalDate timeStamp) {
+    public NoteInfoDTO showAllNoteActivityByClass(String className) {
         NoteInfoDTO noteInfoDTO = new NoteInfoDTO();
         List<NoteTeacherShowDTO> noteTeacherShowDTOs = new ArrayList<>();
 
@@ -70,28 +69,32 @@ public class NoteServiceImpl implements NoteService {
 
         noteInfoDTO.setClassName(className);
         noteInfoDTO.setTeacherName(students.get(0).getTeacher().getUser().getName());
-        noteInfoDTO.setTimeStamp(timeStamp);
 
         for(Student student : students) {
             NoteTeacherShowDTO noteTeacherShowDTO = new NoteTeacherShowDTO();
 
-            Optional<Note> note = noteRepository.findByStudentIdAndTimeStamp(student.getId(), timeStamp);
+            boolean teacherSign = false;
+            boolean question = true;
 
-            if(note.isPresent()) {
-                noteTeacherShowDTO.setStudentId(student.getId());
-                noteTeacherShowDTO.setStudentNisn(student.getNisn());
-                noteTeacherShowDTO.setStudentName(student.getUser().getName());
+            long teacherSignFalse = noteRepository.countTeacherSignFalseByStudentId(student.getId());
 
-                if(note.isPresent()) {
-                    if(note.get().getParentQuestion() != null) {
-                        noteTeacherShowDTO.setParentQuestion(true);
-                    }
-    
-                    noteTeacherShowDTO.setTeacherSign(note.get().isTeacherSign());
-                }
+            long parentQuestionAndParentAnswer = noteRepository.countParentQuestionsAndTeacherAnswerByStudentId(student.getId());
 
-                noteTeacherShowDTOs.add(noteTeacherShowDTO);
+            if(teacherSignFalse == 0) {
+                teacherSign = true;
             }
+
+            if(parentQuestionAndParentAnswer == 0) {
+                question = false;
+            }
+
+            noteTeacherShowDTO.setStudentId(student.getId());
+            noteTeacherShowDTO.setStudentNisn(student.getNisn());
+            noteTeacherShowDTO.setStudentName(student.getUser().getName());
+            noteTeacherShowDTO.setParentQuestion(question);
+            noteTeacherShowDTO.setTeacherSign(teacherSign);
+
+            noteTeacherShowDTOs.add(noteTeacherShowDTO);
         }
 
         noteInfoDTO.setNotes(noteTeacherShowDTOs);

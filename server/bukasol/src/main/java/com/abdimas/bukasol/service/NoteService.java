@@ -1,6 +1,5 @@
 package com.abdimas.bukasol.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +14,7 @@ public interface NoteService {
     
     List<NoteDTO> showAllNoteActivityByStudentId(UUID studentId);
 
-    NoteInfoDTO showAllNoteActivityByClassAndTimeStamp(String className, LocalDate timeStamp);
+    NoteInfoDTO showAllNoteActivityByClass(String className);
 
     Note findNoteActivityById(UUID noteActivityId);
     

@@ -1,6 +1,5 @@
 package com.abdimas.bukasol.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,8 +42,8 @@ public class ActivityController {
     private final NoteService noteService;
 
     @GetMapping(value = "/teacher/note-activity/{className}")
-    public ResponseEntity<NoteInfoDTO> getAllNoteActivityByClassAndTimeStamp(@PathVariable("className") String className, @RequestParam LocalDate timeStamp) {
-        NoteInfoDTO noteInfoDTO = noteService.showAllNoteActivityByClassAndTimeStamp(className, timeStamp);
+    public ResponseEntity<NoteInfoDTO> getAllNoteActivityByClassAndTimeStamp(@PathVariable("className") String className) {
+        NoteInfoDTO noteInfoDTO = noteService.showAllNoteActivityByClass(className);
         
         return ResponseEntity.status(HttpStatus.OK).body(noteInfoDTO);
     }
@@ -68,6 +67,20 @@ public class ActivityController {
         List<ReadActivityDTO> readActivityDTOs = readActivityService.showAllReadActivityByStudentId(studentId);
         
         return ResponseEntity.status(HttpStatus.OK).body(readActivityDTOs);
+    }
+
+    @GetMapping(value = "/note-activity/{id}")
+    public ResponseEntity<NoteDTO> getNoteActivityById(@PathVariable("id") UUID noteActivityId) {
+        NoteDTO noteDTO = noteService.showNoteActivityByNoteActivityId(noteActivityId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(noteDTO);
+    }
+
+    @GetMapping(value = "/read-activity/{id}")
+    public ResponseEntity<ReadActivityDTO> getReadActivityById(@PathVariable("id") UUID readActivityId) {
+        ReadActivityDTO readActivityDTO = readActivityService.showReadActivityByReadActivityId(readActivityId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(readActivityDTO);
     }
 
     @PostMapping(value = "/student/create-note-activity")
