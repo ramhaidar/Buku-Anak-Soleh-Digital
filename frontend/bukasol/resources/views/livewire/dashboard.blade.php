@@ -1,14 +1,17 @@
 @extends('livewire.layouts.app')
 
-@if ($role == 'SUPERADMIN')
+@if ($role == 'Admin')
     @section('title', 'Dashboard Admin')
-@elseif ($role == 'TEACHER')
+@elseif ($role == 'Teacher')
     @section('title', 'Dashboard Guru')
-@elseif ($role == 'STUDENT')
+@elseif ($role == 'Student')
     @section('title', 'Dashboard Siswa')
 @endif
 
 @push('styles')
+    <!-- SweetAlert2 11.14.5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.min.css" rel="stylesheet" integrity="sha512-Xxs33QtURTKyRJi+DQ7EKwWzxpDlLSqjC7VYwbdWW9zdhrewgsHoim8DclqjqMlsMeiqgAi51+zuamxdEP2v1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
             --vh: calc(1dvh * 1px);
@@ -44,7 +47,7 @@
     </style>
 @endpush
 
-@if ($role == 'SUPERADMIN')
+@if ($role == 'Admin')
     @section('content')
         @livewire('pre-run')
         @livewire('navbar')
@@ -52,7 +55,7 @@
             @livewire('admin-dashboard')
         </div>
     @endsection
-@elseif ($role == 'TEACHER')
+@elseif ($role == 'Teacher')
     @section('content')
         @livewire('pre-run')
         @livewire('navbar')
@@ -60,7 +63,7 @@
             @livewire('teacher-dashboard')
         </div>
     @endsection
-@elseif ($role == 'STUDENT')
+@elseif ($role == 'Student')
     @section('content')
         @livewire('pre-run')
         @livewire('navbar')
@@ -69,3 +72,32 @@
         </div>
     @endsection
 @endif
+
+@push('scripts')
+    <!-- SweetAlert2 11.14.5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.min.js" integrity="sha512-JCDnPKShC1tVU4pNu5mhCEt6KWmHf0XPojB0OILRMkr89Eq9BHeBP+54oUlsmj8R5oWqmJstG1QoY6HkkKeUAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- SweetAlert2 Error Notification -->
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
+    <!-- SweetAlert2 Success Notification -->
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+@endpush

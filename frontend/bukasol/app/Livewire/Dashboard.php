@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Auth;
 use Livewire\Component;
 use Illuminate\Support\Facades\Cookie;
 
@@ -14,15 +15,9 @@ class Dashboard extends Component
 
     public function mount ()
     {
-        $this->token = Cookie::get ( 'token' );
-        $this->role  = Cookie::get ( 'role' );
-        $this->name  = Cookie::get ( 'name' );
-        $this->page  = "Error A";
-    }
-
-    public function test ()
-    {
-        $this->dispatch ( 'XXX', );
+        $user       = Auth::user ();
+        $this->role = $user->role;
+        $this->name = $user->name;
     }
 
     public function ChangeCurrentPageTitle ( $title )
@@ -46,10 +41,9 @@ class Dashboard extends Component
         $this->mount ();
 
         return view ( 'livewire.dashboard', [ 
-            'token' => $this->token,
-            'role'  => $this->role,
-            'name'  => $this->name,
-            'page'  => $this->page,
+            'role' => $this->role,
+            'name' => $this->name,
+            'page' => $this->page,
         ] );
     }
 }

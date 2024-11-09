@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Auth;
 
 class Navbar extends Component
 {
@@ -11,9 +11,9 @@ class Navbar extends Component
 
     public function mount ()
     {
-        $this->token = Cookie::get ( 'token' );
-        $this->role  = Cookie::get ( 'role' );
-        $this->name  = Cookie::get ( 'name' );
+        $user       = Auth::user ();
+        $this->role = $user->role;
+        $this->name = $user->name;
     }
 
     public function showTeacherTable ()
@@ -30,9 +30,8 @@ class Navbar extends Component
     {
         $this->mount ();
         return view ( 'livewire.partials.navbar', [ 
-            'token' => $this->token,
-            'role'  => $this->role,
-            'name'  => $this->name
+            'role' => $this->role,
+            'name' => $this->name
         ] );
     }
 }

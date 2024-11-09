@@ -11,13 +11,8 @@ class Footer extends Component
 
     protected $listeners = [ 
         'BroadcastCurrentPageTitle' => 'ChangeCurrentFooterText',
-        'XXX'                       => 'ChangeCurrentFooterText',
+        'ChangeDashboardFooterText' => 'ChangeCurrentFooterText',
     ];
-
-    public function boot ()
-    {
-        // $this->on ( 'XXX', fn () => $this->ChangeCurrentFooterText ( "TEST" ) );
-    }
 
 
     public function mount ()

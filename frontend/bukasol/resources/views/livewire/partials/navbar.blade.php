@@ -105,7 +105,7 @@
 
         <div class="collapse navbar-collapse p-0 m-0" id="navbarContent" style="align-items: center">
             <ul class="navbar-nav ms-auto w-100" style="justify-content: center">
-                @if (isset($role) && $role == 'SUPERADMIN')
+                @if (isset($role) && $role == 'Admin')
                     <!-- Admin Navbar for Desktop View -->
                     <li class="nav-item px-2 mb-2" id="FirstItem">
                         <a class="btn btn-secondary navigation-button" href="#" wire:click="showStudentTable()">Siswa</a>
@@ -134,7 +134,7 @@
                             </h2>
                         </div>
                     </div>
-                @elseif (isset($role) && $role == 'TEACHER')
+                @elseif (isset($role) && $role == 'Teacher')
                     <!-- Dropdown Menu for Desktop View -->
                     <li class="dropdown px-2 mb-2" id="FirstItem">
                         <button class="nav-item btn btn-secondary navigation-button" id="laporanDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                     </div>
-                @elseif (isset($role) && $role == 'STUDENT')
+                @elseif (isset($role) && $role == 'Student')
                     <li class="nav-item px-2 mb-2">
                         <a class="btn btn-secondary navigation-button" wire:click='#'>Laporan</a>
                     </li>

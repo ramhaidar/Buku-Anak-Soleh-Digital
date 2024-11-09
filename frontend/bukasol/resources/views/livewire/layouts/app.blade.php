@@ -1,4 +1,3 @@
-<!-- resources/views/livewire/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -10,7 +9,7 @@
     <!-- Poppins Font -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS (Bootstrap 5.3.3) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,11 +23,6 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- MDB -->
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.min.css" rel="stylesheet" /> --}}
-
-    <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
@@ -45,22 +39,10 @@
             overflow: auto
         }
 
-        /* footer {
-            flex-shrink: 0;
-        } */
-        /* .footer {
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        } */
         @media (max-width: 768px) {
             body {
                 font-size: 14px;
             }
-
-            /* .footer {
-                padding: 10px;
-            } */
         }
     </style>
 
@@ -90,12 +72,6 @@
 
     <!-- Font Awesome 6.6.0 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js" integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Popper.JS -->
-    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script> --}}
-
-    <!-- MDB -->
-    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script> --}}
 
     <!-- Additional Scripts -->
     @stack('scripts')

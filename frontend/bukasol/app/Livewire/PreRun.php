@@ -8,9 +8,7 @@ class PreRun extends Component
 {
     public function test ()
     {
-        $this->dispatch ( "XXX", "Dashboard Admin" );
-
-        // dd ( "TEST" );
+        $this->dispatch ( "ChangeDashboardFooterText", "Dashboard Admin" );
     }
 
     public function render ()

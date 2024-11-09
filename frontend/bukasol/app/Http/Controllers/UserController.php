@@ -44,11 +44,11 @@ class UserController extends Controller
             Auth::login ( $user );
 
             // Redirect to the dashboard
-            return redirect ( '/dashboard' );
+            return redirect ( '/dashboard' )->with ( 'success', __ ( 'auth.success' ) );
         }
 
         // If authentication fails, redirect back with an error message
-        return redirect ()->back ()->with ( 'error', 'Invalid credentials' );
+        return redirect ()->back ()->with ( 'error', __ ( 'auth.failed' ) );
     }
 
     /**
