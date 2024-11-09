@@ -1,7 +1,5 @@
 package com.abdimas.bukasol.mapper;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -14,10 +12,8 @@ public interface MuhasabahReportMapper {
 
     MuhasabahReportMapper INSTANCE = Mappers.getMapper(MuhasabahReportMapper.class);
 
-    MuhasabahReportDTO tomuhasabahReportDTO(MuhasabahReport muhasabahReport);
+    MuhasabahReportDTO toMuhasabahReportDTO(MuhasabahReport muhasabahReport);
 
     @Mapping(target="student", ignore=true)
     MuhasabahReport toMuhasabahReport(MuhasabahReportDTO muhasabahReportDTO);
-
-    List<MuhasabahReportDTO> toMuhasabahReportDTOs(List<MuhasabahReport> muhasabahReport);
 }

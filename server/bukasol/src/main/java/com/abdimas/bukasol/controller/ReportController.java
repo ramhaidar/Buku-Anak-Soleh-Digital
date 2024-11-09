@@ -1,5 +1,6 @@
 package com.abdimas.bukasol.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdimas.bukasol.data.model.MuhasabahReport;
+import com.abdimas.bukasol.data.model.ViolationReport;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportInfoDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportSaveDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportStudentInfoDTO;
+import com.abdimas.bukasol.dto.violation.ViolationReportDTO;
+import com.abdimas.bukasol.dto.violation.ViolationReportInfoDTO;
+import com.abdimas.bukasol.dto.violation.ViolationReportSaveDTO;
 import com.abdimas.bukasol.service.MuhasabahReportService;
+import com.abdimas.bukasol.service.ViolationReportService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -33,6 +39,7 @@ import lombok.AllArgsConstructor;
 public class ReportController {
 
     private final MuhasabahReportService muhasabahReportService;
+    private final ViolationReportService violationReportService;
 
     @GetMapping(value = "/teacher/muhasabah-report/{className}")
     public ResponseEntity<MuhasabahReportInfoDTO> getAllMuhasabahReportByClass(@PathVariable("className") String className) {
@@ -86,5 +93,52 @@ public class ReportController {
         MuhasabahReportDTO muhasabahReportDTO = muhasabahReportService.parentSignMuhasabahReport(muhasabahReportId, parentCode);
         
         return ResponseEntity.status(HttpStatus.OK).body(muhasabahReportDTO);
+    }
+
+    @GetMapping(value = "/teacher/violation-report/{className}")
+    public ResponseEntity<ViolationReportInfoDTO> getAllViolationReportByClass(@PathVariable("className") String className) {
+        ViolationReportInfoDTO violationReportInfoDTO = violationReportService.showAllViolationReportByClass(className);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(violationReportInfoDTO);
+    }
+
+    @GetMapping(value = "/violation-report/student/{id}")
+    public ResponseEntity<List<ViolationReportDTO>> getAllViolationReportByStudentId(@PathVariable("id") UUID studentId) {
+        List<ViolationReportDTO> violationReportDTOs = violationReportService.showAllViolationReportByStudentId(studentId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(violationReportDTOs);
+    }
+
+    @GetMapping(value = "/violation-report/{id}")
+    public ResponseEntity<ViolationReportDTO> getViolationReportById(@PathVariable("id") UUID violationReportId) {
+        ViolationReportDTO violationReportDTO = violationReportService.showViolationReportByViolationReportId(violationReportId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(violationReportDTO);
+    }
+
+    @PostMapping(value = "/teacher/create-violation-report")
+    public ResponseEntity<MessageResponseDTO> createViolationReport(@Valid @RequestBody ViolationReportSaveDTO violationReportSaveDTO) {
+        ViolationReport violationReport = violationReportService.createViolationReportStudent(violationReportSaveDTO);
+
+        MessageResponseDTO violationReportResponse = new MessageResponseDTO();
+        violationReportResponse.setMessage("Violation Report '" + violationReport.getViolationDetails()+ "' of Student '" + violationReport.getStudent().getUser().getName() + "' Successfully Created");
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(violationReportResponse);
+    }
+
+    @DeleteMapping(value = "/teacher/delete-violation-report/{id}")
+    public ResponseEntity<MessageResponseDTO> deleteViolationReport(@PathVariable("id") UUID violationReportId) {
+        String message = violationReportService.deleteViolationReportStudent(violationReportId);
+
+        MessageResponseDTO response = new MessageResponseDTO(message);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping(value = "/teacher/violation-report-sign/{id}")
+    public ResponseEntity<ViolationReportDTO> teacherSignViolatioReport(@PathVariable("id") UUID violationReportId) {
+        ViolationReportDTO violationReportDTO = violationReportService.teacherSignViolationReport(violationReportId);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(violationReportDTO);
     }
 }

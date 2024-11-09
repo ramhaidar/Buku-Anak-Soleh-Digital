@@ -154,7 +154,7 @@ public class MuhasabahReportServiceImpl implements MuhasabahReportService {
     public MuhasabahReportDTO showMuhasabahReportByMuhasabahReportId(UUID muhasabahReportId) {
         MuhasabahReport muhasabahReport = findMuhasabahReportById(muhasabahReportId);
         
-        return muhasabahReportMapper.tomuhasabahReportDTO(muhasabahReport);
+        return muhasabahReportMapper.toMuhasabahReportDTO(muhasabahReport);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class MuhasabahReportServiceImpl implements MuhasabahReportService {
 
         MuhasabahReport updatedMuhasabahReport = muhasabahReportRepository.save(muhasabahReport);
         
-        return muhasabahReportMapper.tomuhasabahReportDTO(updatedMuhasabahReport);
+        return muhasabahReportMapper.toMuhasabahReportDTO(updatedMuhasabahReport);
     }
 
     @Override
@@ -217,6 +217,6 @@ public class MuhasabahReportServiceImpl implements MuhasabahReportService {
 
         MuhasabahReport updatedMuhasabahReport = muhasabahReportRepository.save(muhasabahReport);
         
-        return muhasabahReportMapper.tomuhasabahReportDTO(updatedMuhasabahReport);
+        return muhasabahReportMapper.toMuhasabahReportDTO(updatedMuhasabahReport);
     }
 }
