@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create ( 'teachers', function (Blueprint $table)
         {
-            $table->uuid ( 'id' )->primary ();
+            $table->integer ( 'id' )->primary ();
             $table->uuid ( 'user_id' )->unique ();
             $table->string ( 'nip' )->unique ();
             $table->string ( 'class_name' );

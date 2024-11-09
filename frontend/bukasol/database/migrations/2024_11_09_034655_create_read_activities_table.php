@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create ( 'read_activities', function (Blueprint $table)
         {
-            $table->uuid ( 'id' )->primary ();
+            $table->integer ( 'id' )->primary ();
             $table->uuid ( 'student_id' );
             $table->date ( 'time_stamp' );
             $table->string ( 'book_title' );
