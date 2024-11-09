@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create ( 'muhasabah_reports', function (Blueprint $table)
         {
             $table->integer ( 'id' )->primary ();
-            $table->uuid ( 'student_id' );
+            $table->integer ( 'student_id' );
             $table->date ( 'time_stamp' );
             $table->string ( 'surah_name' );
             $table->string ( 'surah_ayat' );

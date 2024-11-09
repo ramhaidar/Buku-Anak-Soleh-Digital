@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create ( 'students', function (Blueprint $table)
         {
             $table->integer ( 'id' )->primary ();
-            $table->uuid ( 'user_id' )->unique ();
-            $table->uuid ( 'teacher_id' );
+            $table->integer ( 'user_id' )->unique ();
+            $table->integer ( 'teacher_id' );
             $table->string ( 'nisn' )->unique ();
             $table->string ( 'class_name' );
             $table->string ( 'parent_name' );

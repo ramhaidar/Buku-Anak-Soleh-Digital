@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create ( 'prayer_grades', function (Blueprint $table)
         {
             $table->integer ( 'id' )->primary ();
-            $table->uuid ( 'student_id' );
+            $table->integer ( 'student_id' );
             $table->date ( 'time_stamp' );
             $table->string ( 'motion_category' );
             $table->double ( 'grade_semester1' );
