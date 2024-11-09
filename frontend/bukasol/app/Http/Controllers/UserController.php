@@ -2,80 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * Show the login form.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index ()
     {
         return view ( 'auth.login' );
     }
 
+    /**
+     * Handle an authentication attempt.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login ( Request $request )
     {
-        // Validasi input
+        // Validate input
         $request->validate ( [ 
-            'username' => 'required',
-            'password' => 'required'
+            'username' => 'required|string',
+            'password' => 'required|string',
         ] );
 
-        // Siapkan data dan hitung Content-Length
-        $data = [ 
-            'username' => $request->username,
-            'password' => $request->password
-        ];
+        // Find user by username
+        $user = User::where ( 'username', $request->username )->first ();
 
-        $jsonData      = json_encode ( $data );
-        $contentLength = strlen ( $jsonData );
-
-        // Kirim permintaan POST dengan header dan data JSON
-        $response = Http::withHeaders ( [ 
-            'Content-Type'   => 'application/json',
-            'Content-Length' => $contentLength,
-            // 'Authorization'  => 'Bearer ' . $request->bearerToken ()
-        ] )->post ( 'http://localhost:8080/api/v1/users/auth/login', $data );
-
-        // Cek apakah respons sukses dan memiliki token dan role
-        if ( $response->successful () && isset ( $response[ 'token' ], $response[ 'role' ], $response[ 'name' ] ) )
+        // Check if user exists and verify password
+        if ( $user && Hash::check ( $request->password, $user->password ) )
         {
-            $token = $response[ 'token' ];
-            $role  = $response[ 'role' ];
-            $name  = $response[ 'name' ];
+            // Authenticate the user
+            Auth::login ( $user );
 
-            // Set cookie untuk token dan role lalu redirect ke dashboard
-            return redirect ( '/dashboard' )
-                ->withCookie ( cookie ( 'token', $token ) )
-                ->withCookie ( cookie ( 'role', $role ) )
-                ->withCookie ( cookie ( 'name', $name ) );
+            // Redirect to the dashboard
+            return redirect ( '/dashboard' );
         }
 
-        // Jika tidak berhasil, kembalikan dengan error
+        // If authentication fails, redirect back with an error message
         return redirect ()->back ()->with ( 'error', 'Invalid credentials' );
     }
 
+    /**
+     * Log the user out (Invalidate the session).
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout ()
     {
-        // Hapus cookie 'token' dan 'role' dan 'name'
-        return redirect ( '/' )
-            ->withCookie ( Cookie::forget ( 'token' ) )
-            ->withCookie ( Cookie::forget ( 'role' ) )
-            ->withCookie ( Cookie::forget ( 'name' ) );
-    }
+        // Log the user out using Auth facade
+        Auth::logout ();
 
-    public function checkCookie ()
-    {
-        // Ambil nilai cookie 'token' dan 'role'
-        $token = Cookie::get ( 'token' );
-        $role  = Cookie::get ( 'role' );
-        $name  = Cookie::get ( 'name' );
-
-        // Tampilkan nilai cookie untuk debugging
-        dd ( [ 
-            'token' => $token,
-            'role'  => $role,
-            'name'  => $name
-        ] );
+        // Redirect to the home page
+        return redirect ( '/' );
     }
 }
