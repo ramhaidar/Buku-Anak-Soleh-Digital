@@ -21,7 +21,7 @@ class Student extends Model
     protected $table = 'students';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

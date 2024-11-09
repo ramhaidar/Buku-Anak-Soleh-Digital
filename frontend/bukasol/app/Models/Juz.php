@@ -13,7 +13,7 @@ class Juz extends Model
     protected $table = 'juz';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

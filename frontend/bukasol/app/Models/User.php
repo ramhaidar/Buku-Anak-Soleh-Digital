@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Notifications\Notifiable;
@@ -16,10 +15,9 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    public $incrementing = false;
-    protected $keyType = 'integer';
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = true;
-
 
     /**
      * The attributes that are mass assignable.
@@ -42,16 +40,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * The model's default values for attributes.
-     *
-     * @var array
-     */
-    // protected $attributes = [ 
-//     'name'  => 'test',
-//     'email' => 'test@gmail.com',
-// ];
 
     /**
      * Get the attributes that should be cast.

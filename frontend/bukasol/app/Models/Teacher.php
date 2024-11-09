@@ -14,7 +14,7 @@ class Teacher extends Model
     protected $table = 'teachers';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

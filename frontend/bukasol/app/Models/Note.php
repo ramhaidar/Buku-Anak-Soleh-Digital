@@ -13,7 +13,7 @@ class Note extends Model
     protected $table = 'notes';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

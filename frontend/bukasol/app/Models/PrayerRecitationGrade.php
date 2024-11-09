@@ -13,7 +13,7 @@ class PrayerRecitationGrade extends Model
     protected $table = 'prayer_recitation_grades';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

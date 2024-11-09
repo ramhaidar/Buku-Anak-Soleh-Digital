@@ -13,7 +13,7 @@ class ReadActivity extends Model
     protected $table = 'read_activities';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 

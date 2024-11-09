@@ -13,7 +13,7 @@ class ViolationReport extends Model
     protected $table = 'violation_reports';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    protected $keyType = 'integer';
+    protected $keyType = 'int';
     public $timestamps = true;
 
     protected $fillable = [ 
