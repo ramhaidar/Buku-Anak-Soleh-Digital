@@ -84,6 +84,16 @@
             color: #E4E4E7;
         }
 
+        .alert-error {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
         #LoginLogo {
             border-radius: 50%;
             margin: 3%;
@@ -126,10 +136,20 @@
         <div class="container-fluid align-items-center">
             <div class="align-items-center align-content-center d-flex justify-content-center container-fluid">
                 <div class="login-box">
+
                     <div class="logo-container container-fluid text-center px-0 py-0">
                         <img id="LoginLogo" src="{{ asset('Logo.png') }}" alt="Logo">
                     </div>
+
                     <h2 class="text-center rounded-1 pt-0 mt-2 fw-light">Buku Anak Soleh Digital</h2>
+
+                    <!-- Error message display -->
+                    @if (session('error'))
+                        <div class="alert-error">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <form action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -142,6 +162,7 @@
                             <button class="container-fluid btn btn-secondary fw-medium" type="submit">Login</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
