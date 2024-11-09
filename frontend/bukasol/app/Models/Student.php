@@ -2,6 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Juz;
+use App\Models\Note;
+use App\Models\User;
+use App\Models\Teacher;
+use App\Models\PrayerGrade;
+use App\Models\ReadActivity;
+use App\Models\MuhasabahReport;
+use App\Models\ViolationReport;
+use App\Models\PrayerRecitationGrade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
