@@ -54,6 +54,9 @@ public class ViolationReportImpl implements ViolationReportService {
 
         List<Student> students = userService.findStudentByClassName(className);
 
+        violationReportInfoDTO.setClassName(className);
+        violationReportInfoDTO.setTeacherName(students.get(0).getTeacher().getUser().getName());
+
         for(Student student : students) {
             ViolationReportTeacherShowDTO violationReportTeacherShowDTO = new ViolationReportTeacherShowDTO();
 

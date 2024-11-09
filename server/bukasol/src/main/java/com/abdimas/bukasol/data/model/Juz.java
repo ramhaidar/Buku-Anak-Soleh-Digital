@@ -43,7 +43,7 @@ public class Juz {
     private String surahAyat;
 
     @Column(nullable = false)
-    private boolean teacherSign;
+    private boolean parentSign;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)

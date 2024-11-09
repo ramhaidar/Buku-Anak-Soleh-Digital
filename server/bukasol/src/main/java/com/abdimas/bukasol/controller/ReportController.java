@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.abdimas.bukasol.data.model.Juz;
 import com.abdimas.bukasol.data.model.MuhasabahReport;
 import com.abdimas.bukasol.data.model.ViolationReport;
 import com.abdimas.bukasol.dto.MessageResponseDTO;
+import com.abdimas.bukasol.dto.juz.JuzDTO;
+import com.abdimas.bukasol.dto.juz.JuzInfoDTO;
+import com.abdimas.bukasol.dto.juz.JuzSaveDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportInfoDTO;
 import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportSaveDTO;
@@ -26,6 +30,7 @@ import com.abdimas.bukasol.dto.muhasabah.MuhasabahReportStudentInfoDTO;
 import com.abdimas.bukasol.dto.violation.ViolationReportDTO;
 import com.abdimas.bukasol.dto.violation.ViolationReportInfoDTO;
 import com.abdimas.bukasol.dto.violation.ViolationReportSaveDTO;
+import com.abdimas.bukasol.service.JuzService;
 import com.abdimas.bukasol.service.MuhasabahReportService;
 import com.abdimas.bukasol.service.ViolationReportService;
 
@@ -40,6 +45,7 @@ public class ReportController {
 
     private final MuhasabahReportService muhasabahReportService;
     private final ViolationReportService violationReportService;
+    private final JuzService juzService;
 
     @GetMapping(value = "/teacher/muhasabah-report/{className}")
     public ResponseEntity<MuhasabahReportInfoDTO> getAllMuhasabahReportByClass(@PathVariable("className") String className) {
@@ -140,5 +146,45 @@ public class ReportController {
         ViolationReportDTO violationReportDTO = violationReportService.teacherSignViolationReport(violationReportId);
         
         return ResponseEntity.status(HttpStatus.OK).body(violationReportDTO);
+    }
+
+    @GetMapping(value = "/teacher/juz-report/{className}")
+    public ResponseEntity<JuzInfoDTO> getAllJuzReportByClassAndJuzNumber(@PathVariable("className") String className, @RequestParam int juzNumber) {
+        JuzInfoDTO juzInfoDTO = juzService.showAllJuzReportByClassAndJuzNumber(className, juzNumber);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(juzInfoDTO);
+    }
+
+    @GetMapping(value = "/juz-report/student/{id}")
+    public ResponseEntity<List<JuzDTO>> getAllJuzReportByStudentIdAndJuzNumber(@PathVariable("id") UUID studentId, @RequestParam int juzNumber) {
+        List<JuzDTO> juzDTOs = juzService.showAllJuzReportByStudentIdAndJuzNumber(studentId, juzNumber);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(juzDTOs);
+    }
+
+    @PostMapping(value = "/student/create-juz-report")
+    public ResponseEntity<MessageResponseDTO> createJuzReport(@Valid @RequestBody JuzSaveDTO juzSaveDTO) {
+        Juz juz = juzService.createJuzReportStudent(juzSaveDTO);
+
+        MessageResponseDTO juzReportResponse = new MessageResponseDTO();
+        juzReportResponse.setMessage("Juz Report '" + juz.getSurahName() + "' and '" + juz.getSurahAyat() + "' of Student '" + juz.getStudent().getUser().getName() + "' Successfully Created");
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(juzReportResponse);
+    }
+
+    @DeleteMapping(value = "/student/delete-juz-report/{id}")
+    public ResponseEntity<MessageResponseDTO> deleteJuzReport(@PathVariable("id") UUID juzReportId) {
+        String message = juzService.deleteJuzReportStudent(juzReportId);
+
+        MessageResponseDTO response = new MessageResponseDTO(message);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping(value = "/student/juz-report-sign/{id}")
+    public ResponseEntity<JuzDTO> parentSignJuzReport(@PathVariable("id") UUID juzReportId, @RequestParam String parentCode) {
+        JuzDTO juzReportDTO = juzService.parentSignJuzReport(juzReportId, parentCode);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(juzReportDTO);
     }
 }

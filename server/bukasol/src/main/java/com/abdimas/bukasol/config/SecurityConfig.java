@@ -77,7 +77,8 @@ public class SecurityConfig {
                             "/api/v1/reports/muhasabah-report/student/{id}",
                             "/api/v1/reports/muhasabah-report/{id}",
                             "/api/v1/reports/violation-report/student/{id}",
-                            "/api/v1/reports/violation-report/{id}")
+                            "/api/v1/reports/violation-report/{id}",
+                            "/api/v1/reports/juz-report/student/{id}")
                         .hasAnyAuthority("STUDENT", "ROLE_STUDENT", "TEACHER", "ROLE_TEACHER")
                         
                         .anyRequest().authenticated() // Protect all other endpoints
