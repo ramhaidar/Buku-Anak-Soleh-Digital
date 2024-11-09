@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create ( 'teachers', function (Blueprint $table)
         {
-            $table->integer ( 'id' )->primary ();
-            $table->integer ( 'user_id' )->unique ();
+            $table->id ();
+            $table->unsignedBigInteger ( 'user_id' )->unique ();
             $table->string ( 'nip' )->unique ();
             $table->string ( 'class_name' );
             $table->timestamps ();
