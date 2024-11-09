@@ -38,4 +38,9 @@ class Note extends Model
             'teacher_sign'    => 'boolean',
         ];
     }
+
+    public function student ()
+    {
+        return $this->belongsTo ( Student::class);
+    }
 }

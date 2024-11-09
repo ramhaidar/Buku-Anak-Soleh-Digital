@@ -38,4 +38,9 @@ class PrayerGrade extends Model
             'parent_sign'     => 'boolean',
         ];
     }
+
+    public function student ()
+    {
+        return $this->belongsTo ( Student::class);
+    }
 }

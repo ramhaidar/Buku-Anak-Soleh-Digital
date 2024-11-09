@@ -36,4 +36,49 @@ class Student extends Model
             'parent_code' => 'string',
         ];
     }
+
+    public function user ()
+    {
+        return $this->belongsTo ( User::class);
+    }
+
+    public function teacher ()
+    {
+        return $this->belongsTo ( Teacher::class);
+    }
+
+    public function juz ()
+    {
+        return $this->hasMany ( Juz::class);
+    }
+
+    public function muhasabahReports ()
+    {
+        return $this->hasMany ( MuhasabahReport::class);
+    }
+
+    public function notes ()
+    {
+        return $this->hasMany ( Note::class);
+    }
+
+    public function prayerGrades ()
+    {
+        return $this->hasMany ( PrayerGrade::class);
+    }
+
+    public function prayerRecitationGrades ()
+    {
+        return $this->hasMany ( PrayerRecitationGrade::class);
+    }
+
+    public function readActivities ()
+    {
+        return $this->hasMany ( ReadActivity::class);
+    }
+
+    public function violationReports ()
+    {
+        return $this->hasMany ( ViolationReport::class);
+    }
 }

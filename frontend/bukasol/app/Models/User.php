@@ -47,9 +47,9 @@ class User extends Authenticatable
      * @var array
      */
     // protected $attributes = [ 
-    //     'name'  => 'test',
-    //     'email' => 'test@gmail.com',
-    // ];
+//     'name'  => 'test',
+//     'email' => 'test@gmail.com',
+// ];
 
     /**
      * Get the attributes that should be cast.
@@ -65,5 +65,15 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role'     => 'string',
         ];
+    }
+
+    public function student ()
+    {
+        return $this->hasOne ( Student::class);
+    }
+
+    public function teacher ()
+    {
+        return $this->hasOne ( Teacher::class);
     }
 }
