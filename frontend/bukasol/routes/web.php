@@ -26,13 +26,26 @@ Route::get ( '/', function ()
 Route::get (
     '/login',
     [ Login::class, 'render' ]
-)->name ( 'login.index' );
+)
+    ->middleware ( 'Authenticated' )
+    ->name ( 'login.index' );
 
-Route::post ( '/login', [ UserController::class, 'login' ] )->name ( 'login' );
+Route::post (
+    '/login',
+    [ UserController::class, 'login' ]
+)
+    ->middleware ( 'Authenticated' )
+    ->name ( 'login' );
 
-Route::post ( '/logout', [ UserController::class, 'logout' ] )->name ( 'logout' );
+Route::post (
+    '/logout',
+    [ UserController::class, 'logout' ]
+)->name ( 'logout' );
 
-Route::get ( '/check-cookie', [ UserController::class, 'checkCookie' ] );
+Route::get (
+    '/check-cookie',
+    [ UserController::class, 'checkCookie' ]
+);
 
 // Route::get (
 //     '/dashboard',
@@ -45,7 +58,7 @@ Route::get (
     '/dashboard',
     [ Dashboard::class, 'render' ]
 )
-    ->middleware ( CheckUserCookies::class)
+    ->middleware ( 'Guest' )
     ->name ( 'dashboard.index' );
 
 Route::get ( '/test', function ()
