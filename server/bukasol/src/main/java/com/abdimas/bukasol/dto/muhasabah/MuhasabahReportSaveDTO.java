@@ -1,8 +1,8 @@
 package com.abdimas.bukasol.dto.muhasabah;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,31 +12,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MuhasabahReportSaveDTO {
-    
+    @NotNull(message="Student Id is Required")
+    private UUID studentId;
+
     @NotNull(message="Time Stamp is Required")
     private LocalDate timeStamp;
     
-    @NotBlank(message="Surah Name is Required")
     private String surahName;
-
-    @NotBlank(message="Surah Ayat is Required")
     private String surahAyat;
 
     @NotNull(message="Sunnah Pray is Required")
-    private boolean sunnahPray;
+    private Boolean sunnahPray;
 
     @NotNull(message="Subuh Pray is Required")
-    private boolean subuhPray;
+    private Boolean subuhPray;
 
     @NotNull(message="Dzuhur Pray is Required")
-    private boolean dzuhurPray;
+    private Boolean dzuhurPray;
 
     @NotNull(message="Ashar Pray is Required")
-    private boolean asharPray;
+    private Boolean asharPray;
 
     @NotNull(message="Maghrib Pray is Required")
-    private boolean maghribPray;
+    private Boolean maghribPray;
 
     @NotNull(message="Isya Pray is Required")
-    private boolean isyaPray;
+    private Boolean isyaPray;
 }

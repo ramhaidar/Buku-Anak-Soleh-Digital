@@ -1,7 +1,6 @@
 package com.abdimas.bukasol.data.repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +14,7 @@ public interface StudentRepository extends JpaRepository<Student, UUID>{
 
     List<Student> findByTeacher(Teacher teacher);
 
-    Optional<List<Student>> findByClassName(String className);
+    List<Student> findByClassName(String className);
 
     boolean existsByNisn(String nisn);
 }
