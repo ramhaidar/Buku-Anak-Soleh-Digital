@@ -108,10 +108,14 @@
                 @if (isset($role) && $role == 'Admin')
                     <!-- Admin Navbar for Desktop View -->
                     <li class="nav-item px-2 mb-2" id="FirstItem">
-                        <a class="btn btn-secondary navigation-button" href="#" wire:click="showStudentTable()">Siswa</a>
+                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'student-table' })">
+                            Siswa
+                        </a>
                     </li>
                     <li class="nav-item px-2 mb-2">
-                        <a class="btn btn-secondary navigation-button" href="#" wire:click="showTeacherTable()">Guru</a>
+                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'teacher-table' })">
+                            Guru
+                        </a>
                     </li>
 
                     <!-- Accordion Menu for Mobile View -->
@@ -119,7 +123,7 @@
                         <!-- Siswa Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header " id="headingSiswa">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="showStudentTable()">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="switchView('student-table')">
                                     Siswa
                                 </a>
                             </h2>
@@ -128,7 +132,7 @@
                         <!-- Guru Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header" id="headingGuru">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="showTeacherTable()">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="switchView('teacher-table')">
                                     Guru
                                 </a>
                             </h2>
@@ -258,11 +262,13 @@
                         <span class="ms-3">—</span>
                         <span class="ms-2 me-2">{{ isset($name) ? $name : 'NAME' }}</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li class="bg-danger-subtle">
-                            <form method="POST" action="{{ route('logout') }}">
+                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="profileDropdown">
+                        <li class="">
+                            <button class="dropdown-item p-1 m-0 my-0" wire:click="$dispatch('switchView', { view: 'change-password' })">Ganti Password</button>
+                            <div class="dropdown-divider border-0 bg-white p-0 m-0"></div>
+                            <form class="p-0 m-0" method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button class="dropdown-item" type="submit">Logout</button>
+                                <button class=" p-1 m-0 my-0 dropdown-item" type="submit">Logout</button>
                             </form>
                         </li>
                     </ul>
@@ -281,6 +287,8 @@
                     </h2>
                     <div class="accordion-collapse collapse" id="collapseProfile" aria-labelledby="headingProfile">
                         <div class="accordion-body">
+                            <button class="btn bg-danger-subtle w-100" wire:click="showChangePassword()">Ganti Password</button>
+                            <div class="dropdown-divider border-0 bg-white p-0 m-0 pt-2"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button class="btn bg-danger-subtle w-100" type="submit">Logout</button>

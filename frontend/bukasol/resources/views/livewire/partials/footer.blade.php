@@ -1,14 +1,14 @@
 @push('styles')
     <style>
         /* .footer {
-                                                                position: relative;
-                                                                bottom: 0;
-                                                                width: 100dvw;
-                                                                padding: 1rem;
-                                                                background-color: #343a40;
-                                                                color: white;
-                                                                text-align: center;
-                                                            } */
+                                                                                            position: relative;
+                                                                                            bottom: 0;
+                                                                                            width: 100dvw;
+                                                                                            padding: 1rem;
+                                                                                            background-color: #343a40;
+                                                                                            color: white;
+                                                                                            text-align: center;
+                                                                                        } */
         .footer {
             flex-shrink: 0;
             height: 0px;
@@ -70,8 +70,8 @@
     </div>
 </footer> --}}
 
-<div class="custom-footer text-light text-center m-0 test {{ Request::is('login') ? 'bg-transparent' : 'bg-white' }}">
-    <div class="container-fluid m-0 w-100">
+<div class="custom-footer text-light text-center m-0 py-2 test {{ Request::is('login') ? 'bg-transparent' : 'bg-white' }}" id="footer">
+    <div class="container-fluid m-0 w-100 h-100">
         @if (Request::is('login'))
             <span class="text-light fw-light">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>
         @elseif ($pageTitle === 'Dashboard Admin')

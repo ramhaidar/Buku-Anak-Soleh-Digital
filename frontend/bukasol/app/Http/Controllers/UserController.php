@@ -52,6 +52,34 @@ class UserController extends Controller
     }
 
     /**
+     * Handle the change password request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changePassword ( Request $request )
+    {
+        // Validate the input
+        $request->validate ( [ 
+            'current_password' => 'required|string',
+            'new_password'     => 'required|string|min:8|confirmed',
+        ] );
+
+        // Check if the current password is correct
+        if ( ! Hash::check ( $request->current_password, Auth::user ()->password ) )
+        {
+            return redirect ()->route ( 'dashboard.index' )->with ( 'error', 'Password Sekarang salah.' );
+        }
+
+        // Update the user's password
+        $user           = Auth::user ();
+        $user->password = Hash::make ( $request->new_password );
+        $user->save ();
+
+        return redirect ( '/dashboard' )->with ( 'success', 'Password Berhasil Diubah.' );
+    }
+
+    /**
      * Log the user out (Invalidate the session).
      *
      * @return \Illuminate\Http\RedirectResponse

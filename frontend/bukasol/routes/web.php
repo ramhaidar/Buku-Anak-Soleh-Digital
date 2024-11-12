@@ -2,10 +2,10 @@
 
 use App\Livewire\Login;
 use App\Livewire\Dashboard;
+use App\Livewire\Admin\TeacherTable;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\CheckUserCookies;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TeacherController;
 
 // Route::get ( '/', function ()
 // {
@@ -65,3 +65,44 @@ Route::get ( '/test', function ()
 {
     return view ( 'test' );
 } );
+
+Route::post (
+    '/teacher/fetchData',
+    [ TeacherTable::class, 'fetchData' ]
+)->name ( 'teacher.fetchData' );
+
+Route::middleware ( 'auth' )->group ( function ()
+{
+    // Store a newly created teacher and user
+    Route::post (
+        '/teachers',
+        [ TeacherController::class, 'store' ]
+    )->name ( 'teachers.store' );
+
+    // Show a specific teacher's details
+    Route::get (
+        '/teachers/{teacher}',
+        [ TeacherController::class, 'show' ]
+    )->name ( 'teachers.show' );
+
+    // Update the specified teacher and user
+    Route::put (
+        '/teachers/{teacher}',
+        [ TeacherController::class, 'update' ]
+    )->name ( 'teachers.update' );
+
+    // Delete the specified teacher and user
+    Route::delete (
+        '/teachers/{teacher}',
+        [ TeacherController::class, 'destroy' ]
+    )->name ( 'teachers.destroy' );
+
+} );
+
+// Route untuk menangani proses ganti password
+Route::post (
+    '/change-password',
+    [ UserController::class, 'changePassword' ]
+)
+    ->middleware ( 'auth' )
+    ->name ( 'change-password' );
