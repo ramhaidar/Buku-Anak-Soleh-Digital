@@ -123,7 +123,7 @@
                         <!-- Siswa Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header " id="headingSiswa">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="switchView('student-table')">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'student-table' })">
                                     Siswa
                                 </a>
                             </h2>
@@ -132,7 +132,7 @@
                         <!-- Guru Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header" id="headingGuru">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="switchView('teacher-table')">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'teacher-table' })">
                                     Guru
                                 </a>
                             </h2>
@@ -287,7 +287,7 @@
                     </h2>
                     <div class="accordion-collapse collapse" id="collapseProfile" aria-labelledby="headingProfile">
                         <div class="accordion-body">
-                            <button class="btn bg-danger-subtle w-100" wire:click="showChangePassword()">Ganti Password</button>
+                            <button class="btn bg-danger-subtle w-100" wire:click="$dispatch('switchView', { view: 'change-password' })">Ganti Password</button>
                             <div class="dropdown-divider border-0 bg-white p-0 m-0 pt-2"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

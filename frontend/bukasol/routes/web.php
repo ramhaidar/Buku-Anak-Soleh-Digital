@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\StudentTable;
 use App\Livewire\Login;
 use App\Livewire\Dashboard;
 use App\Livewire\Admin\TeacherTable;
@@ -70,6 +71,11 @@ Route::post (
     '/teacher/fetchData',
     [ TeacherTable::class, 'fetchData' ]
 )->name ( 'teacher.fetchData' );
+
+Route::post (
+    '/student/fetchData',
+    [ StudentTable::class, 'fetchData' ]
+)->name ( 'student.fetchData' );
 
 Route::middleware ( 'auth' )->group ( function ()
 {

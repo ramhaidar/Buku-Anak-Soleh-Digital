@@ -59,6 +59,7 @@
         </table>
     </div>
 
-    <div x-data x-init="$wire.dispatch('viewSwitched')"></div>
+    {{-- <div x-data x-init="$wire.dispatch('viewSwitched')"></div> --}}
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'teacher-table' })"></div>
 
 </div>

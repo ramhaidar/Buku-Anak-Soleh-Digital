@@ -19,7 +19,7 @@
         @elseif ($view === 'student-table')
             @livewire('admin.student-table')
         @elseif ($view === 'change-password')
-            @livewire('admin.change-password')
+            @livewire('change-password')
         @endif
     </div>
 </div>
@@ -31,7 +31,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function initializeDataTable() {
+            // Inisialisasi DataTable untuk Teacher
+            function initializeTeacherTable() {
                 if ($.fn.DataTable.isDataTable('#teacherTable')) {
                     $('#teacherTable').DataTable().destroy();
                 }
@@ -77,9 +78,64 @@
                 });
             }
 
-            // Initialize DataTable on viewSwitched
-            window.addEventListener('viewSwitched', () => {
-                initializeDataTable();
+            // Inisialisasi DataTable untuk Student
+            function initializeStudentTable() {
+                if ($.fn.DataTable.isDataTable('#studentTable')) {
+                    $('#studentTable').DataTable().destroy();
+                }
+
+                $('#studentTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    paging: true,
+                    ajax: {
+                        url: '{{ route('student.fetchData') }}',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    },
+                    columns: [{
+                            data: 'nisn',
+                            name: 'nisn'
+                        },
+                        {
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'class_name',
+                            name: 'class_name'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        }
+                    ],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            // Event Listener untuk perubahan view
+            window.addEventListener('viewSwitched', (event) => {
+                const view = event.detail.view;
+
+                if (view === 'teacher-table') {
+                    console.log('Switched to teacher table');
+                    initializeTeacherTable();
+                } else if (view === 'student-table') {
+                    console.log('Switched to student table');
+                    initializeStudentTable();
+                }
             });
         });
     </script>
