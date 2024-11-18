@@ -35,7 +35,7 @@
                     <i class="fa-solid fa-file-contract me-1"></i>
                     <span class="d-none d-md-inline">Export Akun</span>
                 </button>
-                <button class="btn btn-outline-dark rounded-3" wire:click="$dispatch('switchView', { view: 'add-student' })">
+                <button class="btn btn-outline-dark rounded-3" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                     <i class="fa-solid fa-plus me-1"></i>
                     <span class="d-none d-md-inline">Tambah Siswa</span>
                 </button>
@@ -62,4 +62,5 @@
     {{-- <div x-data x-init="$wire.dispatch('viewSwitched')"></div> --}}
     <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student-table' })"></div>
 
+    @include('livewire.admin.partials.modal-add-student')
 </div>
