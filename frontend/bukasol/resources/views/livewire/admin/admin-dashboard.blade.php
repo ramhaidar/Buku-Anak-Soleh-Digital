@@ -18,6 +18,10 @@
             @livewire('admin.teacher-table')
         @elseif ($view === 'student-table')
             @livewire('admin.student-table')
+        @elseif ($view === 'add-student')
+            @livewire('admin.add-student')
+        @elseif ($view === 'add-teacher')
+            @livewire('admin.add-teacher')
         @elseif ($view === 'change-password')
             @livewire('change-password')
         @endif

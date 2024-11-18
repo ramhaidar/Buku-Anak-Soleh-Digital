@@ -35,9 +35,9 @@
                     <i class="fa-solid fa-file-contract me-1"></i>
                     <span class="d-none d-md-inline">Export Akun</span>
                 </button>
-                <button class="btn btn-outline-dark rounded-3">
+                <button class="btn btn-outline-dark rounded-3" wire:click="$dispatch('switchView', { view: 'add-teacher' })">
                     <i class="fa-solid fa-plus me-1"></i>
-                    <span class="d-none d-md-inline">Tambah Siswa</span>
+                    <span class="d-none d-md-inline">Tambah Guru</span>
                 </button>
             </div>
         </div>
