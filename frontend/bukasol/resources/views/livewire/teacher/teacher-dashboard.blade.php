@@ -40,6 +40,34 @@
             @livewire('teacher.laporan-bacaan-juz30')
         @elseif ($view === 'teacher.laporan-bacaan-juz30-detail')
             @livewire('teacher.laporan-bacaan-juz30-detail')
+        @elseif ($view === 'teacher.nilai-uji-bacaan-siswa')
+            @livewire('teacher.nilai-uji-bacaan-siswa')
+        @elseif ($view === 'teacher.nilai-uji-bacaan-siswa-detail')
+            @livewire('teacher.nilai-uji-bacaan-siswa-detail')
+        @elseif ($view === 'teacher.add-nilai-uji-bacaan-siswa')
+            @livewire('teacher.add-nilai-uji-bacaan-siswa')
+        @elseif ($view === 'teacher.edit-nilai-uji-bacaan-siswa')
+            @livewire('teacher.edit-nilai-uji-bacaan-siswa')
+        @elseif ($view === 'teacher.nilai-uji-gerakan-siswa')
+            @livewire('teacher.nilai-uji-gerakan-siswa')
+        @elseif ($view === 'teacher.nilai-uji-gerakan-siswa-detail')
+            @livewire('teacher.nilai-uji-gerakan-siswa-detail')
+        @elseif ($view === 'teacher.add-nilai-uji-gerakan-siswa')
+            @livewire('teacher.add-nilai-uji-gerakan-siswa')
+        @elseif ($view === 'teacher.edit-nilai-uji-gerakan-siswa')
+            @livewire('teacher.edit-nilai-uji-gerakan-siswa')
+        @elseif ($view === 'teacher.catatan-harian-siswa')
+            @livewire('teacher.catatan-harian-siswa')
+        @elseif ($view === 'teacher.catatan-harian-siswa-detail')
+            @livewire('teacher.catatan-harian-siswa-detail')
+        @elseif ($view === 'teacher.catatan-harian-siswa-detail-detail')
+            @livewire('teacher.catatan-harian-siswa-detail-detail')
+        @elseif ($view === 'teacher.answer-catatan-harian-siswa')
+            @livewire('teacher.answer-catatan-harian-siswa')
+        @elseif ($view === 'teacher.aktivitas-membaca-siswa')
+            @livewire('teacher.aktivitas-membaca-siswa')
+        @elseif ($view === 'teacher.aktivitas-membaca-siswa-detail')
+            @livewire('teacher.aktivitas-membaca-siswa-detail')
         @elseif ($view === 'change-password')
             @livewire('change-password')
         @endif
@@ -173,6 +201,166 @@
                 });
             }
 
+            function initializeNilaiUjiBacaanSiswa() {
+                if ($.fn.DataTable.isDataTable('#nilaiUjiBacaanSiswaTable')) {
+                    $('#nilaiUjiBacaanSiswaTable').DataTable().destroy();
+                }
+
+                $('#nilaiUjiBacaanSiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeNilaiUjiBacaanSiswaDetail() {
+                if ($.fn.DataTable.isDataTable('#nilaiUjiBacaanSiswaDetailTable')) {
+                    $('#nilaiUjiBacaanSiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#nilaiUjiBacaanSiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeNilaiUjiGerakanSiswa() {
+                if ($.fn.DataTable.isDataTable('#nilaiUjiGerakanSiswaTable')) {
+                    $('#nilaiUjiGerakanSiswaTable').DataTable().destroy();
+                }
+
+                $('#nilaiUjiGerakanSiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeNilaiUjiGerakanSiswaDetail() {
+                if ($.fn.DataTable.isDataTable('#nilaiUjigerakanSiswaDetailTable')) {
+                    $('#nilaiUjigerakanSiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#nilaiUjigerakanSiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeCatatanHarianSiswa() {
+                if ($.fn.DataTable.isDataTable('#catatanHarianSiswaTable')) {
+                    $('#catatanHarianSiswaTable').DataTable().destroy();
+                }
+
+                $('#catatanHarianSiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeCatatanHarianSiswaDetail() {
+                if ($.fn.DataTable.isDataTable('#catatanHarianSiswaDetailTable')) {
+                    $('#catatanHarianSiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#catatanHarianSiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeAktivitasMembacaSiswa() {
+                if ($.fn.DataTable.isDataTable('#aktivitasMembacaSiswaTable')) {
+                    $('#aktivitasMembacaSiswaTable').DataTable().destroy();
+                }
+
+                $('#aktivitasMembacaSiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeAktivitasMembacaSiswaDetail() {
+                if ($.fn.DataTable.isDataTable('#aktivitasMembacaSiswaDetailTable')) {
+                    $('#aktivitasMembacaSiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#aktivitasMembacaSiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
             // Event Listener untuk perubahan view
             window.addEventListener('viewSwitched', (event) => {
                 const view = event.detail.view;
@@ -207,6 +395,30 @@
                 } else if (view === 'teacher.laporan-bacaan-juz30-detail') {
                     console.log('Switched to laporan bacaan juz 30 detail');
                     initializeLaporanBacaanJuz30Detail();
+                } else if (view === 'teacher.nilai-uji-bacaan-siswa') {
+                    console.log('Switched to nilai uji bacaan siswa');
+                    initializeNilaiUjiBacaanSiswa();
+                } else if (view === 'teacher.nilai-uji-bacaan-siswa-detail') {
+                    console.log('Switched to nilai uji bacaan siswa detail');
+                    initializeNilaiUjiBacaanSiswaDetail();
+                } else if (view === 'teacher.nilai-uji-gerakan-siswa') {
+                    console.log('Switched to nilai uji gerakan siswa');
+                    initializeNilaiUjiGerakanSiswa();
+                } else if (view === 'teacher.nilai-uji-gerakan-siswa-detail') {
+                    console.log('Switched to nilai uji gerakan siswa detail');
+                    initializeNilaiUjiGerakanSiswaDetail();
+                } else if (view === 'teacher.catatan-harian-siswa') {
+                    console.log('Switched to catatan harian siswa');
+                    initializeCatatanHarianSiswa();
+                } else if (view === 'teacher.catatan-harian-siswa-detail') {
+                    console.log('Switched to catatan harian siswa detail');
+                    initializeCatatanHarianSiswaDetail();
+                } else if (view === 'teacher.aktivitas-membaca-siswa') {
+                    console.log('Switched to aktivitas membaca siswa');
+                    initializeAktivitasMembacaSiswa();
+                } else if (view === 'teacher.aktivitas-membaca-siswa-detail') {
+                    console.log('Switched to aktivitas membaca siswa detail');
+                    initializeAktivitasMembacaSiswaDetail();
                 }
             });
         });

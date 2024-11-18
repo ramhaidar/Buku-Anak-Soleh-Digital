@@ -163,8 +163,8 @@
                             Nilai
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="nilaiDropdown">
-                            <li><a class="dropdown-item" href="#">Nilai Uji Gerakan Siswa</a></li>
-                            <li><a class="dropdown-item" href="#">Nilai Uji Bacaan Siswa</a></li>
+                            <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.nilai-uji-gerakan-siswa' })">Nilai Uji Gerakan Siswa</button></li>
+                            <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.nilai-uji-bacaan-siswa' })">Nilai Uji Bacaan Siswa</button></li>
                         </ul>
                     </li>
 
@@ -173,8 +173,8 @@
                             Aktivitas
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="aktivitasDropdown">
-                            <li><a class="dropdown-item" href="#">Catatan Harian Siswa</a></li>
-                            <li><a class="dropdown-item" href="#">Aktivitas Membaca Siswa</a></li>
+                            <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.catatan-harian-siswa' })">Catatan Harian Siswa</button></li>
+                            <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.aktivitas-membaca-siswa' })">Aktivitas Membaca Siswa</button></li>
                         </ul>
                     </li>
 
