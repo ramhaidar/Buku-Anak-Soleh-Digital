@@ -1,11 +1,12 @@
 <?php
 
-use App\Livewire\Admin\StudentTable;
 use App\Livewire\Login;
 use App\Livewire\Dashboard;
+use App\Livewire\Admin\StudentTable;
 use App\Livewire\Admin\TeacherTable;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 
 // Route::get ( '/', function ()
@@ -67,43 +68,71 @@ Route::get ( '/test', function ()
     return view ( 'test' );
 } );
 
-Route::post (
-    '/teacher/fetchData',
-    [ TeacherTable::class, 'fetchData' ]
-)->name ( 'teacher.fetchData' );
+// Rute untuk Pagination Tabel
+Route::middleware ( 'auth' )
+    ->group ( function ()
+    {
+        Route::post (
+            '/teacher/fetchData',
+            [ TeacherTable::class, 'fetchData' ]
+        )->name ( 'teacher.fetchData' );
 
-Route::post (
-    '/student/fetchData',
-    [ StudentTable::class, 'fetchData' ]
-)->name ( 'student.fetchData' );
+        Route::post (
+            '/student/fetchData',
+            [ StudentTable::class, 'fetchData' ]
+        )->name ( 'student.fetchData' );
+    } );
 
-Route::middleware ( 'auth' )->group ( function ()
-{
-    // Store a newly created teacher and user
-    Route::post (
-        '/teachers',
-        [ TeacherController::class, 'store' ]
-    )->name ( 'teachers.store' );
+// Rute untuk menangani proses CRUD data Guru
+Route::middleware ( 'auth' )
+    ->group ( function ()
+    {
+        Route::post (
+            '/teachers',
+            [ TeacherController::class, 'store' ]
+        )->name ( 'teachers.store' );
 
-    // Show a specific teacher's details
-    Route::get (
-        '/teachers/{teacher}',
-        [ TeacherController::class, 'show' ]
-    )->name ( 'teachers.show' );
+        Route::get (
+            '/teachers/{teacher}',
+            [ TeacherController::class, 'show' ]
+        )->name ( 'teachers.show' );
 
-    // Update the specified teacher and user
-    Route::put (
-        '/teachers/{teacher}',
-        [ TeacherController::class, 'update' ]
-    )->name ( 'teachers.update' );
+        Route::put (
+            '/teachers/{teacher}',
+            [ TeacherController::class, 'update' ]
+        )->name ( 'teachers.update' );
 
-    // Delete the specified teacher and user
-    Route::delete (
-        '/teachers/{teacher}',
-        [ TeacherController::class, 'destroy' ]
-    )->name ( 'teachers.destroy' );
+        Route::delete (
+            '/teachers/{teacher}',
+            [ TeacherController::class, 'destroy' ]
+        )->name ( 'teachers.destroy' );
 
-} );
+    } );
+
+// Rute untuk menangani proses CRUD data Siswa
+Route::middleware ( 'auth' )
+    ->group ( function ()
+    {
+        Route::post (
+            '/students',
+            [ StudentController::class, 'store' ]
+        )->name ( 'students.store' );
+
+        Route::get (
+            '/students/{student}',
+            [ StudentController::class, 'show' ]
+        )->name ( 'students.show' );
+
+        Route::put (
+            '/students/{student}',
+            [ StudentController::class, 'update' ]
+        )->name ( 'students.update' );
+
+        Route::delete (
+            '/students/{student}',
+            [ StudentController::class, 'destroy' ]
+        )->name ( 'students.destroy' );
+    } );
 
 // Route untuk menangani proses ganti password
 Route::post (

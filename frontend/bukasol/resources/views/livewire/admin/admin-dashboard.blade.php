@@ -25,6 +25,12 @@
         @elseif ($view === 'change-password')
             @livewire('change-password')
         @endif
+
+        @include('livewire.admin.partials.teacher-table-details')
+        @include('livewire.admin.partials.teacher-table-delete')
+
+        @include('livewire.admin.partials.student-table-details')
+        @include('livewire.admin.partials.student-table-delete')
     </div>
 </div>
 

@@ -51,29 +51,29 @@
             .then(data => {
                 // Populate modal content with teacher details in the specified design
                 const content = `
-                    <div class="teacher-detail">
-                        <div class="field">
-                            <label>NIP</label>
-                            <p>${data.nip}</p>
-                        </div>
-                        <div class="field">
-                            <label>Nama</label>
-                            <p>${data.user.name}</p>
-                        </div>
-                        <div class="field">
-                            <label>Kelas</label>
-                            <p>${data.class_name}</p>
-                        </div>
-                        <div class="field">
-                            <label>Username</label>
-                            <p>${data.user.username}</p>
-                        </div>
-                        <div class="field">
-                            <label>Password</label>
-                            <p>${data.user.password ?? '*******'}</p>
-                        </div>
-                    </div>
-                `;
+<div class="teacher-detail">
+<div class="field">
+<label>NIP</label>
+<p>${data.nip}</p>
+</div>
+<div class="field">
+<label>Nama</label>
+<p>${data.user.name}</p>
+</div>
+<div class="field">
+<label>Kelas</label>
+<p>${data.class_name}</p>
+</div>
+<div class="field">
+<label>Username</label>
+<p>${data.user.username}</p>
+</div>
+<div class="field">
+<label>Password</label>
+<p>${data.user.password ?? '*******'}</p>
+</div>
+</div>
+`;
                 document.getElementById('teacherDetailContent').innerHTML = content;
 
                 // Show the modal

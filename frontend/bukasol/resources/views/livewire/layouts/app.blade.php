@@ -70,9 +70,6 @@
         </div>
     </div>
 
-    @include('livewire.admin.partials.teacher-table-details')
-    @include('livewire.admin.partials.teacher-table-delete')
-
     <!-- Scripts -->
 
     <!-- LiveWire Scripts -->

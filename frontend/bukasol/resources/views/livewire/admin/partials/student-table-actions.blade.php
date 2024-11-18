@@ -1,15 +1,15 @@
 <style>
-    .teacher-detail .field {
+    .student-detail .field {
         margin-bottom: 1rem;
     }
 
-    .teacher-detail .field label {
+    .student-detail .field label {
         display: block;
         font-weight: bold;
         margin-bottom: 0.25rem;
     }
 
-    .teacher-detail .field p {
+    .student-detail .field p {
         background-color: black;
         color: white;
         padding: 0.5rem;
@@ -29,7 +29,7 @@
 <div class="container-fluid w-100">
     <div class="d-flex justify-content-center w-100">
         <!-- Detail Button to Trigger Detail Modal -->
-        <button class="btn btn-sm btn-primary py-2 me-2" onclick="showTeacherDetailModal({{ $student->id }})">
+        <button class="btn btn-sm btn-primary py-2 me-2" onclick="showStudentDetailModal({{ $student->id }})">
             <i class="fa fa-eye"></i>
         </button>
 
@@ -41,48 +41,64 @@
 </div>
 
 <script>
-    function showTeacherDetailModal(teacherId) {
+    function showStudentDetailModal(studentId) {
         // Show loading message while fetching data
-        document.getElementById('teacherDetailContent').innerHTML = '<p>Loading...</p>';
+        document.getElementById('studentDetailContent').innerHTML = '<p>Loading...</p>';
 
-        // Fetch teacher details via AJAX
-        fetch(`/teachers/${teacherId}`)
+        // Fetch student details via AJAX
+        fetch(`/students/${studentId}`)
             .then(response => response.json())
             .then(data => {
-                // Populate modal content with teacher details in the specified design
+                // Populate modal content with student details in the specified design
                 const content = `
-                    <div class="teacher-detail">
-                        <div class="field">
-                            <label>NIP</label>
-                            <p>${data.nip}</p>
-                        </div>
-                        <div class="field">
-                            <label>Nama</label>
-                            <p>${data.user.name}</p>
-                        </div>
-                        <div class="field">
-                            <label>Kelas</label>
-                            <p>${data.class_name}</p>
-                        </div>
-                        <div class="field">
-                            <label>Username</label>
-                            <p>${data.user.username}</p>
-                        </div>
-                        <div class="field">
-                            <label>Password</label>
-                            <p>${data.user.password ?? '*******'}</p>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('teacherDetailContent').innerHTML = content;
+<div class="student-detail">
+<div class="field">
+<label>NISN</label>
+<p>${data.nisn}</p>
+</div>
+<div class="field">
+<label>Nama</label>
+<p>${data.user.name}</p>
+</div>
+<div class="field">
+<label>Kelas</label>
+<p>${data.class_name}</p>
+</div>
+<div class="field">
+<label>Username</label>
+<p>${data.user.username}</p>
+</div>
+<div class="field">
+<label>Password</label>
+<p>${data.user.password ?? '*******'}</p>
+</div>
+<div class="field">
+<label>Nama Orang Tua</label>
+<p>${data.parent_name}</p>
+</div>
+<div class="field">
+<label>Kode Orang Tua</label>
+<p>${data.parent_code}</p>
+</div>
+<div class="field">
+<label>NIP Wali Kelas</label>
+<p>${data.teacher.nip}</p>
+</div>
+<div class="field">
+<label>Nama Wali Kelas</label>
+<p>${data.teacher.user.name}</p>
+</div>
+</div>
+`;
+                document.getElementById('studentDetailContent').innerHTML = content;
 
                 // Show the modal
-                const teacherDetailModal = new bootstrap.Modal(document.getElementById('teacherDetailModal'));
-                teacherDetailModal.show();
+                const studentDetailModal = new bootstrap.Modal(document.getElementById('studentDetailModal'));
+                studentDetailModal.show();
             })
             .catch(error => {
-                console.error('Error fetching teacher details:', error);
-                document.getElementById('teacherDetailContent').innerHTML = '<p>Error loading data. Please try again later.</p>';
+                console.error('Error fetching student details:', error);
+                document.getElementById('studentDetailContent').innerHTML = '<p>Error loading data. Please try again later.</p>';
             });
     }
 </script>

@@ -1,41 +1,41 @@
 <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteTeacherConfirmationModal" aria-labelledby="deleteTeacherConfirmationModalLabel" aria-hidden="true" tabindex="-1">
+<div class="modal fade" id="deleteStudentConfirmationModal" aria-labelledby="deleteStudentConfirmationModalLabel" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteTeacherConfirmationModalLabel">Konfirmasi Hapus Data</h5>
+                <h5 class="modal-title" id="deleteStudentConfirmationModalLabel">Konfirmasi Hapus Data</h5>
                 <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="p-0 m-0">Apakah Anda yakin ingin menghapus data guru ini?</p>
+                <p class="p-0 m-0">Apakah Anda yakin ingin menghapus data siswa ini?</p>
                 <p class="p-0 m-0">Peringatan: Aksi ini tidak dapat dibatalkan!</p>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</button>
-                <button class="btn btn-danger" type="button" onclick="confirmDelete(deleteTeacherId, '#teacherTable')">Hapus</button>
+                <button class="btn btn-danger" type="button" onclick="confirmDelete(deleteStudentId, '#studentTable')">Hapus</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    var deleteTeacherId;
+    var deleteStudentId;
 
-    // Function to show delete confirmation modal and store the teacher ID
-    function showDeleteConfirmationModal(teacherId) {
-        deleteTeacherId = teacherId;
-        const deleteTeacherConfirmationModal = new bootstrap.Modal(document.getElementById('deleteTeacherConfirmationModal'));
-        deleteTeacherConfirmationModal.show();
+    // Function to show delete confirmation modal and store the student ID
+    function showDeleteConfirmationModal(studentId) {
+        deleteStudentId = studentId;
+        const deleteStudentConfirmationModal = new bootstrap.Modal(document.getElementById('deleteStudentConfirmationModal'));
+        deleteStudentConfirmationModal.show();
     }
 
     // Function to handle delete confirmation with AJAX
-    function confirmDelete(deleteTeacherId, tableId) {
-        const deleteUrl = `{{ route('teachers.destroy', ':id') }}`.replace(':id', deleteTeacherId);
+    function confirmDelete(deleteStudentId, tableId) {
+        const deleteUrl = `{{ route('students.destroy', ':id') }}`.replace(':id', deleteStudentId);
 
         // Close the delete confirmation modal
-        const deleteTeacherConfirmationModalEl = document.getElementById('deleteTeacherConfirmationModal');
-        const deleteTeacherConfirmationModal = bootstrap.Modal.getInstance(deleteTeacherConfirmationModalEl) || new bootstrap.Modal(deleteTeacherConfirmationModalEl);
-        deleteTeacherConfirmationModal.hide();
+        const deleteStudentConfirmationModalEl = document.getElementById('deleteStudentConfirmationModal');
+        const deleteStudentConfirmationModal = bootstrap.Modal.getInstance(deleteStudentConfirmationModalEl) || new bootstrap.Modal(deleteStudentConfirmationModalEl);
+        deleteStudentConfirmationModal.hide();
 
         // Perform the delete request with AJAX
         fetch(deleteUrl, {
