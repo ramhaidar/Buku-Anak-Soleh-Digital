@@ -108,12 +108,12 @@
                 @if (isset($role) && $role == 'Admin')
                     <!-- Admin Navbar for Desktop View -->
                     <li class="nav-item px-2 mb-2" id="FirstItem">
-                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'student-table' })">
+                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'admin.student-table' })">
                             Siswa
                         </a>
                     </li>
                     <li class="nav-item px-2 mb-2">
-                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'teacher-table' })">
+                        <a class="btn btn-secondary navigation-button" wire:click="$dispatch('switchView', { view: 'admin.teacher-table' })">
                             Guru
                         </a>
                     </li>
@@ -123,7 +123,7 @@
                         <!-- Siswa Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header " id="headingSiswa">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'student-table' })">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-2 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'admin.student-table' })">
                                     Siswa
                                 </a>
                             </h2>
@@ -132,7 +132,7 @@
                         <!-- Guru Section -->
                         <div class="accordion-item border-0">
                             <h2 class="accordion-header" id="headingGuru">
-                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'teacher-table' })">
+                                <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-1 my-1 fs-6 bg-success-subtle" data-bs-toggle="collapse" data-bs-target="#collapseSiswa" type="button" aria-expanded="false" aria-controls="collapseSiswa" wire:click="$dispatch('switchView', { view: 'admin.teacher-table' })">
                                     Guru
                                 </a>
                             </h2>

@@ -14,13 +14,13 @@
 
 <div class="d-flex flex-grow-1 align-content-center justify-content-center">
     <div class="flex-grow-1 align-content-center justify-content-center p-0 m-0 px-4 pb-3">
-        @if ($view === 'teacher-table')
+        @if ($view === 'admin.teacher-table')
             @livewire('admin.teacher-table')
-        @elseif ($view === 'student-table')
+        @elseif ($view === 'admin.student-table')
             @livewire('admin.student-table')
-        @elseif ($view === 'add-student')
+        @elseif ($view === 'admin.add-student')
             @livewire('admin.add-student')
-        @elseif ($view === 'add-teacher')
+        @elseif ($view === 'admin.add-teacher')
             @livewire('admin.add-teacher')
         @elseif ($view === 'change-password')
             @livewire('change-password')
@@ -133,10 +133,10 @@
             window.addEventListener('viewSwitched', (event) => {
                 const view = event.detail.view;
 
-                if (view === 'teacher-table') {
+                if (view === 'admin.teacher-table') {
                     console.log('Switched to teacher table');
                     initializeTeacherTable();
-                } else if (view === 'student-table') {
+                } else if (view === 'admin.student-table') {
                     console.log('Switched to student table');
                     initializeStudentTable();
                 }

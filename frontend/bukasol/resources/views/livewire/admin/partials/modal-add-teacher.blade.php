@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <div class="d-flex justify-content-around">
                     <button class="btn btn-outline-primary" data-bs-dismiss="modal" type="button">Import Excel</button>
-                    <button class="btn btn-outline-success" data-bs-dismiss="modal" type="button" wire:click="$dispatch('switchView', { view: 'add-teacher' })">Tambah Manual</button>
+                    <button class="btn btn-outline-success" data-bs-dismiss="modal" type="button" wire:click="$dispatch('switchView', { view: 'admin.add-teacher' })">Tambah Manual</button>
                 </div>
             </div>
         </div>

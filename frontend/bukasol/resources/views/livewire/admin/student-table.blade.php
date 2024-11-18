@@ -60,7 +60,7 @@
     </div>
 
     {{-- <div x-data x-init="$wire.dispatch('viewSwitched')"></div> --}}
-    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student-table' })"></div>
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'admin.student-table' })"></div>
 
     @include('livewire.admin.partials.modal-add-student')
 </div>
