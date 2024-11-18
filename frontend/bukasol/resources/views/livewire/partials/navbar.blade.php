@@ -146,13 +146,13 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="laporanDropdown">
                             <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.laporan-muhasabah-harian' })">Laporan Muhasabah Siswa</button></li>
-                            <li><a class="dropdown-item" href="#">Laporan Pelanggaran Siswa</a></li>
+                            <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.laporan-pelanggaran-siswa' })">Laporan Pelanggaran Siswa</button></li>
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item submenu-toggle" href="#">Laporan Bacaan Juz &raquo;</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Laporan Bacaan Juz 1 Siswa</a></li>
-                                    <li><a class="dropdown-item" href="#">Laporan Bacaan Juz 29 Siswa</a></li>
-                                    <li><a class="dropdown-item" href="#">Laporan Bacaan Juz 30 Siswa</a></li>
+                                    <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.laporan-bacaan-juz01' })">Laporan Bacaan Juz 1 Siswa</button></li>
+                                    <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.laporan-bacaan-juz29' })">Laporan Bacaan Juz 29 Siswa</button></li>
+                                    <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.laporan-bacaan-juz30' })">Laporan Bacaan Juz 30 Siswa</button></li>
                                 </ul>
                             </li>
                         </ul>

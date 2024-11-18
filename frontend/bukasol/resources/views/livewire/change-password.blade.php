@@ -1,7 +1,9 @@
 <div class="p-0 m-0">
-    <div class="d-flex justify-content-start align-items-start align-content-start">
+    <div class="text-center p-0 m-0">
+        <h2 class="text-center mb-4">Ganti Password Akun</h2>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
         <div class="p-4 rounded w-50">
-            <h3 class="text-start mb-4">Ganti Password Admin</h3>
             <form action="{{ route('change-password') }}" method="POST">
                 @csrf
 

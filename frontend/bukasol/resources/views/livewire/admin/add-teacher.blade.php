@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between pt-3">
-                    <button class="btn btn-secondary mx-1 w-50 rounded-5" type="button">Batal</button>
+                    <button class="btn btn-secondary mx-1 w-50 rounded-5" type="reset">Reset</button>
                     <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
                 </div>
             </form>
