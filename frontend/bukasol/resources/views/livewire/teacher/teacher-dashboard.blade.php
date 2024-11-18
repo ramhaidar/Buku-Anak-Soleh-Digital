@@ -14,12 +14,12 @@
 
 <div class="d-flex flex-grow-1 align-content-center justify-content-center">
     <div class="flex-grow-1 align-content-center justify-content-center p-0 m-0 px-4 pb-3">
-        @if ($view === 'laporan-muhasabah-siswa')
-            @livewire('teacher.laporan-muhasabah-siswa')
-        @elseif ($view === 'student-table')
-            @livewire('teacher.student-table')
-        @elseif ($view === 'admin.add-student')
-            @livewire('teacher.add-student')
+        @if ($view === 'teacher.laporan-muhasabah-harian')
+            @livewire('teacher.laporan-muhasabah-harian')
+        @elseif ($view === 'teacher.laporan-muhasabah-harian-siswa')
+            @livewire('teacher.laporan-muhasabah-harian-siswa')
+        @elseif ($view === 'teacher.laporan-muhasabah-harian-siswa-detail')
+            @livewire('teacher.laporan-muhasabah-harian-siswa-detail')
         @elseif ($view === 'admin.add-teacher')
             @livewire('teacher.add-teacher')
         @elseif ($view === 'change-password')
@@ -35,42 +35,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi DataTable untuk Teacher
-            function initializeTeacherTable() {
-                if ($.fn.DataTable.isDataTable('#teacherTable')) {
-                    $('#teacherTable').DataTable().destroy();
+            function initializeLaporanMuhasabahHarianTable() {
+                if ($.fn.DataTable.isDataTable('#laporanMuhasabahHarianTable')) {
+                    $('#laporanMuhasabahHarianTable').DataTable().destroy();
                 }
 
-                $('#teacherTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    paging: true,
-                    ajax: {
-                        url: '{{ route('teacher.fetchData') }}',
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    },
-                    columns: [{
-                            data: 'nip',
-                            name: 'nip'
-                        },
-                        {
-                            data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: 'class_name',
-                            name: 'class_name'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        }
-                    ],
+                $('#laporanMuhasabahHarianTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
                     language: {
                         paginate: {
                             first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
@@ -82,42 +55,15 @@
                 });
             }
 
-            // Inisialisasi DataTable untuk Student
-            function initializeStudentTable() {
-                if ($.fn.DataTable.isDataTable('#studentTable')) {
-                    $('#studentTable').DataTable().destroy();
+            function initializeLaporanMuhasabahHarianSiswaTable() {
+                if ($.fn.DataTable.isDataTable('#laporanMuhasabahHarianSiswaTable')) {
+                    $('#laporanMuhasabahHarianSiswaTable').DataTable().destroy();
                 }
 
-                $('#studentTable').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    paging: true,
-                    ajax: {
-                        url: '{{ route('student.fetchData') }}',
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    },
-                    columns: [{
-                            data: 'nisn',
-                            name: 'nisn'
-                        },
-                        {
-                            data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: 'class_name',
-                            name: 'class_name'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        }
-                    ],
+                $('#laporanMuhasabahHarianSiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
                     language: {
                         paginate: {
                             first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
@@ -133,12 +79,12 @@
             window.addEventListener('viewSwitched', (event) => {
                 const view = event.detail.view;
 
-                if (view === 'admin.teacher-table') {
-                    console.log('Switched to teacher table');
-                    initializeTeacherTable();
-                } else if (view === 'student-table') {
-                    console.log('Switched to student table');
-                    initializeStudentTable();
+                if (view === 'teacher.laporan-muhasabah-harian') {
+                    console.log('Switched to laporan muhasabah harian');
+                    initializeLaporanMuhasabahHarianTable();
+                } else if (view === 'teacher.laporan-muhasabah-harian-siswa') {
+                    console.log('Switched to laporan muhasabah harian siswa');
+                    initializeLaporanMuhasabahHarianSiswaTable();
                 }
             });
         });
@@ -148,7 +94,7 @@
         <script>
             // $this->dispatch ( 'message', "View switched to {$view}" );
             $wire.on('viewSwitched', (view) => {
-                console.log('View switched to', view);
+                console.log('Wire: View switched to', view);
             });
         </script>
     @endscript

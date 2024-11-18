@@ -145,7 +145,7 @@
                             Laporan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="laporanDropdown">
-                            <li><button class="dropdown-item" wire:click="$dispatch('switchView', { view: 'teacher.laporan-muhasabah-siswa' })">Laporan Muhasabah Siswa</button></li>
+                            <li><button class="dropdown-item" wire:click="$dispatch('switchView', { view: 'teacher.laporan-muhasabah-harian' })">Laporan Muhasabah Siswa</button></li>
                             <li><a class="dropdown-item" href="#">Laporan Pelanggaran Siswa</a></li>
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item submenu-toggle" href="#">Laporan Bacaan Juz &raquo;</a>

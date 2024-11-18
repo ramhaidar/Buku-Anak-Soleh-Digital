@@ -3,6 +3,7 @@
 namespace App\Livewire\Teacher;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class TeacherDashboard extends Component
 {
