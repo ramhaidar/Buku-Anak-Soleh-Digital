@@ -1,6 +1,6 @@
 <div class="p-0 m-0">
     <div class="text-center p-0 m-0">
-        <h2 class="text-center mb-4">Detail Pelanggaran Siswa Abc</h2>
+        <h2 class="text-center mb-4">Detail Pelanggaran Siswa Abdan Syakuro</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center">
         <div class="p-4 rounded w-50">

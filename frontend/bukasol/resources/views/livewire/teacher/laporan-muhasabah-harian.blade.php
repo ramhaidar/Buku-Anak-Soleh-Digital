@@ -24,6 +24,16 @@
         td:last-child {
             width: 1%;
         }
+
+        .status-sudah {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-belum {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 
     <div class="text-center p-0 m-0 pe-1">

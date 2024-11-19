@@ -19,12 +19,12 @@
                 @livewire('student.laporan-muhasabah-harian')
             @break
 
-            @case('student.laporan-muhasabah-harian-siswa')
-                @livewire('student.laporan-muhasabah-harian-siswa')
+            @case('student.laporan-muhasabah-harian-detail')
+                @livewire('student.laporan-muhasabah-harian-detail')
             @break
 
-            @case('student.laporan-muhasabah-harian-siswa-detail')
-                @livewire('student.laporan-muhasabah-harian-siswa-detail')
+            @case('student.add-laporan-muhasabah-harian')
+                @livewire('student.add-laporan-muhasabah-harian')
             @break
 
             @case('student.laporan-pelanggaran-siswa')
@@ -147,26 +147,6 @@
                 }
 
                 $('#laporanMuhasabahHarianTable').DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [],
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
-                    }
-                });
-            }
-
-            function initializeLaporanMuhasabahHarianSiswaTable() {
-                if ($.fn.DataTable.isDataTable('#laporanMuhasabahHarianSiswaTable')) {
-                    $('#laporanMuhasabahHarianSiswaTable').DataTable().destroy();
-                }
-
-                $('#laporanMuhasabahHarianSiswaTable').DataTable({
                     info: true,
                     ordering: true,
                     order: [],
@@ -428,9 +408,6 @@
                 if (view === 'student.laporan-muhasabah-harian') {
                     console.log('Switched to laporan muhasabah harian');
                     initializeLaporanMuhasabahHarianTable();
-                } else if (view === 'student.laporan-muhasabah-harian-siswa') {
-                    console.log('Switched to laporan muhasabah harian siswa');
-                    initializeLaporanMuhasabahHarianSiswaTable();
                 } else if (view === 'student.laporan-pelanggaran-siswa') {
                     console.log('Switched to laporan pelanggaran siswa');
                     initializeLaporanPelanggaranSiswaTable();
