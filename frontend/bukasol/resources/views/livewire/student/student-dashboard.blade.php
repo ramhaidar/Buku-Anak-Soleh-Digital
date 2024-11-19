@@ -107,8 +107,8 @@
                 @livewire('student.catatan-harian-siswa-detail')
             @break
 
-            @case('student.catatan-harian-siswa-detail-detail')
-                @livewire('student.catatan-harian-siswa-detail-detail')
+            @case('student.add-catatan-harian-siswa')
+                @livewire('student.add-catatan-harian-siswa')
             @break
 
             @case('student.answer-catatan-harian-siswa')
