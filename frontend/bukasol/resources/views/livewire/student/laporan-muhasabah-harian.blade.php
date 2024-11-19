@@ -289,7 +289,7 @@
         </table>
     </div>
 
-    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.laporan-muhasabah-harian-siswa' })"></div>
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.laporan-muhasabah-harian' })"></div>
 
     @include('livewire.student.partials.modal-kode-unik-paraf-orang-tua')
     @include('livewire.student.partials.laporan-muhasabah-harian-delete')

@@ -74,4 +74,6 @@
             </form>
         </div>
     </div>
+
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.add-laporan-muhasabah-harian' })"></div>
 </div>

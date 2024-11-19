@@ -47,8 +47,8 @@
                 @livewire('student.laporan-bacaan-juz01')
             @break
 
-            @case('student.laporan-bacaan-juz01-detail')
-                @livewire('student.laporan-bacaan-juz01-detail')
+            @case('student.add-laporan-bacaan-juz-01')
+                @livewire('student.add-laporan-bacaan-juz-01')
             @break
 
             @case('student.laporan-bacaan-juz29')
@@ -142,11 +142,11 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function initializeLaporanMuhasabahHarianTable() {
-                if ($.fn.DataTable.isDataTable('#laporanMuhasabahHarianTable')) {
-                    $('#laporanMuhasabahHarianTable').DataTable().destroy();
+                if ($.fn.DataTable.isDataTable('#laporanMuhasabahHarianSiswaTable')) {
+                    $('#laporanMuhasabahHarianSiswaTable').DataTable().destroy();
                 }
 
-                $('#laporanMuhasabahHarianTable').DataTable({
+                $('#laporanMuhasabahHarianSiswaTable').DataTable({
                     info: true,
                     ordering: true,
                     order: [],

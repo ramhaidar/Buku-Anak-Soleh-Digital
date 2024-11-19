@@ -40,6 +40,17 @@
         .form-check-input:focus {
             border-color: green !important;
         }
+
+        /* Status color classes */
+        .status-sudah {
+            color: green !important;
+            /* font-weight: bold; */
+        }
+
+        .status-belum {
+            color: red !important;
+            /* font-weight: bold; */
+        }
     </style>
 
     <div class="text-center p-0 m-0">
