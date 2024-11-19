@@ -25,8 +25,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    {{--
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -39,19 +38,6 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* main {
-            flex: 1 0 auto;
-        } */
-        footer {
-            flex-shrink: 0;
-        }
-
-        .footer {
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
 
     <!-- LiveWire Styles -->
@@ -62,7 +48,6 @@
 </head>
 
 <body>
-
     <div class="w-100 h-100" style="display: flex; flex-direction: column;">
 
         <!-- Main Content -->
@@ -70,7 +55,11 @@
             @yield('content')
         </main>
 
-        @livewire('footer')
+        <!-- Footer -->
+        <div class="container-fluid w-100 p-0 m-0 border border-2 border-dark-subtle">
+            @livewire('footer')
+            {{-- <livewire:Footer wire:on="BroadcastCurrentPageTitle" /> --}}
+        </div>
 
     </div>
 

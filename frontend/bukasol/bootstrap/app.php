@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Middleware\Guest;
+use App\Http\Middleware\Authenticated;
 use Illuminate\Foundation\Application;
-use App\Http\Middleware\CheckUserCookies;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -13,7 +14,10 @@ return Application::configure ( basePath: dirname ( __DIR__ ) )
     )
     ->withMiddleware ( function (Middleware $middleware)
     {
-        //
+        $middleware->alias ( [ 
+            'Guest'         => Guest::class,
+            'Authenticated' => Authenticated::class,
+        ] );
     } )
     ->withExceptions ( function (Exceptions $exceptions)
     {
