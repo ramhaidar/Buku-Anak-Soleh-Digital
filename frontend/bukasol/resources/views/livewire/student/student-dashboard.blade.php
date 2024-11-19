@@ -123,6 +123,10 @@
                 @livewire('student.aktivitas-membaca-siswa-detail')
             @break
 
+            @case('student.add-aktivitas-membaca-siswa')
+                @livewire('student.add-aktivitas-membaca-siswa')
+            @break
+
             @case('change-password')
                 @livewire('change-password')
             @break

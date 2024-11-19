@@ -43,7 +43,7 @@
     <div class="text-center p-0 m-0 pe-1">
         <div class="row align-items-center mb-4">
             <div class="col container position-relative">
-                <h2 class="text-center mb-0">Detail Catatan Harian Siswa Abdan Syakuro</h2>
+                <h2 class="text-center mb-0">Catatan Harian Siswa</h2>
             </div>
             <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
                 <button class="btn btn-outline-dark rounded-3 me-2">
@@ -83,7 +83,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -103,7 +103,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -123,7 +123,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -143,7 +143,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -163,7 +163,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -183,7 +183,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -203,7 +203,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -223,7 +223,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -243,7 +243,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -263,7 +263,7 @@
                                 <button class="btn btn-sm btn-primary py-2 me-2" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa-detail' })">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteStudentViolationConfirmationModal">
+                                <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteCatatanHarianSiswaConfirmationModal">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
@@ -275,4 +275,6 @@
     </div>
 
     <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.catatan-harian-siswa' })"></div>
+
+    @include('livewire.student.partials.catatan-harian-siswa-delete')
 </div>
