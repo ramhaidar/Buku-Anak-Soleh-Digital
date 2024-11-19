@@ -1,14 +1,19 @@
 <div class="p-0 m-0">
-
     <style>
-        #nilaiUjiGerakanSiswaTable thead th {
+        #nilaiUjigerakanSiswaDetailTable thead th,
+        #nilaiUjigerakanSiswaDetailTable tbody td {
             text-align: center;
             vertical-align: middle;
         }
 
-        #nilaiUjiGerakanSiswaTable tbody td {
-            text-align: center;
-            vertical-align: middle;
+        th,
+        td {
+            white-space: nowrap;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 1%;
         }
 
         .text-success {
@@ -19,75 +24,39 @@
             color: red;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 34px;
-            height: 20px;
+        /* Ensure the switch is centered both horizontally and vertically */
+        .form-check {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
         }
 
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        /* Customize the slider's active color to green */
+        .form-check-input:checked {
+            background-color: green !important;
         }
 
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked+.slider {
-            background-color: #2196F3;
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(14px);
+        .form-check-input:focus {
+            border-color: green !important;
         }
     </style>
 
-    <div class="text-center p-0 m-0 pe-1">
+    <div class="text-center p-0 m-0">
         <div class="row align-items-center mb-4">
             <div class="col container position-relative">
-                <h2 class="text-center mb-0">Lembar Nilai Uji Gerakan Siswa</h2>
+                <h2 class="text-center mb-0">Detail Nilai Uji Gerakan Siswa Abdan Syakuro</h2>
             </div>
             <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-                <!-- Dropdown Button -->
-                <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle rounded-pill px-4 py-2" id="dropdownMenuButton" data-bs-toggle="dropdown" type="button" aria-expanded="false">
-                        <i class="fa-solid fa-chalkboard-teacher me-2"></i>
-                        <span>5-Dzaid</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">6-Dzaid</a></li>
-                        <li><a class="dropdown-item" href="#">7-Dzaid</a></li>
-                    </ul>
-                </div>
+                <button class="btn btn-outline-dark rounded-3">
+                    <i class="fa-solid fa-file-export me-1"></i>
+                    <span class="d-none d-md-inline">Export Nilai</span>
+                </button>
             </div>
         </div>
     </div>
-
     <div class="text-center table-responsive">
-        <table class="table table-bordered table-striped table-sm" id="nilaiUjiGerakanSiswaTable">
+        <table class="table table-bordered table-striped table-sm" id="nilaiUjigerakanSiswaDetailTable">
             <thead>
                 <tr>
                     <th>Jenis Gerakan</th>
@@ -100,63 +69,120 @@
             <tbody>
                 <tr>
                     <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" disabled><span class="slider"></span></label></td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-sudah">Sudah</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" disabled><span class="slider"></span></label></td>
+                    <td>Tayammum</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-sudah">Sudah</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" disabled><span class="slider"></span></label></td>
+                    <td>Posisi Berdiri Shalat Qiyam</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-sudah">Sudah</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" disabled><span class="slider"></span></label></td>
+                    <td>Takbiratul Irham</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-sudah">Sudah</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" disabled><span class="slider"></span></label></td>
+                    <td>Ruku</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-sudah">Sudah</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label></td>
+                    <td>I’tidal</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-belum">Belum</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-danger">Belum</td>
-                    <td><label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label></td>
+                    <td>Sujud</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-belum">Belum</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Wudhu</td>
-                    <td>0.0</td>
-                    <td>0.0</td>
-                    <td class="text-success">Sudah</td>
-                    <td><label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label></td>
+                    <td>Duduk Antara Dua Sujud (Iftirasy)</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-belum">Belum</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Duduk Tahiyat Akhir (Tawarruk)</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-belum">Belum</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Salam</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td>{{ rand(0, 100) / 10 }}</td>
+                    <td class="status-belum">Belum</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" onclick="showModal(this)">
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.nilai-uji-gerakan-siswa' })"></div>
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.nilai-uji-gerakan-siswa-detail' })"></div>
+
+    @include('livewire.student.partials.modal-kode-unik-paraf-orang-tua')
+
 </div>

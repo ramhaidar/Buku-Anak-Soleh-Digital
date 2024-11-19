@@ -107,4 +107,20 @@
             });
         }
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function showModal(checkbox) {
+                // Check if the checkbox is unchecked
+                if (checkbox.checked) {
+                    // Show the modal if checkbox is not checked
+                    var myModal = new bootstrap.Modal(document.getElementById('kodeUnikModal'));
+                    myModal.show();
+                }
+            }
+
+            // Expose showModal function globally if needed
+            window.showModal = showModal;
+        });
+    </script>
 @endpush
