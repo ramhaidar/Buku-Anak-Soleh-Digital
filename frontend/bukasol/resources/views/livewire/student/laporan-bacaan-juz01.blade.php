@@ -38,6 +38,16 @@
         .form-check-input:focus {
             border-color: green !important;
         }
+
+        td,
+        th {
+            white-space: nowrap;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 1%;
+        }
     </style>
 
     <div class="text-center p-0 m-0 pe-1">
@@ -50,7 +60,7 @@
                     <i class="fa-solid fa-file-contract me-1"></i>
                     <span class="d-none d-md-inline">Export Bacaan Juz 1</span>
                 </button>
-                <button class="btn btn-outline-dark rounded-3" onclick="Livewire.dispatch('switchView', { view: 'student.add-laporan-bacaan-juz-01' })">
+                <button class="btn btn-outline-dark rounded-3" onclick="Livewire.dispatch('switchView', { view: 'student.add-laporan-bacaan-juz01' })">
                     <i class="fa-solid fa-plus me-1"></i>
                     <span class="d-none d-md-inline">Tambah Laporan</span>
                 </button>
@@ -264,7 +274,7 @@
         </table>
     </div>
 
-    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.laporan-bacaan-juz01-detail' })"></div>
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'student.laporan-bacaan-juz01' })"></div>
 
     @include('livewire.student.partials.laporan-bacaan-juz01-delete')
     @include('livewire.student.partials.modal-kode-unik-paraf-orang-tua')

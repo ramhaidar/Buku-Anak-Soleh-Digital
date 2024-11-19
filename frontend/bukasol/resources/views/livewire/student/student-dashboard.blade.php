@@ -47,24 +47,24 @@
                 @livewire('student.laporan-bacaan-juz01')
             @break
 
-            @case('student.add-laporan-bacaan-juz-01')
+            @case('student.add-laporan-bacaan-juz01')
                 @livewire('student.add-laporan-bacaan-juz-01')
             @break
 
             @case('student.laporan-bacaan-juz29')
-                @livewire('student.laporan-bacaan-juz29')
+                @livewire('student.laporan-bacaan-juz-29')
             @break
 
-            @case('student.laporan-bacaan-juz29-detail')
-                @livewire('student.laporan-bacaan-juz29-detail')
+            @case('student.add-laporan-bacaan-juz29')
+                @livewire('student.add-laporan-bacaan-juz-29')
             @break
 
             @case('student.laporan-bacaan-juz30')
-                @livewire('student.laporan-bacaan-juz30')
+                @livewire('student.laporan-bacaan-juz-30')
             @break
 
-            @case('student.laporan-bacaan-juz30-detail')
-                @livewire('student.laporan-bacaan-juz30-detail')
+            @case('student.add-laporan-bacaan-juz30')
+                @livewire('student.add-laporan-bacaan-juz-30')
             @break
 
             @case('student.nilai-uji-bacaan-siswa')
@@ -221,12 +221,32 @@
                 });
             }
 
-            function initializeLaporanBacaanJuz01Detail() {
-                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz01SiswaDetailTable')) {
-                    $('#laporanBacaanJuz01SiswaDetailTable').DataTable().destroy();
+            function initializeLaporanBacaanJuz29() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz29SiswaTable')) {
+                    $('#laporanBacaanJuz29SiswaTable').DataTable().destroy();
                 }
 
-                $('#laporanBacaanJuz01SiswaDetailTable').DataTable({
+                $('#laporanBacaanJuz29SiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeLaporanBacaanJuz30() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz30SiswaTable')) {
+                    $('#laporanBacaanJuz30SiswaTable').DataTable().destroy();
+                }
+
+                $('#laporanBacaanJuz30SiswaTable').DataTable({
                     info: true,
                     ordering: true,
                     order: [],
@@ -417,21 +437,12 @@
                 } else if (view === 'student.laporan-bacaan-juz01') {
                     console.log('Switched to laporan bacaan juz 01');
                     initializeLaporanBacaanJuz01();
-                } else if (view === 'student.laporan-bacaan-juz01-detail') {
-                    console.log('Switched to laporan bacaan juz 01 detail');
-                    initializeLaporanBacaanJuz01Detail();
                 } else if (view === 'student.laporan-bacaan-juz29') {
                     console.log('Switched to laporan bacaan juz 29');
                     initializeLaporanBacaanJuz29();
-                } else if (view === 'student.laporan-bacaan-juz29-detail') {
-                    console.log('Switched to laporan bacaan juz 29 detail');
-                    initializeLaporanBacaanJuz29Detail();
                 } else if (view === 'student.laporan-bacaan-juz30') {
                     console.log('Switched to laporan bacaan juz 30');
                     initializeLaporanBacaanJuz30();
-                } else if (view === 'student.laporan-bacaan-juz30-detail') {
-                    console.log('Switched to laporan bacaan juz 30 detail');
-                    initializeLaporanBacaanJuz30Detail();
                 } else if (view === 'student.nilai-uji-bacaan-siswa') {
                     console.log('Switched to nilai uji bacaan siswa');
                     initializeNilaiUjiBacaanSiswa();

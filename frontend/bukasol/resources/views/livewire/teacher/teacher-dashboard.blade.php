@@ -257,6 +257,86 @@
                 });
             }
 
+            function initializeLaporanBacaanJuz29() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz29SiswaTable')) {
+                    $('#laporanBacaanJuz29SiswaTable').DataTable().destroy();
+                }
+
+                $('#laporanBacaanJuz29SiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeLaporanBacaanJuz29Detail() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz29SiswaDetailTable')) {
+                    $('#laporanBacaanJuz29SiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#laporanBacaanJuz29SiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeLaporanBacaanJuz30() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz30SiswaTable')) {
+                    $('#laporanBacaanJuz30SiswaTable').DataTable().destroy();
+                }
+
+                $('#laporanBacaanJuz30SiswaTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
+            function initializeLaporanBacaanJuz30Detail() {
+                if ($.fn.DataTable.isDataTable('#laporanBacaanJuz30SiswaDetailTable')) {
+                    $('#laporanBacaanJuz30SiswaDetailTable').DataTable().destroy();
+                }
+
+                $('#laporanBacaanJuz30SiswaDetailTable').DataTable({
+                    info: true,
+                    ordering: true,
+                    order: [],
+                    language: {
+                        paginate: {
+                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                        }
+                    }
+                });
+            }
+
             function initializeNilaiUjiBacaanSiswa() {
                 if ($.fn.DataTable.isDataTable('#nilaiUjiBacaanSiswaTable')) {
                     $('#nilaiUjiBacaanSiswaTable').DataTable().destroy();

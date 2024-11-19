@@ -152,5 +152,5 @@
         </table>
     </div>
 
-    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'teacher.laporan-bacaan-juz01' })"></div>
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'teacher.laporan-bacaan-juz29' })"></div>
 </div>

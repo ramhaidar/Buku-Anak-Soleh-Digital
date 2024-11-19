@@ -35,6 +35,16 @@
             color: red !important;
             /* font-weight: bold; */
         }
+
+        td,
+        th {
+            white-space: nowrap;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 1%;
+        }
     </style>
 
     <div class="text-center p-0 m-0 pe-1">

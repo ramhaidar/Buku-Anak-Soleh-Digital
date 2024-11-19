@@ -11,11 +11,6 @@
             white-space: nowrap;
         }
 
-        th:last-child,
-        td:last-child {
-            width: 1%;
-        }
-
         .text-success {
             color: green;
         }
