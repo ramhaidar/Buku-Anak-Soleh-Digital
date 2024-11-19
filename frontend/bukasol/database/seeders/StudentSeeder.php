@@ -7,7 +7,6 @@ use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class StudentSeeder extends Seeder
 {
@@ -16,17 +15,16 @@ class StudentSeeder extends Seeder
      */
     public function run ()
     {
-        // Ambil class_name dari 3 data Teacher pertama
+        // Retrieve the first 3 teachers
         $teachers = Teacher::limit ( 3 )->get ();
 
+        // Insert predefined students
         $predefinedStudents = [ 
             [ 
-                'user_data'    => [ 
-                    'name'     => 'Murid Bagus 1',
-                    'username' => 'murid1',
-                    'password' => Hash::make ( 'murid123' ),
-                    'role'     => 'Student',
-                ],
+                'name'         => 'Murid Bagus 1',
+                'username'     => 'murid1',
+                'password'     => 'murid123',
+                'role'         => 'Student',
                 'student_data' => [ 
                     'nisn'        => fake ()->unique ()->numerify ( '###########' ),
                     'class_name'  => $teachers[ 0 ]->class_name ?? null,
@@ -35,12 +33,10 @@ class StudentSeeder extends Seeder
                 ],
             ],
             [ 
-                'user_data'    => [ 
-                    'name'     => 'Murid Bagus 2',
-                    'username' => 'murid2',
-                    'password' => Hash::make ( 'murid123' ),
-                    'role'     => 'Student',
-                ],
+                'name'         => 'Murid Bagus 2',
+                'username'     => 'murid2',
+                'password'     => 'murid123',
+                'role'         => 'Student',
                 'student_data' => [ 
                     'nisn'        => fake ()->unique ()->numerify ( '###########' ),
                     'class_name'  => $teachers[ 1 ]->class_name ?? null,
@@ -49,12 +45,10 @@ class StudentSeeder extends Seeder
                 ],
             ],
             [ 
-                'user_data'    => [ 
-                    'name'     => 'Murid Bagus 3',
-                    'username' => 'murid3',
-                    'password' => Hash::make ( 'murid123' ),
-                    'role'     => 'Student',
-                ],
+                'name'         => 'Murid Bagus 3',
+                'username'     => 'murid3',
+                'password'     => 'murid123',
+                'role'         => 'Student',
                 'student_data' => [ 
                     'nisn'        => fake ()->unique ()->numerify ( '###########' ),
                     'class_name'  => $teachers[ 2 ]->class_name ?? null,
@@ -67,31 +61,39 @@ class StudentSeeder extends Seeder
         foreach ( $predefinedStudents as $studentData )
         {
             // Create user record for student
-            $user = User::factory ()->customData ( $studentData[ 'user_data' ] )->create ();
+            $user = User::factory ()->customData ( [ 
+                'name'     => $studentData[ 'name' ],
+                'username' => $studentData[ 'username' ],
+                'password' => $studentData[ 'password' ],
+                'role'     => $studentData[ 'role' ],
+            ] )->create ();
 
-            // Create associated student record with a random teacher ID
+            // Create associated student record
             Student::factory ()->customData ( array_merge ( $studentData[ 'student_data' ], [ 
                 'user_id'    => $user->id,
                 'teacher_id' => $teachers->random ()->id,
             ] ) )->create ();
         }
 
-        // Generate random students
+        // Generate 300 random student records with the role set to "Student"
         for ( $i = 0; $i < 300; $i++ )
         {
-            // Create a user for each student
+            // Create a user with the role "Student"
             $user = User::factory ()->customData ( [ 
-                'role' => 'Student'
+                'role' => 'Student',
             ] )->create ();
 
-            // Assign a random teacher's class_name and teacher_id to the student
+            // Assign a random teacher to the student
             $randomTeacher = Teacher::inRandomOrder ()->first ();
 
-            // Create associated student record with a random teacher
+            // Create associated student record
             Student::factory ()->customData ( [ 
-                'user_id'    => $user->id,
-                'class_name' => $randomTeacher->class_name,
-                'teacher_id' => $randomTeacher->id,
+                'user_id'     => $user->id,
+                'class_name'  => $randomTeacher->class_name,
+                'teacher_id'  => $randomTeacher->id,
+                'nisn'        => fake ()->unique ()->numerify ( '###########' ),
+                'parent_name' => fake ()->name (),
+                'parent_code' => Str::random ( 10 ),
             ] )->create ();
         }
     }

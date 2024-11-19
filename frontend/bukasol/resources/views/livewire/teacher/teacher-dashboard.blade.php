@@ -14,63 +14,119 @@
 
 <div class="d-flex flex-grow-1 align-content-center justify-content-center">
     <div class="flex-grow-1 align-content-center justify-content-center p-0 m-0 px-4 pb-3">
-        @if ($view === 'teacher.laporan-muhasabah-harian')
-            @livewire('teacher.laporan-muhasabah-harian')
-        @elseif ($view === 'teacher.laporan-muhasabah-harian-siswa')
-            @livewire('teacher.laporan-muhasabah-harian-siswa')
-        @elseif ($view === 'teacher.laporan-muhasabah-harian-siswa-detail')
-            @livewire('teacher.laporan-muhasabah-harian-siswa-detail')
-        @elseif ($view === 'teacher.laporan-pelanggaran-siswa')
-            @livewire('teacher.laporan-pelanggaran-siswa')
-        @elseif ($view === 'teacher.laporan-pelanggaran-siswa-detail')
-            @livewire('teacher.laporan-pelanggaran-siswa-detail')
-        @elseif ($view === 'teacher.laporan-pelanggaran-siswa-detail-detail')
-            @livewire('teacher.laporan-pelanggaran-siswa-detail-detail')
-        @elseif ($view === 'teacher.add-laporan-pelanggaran-siswa')
-            @livewire('teacher.add-laporan-pelanggaran-siswa')
-        @elseif ($view === 'teacher.laporan-bacaan-juz01')
-            @livewire('teacher.laporan-bacaan-juz01')
-        @elseif ($view === 'teacher.laporan-bacaan-juz01-detail')
-            @livewire('teacher.laporan-bacaan-juz01-detail')
-        @elseif ($view === 'teacher.laporan-bacaan-juz29')
-            @livewire('teacher.laporan-bacaan-juz29')
-        @elseif ($view === 'teacher.laporan-bacaan-juz29-detail')
-            @livewire('teacher.laporan-bacaan-juz29-detail')
-        @elseif ($view === 'teacher.laporan-bacaan-juz30')
-            @livewire('teacher.laporan-bacaan-juz30')
-        @elseif ($view === 'teacher.laporan-bacaan-juz30-detail')
-            @livewire('teacher.laporan-bacaan-juz30-detail')
-        @elseif ($view === 'teacher.nilai-uji-bacaan-siswa')
-            @livewire('teacher.nilai-uji-bacaan-siswa')
-        @elseif ($view === 'teacher.nilai-uji-bacaan-siswa-detail')
-            @livewire('teacher.nilai-uji-bacaan-siswa-detail')
-        @elseif ($view === 'teacher.add-nilai-uji-bacaan-siswa')
-            @livewire('teacher.add-nilai-uji-bacaan-siswa')
-        @elseif ($view === 'teacher.edit-nilai-uji-bacaan-siswa')
-            @livewire('teacher.edit-nilai-uji-bacaan-siswa')
-        @elseif ($view === 'teacher.nilai-uji-gerakan-siswa')
-            @livewire('teacher.nilai-uji-gerakan-siswa')
-        @elseif ($view === 'teacher.nilai-uji-gerakan-siswa-detail')
-            @livewire('teacher.nilai-uji-gerakan-siswa-detail')
-        @elseif ($view === 'teacher.add-nilai-uji-gerakan-siswa')
-            @livewire('teacher.add-nilai-uji-gerakan-siswa')
-        @elseif ($view === 'teacher.edit-nilai-uji-gerakan-siswa')
-            @livewire('teacher.edit-nilai-uji-gerakan-siswa')
-        @elseif ($view === 'teacher.catatan-harian-siswa')
-            @livewire('teacher.catatan-harian-siswa')
-        @elseif ($view === 'teacher.catatan-harian-siswa-detail')
-            @livewire('teacher.catatan-harian-siswa-detail')
-        @elseif ($view === 'teacher.catatan-harian-siswa-detail-detail')
-            @livewire('teacher.catatan-harian-siswa-detail-detail')
-        @elseif ($view === 'teacher.answer-catatan-harian-siswa')
-            @livewire('teacher.answer-catatan-harian-siswa')
-        @elseif ($view === 'teacher.aktivitas-membaca-siswa')
-            @livewire('teacher.aktivitas-membaca-siswa')
-        @elseif ($view === 'teacher.aktivitas-membaca-siswa-detail')
-            @livewire('teacher.aktivitas-membaca-siswa-detail')
-        @elseif ($view === 'change-password')
-            @livewire('change-password')
-        @endif
+        @switch($view)
+            @case('teacher.laporan-muhasabah-harian')
+                @livewire('teacher.laporan-muhasabah-harian')
+            @break
+
+            @case('teacher.laporan-muhasabah-harian-siswa')
+                @livewire('teacher.laporan-muhasabah-harian-siswa')
+            @break
+
+            @case('teacher.laporan-muhasabah-harian-siswa-detail')
+                @livewire('teacher.laporan-muhasabah-harian-siswa-detail')
+            @break
+
+            @case('teacher.laporan-pelanggaran-siswa')
+                @livewire('teacher.laporan-pelanggaran-siswa')
+            @break
+
+            @case('teacher.laporan-pelanggaran-siswa-detail')
+                @livewire('teacher.laporan-pelanggaran-siswa-detail')
+            @break
+
+            @case('teacher.laporan-pelanggaran-siswa-detail-detail')
+                @livewire('teacher.laporan-pelanggaran-siswa-detail-detail')
+            @break
+
+            @case('teacher.add-laporan-pelanggaran-siswa')
+                @livewire('teacher.add-laporan-pelanggaran-siswa')
+            @break
+
+            @case('teacher.laporan-bacaan-juz01')
+                @livewire('teacher.laporan-bacaan-juz01')
+            @break
+
+            @case('teacher.laporan-bacaan-juz01-detail')
+                @livewire('teacher.laporan-bacaan-juz01-detail')
+            @break
+
+            @case('teacher.laporan-bacaan-juz29')
+                @livewire('teacher.laporan-bacaan-juz29')
+            @break
+
+            @case('teacher.laporan-bacaan-juz29-detail')
+                @livewire('teacher.laporan-bacaan-juz29-detail')
+            @break
+
+            @case('teacher.laporan-bacaan-juz30')
+                @livewire('teacher.laporan-bacaan-juz30')
+            @break
+
+            @case('teacher.laporan-bacaan-juz30-detail')
+                @livewire('teacher.laporan-bacaan-juz30-detail')
+            @break
+
+            @case('teacher.nilai-uji-bacaan-siswa')
+                @livewire('teacher.nilai-uji-bacaan-siswa')
+            @break
+
+            @case('teacher.nilai-uji-bacaan-siswa-detail')
+                @livewire('teacher.nilai-uji-bacaan-siswa-detail')
+            @break
+
+            @case('teacher.add-nilai-uji-bacaan-siswa')
+                @livewire('teacher.add-nilai-uji-bacaan-siswa')
+            @break
+
+            @case('teacher.edit-nilai-uji-bacaan-siswa')
+                @livewire('teacher.edit-nilai-uji-bacaan-siswa')
+            @break
+
+            @case('teacher.nilai-uji-gerakan-siswa')
+                @livewire('teacher.nilai-uji-gerakan-siswa')
+            @break
+
+            @case('teacher.nilai-uji-gerakan-siswa-detail')
+                @livewire('teacher.nilai-uji-gerakan-siswa-detail')
+            @break
+
+            @case('teacher.add-nilai-uji-gerakan-siswa')
+                @livewire('teacher.add-nilai-uji-gerakan-siswa')
+            @break
+
+            @case('teacher.edit-nilai-uji-gerakan-siswa')
+                @livewire('teacher.edit-nilai-uji-gerakan-siswa')
+            @break
+
+            @case('teacher.catatan-harian-siswa')
+                @livewire('teacher.catatan-harian-siswa')
+            @break
+
+            @case('teacher.catatan-harian-siswa-detail')
+                @livewire('teacher.catatan-harian-siswa-detail')
+            @break
+
+            @case('teacher.catatan-harian-siswa-detail-detail')
+                @livewire('teacher.catatan-harian-siswa-detail-detail')
+            @break
+
+            @case('teacher.answer-catatan-harian-siswa')
+                @livewire('teacher.answer-catatan-harian-siswa')
+            @break
+
+            @case('teacher.aktivitas-membaca-siswa')
+                @livewire('teacher.aktivitas-membaca-siswa')
+            @break
+
+            @case('teacher.aktivitas-membaca-siswa-detail')
+                @livewire('teacher.aktivitas-membaca-siswa-detail')
+            @break
+
+            @case('change-password')
+                @livewire('change-password')
+            @break
+        @endswitch
     </div>
 </div>
 
@@ -366,70 +422,49 @@
                 const view = event.detail.view;
 
                 if (view === 'teacher.laporan-muhasabah-harian') {
-                    console.log('Switched to laporan muhasabah harian');
                     initializeLaporanMuhasabahHarianTable();
                 } else if (view === 'teacher.laporan-muhasabah-harian-siswa') {
-                    console.log('Switched to laporan muhasabah harian siswa');
                     initializeLaporanMuhasabahHarianSiswaTable();
                 } else if (view === 'teacher.laporan-pelanggaran-siswa') {
-                    console.log('Switched to laporan pelanggaran siswa');
                     initializeLaporanPelanggaranSiswaTable();
                 } else if (view === 'teacher.laporan-pelanggaran-siswa-detail') {
-                    console.log('Switched to laporan pelanggaran siswa detail');
                     initializeLaporanPelanggaranSiswaDetailTable();
                 } else if (view === 'teacher.laporan-bacaan-juz01') {
-                    console.log('Switched to laporan bacaan juz 01');
                     initializeLaporanBacaanJuz01();
                 } else if (view === 'teacher.laporan-bacaan-juz01-detail') {
-                    console.log('Switched to laporan bacaan juz 01 detail');
                     initializeLaporanBacaanJuz01Detail();
                 } else if (view === 'teacher.laporan-bacaan-juz29') {
-                    console.log('Switched to laporan bacaan juz 29');
                     initializeLaporanBacaanJuz29();
                 } else if (view === 'teacher.laporan-bacaan-juz29-detail') {
-                    console.log('Switched to laporan bacaan juz 29 detail');
                     initializeLaporanBacaanJuz29Detail();
                 } else if (view === 'teacher.laporan-bacaan-juz30') {
-                    console.log('Switched to laporan bacaan juz 30');
                     initializeLaporanBacaanJuz30();
                 } else if (view === 'teacher.laporan-bacaan-juz30-detail') {
-                    console.log('Switched to laporan bacaan juz 30 detail');
                     initializeLaporanBacaanJuz30Detail();
                 } else if (view === 'teacher.nilai-uji-bacaan-siswa') {
-                    console.log('Switched to nilai uji bacaan siswa');
                     initializeNilaiUjiBacaanSiswa();
                 } else if (view === 'teacher.nilai-uji-bacaan-siswa-detail') {
-                    console.log('Switched to nilai uji bacaan siswa detail');
                     initializeNilaiUjiBacaanSiswaDetail();
                 } else if (view === 'teacher.nilai-uji-gerakan-siswa') {
-                    console.log('Switched to nilai uji gerakan siswa');
                     initializeNilaiUjiGerakanSiswa();
                 } else if (view === 'teacher.nilai-uji-gerakan-siswa-detail') {
-                    console.log('Switched to nilai uji gerakan siswa detail');
                     initializeNilaiUjiGerakanSiswaDetail();
                 } else if (view === 'teacher.catatan-harian-siswa') {
-                    console.log('Switched to catatan harian siswa');
                     initializeCatatanHarianSiswa();
                 } else if (view === 'teacher.catatan-harian-siswa-detail') {
-                    console.log('Switched to catatan harian siswa detail');
                     initializeCatatanHarianSiswaDetail();
                 } else if (view === 'teacher.aktivitas-membaca-siswa') {
-                    console.log('Switched to aktivitas membaca siswa');
                     initializeAktivitasMembacaSiswa();
                 } else if (view === 'teacher.aktivitas-membaca-siswa-detail') {
-                    console.log('Switched to aktivitas membaca siswa detail');
                     initializeAktivitasMembacaSiswaDetail();
                 }
             });
         });
-    </script>
 
-    @script
-        <script>
-            // $this->dispatch ( 'message', "View switched to {$view}" );
-            $wire.on('viewSwitched', (view) => {
-                console.log('Wire: View switched to', view);
+        document.addEventListener('DOMContentLoaded', () => {
+            Livewire.on('viewSwitched', (data) => {
+                console.log('View switched to:', data.view);
             });
-        </script>
-    @endscript
+        });
+    </script>
 @endpush

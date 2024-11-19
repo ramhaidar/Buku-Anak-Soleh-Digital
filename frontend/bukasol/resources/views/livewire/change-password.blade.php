@@ -28,4 +28,6 @@
             </form>
         </div>
     </div>
+
+    <div x-data x-init="$wire.dispatch('viewSwitched', { view: 'change-password' })"></div>
 </div>

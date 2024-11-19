@@ -35,7 +35,7 @@
             @livewire('layouts.pre-run')
             @livewire('partials.navbar')
             <div class="py-2 flex-grow-1 align-content-center justify-content-center">
-                @livewire('teacher.student-dashboard')
+                @livewire('student.student-dashboard')
             </div>
         @endsection
     @endif
