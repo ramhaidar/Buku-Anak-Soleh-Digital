@@ -63,7 +63,7 @@
                     <!-- Button Placeholder -->
                     <div class="d-flex justify-content-center pt-3">
                         <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ url()->previous() }}">Batal</a>
-                        <button class="btn btn-success mx-1 w-50 rounded-5" type="button" onclick="Livewire.dispatch('switchView', { view: 'teacher.answer-catatan-harian-siswa' })">Jawab Pertanyaan Orang Tua</button>
+                        <a class="btn btn-success mx-1 w-50 rounded-5" href="{{ route('teacher.catatan-harian-siswa-detail-detail-answer.index', ['id' => 1]) }}">Jawab Pertanyaan Orang Tua</a>
                     </div>
                 </form>
             </div>

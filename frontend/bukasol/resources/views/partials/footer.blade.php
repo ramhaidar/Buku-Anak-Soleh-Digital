@@ -61,7 +61,7 @@
     </div>
 </footer> --}}
 
-<div class="custom-footer text-light text-center p-0 m-0 py-2 test {{ Request::is('login') ? 'bg-transparent' : 'bg-white' }}" id="footer" style="min-height: 40px; max-height: 40px">
+<div class="custom-footer text-light text-center p-0 m-0 py-2 test {{ Request::is('login') ? 'bg-transparent' : 'bg-secondary-subtle' }}" id="footer" style="min-height: 40px; max-height: 40px">
     <div class="container-fluid m-0 w-100 h-100">
         @if (Request::is('login'))
             <span class="text-light fw-light">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.</span>

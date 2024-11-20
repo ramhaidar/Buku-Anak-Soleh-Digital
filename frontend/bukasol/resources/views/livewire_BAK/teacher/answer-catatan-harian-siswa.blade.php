@@ -23,8 +23,8 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-between pt-3">
-                    <button class="btn btn-secondary w-100 mx-2 rounded-5" type="reset">Reset</button>
-                    <button class="btn btn-success w-100 mx-2 rounded-5" type="submit">Jawab</button>
+                    <button class="btn btn-secondary w-100 mx-2 rounded-5" href="{{ url()->previous() }}">Batal</a>
+                        <button class="btn btn-success w-100 mx-2 rounded-5" type="submit">Jawab</button>
                 </div>
             </form>
         </div>

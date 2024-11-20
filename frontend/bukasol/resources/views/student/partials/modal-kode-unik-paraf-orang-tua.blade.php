@@ -15,8 +15,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</button>
-                <button class="btn btn-primary" form="kodeUnikForm" type="submit">Kirim</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</a>
+                    <button class="btn btn-primary" form="kodeUnikForm" type="submit">Kirim</button>
             </div>
         </div>
     </div>

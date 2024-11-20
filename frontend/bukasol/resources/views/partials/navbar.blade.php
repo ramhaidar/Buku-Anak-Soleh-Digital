@@ -249,14 +249,14 @@
                                 Laporan
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="laporanDropdown">
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-muhasabah-harian' })">Laporan Muhasabah Siswa</button></li>
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-pelanggaran-siswa' })">Laporan Pelanggaran Siswa</button></li>
+                                <li><a class="dropdown-item" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</a></li>
                                 <li class="dropdown-submenu">
                                     <button class="dropdown-item submenu-toggle">Laporan Bacaan Juz &raquo;</button>
                                     <ul class="dropdown-menu">
-                                        <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz01' })">Laporan Bacaan Juz 1 Siswa</button></li>
-                                        <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz29' })">Laporan Bacaan Juz 29 Siswa</button></li>
-                                        <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz30' })">Laporan Bacaan Juz 30 Siswa</button></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -267,8 +267,8 @@
                                 Nilai
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="nilaiDropdown">
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.nilai-uji-gerakan-siswa' })">Nilai Uji Gerakan Siswa</button></li>
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.nilai-uji-bacaan-siswa' })">Nilai Uji Bacaan Siswa</button></li>
+                                {{-- <li><a class="dropdown-item" href="{{ route('student.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a></li> --}}
                             </ul>
                         </li>
 
@@ -277,12 +277,12 @@
                                 Aktivitas
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="aktivitasDropdown">
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa' })">Catatan Harian Siswa</button></li>
-                                <li><button class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'student.aktivitas-membaca-siswa' })">Aktivitas Membaca Siswa</button></li>
+                                {{-- <li><a class="dropdown-item" href="{{ route('student.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a></li> --}}
                             </ul>
                         </li>
 
-                        <!-- Accordion Menu for Mobile View -->
+                        {{-- <!-- Accordion Menu for Mobile View -->
                         <div class="accordion accordion-menu mt-3" id="teacherAccordion">
                             <!-- Laporan Section -->
                             <div class="accordion-item">
@@ -293,8 +293,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseLaporan" aria-labelledby="headingLaporan">
                                     <div class="accordion-body">
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-muhasabah-harian' })">Laporan Muhasabah Siswa</button>
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-pelanggaran-siswa' })">Laporan Pelanggaran Siswa</button>
+                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</button>
+                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</button>
                                         <div class="accordion" id="juzAccordion">
                                             <div class="accordion-item rounded-0">
                                                 <h2 class="accordion-header rounded-0" id="headingJuz">
@@ -304,9 +304,9 @@
                                                 </h2>
                                                 <div class="accordion-collapse collapse" id="collapseJuz" aria-labelledby="headingJuz">
                                                     <div class="accordion-body">
-                                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz01' })">Laporan Bacaan Juz 1 Siswa</button>
-                                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz29' })">Laporan Bacaan Juz 29 Siswa</button>
-                                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.laporan-bacaan-juz30' })">Laporan Bacaan Juz 30 Siswa</button>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -324,8 +324,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseNilai" aria-labelledby="headingNilai">
                                     <div class="accordion-body">
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.nilai-uji-gerakan-siswa' })">Nilai Uji Gerakan Siswa</button>
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.nilai-uji-bacaan-siswa' })">Nilai Uji Bacaan Siswa</button>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a>
                                     </div>
                                 </div>
                             </div>
@@ -339,12 +339,12 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseAktivitas" aria-labelledby="headingAktivitas">
                                     <div class="accordion-body">
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.catatan-harian-siswa' })">Catatan Harian Siswa</button>
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'student.aktivitas-membaca-siswa' })">Aktivitas Membaca Siswa</button>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     @endif
                 </ul>
 

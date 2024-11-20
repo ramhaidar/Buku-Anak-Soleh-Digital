@@ -11,8 +11,8 @@
                 <p class="p-0 m-0">Peringatan: Aksi ini tidak dapat dibatalkan!</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</button>
-                <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Hapus</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</a>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" type="button">Hapus</button>
             </div>
         </div>
     </div>

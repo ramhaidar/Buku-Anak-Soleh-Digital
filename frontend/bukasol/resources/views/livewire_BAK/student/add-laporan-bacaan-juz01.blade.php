@@ -44,7 +44,7 @@
 
                 <!-- Reset and Submit Buttons -->
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-secondary rounded-5 px-4 w-50 mx-2" type="reset">Reset</button>
+                    <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ url()->previous() }}">Batal</a>
                     <button class="btn btn-success rounded-5 px-4 w-50 mx-2" type="submit">Tambah</button>
                 </div>
             </form>

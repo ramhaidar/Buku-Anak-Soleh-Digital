@@ -322,4 +322,16 @@ class TeacherDashboardController extends Controller
             'page' => "Detail Catatan Harian Siswa Detail"
         ] );
     }
+
+    public function catatan_harian_siswa_detail_detail_answer_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.answer-catatan-harian-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Jawab Pertanyaan Orang Tua Siswa"
+        ] );
+    }
 }

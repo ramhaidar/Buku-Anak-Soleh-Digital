@@ -11,6 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\TeacherDashboardController;
 
 // Route::get ( '/', function ()
@@ -71,8 +72,81 @@ Route::get (
     ->middleware ( 'auth' )
     ->name ( 'dashboard.index' );
 
+Route::prefix ( 'student-dashboard' )
+    ->middleware ( 'Student' )
+    ->group ( function ()
+    {
+        Route::get (
+            '/',
+            [ StudentDashboardController::class, 'index' ]
+        )
+            ->name ( 'dashboard.student.index' );
+
+        Route::get (
+            '/laporan-muhasabah-siswa',
+            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_table_index' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-table.index' );
+
+        Route::get (
+            '/laporan-muhasabah-siswa-detail/{id}',
+            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_detail_index' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-detail.index' );
+
+
+        Route::get (
+            '/laporan-pelanggaran-siswa',
+            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
+        )
+            ->name ( 'student.laporan-pelanggaran-siswa-table.index' );
+
+        Route::get (
+            '/laporan-pelanggaran-siswa-detail/{id}',
+            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_detail_index' ]
+        )
+            ->name ( 'student.laporan-pelanggaran-siswa-detail.index' );
+
+        Route::get (
+            '/laporan-bacaan-juz01-siswa',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz01-siswa-table.index' );
+
+        Route::get (
+            '/laporan-bacaan-juz01-siswa-add',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_add_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz01-siswa-add.index' );
+
+
+        Route::get (
+            '/laporan-bacaan-juz29-siswa',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_table_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz29-siswa-table.index' );
+
+        Route::get (
+            '/laporan-bacaan-juz29-siswa-add',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_add_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz29-siswa-add.index' );
+
+        Route::get (
+            '/laporan-bacaan-juz30-siswa',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_table_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz30-siswa-table.index' );
+
+        Route::get (
+            '/laporan-bacaan-juz30-siswa-add',
+            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_add_index' ]
+        )
+            ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
+    } );
+
 Route::prefix ( 'teacher-dashboard' )
-    ->middleware ( 'auth' )
+    ->middleware ( 'Teacher' )
     ->group ( function ()
     {
         Route::get (
@@ -236,10 +310,16 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_index' ]
         )
             ->name ( 'teacher.catatan-harian-siswa-detail-detail.index' );
+
+        Route::get (
+            '/catatan-harian-siswa-detail-detail-answer/{id}',
+            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_answer_index' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa-detail-detail-answer.index' );
     } );
 
 Route::prefix ( 'admin-dashboard' )
-    ->middleware ( 'auth' )
+    ->middleware ( 'Admin' )
     ->group ( function ()
     {
         Route::get (
