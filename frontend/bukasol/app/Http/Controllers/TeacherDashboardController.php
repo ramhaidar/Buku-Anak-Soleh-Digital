@@ -262,4 +262,64 @@ class TeacherDashboardController extends Controller
             'page' => "Edit Nilai Uji Bacaan Siswa"
         ] );
     }
+
+    public function aktivitas_membaca_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.aktivitas-membaca-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Aktivitas Membaca Siswa Table"
+        ] );
+    }
+
+    public function aktivitas_membaca_siswa_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.aktivitas-membaca-siswa-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Aktivitas Membaca Siswa"
+        ] );
+    }
+
+    public function catatan_harian_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.catatan-harian-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Catatan Harian Siswa Table"
+        ] );
+    }
+
+    public function catatan_harian_siswa_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.catatan-harian-siswa-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Catatan Harian Siswa"
+        ] );
+    }
+
+    public function catatan_harian_siswa_detail_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.catatan-harian-siswa-detail-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Catatan Harian Siswa Detail"
+        ] );
+    }
 }

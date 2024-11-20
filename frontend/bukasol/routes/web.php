@@ -183,7 +183,6 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
 
-
         Route::get (
             '/nilai-uji-bacaan-siswa',
             [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
@@ -207,6 +206,36 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_edit_index' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
+
+        Route::get (
+            '/aktivitas-membaca-siswa',
+            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
+        )
+            ->name ( 'teacher.aktivitas-membaca-siswa-table.index' );
+
+        Route::get (
+            '/aktivitas-membaca-siswa-detail/{id}',
+            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_detail_index' ]
+        )
+            ->name ( 'teacher.aktivitas-membaca-siswa-detail.index' );
+
+        Route::get (
+            '/catatan-harian-siswa',
+            [ TeacherDashboardController::class, 'catatan_harian_siswa_table_index' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa-table.index' );
+
+        Route::get (
+            '/catatan-harian-siswa-detail/{id}',
+            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa-detail.index' );
+
+        Route::get (
+            '/catatan-harian-siswa-detail-detail/{id}',
+            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_index' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa-detail-detail.index' );
     } );
 
 Route::prefix ( 'admin-dashboard' )

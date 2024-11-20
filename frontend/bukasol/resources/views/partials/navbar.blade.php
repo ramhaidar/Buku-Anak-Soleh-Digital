@@ -174,8 +174,8 @@
                                 Aktivitas
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="aktivitasDropdown">
-                                <li><a class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.catatan-harian-siswa' })">Catatan Harian Siswa</a></li>
-                                <li><a class="dropdown-item" onclick="Livewire.dispatch('switchView', { view: 'teacher.aktivitas-membaca-siswa' })">Aktivitas Membaca Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('teacher.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('teacher.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a></li>
                             </ul>
                         </li>
 
@@ -236,8 +236,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseAktivitas" aria-labelledby="headingAktivitas">
                                     <div class="accordion-body">
-                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'teacher.catatan-harian-siswa' })">Catatan Harian Siswa</a>
-                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" onclick="Livewire.dispatch('switchView', { view: 'teacher.aktivitas-membaca-siswa' })">Aktivitas Membaca Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a>
                                     </div>
                                 </div>
                             </div>
