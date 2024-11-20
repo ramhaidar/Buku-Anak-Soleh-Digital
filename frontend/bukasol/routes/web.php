@@ -143,6 +143,18 @@ Route::prefix ( 'student-dashboard' )
             [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_add_index' ]
         )
             ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
+
+        Route::get (
+            '/nilai-uji-gerakan-siswa',
+            [ StudentDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+        )
+            ->name ( 'student.nilai-uji-gerakan-siswa-table.index' );
+
+        Route::get (
+            '/nilai-uji-bacaan-siswa',
+            [ StudentDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+        )
+            ->name ( 'student.nilai-uji-bacaan-siswa-table.index' );
     } );
 
 Route::prefix ( 'teacher-dashboard' )

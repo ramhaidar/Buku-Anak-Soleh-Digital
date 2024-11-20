@@ -267,8 +267,8 @@
                                 Nilai
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="nilaiDropdown">
-                                {{-- <li><a class="dropdown-item" href="{{ route('student.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a></li>
-                                <li><a class="dropdown-item" href="{{ route('student.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a></li> --}}
+                                <li><a class="dropdown-item" href="{{ route('student.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a></li>
                             </ul>
                         </li>
 

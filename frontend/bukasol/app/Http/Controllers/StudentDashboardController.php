@@ -130,4 +130,28 @@ class StudentDashboardController extends Controller
             'page' => "Tambah Laporan Bacaan Juz 30"
         ] );
     }
+
+    public function nilai_uji_gerakan_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.nilai-uji-gerakan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Nilai Uji Gerakan Siswa Table"
+        ] );
+    }
+
+    public function nilai_uji_bacaan_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.nilai-uji-bacaan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Nilai Uji Bacaan Siswa Table"
+        ] );
+    }
 }
