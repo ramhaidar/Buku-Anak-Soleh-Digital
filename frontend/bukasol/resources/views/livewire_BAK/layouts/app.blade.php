@@ -47,7 +47,7 @@
             overflow: auto
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             body {
                 font-size: 14px;
             }

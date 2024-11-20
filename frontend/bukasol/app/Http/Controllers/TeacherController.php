@@ -19,8 +19,8 @@ class TeacherController extends Controller
             // User data validation
             'name'       => 'required|string|max:255',
             'username'   => 'required|string|unique:users,username|max:50',
-            'password'   => 'required|string|min:8|confirmed',
-            'role'       => 'required|string|in:teacher',
+            // 'password'   => 'required|string|min:8|confirmed',
+            // 'role'       => 'required|string|in:teacher',
 
             // Teacher data validation
             'nip'        => 'required|string|unique:teachers,nip|max:20',
@@ -31,8 +31,8 @@ class TeacherController extends Controller
         $user = User::create ( [ 
             'name'     => $validatedData[ 'name' ],
             'username' => $validatedData[ 'username' ],
-            'password' => Hash::make ( $validatedData[ 'password' ] ),
-            'role'     => $validatedData[ 'role' ],
+            'password' => Hash::make ( "password" ),
+            'role'     => "Teacher",
         ] );
 
         // Then, create the Teacher using the User's ID
@@ -42,12 +42,7 @@ class TeacherController extends Controller
             'class_name' => $validatedData[ 'class_name' ],
         ] );
 
-        if ( $request->ajax () )
-        {
-            return response ()->json ( [ 'success' => 'Sukses Menambahkan Data Guru Baru.' ] );
-        }
-
-        return response ()->json ( [ 'error' => 'Gagal Menambahkan Data Guru Baru.' ] );
+        return redirect ()->back ()->with ( 'success', 'Sukses Menambahkan Data Guru Baru.' );
     }
 
     /**

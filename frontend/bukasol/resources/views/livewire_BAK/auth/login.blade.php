@@ -102,7 +102,7 @@
             object-fit: cover;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             .login-box {
                 padding: 15px;
             }

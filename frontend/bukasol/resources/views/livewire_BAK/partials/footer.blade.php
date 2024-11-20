@@ -1,14 +1,14 @@
 @push('styles')
     <style>
         /* .footer {
-                                                                                            position: relative;
-                                                                                            bottom: 0;
-                                                                                            width: 100dvw;
-                                                                                            padding: 1rem;
-                                                                                            background-color: #343a40;
-                                                                                            color: white;
-                                                                                            text-align: center;
-                                                                                        } */
+                                                                                                    position: relative;
+                                                                                                    bottom: 0;
+                                                                                                    width: 100dvw;
+                                                                                                    padding: 1rem;
+                                                                                                    background-color: #343a40;
+                                                                                                    color: white;
+                                                                                                    text-align: center;
+                                                                                                } */
         .footer {
             flex-shrink: 0;
             height: 0px;
@@ -31,7 +31,7 @@
         }
 
         /* Fixed Footer for Mobile Screens */
-        @media (max-width: 767px) {
+        @media (max-width: 576px) {
             .custom-footer {
                 position: fixed;
                 bottom: 0;

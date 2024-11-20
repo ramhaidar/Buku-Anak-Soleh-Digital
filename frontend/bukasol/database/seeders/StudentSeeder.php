@@ -76,7 +76,7 @@ class StudentSeeder extends Seeder
         }
 
         // Generate 300 random student records with the role set to "Student"
-        for ( $i = 0; $i < 300; $i++ )
+        for ( $i = 0; $i < 100; $i++ )
         {
             // Create a user with the role "Student"
             $user = User::factory ()->customData ( [ 

@@ -63,7 +63,7 @@
         }
 
         /* Mobile view - hide dropdowns, show accordion and profile section */
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
 
             .dropdown-menu,
             .dropdown,
