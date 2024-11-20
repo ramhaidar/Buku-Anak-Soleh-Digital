@@ -107,7 +107,7 @@ class TeacherDashboardController extends Controller
         ] );
     }
 
-    public function laporan_bacaan_juz01_siswa_detail_index ()
+    public function laporan_bacaan_juz01_siswa_detail_index ( $id )
     {
         $auth = auth ()->user ();
 
@@ -131,7 +131,7 @@ class TeacherDashboardController extends Controller
         ] );
     }
 
-    public function laporan_bacaan_juz29_siswa_detail_index ()
+    public function laporan_bacaan_juz29_siswa_detail_index ( $id )
     {
         $auth = auth ()->user ();
 
@@ -155,7 +155,7 @@ class TeacherDashboardController extends Controller
         ] );
     }
 
-    public function laporan_bacaan_juz30_siswa_detail_index ()
+    public function laporan_bacaan_juz30_siswa_detail_index ( $id )
     {
         $auth = auth ()->user ();
 
@@ -164,6 +164,102 @@ class TeacherDashboardController extends Controller
             'name' => $auth->name,
 
             'page' => "Detail Laporan Bacaan Juz 30 Siswa"
+        ] );
+    }
+
+    public function nilai_uji_gerakan_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.nilai-uji-gerakan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Nilai Uji Gerakan Siswa Table"
+        ] );
+    }
+
+    public function nilai_uji_gerakan_siswa_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.nilai-uji-gerakan-siswa-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Nilai Uji Gerakan Siswa"
+        ] );
+    }
+
+    public function nilai_uji_gerakan_siswa_add_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.add-nilai-uji-gerakan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Tambah Nilai Uji Gerakan Siswa"
+        ] );
+    }
+
+    public function nilai_uji_gerakan_siswa_edit_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.edit-nilai-uji-gerakan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Edit Nilai Uji Gerakan Siswa"
+        ] );
+    }
+
+    public function nilai_uji_bacaan_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.nilai-uji-bacaan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Nilai Uji Bacaan Siswa Table"
+        ] );
+    }
+
+    public function nilai_uji_bacaan_siswa_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.nilai-uji-bacaan-siswa-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Nilai Uji Bacaan Siswa"
+        ] );
+    }
+
+    public function nilai_uji_bacaan_siswa_add_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.add-nilai-uji-bacaan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Tambah Nilai Uji Bacaan Siswa"
+        ] );
+    }
+
+    public function nilai_uji_bacaan_siswa_edit_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'teacher.edit-nilai-uji-bacaan-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Edit Nilai Uji Bacaan Siswa"
         ] );
     }
 }

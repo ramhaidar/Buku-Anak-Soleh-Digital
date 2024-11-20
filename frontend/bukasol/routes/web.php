@@ -158,6 +158,55 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_detail_index' ]
         )
             ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
+
+        Route::get (
+            '/nilai-uji-gerakan-siswa',
+            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
+
+        Route::get (
+            '/nilai-uji-gerakan-siswa-detail/{id}',
+            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_detail_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-gerakan-siswa-detail.index' );
+
+        Route::get (
+            '/nilai-uji-gerakan-siswa-add',
+            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_add_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
+
+        Route::get (
+            '/nilai-uji-gerakan-siswa-edit/{id}',
+            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_edit_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
+
+
+        Route::get (
+            '/nilai-uji-bacaan-siswa',
+            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-bacaan-siswa-table.index' );
+
+        Route::get (
+            '/nilai-uji-bacaan-siswa-detail/{id}',
+            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_detail_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-bacaan-siswa-detail.index' );
+
+        Route::get (
+            '/nilai-uji-bacaan-siswa-add',
+            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_add_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-bacaan-siswa-add.index' );
+
+        Route::get (
+            '/nilai-uji-bacaan-siswa-edit/{id}',
+            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_edit_index' ]
+        )
+            ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
     } );
 
 Route::prefix ( 'admin-dashboard' )

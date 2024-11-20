@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between pt-3">
-                        <button class="btn btn-secondary mx-1 w-50 rounded-5" type="reset">Reset</button>
+                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ url()->previous() }}">Batal</a>
                         <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
                     </div>
                 </form>
