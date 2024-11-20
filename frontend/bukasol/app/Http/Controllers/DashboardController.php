@@ -32,7 +32,7 @@ class DashboardController extends Controller
         }
         else if ( $auth->role === "Teacher" )
         {
-            return redirect ()->route ( 'teacher.index' );
+            return redirect ()->route ( 'teacher.laporan-muhasabah-siswa-table.index' );
         }
         else if ( $auth->role === "Student" )
         {

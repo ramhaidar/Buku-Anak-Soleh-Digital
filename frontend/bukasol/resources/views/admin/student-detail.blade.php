@@ -2,8 +2,12 @@
 
 @section('content_3')
     <div class="p-0 m-0">
-        <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Detail Akun Siswa</h2>
+        <div class="text-center p-0 m-0 pe-1">
+            <div class="row align-items-center mb-4">
+                <div class="col container position-relative">
+                    <h2 class="text-center mb-0">Detail Akun Siswa</h2>
+                </div>
+            </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">

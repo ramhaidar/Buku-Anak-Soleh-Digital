@@ -11,9 +11,9 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Ganti Password Akun</h2>
+            <h2 class="text-start ps-4 mb-4">Ganti Password Akun</h2>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-start align-items-center">
             <div class="p-4 rounded w-50">
                 <form action="{{ route('change-password') }}" method="POST">
                     @csrf

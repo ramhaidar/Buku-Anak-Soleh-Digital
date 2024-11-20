@@ -12,7 +12,7 @@
     <!-- SweetAlert2 11.14.5 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.14.5/sweetalert2.min.css" rel="stylesheet" integrity="sha512-Xxs33QtURTKyRJi+DQ7EKwWzxpDlLSqjC7VYwbdWW9zdhrewgsHoim8DclqjqMlsMeiqgAi51+zuamxdEP2v1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
+    {{-- <style>
         /* For devices with height <= 600px */
         @media (max-height: 600px) {
             .mobile {
@@ -43,36 +43,40 @@
         }
 
         /* Optional: Default styles for devices with height > 884px */
-        @media (min-height: 885px) {
+        @media (min-height: 885px and (max-height: 900px)) {
             .mobile {
                 margin-top: 5vh;
             }
         }
-    </style>
+
+        @media (min-height: 901px) {
+            .mobile {
+                margin-top: 25dvh;
+            }
+        }
+    </style> --}}
 @endpush
 
 <div class="p-0 m-0" id="dashboard">
     @if ($role == 'Admin')
+        @include('partials.navbar')
         @section('content')
-            @include('partials.navbar')
-            <div class="mx-2 pb-5 flex-grow-1 align-content-center justify-content-center mobile">
+            <div class="mx-2 py-3 px-2 flex-grow-1 align-content-center justify-content-center mobile" style="margin-top: 80px; margin-bottom: 40px; overflow-y: auto; overflow-x: hidden">
                 @yield('content_2')
             </div>
         @endsection
     @elseif ($role == 'Teacher')
         @section('content')
-            @livewire('layouts.pre-run')
-            @livewire('partials.navbar')
-            <div class="py-2 flex-grow-1 align-content-center justify-content-center">
-                @livewire('teacher.teacher-dashboard')
+            @include('partials.navbar')
+            <div class="mx-2 py-3 px-2 flex-grow-1 align-content-center justify-content-center mobile" style="margin-top: 80px; margin-bottom: 40px; overflow-y: auto; overflow-x: hidden">
+                @yield('content_2')
             </div>
         @endsection
     @elseif ($role == 'Student')
         @section('content')
-            @livewire('layouts.pre-run')
-            @livewire('partials.navbar')
-            <div class="py-2 flex-grow-1 align-content-center justify-content-center">
-                @livewire('student.student-dashboard')
+            @include('partials.navbar')
+            <div class="mx-2 py-3 px-2 flex-grow-1 align-content-center justify-content-center mobile" style="margin-top: 80px; margin-bottom: 40px; overflow-y: auto; overflow-x: hidden">
+                @yield('content_2')
             </div>
         @endsection
     @endif
