@@ -190,8 +190,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseLaporan" aria-labelledby="headingLaporan">
                                     <div class="accordion-body">
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</button>
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</button>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</a>
                                         <div class="accordion" id="juzAccordion">
                                             <div class="accordion-item rounded-0">
                                                 <h2 class="accordion-header rounded-0" id="headingJuz">
@@ -277,12 +277,12 @@
                                 Aktivitas
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="aktivitasDropdown">
-                                {{-- <li><a class="dropdown-item" href="{{ route('student.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a></li>
-                                <li><a class="dropdown-item" href="{{ route('student.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a></li> --}}
+                                <li><a class="dropdown-item" href="{{ route('student.catatan-harian-siswa-table.index') }}">Catatan Harian Siswa</a></li>
+                                <li><a class="dropdown-item" href="{{ route('student.aktivitas-membaca-siswa-table.index') }}">Aktivitas Membaca Siswa</a></li>
                             </ul>
                         </li>
 
-                        {{-- <!-- Accordion Menu for Mobile View -->
+                        <!-- Accordion Menu for Mobile View -->
                         <div class="accordion accordion-menu mt-3" id="teacherAccordion">
                             <!-- Laporan Section -->
                             <div class="accordion-item">
@@ -293,8 +293,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseLaporan" aria-labelledby="headingLaporan">
                                     <div class="accordion-body">
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</button>
-                                        <button class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</button>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Laporan Muhasabah Siswa</a>
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-pelanggaran-siswa-table.index') }}">Laporan Pelanggaran Siswa</a>
                                         <div class="accordion" id="juzAccordion">
                                             <div class="accordion-item rounded-0">
                                                 <h2 class="accordion-header rounded-0" id="headingJuz">
@@ -344,7 +344,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     @endif
                 </ul>
 

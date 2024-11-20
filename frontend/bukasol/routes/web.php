@@ -155,6 +155,36 @@ Route::prefix ( 'student-dashboard' )
             [ StudentDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
         )
             ->name ( 'student.nilai-uji-bacaan-siswa-table.index' );
+
+        Route::get (
+            '/catatan-harian-siswa',
+            [ StudentDashboardController::class, 'catatan_harian_siswa_table_index' ]
+        )
+            ->name ( 'student.catatan-harian-siswa-table.index' );
+
+        Route::get (
+            '/catatan-harian-siswa-detail/{id}',
+            [ StudentDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+        )
+            ->name ( 'student.catatan-harian-siswa-detail.index' );
+
+        Route::get (
+            '/catatan-harian-siswa-add',
+            [ StudentDashboardController::class, 'catatan_harian_siswa_add_index' ]
+        )
+            ->name ( 'student.catatan-harian-siswa-add.index' );
+
+        Route::get (
+            '/aktivitas-membaca-siswa',
+            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
+        )
+            ->name ( 'student.aktivitas-membaca-siswa-table.index' );
+
+        Route::get (
+            '/aktivitas-membaca-siswa-add',
+            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_add_index' ]
+        )
+            ->name ( 'student.aktivitas-membaca-siswa-add.index' );
     } );
 
 Route::prefix ( 'teacher-dashboard' )

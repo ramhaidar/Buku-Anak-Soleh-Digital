@@ -154,4 +154,64 @@ class StudentDashboardController extends Controller
             'page' => "Nilai Uji Bacaan Siswa Table"
         ] );
     }
+
+    public function catatan_harian_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.catatan-harian-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Catatan Harian Siswa Table"
+        ] );
+    }
+
+    public function catatan_harian_siswa_detail_index ( $id )
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.catatan-harian-siswa-detail', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Detail Catatan Harian Siswa"
+        ] );
+    }
+
+    public function catatan_harian_siswa_add_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.add-catatan-harian-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Tambah Catatan Harian Siswa"
+        ] );
+    }
+
+    public function aktivitas_membaca_siswa_table_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.aktivitas-membaca-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Aktivitas Membaca Siswa Table"
+        ] );
+    }
+
+    public function aktivitas_membaca_siswa_add_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'student.add-aktivitas-membaca-siswa', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Tambah Aktivitas Membaca Siswa"
+        ] );
+    }
 }
