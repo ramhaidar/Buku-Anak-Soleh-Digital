@@ -1,0 +1,28 @@
+thead th,
+tbody td {
+    text-align: start !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+}
+
+th,
+td {
+    white-space: nowrap !important;
+}
+
+th:last-child,
+td:last-child {
+    width: 1% !important;
+}
+
+tbody td:last-child {
+    text-align: start !important;
+}
+
+.status-sudah {
+    color: green !important;
+}
+
+.status-belum {
+    color: red !important;
+}

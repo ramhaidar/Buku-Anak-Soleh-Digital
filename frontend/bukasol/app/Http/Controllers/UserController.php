@@ -15,9 +15,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index ()
+    public function login_index ()
     {
-        return view ( 'auth.login' );
+        return view ( 'auth.login', [ 
+            'page' => 'Login'
+        ] );
     }
 
     /**
@@ -44,11 +46,23 @@ class UserController extends Controller
             Auth::login ( $user );
 
             // Redirect to the dashboard
-            return redirect ( '/dashboard' )->with ( 'success', __ ( 'auth.success' ) );
+            return redirect ()->route ( 'dashboard.index' )->with ( 'success', __ ( 'auth.success' ) );
         }
 
         // If authentication fails, redirect back with an error message
         return redirect ()->back ()->with ( 'error', __ ( 'auth.failed' ) );
+    }
+
+    public function changePassword_index ()
+    {
+        $auth = auth ()->user ();
+
+        return view ( 'change-password', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Change Password"
+        ] );
     }
 
     /**
@@ -68,7 +82,7 @@ class UserController extends Controller
         // Check if the current password is correct
         if ( ! Hash::check ( $request->current_password, Auth::user ()->password ) )
         {
-            return redirect ()->route ( 'dashboard.index' )->with ( 'error', 'Password Sekarang salah.' );
+            return redirect ()->back ()->with ( 'error', 'Password Sekarang salah.' );
         }
 
         // Update the user's password
@@ -76,7 +90,7 @@ class UserController extends Controller
         $user->password = Hash::make ( $request->new_password );
         $user->save ();
 
-        return redirect ( '/dashboard' )->with ( 'success', 'Password Berhasil Diubah.' );
+        return redirect ()->back ()->with ( 'success', 'Password Berhasil Diubah.' );
     }
 
     /**

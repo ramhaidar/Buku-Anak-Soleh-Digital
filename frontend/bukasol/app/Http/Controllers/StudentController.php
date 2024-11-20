@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Student;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -19,22 +20,23 @@ class StudentController extends Controller
             // User data validation
             'name'        => 'required|string|max:255',
             'username'    => 'required|string|unique:users,username|max:50',
-            'password'    => 'required|string|min:8|confirmed',
-            'role'        => 'required|string|in:student',
+            // 'password'    => 'required|string|min:8|confirmed',
+            // 'role'        => 'required|string|in:student',
 
             // Student data validation
             'nisn'        => 'required|string|unique:students,nisn|max:20',
             'class_name'  => 'required|string|max:50',
             'parent_name' => 'required|string|max:255',
-            'parent_code' => 'required|string|max:50',
+            // 'parent_code' => 'required|string|max:50',
+            'teacher_id'  => 'required|exists:teachers,id',
         ] );
 
         // Create the User first
         $user = User::create ( [ 
             'name'     => $validatedData[ 'name' ],
             'username' => $validatedData[ 'username' ],
-            'password' => Hash::make ( $validatedData[ 'password' ] ),
-            'role'     => $validatedData[ 'role' ],
+            'password' => Hash::make ( 'password' ),
+            'role'     => "Student",
         ] );
 
         // Then, create the Student using the User's ID
@@ -43,15 +45,13 @@ class StudentController extends Controller
             'nisn'        => $validatedData[ 'nisn' ],
             'class_name'  => $validatedData[ 'class_name' ],
             'parent_name' => $validatedData[ 'parent_name' ],
-            'parent_code' => $validatedData[ 'parent_code' ],
+            'parent_code' => Str::random ( 10 ),
+            'teacher_id'  => $validatedData[ 'teacher_id' ],
         ] );
 
-        if ( $request->ajax () )
-        {
-            return response ()->json ( [ 'success' => 'Sukses Menambahkan Data Siswa Baru.' ] );
-        }
+        return redirect ()->back ()->with ( 'success', 'Sukses Menambahkan Data Siswa Baru.' );
 
-        return response ()->json ( [ 'error' => 'Gagal Menambahkan Data Siswa Baru.' ] );
+        // return response ()->json ( [ 'error' => 'Gagal Menambahkan Data Siswa Baru.' ] );
     }
 
     /**
