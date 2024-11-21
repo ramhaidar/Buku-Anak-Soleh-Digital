@@ -2,25 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Student;
+use App\Models\Teacher;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = true;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected $fillable = [ 
         'name',
-        'email',
+        'username',
         'password',
+        'role',
     ];
 
     /**
@@ -28,7 +36,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    protected $hidden = [ 
         'password',
         'remember_token',
     ];
@@ -38,11 +46,24 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected function casts () : array
     {
-        return [
-            'email_verified_at' => 'datetime',
+        return [ 
+            'id'       => 'integer',
+            'name'     => 'string',
+            'username' => 'string',
             'password' => 'hashed',
+            'role'     => 'string',
         ];
+    }
+
+    public function student ()
+    {
+        return $this->hasOne ( Student::class);
+    }
+
+    public function teacher ()
+    {
+        return $this->hasOne ( Teacher::class);
     }
 }

@@ -21,24 +21,42 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition ()
     {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+        return [ 
+            'name'     => $this->faker->name,
+            'username' => $this->faker->unique ()->userName,
+            'password' => Hash::make ( 'admin123' ), // Default password hashed
+            'role'     => 'Admin', // Default role as 'user'
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
+    public function unverified () : static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state ( fn ( array $attributes ) => [ 
             'email_verified_at' => null,
-        ]);
+        ] );
+    }
+
+    /**
+     * Custom data state to accept various parameters.
+     *
+     * @param array $data
+     * @return static
+     */
+    public function customData ( array $data ) : static
+    {
+        return $this->state ( function (array $attributes) use ($data)
+        {
+            return [ 
+                'name'     => $data[ 'name' ] ?? $attributes[ 'name' ],
+                'username' => $data[ 'username' ] ?? $attributes[ 'username' ],
+                'password' => isset ( $data[ 'password' ] ) ? Hash::make ( $data[ 'password' ] ) : $attributes[ 'password' ],
+                'role'     => $data[ 'role' ] ?? $attributes[ 'role' ],
+            ];
+        } );
     }
 }

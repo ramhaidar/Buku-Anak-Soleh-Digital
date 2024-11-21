@@ -2,70 +2,108 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index ()
+    /**
+     * Show the login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function login_index ()
     {
-        return view ( 'auth.login' );
+        return view ( 'auth.login', [ 
+            'page' => 'Login'
+        ] );
     }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login ( Request $request )
     {
-        // Validasi input
+        // Validate input
         $request->validate ( [ 
-            'username' => 'required',
-            'password' => 'required'
+            'username' => 'required|string',
+            'password' => 'required|string',
         ] );
 
-        // Siapkan data dan hitung Content-Length
-        $data = [ 
-            'username' => $request->username,
-            'password' => $request->password
-        ];
+        // Find user by username
+        $user = User::where ( 'username', $request->username )->first ();
 
-        $jsonData      = json_encode ( $data );
-        $contentLength = strlen ( $jsonData );
-
-        // Kirim permintaan POST dengan header dan data JSON
-        $response = Http::withHeaders ( [ 
-            'Content-Type'   => 'application/json',
-            'Content-Length' => $contentLength,
-            // 'Authorization'  => 'Bearer ' . $request->bearerToken ()
-        ] )->post ( 'http://localhost:8080/api/v1/users/auth/login', $data );
-
-        // Cek apakah respons sukses dan memiliki token dan role
-        if ( $response->successful () && isset ( $response[ 'token' ], $response[ 'role' ], $response[ 'name' ] ) )
+        // Check if user exists and verify password
+        if ( $user && Hash::check ( $request->password, $user->password ) )
         {
-            $token = $response[ 'token' ];
-            $role  = $response[ 'role' ];
-            $name  = $response[ 'name' ];
+            // Authenticate the user
+            Auth::login ( $user );
 
-            // Set cookie untuk token dan role lalu redirect ke dashboard
-            return redirect ( '/dashboard' )
-                ->withCookie ( cookie ( 'token', $token ) )
-                ->withCookie ( cookie ( 'role', $role ) )
-                ->withCookie ( cookie ( 'name', $name ) );
+            // Redirect to the dashboard
+            return redirect ()->route ( 'dashboard.index' )->with ( 'success', __ ( 'auth.success' ) );
         }
 
-        // Jika tidak berhasil, kembalikan dengan error
-        return redirect ()->back ()->with ( 'error', 'Invalid credentials' );
+        // If authentication fails, redirect back with an error message
+        return redirect ()->back ()->with ( 'error', __ ( 'auth.failed' ) );
     }
 
-    public function checkCookie ()
+    public function changePassword_index ()
     {
-        // Ambil nilai cookie 'token' dan 'role'
-        $token = Cookie::get ( 'token' );
-        $role  = Cookie::get ( 'role' );
-        $name  = Cookie::get ( 'name' );
+        $auth = auth ()->user ();
 
-        // Tampilkan nilai cookie untuk debugging
-        dd ( [ 
-            'token' => $token,
-            'role'  => $role,
-            'name'  => $name
+        return view ( 'change-password', [ 
+            'role' => $auth->role,
+            'name' => $auth->name,
+
+            'page' => "Change Password"
         ] );
+    }
+
+    /**
+     * Handle the change password request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changePassword ( Request $request )
+    {
+        // Validate the input
+        $request->validate ( [ 
+            'current_password' => 'required|string',
+            'new_password'     => 'required|string|min:8|confirmed',
+        ] );
+
+        // Check if the current password is correct
+        if ( ! Hash::check ( $request->current_password, Auth::user ()->password ) )
+        {
+            return redirect ()->back ()->with ( 'error', 'Password Sekarang salah.' );
+        }
+
+        // Update the user's password
+        $user           = Auth::user ();
+        $user->password = Hash::make ( $request->new_password );
+        $user->save ();
+
+        return redirect ()->back ()->with ( 'success', 'Password Berhasil Diubah.' );
+    }
+
+    /**
+     * Log the user out (Invalidate the session).
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout ()
+    {
+        // Log the user out using Auth facade
+        Auth::logout ();
+
+        // Redirect to the home page
+        return redirect ( '/' );
     }
 }
