@@ -48,17 +48,5 @@ class TeacherSeeder extends Seeder
             // Create associated teacher record
             Teacher::factory ()->customData ( [ 'user_id' => $user->id ] )->create ();
         }
-
-        // Generate 300 random teacher records with the role set to "Teacher"
-        for ( $i = 0; $i < 100; $i++ )
-        {
-            // Create a user with the role "Teacher"
-            $user = User::factory ()->customData ( [ 
-                'role' => 'Teacher'
-            ] )->create ();
-
-            // Create associated teacher record
-            Teacher::factory ()->customData ( [ 'user_id' => $user->id ] )->create ();
-        }
     }
 }

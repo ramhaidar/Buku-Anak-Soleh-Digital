@@ -9,37 +9,37 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Teacher extends Model
 {
-use HasFactory;
+    use HasFactory;
 
-protected $table = 'teachers';
-protected $primaryKey = 'id';
-public $incrementing = true;
-protected $keyType = 'int';
-public $timestamps = true;
+    protected $table = 'teachers';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    public $timestamps = true;
 
-protected $fillable = [ 
-'user_id',
-'nip',
-'class_name',
-];
+    protected $fillable = [ 
+        'user_id',
+        'nip',
+        'class_name',
+    ];
 
-protected function casts () : array
-{
-return [ 
-'id'         => 'integer',
-'user_id'    => 'integer',
-'nip'        => 'string',
-'class_name' => 'string',
-];
-}
+    protected function casts () : array
+    {
+        return [ 
+            'id'         => 'integer',
+            'user_id'    => 'integer',
+            'nip'        => 'string',
+            'class_name' => 'string',
+        ];
+    }
 
-public function user ()
-{
-return $this->belongsTo ( User::class);
-}
+    public function user ()
+    {
+        return $this->belongsTo ( User::class);
+    }
 
-public function students ()
-{
-return $this->hasMany ( Student::class);
-}
+    public function students ()
+    {
+        return $this->hasMany ( Student::class);
+    }
 }

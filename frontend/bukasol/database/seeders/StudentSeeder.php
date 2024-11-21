@@ -74,27 +74,5 @@ class StudentSeeder extends Seeder
                 'teacher_id' => $teachers->random ()->id,
             ] ) )->create ();
         }
-
-        // Generate 300 random student records with the role set to "Student"
-        for ( $i = 0; $i < 100; $i++ )
-        {
-            // Create a user with the role "Student"
-            $user = User::factory ()->customData ( [ 
-                'role' => 'Student',
-            ] )->create ();
-
-            // Assign a random teacher to the student
-            $randomTeacher = Teacher::inRandomOrder ()->first ();
-
-            // Create associated student record
-            Student::factory ()->customData ( [ 
-                'user_id'     => $user->id,
-                'class_name'  => $randomTeacher->class_name,
-                'teacher_id'  => $randomTeacher->id,
-                'nisn'        => fake ()->unique ()->numerify ( '###########' ),
-                'parent_name' => fake ()->name (),
-                'parent_code' => Str::random ( 10 ),
-            ] )->create ();
-        }
     }
 }
