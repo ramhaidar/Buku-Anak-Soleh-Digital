@@ -42,7 +42,7 @@ public class ActivityController {
     private final NoteService noteService;
 
     @GetMapping(value = "/teacher/note-activity/{className}")
-    public ResponseEntity<NoteInfoDTO> getAllNoteActivityByClassAndTimeStamp(@PathVariable("className") String className) {
+    public ResponseEntity<NoteInfoDTO> getAllNoteActivityByClass(@PathVariable("className") String className) {
         NoteInfoDTO noteInfoDTO = noteService.showAllNoteActivityByClass(className);
         
         return ResponseEntity.status(HttpStatus.OK).body(noteInfoDTO);
