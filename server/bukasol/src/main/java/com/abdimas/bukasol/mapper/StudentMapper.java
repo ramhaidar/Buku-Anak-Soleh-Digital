@@ -29,6 +29,9 @@ public interface StudentMapper {
     @Mapping(target="prayerRecitationGrade", ignore=true)
     @Mapping(target="readActivity", ignore=true)
     @Mapping(target="note", ignore=true)
+    @Mapping(target="muhasabahReport", ignore=true)
+    @Mapping(target="violationReport", ignore=true)
+    @Mapping(target="juz", ignore=true)
     Student toStudent(StudentAdminDTO studentDTO);
 
     StudentDTO toStudentDTO(Student student);
@@ -39,6 +42,9 @@ public interface StudentMapper {
     @Mapping(target="prayerRecitationGrade", ignore=true)
     @Mapping(target="readActivity", ignore=true)
     @Mapping(target="note", ignore=true)
+    @Mapping(target="muhasabahReport", ignore=true)
+    @Mapping(target="violationReport", ignore=true)
+    @Mapping(target="juz", ignore=true)
     Student toStudent(StudentDTO studentDTO);
 
     List<StudentAdminDTO> toStudentDTOList(List<Student> students);
