@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\GradeController;
 
 // Route::get ( '/', function ()
 // {
@@ -276,8 +277,8 @@ Route::prefix ( 'teacher-dashboard' )
             ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
 
         Route::get (
-            '/nilai-uji-gerakan-siswa',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+            '/nilai-uji-gerakan-siswa/{className?}',
+            [ GradeController::class, 'getAllPrayerGradeByClassName' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
 
