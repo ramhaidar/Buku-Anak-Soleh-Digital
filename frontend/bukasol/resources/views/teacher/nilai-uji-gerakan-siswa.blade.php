@@ -50,25 +50,61 @@
 @push('scripts')
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#nilaiUjiGerakanSiswaTable').DataTable({
                 processing: true,
                 serverSide: true,
+                paging: true,
                 ajax: {
-                    url: "{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $className ?? auth()->user()->teacher->class_name]) }}",
-                    method: "GET"
+                    url: '{{ route('nilai_uji_gerakan.fetchData') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
                 },
-                columns: [
-                    { data: 'studentNisn', title: 'NISN' },
-                    { data: 'studentName', title: 'Nama' },
-                    { data: 'avgSemester1', title: 'Semester 1' },
-                    { data: 'avgSemester2', title: 'Semester 2' },
-                    { data: 'parentSign', title: 'Paraf Orang Tua', className: 'text-center' },
-                    { data: 'teacherSign', title: 'Paraf Guru', className: 'text-center' }
-                    // { data: 'action', title: 'Action', orderable: false, searchable: false }
-                ]
+                columns: [{
+                        data: 'studentNisn',
+                        name: 'studentNisn',
+                        title: 'NISN'
+                    },
+                    {
+                        data: 'studentName',
+                        name: 'studentName',
+                        title: 'Nama'
+                    },
+                    {
+                        data: 'avgSemester1',
+                        name: 'avgSemester1',
+                        title: 'Semester 1'
+                    },
+                    {
+                        data: 'avgSemester2',
+                        name: 'avgSemester2',
+                        title: 'Semester 2'
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        className: 'text-center'
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        className: 'text-center'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
     </script>

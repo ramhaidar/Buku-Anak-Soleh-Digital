@@ -276,9 +276,15 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
 
+        // Route::get (
+        //     '/nilai-uji-gerakan-siswa/{className?}',
+        //     [ GradeController::class, 'getAllPrayerGradeByClassName' ]
+        // )
+        //     ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
+    
         Route::get (
             '/nilai-uji-gerakan-siswa/{className?}',
-            [ GradeController::class, 'getAllPrayerGradeByClassName' ]
+            [ GradeController::class, 'index' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
 
@@ -422,6 +428,11 @@ Route::middleware ( 'auth' )
             '/student/fetchData',
             [ AdminDashboardController::class, 'fetchData_student' ]
         )->name ( 'student.fetchData' );
+
+        Route::post (
+            '/nilai-uji-gerakan/fetchData',
+            [ GradeController::class, 'fetchData_nilai_uji_gerakan' ]
+        )->name ( 'nilai_uji_gerakan.fetchData' );
     } );
 
 // Rute untuk menangani proses CRUD data Guru
