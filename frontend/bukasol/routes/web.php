@@ -283,22 +283,28 @@ Route::prefix ( 'teacher-dashboard' )
         //     ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
     
         Route::get (
-            '/nilai-uji-gerakan-siswa/{className?}',
-            [ GradeController::class, 'index' ]
+            '/nilai-uji-gerakan-siswa',
+            [ GradeController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
 
         Route::get (
             '/nilai-uji-gerakan-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_detail_index' ]
+            [ GradeController::class, 'index_student' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-detail.index' );
 
         Route::get (
-            '/nilai-uji-gerakan-siswa-add',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_add_index' ]
+            '/nilai-uji-gerakan-siswa-add/{id}',
+            [ GradeController::class, 'index_add_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
+
+        Route::post (
+            '/prayer-grade',
+            [ GradeController::class, 'store_prayer_grade' ]
+        )
+        ->name('prayer-grade.store');
 
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
@@ -431,8 +437,13 @@ Route::middleware ( 'auth' )
 
         Route::post (
             '/nilai-uji-gerakan/fetchData',
-            [ GradeController::class, 'fetchData_nilai_uji_gerakan' ]
+            [ GradeController::class, 'fetchData_nilai_uji_gerakan_by_nama_kelas' ]
         )->name ( 'nilai_uji_gerakan.fetchData' );
+
+        Route::post (
+            '/nilai-uji-gerakan-detail/fetchData/{id}',
+            [ GradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
+        )->name ( 'nilai_uji_gerakan_detail.fetchData' );
     } );
 
 // Rute untuk menangani proses CRUD data Guru

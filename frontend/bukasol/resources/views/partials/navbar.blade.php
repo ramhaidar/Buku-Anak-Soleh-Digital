@@ -93,11 +93,6 @@
     </style>
 @endpush
 
-@php
-    $teacher = auth()->user()->teacher;
-    $specificClassName = $teacher->class_name;
-@endphp
-
 <div class="position-fixed top-0 start-0 w-100 p-0 m-0" style="z-index: 3; background-color: saddlebrown">
     <header class="navbar navbar-expand-md navbar-light bg-light border-bottom mb-0 mx-0 px-3 pt-3" style="align-items: center; background-color: seagreen; min-height: 80px; max-height: min-height: 80px">
         <div class="container-fluid p-0 m-0 h-100" style="min-width: 100%; align-items: center">
@@ -145,6 +140,10 @@
                             </div>
                         </div>
                     @elseif (isset($role) && $role == 'Teacher')
+                        @php
+                            $teacher = auth()->user()->teacher;
+                            $className = $teacher->class_name;
+                        @endphp
                         <!-- Dropdown Menu for Desktop View -->
                         <li class="dropdown px-2 mb-2" id="FirstItem">
                             <button class="nav-item btn btn-secondary navigation-button" id="laporanDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -169,7 +168,8 @@
                                 Nilai
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="nilaiDropdown">
-                                <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $specificClassName]) }}">Nilai Uji Gerakan Siswa</a></li>
+                                <!-- <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $className]) }}">Nilai Uji Gerakan Siswa</a></li> -->
+                                <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a></li>
                             </ul>
                         </li>
@@ -226,7 +226,8 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseNilai" aria-labelledby="headingNilai">
                                     <div class="accordion-body">
-                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $specificClassName]) }}">Nilai Uji Gerakan Siswa</a>
+                                        <!-- <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $className]) }}">Nilai Uji Gerakan Siswa</a> -->
+                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a>
                                         <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a>
                                     </div>
                                 </div>
