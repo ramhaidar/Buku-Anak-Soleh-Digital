@@ -424,11 +424,6 @@ Route::middleware ( 'auth' )
         )->name ( 'student.fetchData' );
     } );
 
-Route::get ( '/test', function ()
-{
-    return view ( 'test' );
-} );
-
 // Rute untuk menangani proses CRUD data Guru
 Route::middleware ( 'auth' )
     ->group ( function ()

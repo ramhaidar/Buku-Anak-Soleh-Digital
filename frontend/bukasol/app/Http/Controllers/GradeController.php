@@ -10,45 +10,78 @@ use Illuminate\Validation\ValidationException;
 
 class GradeController extends Controller
 {
-    public function getAllPrayerGradeByClassName( $className ) {
+    public function getAllPrayerGradeByClassName( $className = null) {
+        $teacher = auth()->user()->teacher;
+        $teacherClassName = $teacher->class_name;
+
+        if( $className == null || $teacherClassName != $className ) {
+            return redirect ()->route ( 'teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $teacherClassName]);
+        }
 
         $students = Student::where('class_name', $className)->with('user', 'teacher.user')->get();
 
         if ($students->isEmpty()) {
-            return response()->json(['message' => 'No students found in this class'], 404);
+            return response()->json(['data' => []], 200);
         }
 
-        $prayerGradeInfoDTO = [
-            'className' => $className,
-            'teacherName' => $students->first()->teacher->user->name ?? null,
-            'prayerGrades' => [],
-        ];
-
-        foreach ($students as $student) {
-            $prayerGrades = PrayerGrade::where('student_id', $student->id)->get();
-
-            // Calculate averages for semesters
-            $avgSemester1 = $prayerGrades->avg('grade_semester1') ?? 0.0;
-            $avgSemester2 = $prayerGrades->avg('grade_semester2') ?? 0.0;
-
-            // Check teacher and parent sign statuses
-            $teacherSignFalseCount = PrayerGrade::where('student_id', $student->id)->where('teacher_sign', false)->count();
-            $parentSignFalseCount = PrayerGrade::where('student_id', $student->id)->where('parent_sign', false)->count();
-
-            $prayerGradeTeacherShowDTO = [
-                'studentId' => $student->id,
+        $prayerGrades = $students->map(function ($student) {
+            $prayerGrade = PrayerGrade::where('student_id', $student->id)->get();
+    
+            $avgSemester1 = $prayerGrade->avg('grade_semester1') ?? 0.0;
+            $avgSemester2 = $prayerGrade->avg('grade_semester2') ?? 0.0;
+    
+            $teacherSignFalseCount = $prayerGrade->where('teacher_sign', false)->count();
+            $parentSignFalseCount = $prayerGrade->where('parent_sign', false)->count();
+    
+            return [
                 'studentNisn' => $student->nisn,
                 'studentName' => $student->user->name,
                 'avgSemester1' => $avgSemester1,
                 'avgSemester2' => $avgSemester2,
-                'teacherSign' => $teacherSignFalseCount === 0,
-                'parentSign' => $parentSignFalseCount === 0,
+                'parentSign' => $parentSignFalseCount === 0 ? 'Sudah' : 'Belum',
+                'teacherSign' => $teacherSignFalseCount === 0 ? 'Sudah' : 'Belum',
+                // 'action' => view('partials.action-buttons', ['studentId' => $student->id])->render(),
             ];
+        });
 
-            $prayerGradeInfoDTO['prayerGrades'][] = $prayerGradeTeacherShowDTO;
-        }
+        return response()->json([
+            'draw'            => intval ( request ( 'draw' ) ), // Draw counter for DataTables
+            'recordsTotal'    => 1,
+            'recordsFiltered' => 1,    
+            'data' => $prayerGrades
+        ]);
 
-        return response()->json($prayerGradeInfoDTO, 200);
+        // $prayerGradeInfoDTO = [
+        //     'className' => $className,
+        //     'teacherName' => $students->first()->teacher->user->name ?? null,
+        //     'prayerGrades' => [],
+        // ];
+
+        // foreach ($students as $student) {
+        //     $prayerGrades = PrayerGrade::where('student_id', $student->id)->get();
+
+        //     // Calculate averages for semesters
+        //     $avgSemester1 = $prayerGrades->avg('grade_semester1') ?? 0.0;
+        //     $avgSemester2 = $prayerGrades->avg('grade_semester2') ?? 0.0;
+
+        //     // Check teacher and parent sign statuses
+        //     $teacherSignFalseCount = PrayerGrade::where('student_id', $student->id)->where('teacher_sign', false)->count();
+        //     $parentSignFalseCount = PrayerGrade::where('student_id', $student->id)->where('parent_sign', false)->count();
+
+        //     $prayerGradeTeacherShowDTO = [
+        //         'studentId' => $student->id,
+        //         'studentNisn' => $student->nisn,
+        //         'studentName' => $student->user->name,
+        //         'avgSemester1' => $avgSemester1,
+        //         'avgSemester2' => $avgSemester2,
+        //         'teacherSign' => $teacherSignFalseCount === 0,
+        //         'parentSign' => $parentSignFalseCount === 0,
+        //     ];
+
+        //     $prayerGradeInfoDTO['prayerGrades'][] = $prayerGradeTeacherShowDTO;
+        // }
+
+        // return response()->json($prayerGradeInfoDTO, 200);
     }
     
     public function getAllPrayerGradeByStudentId( $studentId ) {
