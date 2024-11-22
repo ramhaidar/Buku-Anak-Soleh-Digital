@@ -304,13 +304,19 @@ Route::prefix ( 'teacher-dashboard' )
             '/prayer-grade',
             [ GradeController::class, 'store_prayer_grade' ]
         )
-        ->name('prayer-grade.store');
+            ->name('prayer-grade.store');
 
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_edit_index' ]
+            [ GradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
+
+        Route::put (
+            '/prayer-grade/{id}',
+            [ GradeController::class, 'update_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.update' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa',

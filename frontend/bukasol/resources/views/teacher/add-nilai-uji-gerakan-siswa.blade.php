@@ -23,7 +23,6 @@
             <div class="p-4 rounded w-50">
                 <form action="{{ route('prayer-grade.store') }}" method="POST">
                     @csrf
-
                     <!-- Name Input -->
                     <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
 

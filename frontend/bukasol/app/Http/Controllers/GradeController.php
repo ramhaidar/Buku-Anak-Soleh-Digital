@@ -51,8 +51,23 @@ class GradeController extends Controller
         ] );
     }
 
-    public function fetchData_nilai_uji_gerakan_by_nama_kelas ( Request $request )
+    public function index_edit_grade ( $gradeId )
     {
+        $prayerGrade = PrayerGrade::find($gradeId);
+
+        return view ( 'teacher.edit-nilai-uji-gerakan-siswa', [ 
+            'role' => auth ()->user ()->role,
+            'name' => auth ()->user ()->name,
+            'gradeId' => $gradeId,
+            'motionCategory' => $prayerGrade->motion_category,
+            'gradeSemester1' => $prayerGrade->grade_semester1,
+            'gradeSemester2' => $prayerGrade->grade_semester2,
+            'studentId' => $prayerGrade->student_id,
+            'page' => 'Edit Nilai Uji Gerakan Siswa'
+        ] );
+    }
+
+    public function fetchData_nilai_uji_gerakan_by_nama_kelas ( Request $request ) {
         // Safely get the length and start, with default values if they're not set
         $length = $request->input ( 'length', 10 ); // Number of records per page
         $start  = $request->input ( 'start', 0 ); // Offset for pagination
@@ -184,52 +199,25 @@ class GradeController extends Controller
             ->with('success', 'Sukses Menambahkan Data Nilai Baru.');
     }
 
-    public function updatePrayerGrade ( Request $request, $studentId )
-    {
-        $validator = Validator::make ( $request->all (), [ 
-            'motion_category' => 'required|string|max:255',
-            'grade_semester1' => 'required|numeric|min:0|max:100',
-            'grade_semester2' => 'required|numeric|min:0|max:100',
+    public function update_prayer_grade( Request $request, $id ) {
+        $validatedData = $request->validate ( [
+            'studentId'      => 'required|exists:students,id',
+            'jenis_gerakan' => 'required|string|max:255',
+            'nilai_semester_1' => 'required|numeric|min:0|max:100',
+            'nilai_semester_2' => 'required|numeric|min:0|max:100',
         ] );
 
-        if ( $validator->fails () )
-        {
-            return response ()->json ( [ 'errors' => $validator->errors () ], 422 );
-        }
+        $prayerGrade = PrayerGrade::findOrFail($id);
 
-        $validatedData = $validator->validated ();
+        $prayerGrade->update([
+            'motion_category'  => $validatedData['jenis_gerakan'],
+            'grade_semester1'  => $validatedData['nilai_semester_1'],
+            'grade_semester2'  => $validatedData['nilai_semester_2'],
+            'time_stamp'       => now(), // Optional: Update timestamp if needed
+        ]);
 
-        // Find the PrayerGrade by ID
-        $prayerGrade = PrayerGrade::findOrFail ( $id );
-
-        // Check for existing PrayerGrade with the same student and motion category
-        $existingGrade = PrayerGrade::where ( 'student_id', $prayerGrade->student_id )
-            ->where ( 'motion_category', $validatedData[ 'motion_category' ] )
-            ->where ( 'id', '!=', $studentId )
-            ->first ();
-
-        if ( $existingGrade )
-        {
-            return response ()->json ( [ 
-                'message' => 'Prayer grade for this motion category already exists for the student.'
-            ], 409 ); // 409 Conflict
-        }
-
-        // Update the PrayerGrade
-        $prayerGrade->motion_category = $validatedData[ 'motion_category' ];
-        $prayerGrade->grade_semester1 = $validatedData[ 'grade_semester1' ];
-        $prayerGrade->grade_semester2 = $validatedData[ 'grade_semester2' ];
-        $prayerGrade->save ();
-
-        $response = [ 
-            'id'              => $prayerGrade->id,
-            'student_id'      => $prayerGrade->student_id,
-            'motion_category' => $prayerGrade->motion_category,
-            'grade_semester1' => $prayerGrade->grade_semester1,
-            'grade_semester2' => $prayerGrade->grade_semester2
-        ];
-
-        return response ()->json ( $response, 200 );
+        return redirect()->route('teacher.nilai-uji-gerakan-siswa-detail.index', ['id' => $validatedData['studentId']])
+            ->with('success', 'Sukses Mengubah Data Nilai Baru.');
     }
 
     public function deletePrayerGrade ( $gradeId )
