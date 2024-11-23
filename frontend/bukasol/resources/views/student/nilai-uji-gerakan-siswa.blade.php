@@ -37,7 +37,7 @@
             </table>
         </div>
 
-        @include('student.partials.modal-kode-unik-paraf-orang-tua')
+        @include('student.partials.modal-kode-unik-paraf-orang-tua-prayer-grade')
     </div>
 @endsection
 

@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class StudentPrayerGradeController extends Controller
 {
 
-    public function index() {
+    public function index()
+    {
         $student = auth ()->user ()->student;
         $studentId = $student->id;
 

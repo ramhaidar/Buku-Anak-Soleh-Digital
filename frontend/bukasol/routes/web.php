@@ -136,11 +136,18 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'prayer-grade.parent-sign' );
 
+        // Student Prayer Recitation Grade
         Route::get (
             '/nilai-uji-bacaan-siswa',
-            [ StudentDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+            [ StudentPrayerRecitationGradeController::class, 'index' ]
         )
             ->name ( 'student.nilai-uji-bacaan-siswa-table.index' );
+
+        Route::put (
+            '/prayer-recitation-grade/parent-sign/{id}',
+            [ StudentPrayerRecitationGradeController::class, 'parent_sign_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.parent-sign' );
 
         Route::get (
             '/catatan-harian-siswa',
@@ -460,6 +467,7 @@ Route::middleware ( 'auth' )
             [ AdminDashboardController::class, 'fetchData_student' ]
         )->name ( 'student.fetchData' );
 
+        // Prayer Grade
         Route::post (
             '/nilai-uji-gerakan/fetchData',
             [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_nama_kelas' ]
@@ -481,6 +489,7 @@ Route::middleware ( 'auth' )
         )
             ->name ( 'prayer-grade.convert-pdf' );
 
+        // Prayer Recitation Grade
         Route::post (
             '/nilai-uji-bacaan/fetchData',
             [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_nama_kelas' ]
@@ -490,6 +499,17 @@ Route::middleware ( 'auth' )
             '/nilai-uji-bacaan-detail/fetchData/{id}',
             [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_id_siswa' ]
         )->name ( 'nilai_uji_bacaan_detail.fetchData' );
+
+        Route::post (
+            '/siswa-nilai-uji-bacaan/fetchData',
+            [ StudentPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_id_siswa' ]
+        )->name ( 'siswa.nilai_uji_bacaan.fetchData' );
+
+        Route::get (
+            '/prayer-recitation-grade-report/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'prayer_recitation_grade_pdf' ]
+        )
+            ->name ( 'prayer-recitation-grade.convert-pdf' );
     } );
 
 // Rute untuk menangani proses CRUD data Guru
