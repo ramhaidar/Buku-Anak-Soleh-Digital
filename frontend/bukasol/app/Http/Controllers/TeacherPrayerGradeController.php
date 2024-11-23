@@ -8,7 +8,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class TeacherPrayerGradeController extends Controller
 {
@@ -295,45 +294,5 @@ class TeacherPrayerGradeController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="grade-report.pdf"',
         ]);
-    }
-
-    public function parentSignPrayerGrade ( $gradeId, Request $request )
-    {
-
-        $request->validate ( [ 
-            'parent_code' => 'required|string',
-        ] );
-
-        $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
-
-        $student = $prayerGrade->student;
-
-        if ( $student->parent_code === $request->input ( 'parent_code' ) )
-        {
-            // Toggle the parent_sign field
-            $prayerGrade->parent_sign = ! $prayerGrade->parent_sign;
-
-            // Save the updated PrayerGrade
-            $prayerGrade->save ();
-
-            $response = [ 
-                'id'              => $prayerGrade->id,
-                'student_id'      => $prayerGrade->student_id,
-                'time_stamp'      => $prayerGrade->time_stamp,
-                'motion_category' => $prayerGrade->motion_category,
-                'grade_semester1' => $prayerGrade->grade_semester1,
-                'grade_semester2' => $prayerGrade->grade_semester2,
-                'teacher_sign'    => $prayerGrade->teacher_sign,
-                'parent_sign'     => $prayerGrade->parent_sign,
-            ];
-
-            return response ()->json ( $response, 200 );
-        }
-        else
-        {
-            return response ()->json ( [ 
-                'message' => 'Wrong Parent Code'
-            ], 403 );
-        }
     }
 }

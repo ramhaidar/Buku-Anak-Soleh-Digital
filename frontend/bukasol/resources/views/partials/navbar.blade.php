@@ -362,15 +362,15 @@
                             <span class="ms-3">—</span>
                             <span class="ms-2 me-2">{{ isset($name) ? $name : 'NAME' }}</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="profileDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end text-start ms-1" aria-labelledby="profileDropdown">
                             <li class="">
                                 @if (isset($role) && $role == 'Admin')
-                                    <a class="dropdown-item p-1 m-0 my-0" href="{{ route('change-password.index') }}">Ganti Password</a>
+                                    <a class="dropdown-item p-1 m-0 my-0 ms-1" href="{{ route('change-password.index') }}">Ganti Password</a>
                                 @endif
-                                <div class="dropdown-divider border-0 bg-white p-0 m-0"></div>
+                                <div class="dropdown-divider border-0 bg-white p-0 m-0 ms-1"></div>
                                 <form class="p-0 m-0" method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button class=" p-1 m-0 my-0 dropdown-item" type="submit">Logout</button>
+                                    <button class=" p-1 m-0 my-0 dropdown-item ms-1" type="submit">Logout</button>
                                 </form>
                             </li>
                         </ul>

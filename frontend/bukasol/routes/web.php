@@ -11,7 +11,10 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminDashboardController;
+
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentPrayerGradeController;
+use App\Http\Controllers\StudentPrayerRecitationGradeController;
 
 use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\TeacherPrayerGradeController;
@@ -120,11 +123,18 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
 
+        // Student Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
-            [ StudentDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+            [ StudentPrayerGradeController::class, 'index' ]
         )
             ->name ( 'student.nilai-uji-gerakan-siswa-table.index' );
+
+        Route::put (
+            '/prayer-grade/parent-sign/{id}',
+            [ StudentPrayerGradeController::class, 'parent_sign_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.parent-sign' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa',
@@ -300,12 +310,6 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'prayer-grade.teacher-sign' );
 
-        Route::get (
-            '/prayer-grade-report/{id}',
-            [ TeacherPrayerGradeController::class, 'prayer_grade_pdf' ]
-        )
-            ->name ( 'prayer-grade.convert-pdf' );
-
         // Teacher Prayer Recitation Grade
         Route::get (
             '/nilai-uji-bacaan-siswa',
@@ -354,12 +358,6 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherPrayerRecitationGradeController::class, 'teacher_sign_prayer_recitation_grade' ]
         )
             ->name ( 'prayer-recitation-grade.teacher-sign' );
-
-        Route::get (
-            '/prayer-recitation-grade-report/{id}',
-            [ TeacherPrayerRecitationGradeController::class, 'prayer_recitation_grade_pdf' ]
-        )
-            ->name ( 'prayer-recitation-grade.convert-pdf' );
 
         // Teacher Notes Activity
 
@@ -471,6 +469,17 @@ Route::middleware ( 'auth' )
             '/nilai-uji-gerakan-detail/fetchData/{id}',
             [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
         )->name ( 'nilai_uji_gerakan_detail.fetchData' );
+
+        Route::post (
+            '/siswa-nilai-uji-gerakan/fetchData',
+            [ StudentPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
+        )->name ( 'siswa.nilai_uji_gerakan.fetchData' );
+
+        Route::get (
+            '/prayer-grade-report/{id}',
+            [ TeacherPrayerGradeController::class, 'prayer_grade_pdf' ]
+        )
+            ->name ( 'prayer-grade.convert-pdf' );
 
         Route::post (
             '/nilai-uji-bacaan/fetchData',
