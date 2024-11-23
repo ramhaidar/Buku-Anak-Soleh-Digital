@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class GradeController extends Controller
+class TeacherPrayerGradeController extends Controller
 {
     public function index_teacher ()
     {
@@ -69,7 +69,8 @@ class GradeController extends Controller
         ] );
     }
 
-    public function fetchData_nilai_uji_gerakan_by_nama_kelas ( Request $request ) {
+    public function fetchData_nilai_uji_gerakan_by_nama_kelas ( Request $request )
+    {
         // Safely get the length and start, with default values if they're not set
         $length = $request->input ( 'length', 10 ); // Number of records per page
         $start  = $request->input ( 'start', 0 ); // Offset for pagination
@@ -132,7 +133,8 @@ class GradeController extends Controller
         ] );
     }
 
-    public function fetchData_nilai_uji_gerakan_by_id_siswa ( Request $request ) {
+    public function fetchData_nilai_uji_gerakan_by_id_siswa ( Request $request )
+    {
         // Safely get the length and start for pagination
         $length = $request->input('length', 10); // Number of records per page
         $start = $request->input('start', 0); // Offset for pagination
@@ -180,7 +182,8 @@ class GradeController extends Controller
         ]);
     }
 
-    public function store_prayer_grade( Request $request ) {
+    public function store_prayer_grade( Request $request )
+    {
         $validatedData = $request->validate ( [ 
             'studentId'      => 'required|exists:students,id',
             'jenis_gerakan' => 'required|string|max:255',
@@ -210,7 +213,8 @@ class GradeController extends Controller
             ->with('success', 'Sukses Menambahkan Data Nilai Baru.');
     }
 
-    public function update_prayer_grade( Request $request, $id ) {
+    public function update_prayer_grade( Request $request, $gradeId )
+    {
         $validatedData = $request->validate ( [
             'studentId'      => 'required|exists:students,id',
             'jenis_gerakan' => 'required|string|max:255',
@@ -218,11 +222,11 @@ class GradeController extends Controller
             'nilai_semester_2' => 'required|numeric|min:0|max:100',
         ] );
 
-        $prayerGrade = PrayerGrade::findOrFail($id);
+        $prayerGrade = PrayerGrade::findOrFail($gradeId);
 
         $existingGrade = PrayerGrade::where('student_id', $validatedData['studentId'])
             ->where('motion_category', $validatedData['jenis_gerakan'])
-            ->where('id', '!=', $id)
+            ->where('id', '!=', $gradeId)
             ->first();
 
             if ($existingGrade) {
@@ -240,16 +244,18 @@ class GradeController extends Controller
             ->with('success', 'Sukses Mengubah Data Nilai Baru.');
     }
 
-    public function delete_prayer_grade( Request $request, $id ) {
+    public function delete_prayer_grade( Request $request, $gradeId )
+    {
        
-        $prayerGrade = PrayerGrade::findOrFail ( $id );
+        $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
 
         $prayerGrade->delete ();
 
         return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
     }
 
-    public function teacher_sign_prayer_grade( Request $request, $gradeId ) {
+    public function teacher_sign_prayer_grade( Request $request, $gradeId )
+    {
         
         $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
 
@@ -260,7 +266,8 @@ class GradeController extends Controller
         return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
     }
 
-    public function prayer_grade_pdf( $studentId ) {
+    public function prayer_grade_pdf( $studentId )
+    {
 
         $prayerGrades = PrayerGrade::where('student_id', $studentId)->get();
 
@@ -282,7 +289,7 @@ class GradeController extends Controller
             'dateToday' => now()->toDateString(),
         ];
 
-        $pdf = Pdf::loadView('teacher.convert.prayer-grade-template', $data);
+        $pdf = Pdf::loadView('convert.prayer-grade-template', $data);
 
         return Response::make($pdf->output(), 200, [
             'Content-Type' => 'application/pdf',
@@ -328,10 +335,5 @@ class GradeController extends Controller
                 'message' => 'Wrong Parent Code'
             ], 403 );
         }
-    }
-
-    public function getGradeReportPdf ( $gradeId )
-    {
-
     }
 }

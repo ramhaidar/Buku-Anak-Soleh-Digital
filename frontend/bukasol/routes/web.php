@@ -12,23 +12,15 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StudentDashboardController;
-use App\Http\Controllers\TeacherDashboardController;
-use App\Http\Controllers\GradeController;
 
-// Route::get ( '/', function ()
-// {
-//     return view ( 'welcome' );
-// } );
+use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\TeacherPrayerGradeController;
+use App\Http\Controllers\TeacherPrayerRecitationGradeController;
 
 Route::get ( '/', function ()
 {
     return redirect ()->route ( 'login.index' );
 } );
-
-// Route::get ( '/dashboard', function ()
-// {
-//     return view ( 'dashboard' );
-// } );
 
 Route::get (
     '/login',
@@ -36,13 +28,6 @@ Route::get (
 )
     ->middleware ( 'Authenticated' )
     ->name ( 'login.index' );
-
-// Route::get (
-//     '/login',
-//     [ Login::class, 'render' ]
-// )
-//     ->middleware ( 'Authenticated' )
-//     ->name ( 'login.index' );
 
 Route::post (
     '/login',
@@ -55,16 +40,6 @@ Route::post (
     '/logout',
     [ UserController::class, 'logout' ]
 )->name ( 'logout' );
-
-Route::get (
-    '/logout',
-    [ UserController::class, 'logout' ]
-)->name ( 'logout' );
-
-// Route::get (
-//     '/check-cookie',
-//     [ UserController::class, 'checkCookie' ]
-// );
 
 Route::get (
     '/dashboard',
@@ -276,90 +251,117 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
 
-        // Route::get (
-        //     '/nilai-uji-gerakan-siswa/{className?}',
-        //     [ GradeController::class, 'getAllPrayerGradeByClassName' ]
-        // )
-        //     ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
-    
         // Teacher Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
-            [ GradeController::class, 'index_teacher' ]
+            [ TeacherPrayerGradeController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
 
         Route::get (
             '/nilai-uji-gerakan-siswa-detail/{id}',
-            [ GradeController::class, 'index_student' ]
+            [ TeacherPrayerGradeController::class, 'index_student' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-detail.index' );
 
         Route::get (
             '/nilai-uji-gerakan-siswa-add/{id}',
-            [ GradeController::class, 'index_add_grade' ]
+            [ TeacherPrayerGradeController::class, 'index_add_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
 
         Route::post (
             '/prayer-grade',
-            [ GradeController::class, 'store_prayer_grade' ]
+            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
         )
             ->name('prayer-grade.store');
 
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
-            [ GradeController::class, 'index_edit_grade' ]
+            [ TeacherPrayerGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
 
         Route::put (
             '/prayer-grade/{id}',
-            [ GradeController::class, 'update_prayer_grade' ]
+            [ TeacherPrayerGradeController::class, 'update_prayer_grade' ]
         )
             ->name ( 'prayer-grade.update' );
 
         Route::delete (
             '/prayer-grade/{id}',
-            [ GradeController::class, 'delete_prayer_grade' ]
+            [ TeacherPrayerGradeController::class, 'delete_prayer_grade' ]
         )
             ->name ( 'prayer-grade.delete' );
 
         Route::put (
             '/prayer-grade/teacher-sign/{id}',
-            [ GradeController::class, 'teacher_sign_prayer_grade' ]
+            [ TeacherPrayerGradeController::class, 'teacher_sign_prayer_grade' ]
         )
             ->name ( 'prayer-grade.teacher-sign' );
 
         Route::get (
             '/prayer-grade-report/{id}',
-            [ GradeController::class, 'prayer_grade_pdf' ]
+            [ TeacherPrayerGradeController::class, 'prayer_grade_pdf' ]
         )
-            ->name ( 'prayer-grade.convert-pdf' );    
+            ->name ( 'prayer-grade.convert-pdf' );
 
+        // Teacher Prayer Recitation Grade
         Route::get (
             '/nilai-uji-bacaan-siswa',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-table.index' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_detail_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_student' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-detail.index' );
 
         Route::get (
-            '/nilai-uji-bacaan-siswa-add',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_add_index' ]
+            '/nilai-uji-bacaan-siswa-add/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'index_add_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-add.index' );
 
+        Route::post (
+            '/prayer-recitation-grade',
+            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
+        )
+            ->name('prayer-recitation.store');
+
         Route::get (
             '/nilai-uji-bacaan-siswa-edit/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_edit_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
+
+        Route::put (
+            '/prayer-recitation-grade/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'update_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.update' );
+
+        Route::delete (
+            '/prayer-recitation-grade/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'delete_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.delete' );
+
+        Route::put (
+            '/prayer-recitation-grade/teacher-sign/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'teacher_sign_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.teacher-sign' );
+
+        Route::get (
+            '/prayer-recitation-grade-report/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'prayer_recitation_grade_pdf' ]
+        )
+            ->name ( 'prayer-recitation-grade.convert-pdf' );
+
+        // Teacher Notes Activity
 
         Route::get (
             '/aktivitas-membaca-siswa',
@@ -462,13 +464,23 @@ Route::middleware ( 'auth' )
 
         Route::post (
             '/nilai-uji-gerakan/fetchData',
-            [ GradeController::class, 'fetchData_nilai_uji_gerakan_by_nama_kelas' ]
+            [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_nama_kelas' ]
         )->name ( 'nilai_uji_gerakan.fetchData' );
 
         Route::post (
             '/nilai-uji-gerakan-detail/fetchData/{id}',
-            [ GradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
+            [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
         )->name ( 'nilai_uji_gerakan_detail.fetchData' );
+
+        Route::post (
+            '/nilai-uji-bacaan/fetchData',
+            [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_nama_kelas' ]
+        )->name ( 'nilai_uji_bacaan.fetchData' );
+
+        Route::post (
+            '/nilai-uji-bacaan-detail/fetchData/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_id_siswa' ]
+        )->name ( 'nilai_uji_bacaan_detail.fetchData' );
     } );
 
 // Rute untuk menangani proses CRUD data Guru

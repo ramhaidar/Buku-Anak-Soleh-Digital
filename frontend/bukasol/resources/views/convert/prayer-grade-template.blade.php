@@ -33,7 +33,7 @@
     <table>
         <tr>
             <th>No</th>
-            <th>Jenis Bacaan</th>
+            <th>Jenis Gerakan</th>
             <th>Nilai Semester 1</th>
             <th>Nilai Semester 2</th>
             <th>Paraf Guru</th>
