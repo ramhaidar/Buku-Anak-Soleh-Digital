@@ -90,7 +90,8 @@ class UserController extends Controller
         $user->password = Hash::make ( $request->new_password );
         $user->save ();
 
-        return redirect ()->back ()->with ( 'success', 'Password Berhasil Diubah.' );
+        return redirect()->route('admin.student-table.index')
+            ->with('success', 'Password Berhasil Diubah.');
     }
 
     /**

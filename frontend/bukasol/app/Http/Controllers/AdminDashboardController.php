@@ -69,10 +69,15 @@ class AdminDashboardController extends Controller
         $auth    = auth ()->user ();
         $student = Student::with ( 'user', 'teacher.user' )->find ( $id );
 
+        $letters = strtolower(explode(' ', $student->user->name)[0]);
+        $numbers = substr($student->nisn, -4);
+        $password = $letters . $numbers;
+
         return view ( 'admin.student-detail', [ 
             'role'    => $auth->role,
             'name'    => $auth->name,
             'student' => $student,
+            'password' => $password,
 
             'page'    => "Detail Student"
         ] );
@@ -83,10 +88,15 @@ class AdminDashboardController extends Controller
         $auth    = auth ()->user ();
         $teacher = Teacher::with ( 'user' )->find ( $id );
 
+        $letters = strtolower(explode(' ', $teacher->user->name)[0]);
+        $numbers = substr($teacher->nip, -4);
+        $password = $letters . $numbers;
+
         return view ( 'admin.teacher-detail', [ 
             'role'    => $auth->role,
             'name'    => $auth->name,
             'teacher' => $teacher,
+            'password' => $password,
 
             'page'    => "Detail Teacher"
         ] );
@@ -123,10 +133,16 @@ class AdminDashboardController extends Controller
         // Map data for DataTables response
         $data = $students->map ( function ($student)
         {
+            $letters = strtolower(explode(' ', $student->user->name)[0]);
+            $numbers = substr($student->nisn, -4);
+            $password = $letters . $numbers;
+
             return [ 
                 'nisn'       => $student->nisn,
                 'name'       => $student->user->name ?? 'N/A',
                 'class_name' => $student->class_name,
+                'username' => $student->user->username,
+                'password' => $password,
                 'action'     => view ( 'admin.partials.student-table-actions', [ 'student' => $student ] )->render (),
             ];
         } );
@@ -171,12 +187,17 @@ class AdminDashboardController extends Controller
         // Map data for DataTables response
         $data = $teachers->map ( function ($teacher)
         {
+            $letters = strtolower(explode(' ', $teacher->user->name)[0]);
+            $numbers = substr($teacher->nip, -4);
+            $password = $letters . $numbers;
+
             return [ 
                 'nip'        => $teacher->nip,
                 'name'       => $teacher->user->name ?? 'N/A',
                 'class_name' => $teacher->class_name,
+                'username' => $teacher->user->username,
+                'password' => $password,
                 'action'     => view ( 'admin.partials.teacher-table-actions', [ 'teacher' => $teacher ] )->render (),
-                // 'action'     => "<div class='row'><div class='col-sm col-auto'><a class='btn btn-link' href='#'>Detail</a></div><div class='col-sm col-auto'><a class='btn btn-link' href='#'>Delete</a></div></div>",
             ];
         } );
 

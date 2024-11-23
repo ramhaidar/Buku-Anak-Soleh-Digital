@@ -36,7 +36,7 @@
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="password">Password</label>
-                    <div class="form-control bg-black text-white rounded-pill border-0" id="password">{{ $teacher->user->password }}</div>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="password">{{ $password }}</div>
                 </div>
 
                 <!-- End of the form -->

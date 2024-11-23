@@ -19,19 +19,21 @@ class TeacherController extends Controller
             // User data validation
             'name'       => 'required|string|max:255',
             'username'   => 'required|string|unique:users,username|max:50',
-            // 'password'   => 'required|string|min:8|confirmed',
-            // 'role'       => 'required|string|in:teacher',
 
             // Teacher data validation
             'nip'        => 'required|string|unique:teachers,nip|max:20',
             'class_name' => 'required|string|max:50',
         ] );
 
+        $letters = strtolower(explode(' ', $validatedData['name'])[0]);
+        $numbers = substr($validatedData['nip'], -4);
+        $password = $letters . $numbers;
+
         // Create the User first
         $user = User::create ( [ 
             'name'     => $validatedData[ 'name' ],
             'username' => $validatedData[ 'username' ],
-            'password' => Hash::make ( "password" ),
+            'password' => Hash::make ( $password ),
             'role'     => "Teacher",
         ] );
 
@@ -42,7 +44,8 @@ class TeacherController extends Controller
             'class_name' => $validatedData[ 'class_name' ],
         ] );
 
-        return redirect ()->back ()->with ( 'success', 'Sukses Menambahkan Data Guru Baru.' );
+        return redirect()->route('admin.teacher-table.index')
+            ->with('success', 'Sukses Menambahkan Data Guru Baru.');
     }
 
     /**
@@ -97,6 +100,25 @@ class TeacherController extends Controller
     public function destroy ( Request $request, Teacher $teacher )
     {
         // Delete the related user, if it exists
+
+        foreach ($teacher->students as $student) {
+
+            if ($student->user) {
+                $student->juz()->delete();
+                $student->muhasabahReports()->delete();
+                $student->notes()->delete();
+                $student->prayerGrades()->delete();
+                $student->prayerRecitationGrades()->delete();
+                $student->readActivities()->delete();
+                $student->violationReports()->delete();
+
+                $student->user->delete();
+            }
+
+            // Finally, delete the student
+            $student->delete();
+        }
+
         if ( $teacher->user )
         {
             $teacher->user->delete ();

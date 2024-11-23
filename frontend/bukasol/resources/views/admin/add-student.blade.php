@@ -22,11 +22,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold" for="class_name">Kelas</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="class_name" name="class_name" type="text" placeholder="Kelas....." required>
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label fw-semibold" for="username">Username</label>
                         <input class="form-control rounded-5 border-dark border-2" id="username" name="username" type="text" placeholder="Username....." required>
                     </div>
@@ -47,7 +42,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ url()->previous() }}">Batal</a>
+                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('admin.student-table.index') }}">Batal</a>
                         <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
                     </div>
                 </form>

@@ -33,7 +33,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="password">Password</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="password">{{ $student->user->password }}</div>
+                    <div class="form-control rounded-5 border-dark bg-black text-white" id="password">{{ $password }}</div>
                 </div>
 
                 <div class="mb-3">
