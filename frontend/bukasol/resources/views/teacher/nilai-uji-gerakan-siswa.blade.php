@@ -27,20 +27,6 @@
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="nilaiUjiGerakanSiswaTable">
-                <thead>
-                    <tr>
-                        <th>NISN</th>
-                        <th>Nama</th>
-                        <th>Semester 1</th>
-                        <th>Semester 2</th>
-                        <th>Paraf Orang Tua</th>
-                        <th>Paraf Guru</th>
-                        <!-- <th>Action</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
             </table>
         </div>
 
@@ -87,12 +73,28 @@
                     {
                         data: 'parentSign',
                         name: 'parentSign',
-                        title: 'Paraf Orang Tua'
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data; // Return raw data for non-display types (e.g., export)
+                        }
                     },
                     {
                         data: 'teacherSign',
                         name: 'teacherSign',
-                        title: 'Paraf Guru'
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data; // Return raw data for non-display types (e.g., export)
+                        }
                     },
                     {
                         data: 'action',

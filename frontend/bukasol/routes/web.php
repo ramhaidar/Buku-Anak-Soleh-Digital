@@ -282,6 +282,7 @@ Route::prefix ( 'teacher-dashboard' )
         // )
         //     ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
     
+        // Teacher Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
             [ GradeController::class, 'index_teacher' ]
@@ -317,6 +318,18 @@ Route::prefix ( 'teacher-dashboard' )
             [ GradeController::class, 'update_prayer_grade' ]
         )
             ->name ( 'prayer-grade.update' );
+
+        Route::delete (
+            '/prayer-grade/{id}',
+            [ GradeController::class, 'delete_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.delete' );
+
+        Route::put (
+            '/prayer-grade/teacher-sign/{id}',
+            [ GradeController::class, 'teacher_sign_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.teacher-sign' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa',

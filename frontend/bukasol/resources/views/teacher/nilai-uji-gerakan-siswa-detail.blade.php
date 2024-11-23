@@ -16,35 +16,21 @@
 
 @section('content_3')
     <div class="p-0 m-0">
-
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
                     <h2 class="text-center mb-0">Detail Nilai Uji Gerakan Siswa {{ $studentName }}</h2>
                 </div>
-                <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-                    <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.nilai-uji-gerakan-siswa-add.index', ['id' => $studentId]) }}">
-                        <i class="fa-solid fa-plus me-1"></i>
-                        <span class="d-none d-md-inline">Tambah Nilai Uji Gerakan</span>
-                    </a>
-                </div>
             </div>
+        </div>
+        <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.nilai-uji-gerakan-siswa-add.index', ['id' => $studentId]) }}">
+                <i class="fa-solid fa-plus me-1"></i>
+                <span class="d-none d-md-inline">Tambah Nilai Uji Gerakan</span>
+            </a>
         </div>
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="nilaiUjigerakanSiswaDetailTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Jenis gerakan</th>
-                        <th>Semester 1</th>
-                        <th>Semester 2</th>
-                        <th>Paraf Orang tua</th>
-                        <th>Paraf Guru</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
             </table>
         </div>
 
@@ -93,12 +79,30 @@
                     {
                         data: 'parentSign',
                         name: 'parentSign',
-                        title: 'Paraf Orang Tua'
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data; // Return raw data for non-display types (e.g., export)
+                        }
                     },
                     {
                         data: 'teacherSign',
                         name: 'teacherSign',
-                        title: 'Paraf Guru'
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        ${data ? 'checked' : ''} 
+                                        onclick="updateTeacherSign(${row.id}, this.checked)">
+                                </div>`;
+                        }
                     },
                     {
                         data: 'action',
@@ -119,23 +123,24 @@
     </script>
 @endpush
 
-<!-- <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100"> -->
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <!-- <a class="btn btn-sm btn-warning py-2 me-2" href="{{ route('teacher.nilai-uji-gerakan-siswa-edit.index', ['id' => 1]) }}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a> -->
+@push('scripts')
+    <script>
+        function updateTeacherSign(gradeId) {
+            const url = `{{ route('prayer-grade.teacher-sign', ':id') }}`.replace(':id', gradeId);
 
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <!-- <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteNilaiUjiGerakanSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td> -->
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
+        }
+    </script>
+@endpush

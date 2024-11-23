@@ -6,7 +6,7 @@
         </a>
 
         <!-- Delete Button to Trigger Confirmation Modal -->
-        <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteNilaiUjiGerakanSiswaConfirmationModal">
+        <button class="btn btn-sm btn-danger py-2" onclick="showDeleteConfirmationModal({{ $gradeId }})">
             <i class="fa fa-trash"></i>
         </button>
     </div>

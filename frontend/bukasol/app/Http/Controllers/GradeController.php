@@ -158,6 +158,7 @@ class GradeController extends Controller
 
         $data = $prayerGrades->map(function ($prayerGrade) {
             return [
+                'id' => $prayerGrade->id,
                 'timeStamp'      => $prayerGrade->time_stamp,
                 'motionCategory' => $prayerGrade->motion_category,
                 'gradeSemester1' => number_format($prayerGrade->grade_semester1, 2),
@@ -185,6 +186,14 @@ class GradeController extends Controller
             'nilai_semester_2' => 'required|numeric|min:0|max:100',
         ] );
 
+        $existingGrade = PrayerGrade::where('student_id', $validatedData['studentId'])
+            ->where('motion_category', $validatedData['jenis_gerakan'])
+            ->first();
+
+        if ($existingGrade) {
+            return redirect ()->back ()->with ( 'error', 'Data Nilai dengan Gerakan Tersebut sudah ada.' );
+        }
+
         PrayerGrade::create ( [ 
             'student_id'       => $validatedData[ 'studentId' ],
             'time_stamp'       => now (),
@@ -209,54 +218,44 @@ class GradeController extends Controller
 
         $prayerGrade = PrayerGrade::findOrFail($id);
 
+        $existingGrade = PrayerGrade::where('student_id', $validatedData['studentId'])
+            ->where('motion_category', $validatedData['jenis_gerakan'])
+            ->where('id', '!=', $id)
+            ->first();
+
+            if ($existingGrade) {
+                return redirect ()->back ()->with ( 'error', 'Tidak Dapat Mengganti dengan Data yang Sudah Ada' );
+            }
+
         $prayerGrade->update([
             'motion_category'  => $validatedData['jenis_gerakan'],
             'grade_semester1'  => $validatedData['nilai_semester_1'],
             'grade_semester2'  => $validatedData['nilai_semester_2'],
-            'time_stamp'       => now(), // Optional: Update timestamp if needed
+            'time_stamp'       => now(),
         ]);
 
         return redirect()->route('teacher.nilai-uji-gerakan-siswa-detail.index', ['id' => $validatedData['studentId']])
             ->with('success', 'Sukses Mengubah Data Nilai Baru.');
     }
 
-    public function deletePrayerGrade ( $gradeId )
-    {
-
-        $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
-
-        $motionCategory = $prayerGrade->motion_category;
-        $studentName    = $prayerGrade->student->user->name;
+    public function delete_prayer_grade( Request $request, $id ) {
+       
+        $prayerGrade = PrayerGrade::findOrFail ( $id );
 
         $prayerGrade->delete ();
 
-        // Prepare response message
-        $message = "Prayer Grade '{$motionCategory}' of Student '{$studentName}' Successfully Deleted";
-
-        return response ()->json ( [ 'message' => $message ], 200 );
+        return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
     }
 
-    public function teacherSignPrayerGrade ( $gradeId )
-    {
-
+    public function teacher_sign_prayer_grade( Request $request, $gradeId ) {
+        
         $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
 
         $prayerGrade->teacher_sign = ! $prayerGrade->teacher_sign;
 
         $prayerGrade->save ();
 
-        $response = [ 
-            'id'              => $prayerGrade->id,
-            'student_id'      => $prayerGrade->student_id,
-            'time_stamp'      => $prayerGrade->time_stamp,
-            'motion_category' => $prayerGrade->motion_category,
-            'grade_semester1' => $prayerGrade->grade_semester1,
-            'grade_semester2' => $prayerGrade->grade_semester2,
-            'teacher_sign'    => $prayerGrade->teacher_sign,
-            'parent_sign'     => $prayerGrade->parent_sign
-        ];
-
-        return response ()->json ( $response, 200 );
+        return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
     }
 
     public function parentSignPrayerGrade ( $gradeId, Request $request )
