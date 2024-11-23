@@ -6,8 +6,8 @@
         </a>
 
         <!-- Delete Button to Trigger Confirmation Modal -->
-        <button class="btn btn-sm btn-success py-2">
+        <a class="btn btn-sm btn-success py-2 me-2" href="{{ route('prayer-grade.convert-pdf', ['id' => $studentId]) }}">
             <i class="fa fa-file-export"></i>
-        </button>
+        </a>
     </div>
 </div>

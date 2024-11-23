@@ -332,6 +332,12 @@ Route::prefix ( 'teacher-dashboard' )
             ->name ( 'prayer-grade.teacher-sign' );
 
         Route::get (
+            '/prayer-grade-report/{id}',
+            [ GradeController::class, 'prayer_grade_pdf' ]
+        )
+            ->name ( 'prayer-grade.convert-pdf' );    
+
+        Route::get (
             '/nilai-uji-bacaan-siswa',
             [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
         )

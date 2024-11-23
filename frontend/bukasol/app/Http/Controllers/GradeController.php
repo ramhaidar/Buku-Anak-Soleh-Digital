@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\PrayerGrade;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -256,6 +258,36 @@ class GradeController extends Controller
         $prayerGrade->save ();
 
         return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+    }
+
+    public function prayer_grade_pdf( $studentId ) {
+
+        $prayerGrades = PrayerGrade::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $teacherSign = PrayerGrade::where('student_id', $studentId)
+            ->where('teacher_sign', false)
+            ->count() === 0 ? 'Sudah' : 'Belum';
+
+        $parentSign = PrayerGrade::where('student_id', $studentId)
+            ->where('parent_sign', false)
+            ->count() === 0 ? 'Sudah' : 'Belum';
+
+        $data = [
+            'prayerGrades' => $prayerGrades,
+            'student' => $student,
+            'teacherSign' => $teacherSign,
+            'parentSign' => $parentSign,
+            'dateToday' => now()->toDateString(),
+        ];
+
+        $pdf = Pdf::loadView('teacher.convert.prayer-grade-template', $data);
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="grade-report.pdf"',
+        ]);
     }
 
     public function parentSignPrayerGrade ( $gradeId, Request $request )
