@@ -149,6 +149,8 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'prayer-recitation-grade.parent-sign' );
 
+        // Student Daily Notes
+
         Route::get (
             '/catatan-harian-siswa',
             [ StudentDashboardController::class, 'catatan_harian_siswa_table_index' ]
