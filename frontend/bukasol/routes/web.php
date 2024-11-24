@@ -229,41 +229,18 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'dashboard.teacher.index' );
 
+        // Teacher Juz Report
         Route::get (
-            '/laporan-bacaan-juz01-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
+            '/laporan-bacaan-juz{juzNumber}',
+            [ TeacherJuzReportController::class, 'index_teacher_juz' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz01-siswa-table.index' );
+            ->name ( 'teacher.laporan-bacaan-juz-siswa-table.index' );
 
         Route::get (
-            '/laporan-bacaan-juz01-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz01_siswa_detail_index' ]
+            '/laporan-bacaan-juz{juzNumber}-siswa/{id}',
+            [ TeacherJuzReportController::class, 'index_student_juz' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz01-siswa-detail.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz29-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz29_siswa_table_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz29-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz29-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz29_siswa_detail_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz29-siswa-detail.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz30-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_table_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz30-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz30-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_detail_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
+            ->name ( 'teacher.laporan-bacaan-juz-siswa.index' );
 
         // Teacher Violation Report
         Route::get (
@@ -586,12 +563,12 @@ Route::middleware ( 'auth' )
 
         // Juz Report
         Route::post (
-            '/laporan-juz/fetchData',
+            '/laporan-juz{juzNumber}/fetchData',
             [ TeacherJuzReportController::class, 'fetchData_laporan_juz_by_nama_kelas' ]
         )->name ( 'laporan-juz.fetchData' );
 
         Route::post (
-            '/laporan-juz/fetchData/{id}',
+            '/laporan-juz{juzNumber}/fetchData/{id}',
             [ TeacherJuzReportController::class, 'fetchData_laporan_juz_by_id_siswa' ]
         )->name ( 'laporan-juz-siswa.fetchData' );
 
