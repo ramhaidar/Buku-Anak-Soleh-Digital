@@ -230,30 +230,6 @@ Route::prefix ( 'teacher-dashboard' )
             ->name ( 'dashboard.teacher.index' );
 
         Route::get (
-            '/laporan-pelanggaran-siswa',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
-        )
-            ->name ( 'teacher.laporan-pelanggaran-siswa-table.index' );
-
-        Route::get (
-            '/laporan-pelanggaran-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_detail_index' ]
-        )
-            ->name ( 'teacher.laporan-pelanggaran-siswa-detail.index' );
-
-        Route::get (
-            '/laporan-pelanggaran-siswa-detail-siswa/{id}',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_detail_siswa_index' ]
-        )
-            ->name ( 'teacher.laporan-pelanggaran-siswa-detail-siswa.index' );
-
-        Route::get (
-            '/laporan-pelanggaran-siswa-add',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_add_index' ]
-        )
-            ->name ( 'teacher.laporan-pelanggaran-siswa-add.index' );
-
-        Route::get (
             '/laporan-bacaan-juz01-siswa',
             [ TeacherDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
         )
@@ -288,6 +264,49 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_detail_index' ]
         )
             ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
+
+        // Teacher Violation Report
+        Route::get (
+            '/laporan-pelanggaran-siswa',
+            [ TeacherViolationReportController::class, 'index_teacher' ]
+        )
+            ->name ( 'teacher.laporan-pelanggaran-siswa-table.index' );
+
+        Route::get (
+            '/laporan-pelanggaran-siswa/{id}',
+            [ TeacherViolationReportController::class, 'index_student' ]
+        )
+            ->name ( 'teacher.laporan-pelanggaran-siswa.index' );
+
+        Route::get (
+            '/laporan-pelanggaran-siswa-detail/{id}',
+            [ TeacherViolationReportController::class, 'index_detail' ]
+        )
+            ->name ( 'teacher.laporan-pelanggaran-siswa-detail.index' );
+
+        Route::get (
+            '/laporan-pelanggaran-siswa-add/{id}',
+            [ TeacherViolationReportController::class, 'index_add_report' ]
+        )
+            ->name ( 'teacher.laporan-pelanggaran-siswa-add.index' );
+
+        Route::post (
+            '/violation-report',
+            [ TeacherViolationReportController::class, 'store_violation_report' ]
+        )
+            ->name('violation-report.store');
+
+        Route::delete (
+            '/violation-report/{id}',
+            [ TeacherViolationReportController::class, 'delete_violation_report' ]
+        )
+            ->name ( 'violation-report.delete' );
+
+        Route::put (
+            '/violation-report/teacher-sign/{id}',
+            [ TeacherViolationReportController::class, 'teacher_sign_violation_report' ]
+        )
+            ->name ( 'violation-report.teacher-sign' );
 
         // Teacher Muhasabah Report
         Route::get (
