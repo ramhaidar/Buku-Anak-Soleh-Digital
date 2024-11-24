@@ -17,6 +17,9 @@ use App\Http\Controllers\StudentPrayerGradeController;
 use App\Http\Controllers\StudentPrayerRecitationGradeController;
 use App\Http\Controllers\StudentActivityNotesController;
 use App\Http\Controllers\StudentReadingActivityController;
+use App\Http\Controllers\StudentJuzReportController;
+use App\Http\Controllers\StudentMuhasabahReportController;
+use App\Http\Controllers\StudentViolationReportController;
 
 use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\TeacherPrayerGradeController;
@@ -69,19 +72,6 @@ Route::prefix ( 'student-dashboard' )
             ->name ( 'dashboard.student.index' );
 
         Route::get (
-            '/laporan-muhasabah-siswa',
-            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_table_index' ]
-        )
-            ->name ( 'student.laporan-muhasabah-siswa-table.index' );
-
-        Route::get (
-            '/laporan-muhasabah-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_detail_index' ]
-        )
-            ->name ( 'student.laporan-muhasabah-siswa-detail.index' );
-
-
-        Route::get (
             '/laporan-pelanggaran-siswa',
             [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
         )
@@ -129,6 +119,47 @@ Route::prefix ( 'student-dashboard' )
             [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_add_index' ]
         )
             ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
+
+        // Student Muhasabah Report
+        Route::get (
+            '/laporan-muhasabah-siswa',
+            [ StudentMuhasabahReportController::class, 'index_table' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-table.index' );
+
+        Route::get (
+            '/laporan-muhasabah-siswa-detail/{id}',
+            [ StudentMuhasabahReportController::class, 'index_detail' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-detail.index' );
+
+        Route::get (
+            '/laporan-muhasabah-siswa-add',
+            [ StudentMuhasabahReportController::class, 'index_add_report' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-add.index' );
+
+        Route::post (
+            '/muhasabah-report',
+            [ StudentMuhasabahReportController::class, 'store_muhasabah_report' ]
+        )
+            ->name('muhasabah-report.store');
+
+        Route::delete (
+            '/muhasabah-report/{id}',
+            [ StudentMuhasabahReportController::class, 'delete_muhasabah_report' ]
+        )
+            ->name ( 'muhasabah-report.delete' );
+
+        Route::put (
+            '/muhasabah-report/parent-sign/{id}',
+            [ StudentMuhasabahReportController::class, 'parent_sign_muhasabah_report' ]
+        )
+            ->name ( 'muhasabah-report.parent-sign' );
+
+        // Student Violation Report
+
+        // Student Juz Report
 
         // Student Prayer Grade
         Route::get (
@@ -537,6 +568,11 @@ Route::middleware ( 'auth' )
             '/laporan-muhasabah/fetchData/{id}',
             [ TeacherMuhasabahReportController::class, 'fetchData_laporan_muhasabah_by_id_siswa' ]
         )->name ( 'laporan-muhasabah-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-muhasabah/fetchData',
+            [ StudentMuhasabahReportController::class, 'fetchData_laporan_muhasabah_by_id_siswa' ]
+        )->name ( 'siswa.laporan-muhasabah.fetchData' );
 
         Route::get (
             '/muhasabah-report/{id}',

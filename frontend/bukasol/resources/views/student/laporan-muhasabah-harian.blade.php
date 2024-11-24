@@ -22,283 +22,127 @@
                 <div class="col container position-relative">
                     <h2 class="text-center mb-0">Laporan Muhasabah Harian</h2>
                 </div>
-                <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-                    <button class="btn btn-outline-dark rounded-3 me-2">
-                        <i class="fa-solid fa-file-contract me-1"></i>
-                        <span class="d-none d-md-inline">Export Muhasabah Harian</span>
-                    </button>
-                    <button class="btn btn-outline-dark rounded-3" onclick="Livewire.dispatch('switchView', { view: 'student.add-laporan-muhasabah-harian' })">
-                        <i class="fa-solid fa-plus me-1"></i>
-                        <span class="d-none d-md-inline">Tambah Laporan</span>
-                    </button>
-                </div>
             </div>
+        </div>
+
+        <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
+            <button class="btn btn-outline-dark rounded-3 me-2">
+                <i class="fa-solid fa-file-contract me-1"></i>
+                <span class="d-none d-md-inline">Export Muhasabah Harian</span>
+            </button>
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.laporan-muhasabah-siswa-add.index') }}">
+                <i class="fa-solid fa-plus me-1"></i>
+                <span class="d-none d-md-inline">Tambah Laporan</span>
+            </a>
         </div>
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="laporanMuhasabahHarianSiswaTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Mengaji</th>
-                        <th>Sholat Sunnah</th>
-                        <th>Sholat Fardhu</th>
-                        <th>Paraf Guru</th>
-                        <th>Paraf Orang Tua</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-belum">Tidak</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>4/5</td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>5/5</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>4/5</td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-belum">Tidak</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>5/5</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>4/5</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>5/5</td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-belum">Tidak</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>4/5</td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>5/5</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('student.laporan-muhasabah-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2" data-bs-toggle="modal" data-bs-target="#deleteLaporanMuhasabahHarianConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
 
-        @include('student.partials.modal-kode-unik-paraf-orang-tua')
+        @include('student.partials.modal-kode-unik-paraf-orang-tua-muhasabah-report')
         @include('student.partials.laporan-muhasabah-harian-delete')
 
     </div>
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
+            $('#laporanMuhasabahHarianSiswaTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('siswa.laporan-muhasabah.fetchData') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                });
+                },
+                columns: [
+                    {
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'mengaji',
+                        name: 'mengaji',
+                        title: 'Mengaji',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Mengaji</span>'
+                                    : '<span class="text-danger">Tidak</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'sholatSunnah',
+                        name: 'sholatSunnah',
+                        title: 'Sholat Sunnah',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sholat</span>'
+                                    : '<span class="text-danger">Tidak</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'sholatFardhu',
+                        name: 'sholatFardhu',
+                        title: 'Sholat Fardhu'
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        ${data ? 'checked' : ''}
+                                        onclick="showParentCodeModal(${row.id})">
+                                </div>`;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
     </script>
