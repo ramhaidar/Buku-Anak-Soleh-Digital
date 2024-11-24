@@ -15,6 +15,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentPrayerGradeController;
 use App\Http\Controllers\StudentPrayerRecitationGradeController;
+use App\Http\Controllers\StudentActivityNotesController;
+use App\Http\Controllers\StudentReadingActivityController;
 
 use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\TeacherPrayerGradeController;
@@ -149,37 +151,67 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'prayer-recitation-grade.parent-sign' );
 
-        // Student Daily Notes
-
+        // Student Daily Activity Notes
         Route::get (
             '/catatan-harian-siswa',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_table_index' ]
+            [ StudentActivityNotesController::class, 'index_table' ]
         )
             ->name ( 'student.catatan-harian-siswa-table.index' );
 
         Route::get (
             '/catatan-harian-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+            [ StudentActivityNotesController::class, 'index_detail' ]
         )
             ->name ( 'student.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-add',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_add_index' ]
+            '/catatan-harian-siswa-add/{id}',
+            [ StudentActivityNotesController::class, 'index_add_notes' ]
         )
             ->name ( 'student.catatan-harian-siswa-add.index' );
 
+        Route::post (
+            '/activity-notes',
+            [ StudentActivityNotesController::class, 'store_activity_notes' ]
+        )
+            ->name('activity-notes.store');
+
+        Route::delete (
+            '/activity-notes/{id}',
+            [ StudentActivityNotesController::class, 'delete_activity_notes' ]
+        )
+            ->name ( 'activity-notes.delete' );
+
+        // Student Reading Activity Notes
         Route::get (
             '/aktivitas-membaca-siswa',
-            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
+            [ StudentReadingActivityController::class, 'index_table' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/aktivitas-membaca-siswa-add',
-            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_add_index' ]
+            '/aktivitas-membaca-siswa-add/{id}',
+            [ StudentReadingActivityController::class, 'index_add_activity' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-add.index' );
+
+        Route::post (
+            '/activity-notes',
+            [ StudentReadingActivityController::class, 'store_reading_activity' ]
+        )
+            ->name('reading-activity.store');
+
+        Route::delete (
+            '/reading-activity/{id}',
+            [ StudentReadingActivityController::class, 'delete_reading_activity' ]
+        )
+            ->name ( 'reading-activity.delete' );
+
+        Route::put (
+            '/reading-activity/parent-sign/{id}',
+            [ StudentReadingActivityController::class, 'parent_sign_reading_activity' ]
+        )
+            ->name ( 'reading-activity.parent-sign' );
     } );
 
 Route::prefix ( 'teacher-dashboard' )
@@ -512,6 +544,31 @@ Route::middleware ( 'auth' )
             [ TeacherPrayerRecitationGradeController::class, 'prayer_recitation_grade_pdf' ]
         )
             ->name ( 'prayer-recitation-grade.convert-pdf' );
+
+        // Activity Notes
+        Route::post (
+            '/catatan-harian/fetchData',
+            [ StudentActivityNotesController::class, 'fetchData_catatan_harian_by_id_siswa' ]
+        )->name ( 'siswa.catatan-harian.fetchData' );
+
+        Route::get (
+            '/activity-notes-report/{id}',
+            [ StudentActivityNotesController::class, 'activity_notes_pdf' ]
+        )
+            ->name ( 'activity-notes.convert-pdf' );
+
+        // Reading Activity
+        Route::post (
+            '/aktivitas-membaca/fetchData',
+            [ StudentReadingActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+        )->name ( 'siswa.aktivitas-membaca.fetchData' );
+
+        Route::get (
+            '/reading-activity-report/{id}',
+            [ StudentReadingActivityController::class, 'reading_activity_pdf' ]
+        )
+            ->name ( 'reading-activity.convert-pdf' );
+
     } );
 
 // Rute untuk menangani proses CRUD data Guru

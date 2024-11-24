@@ -24,10 +24,10 @@
 </div>
 
 <script>
-    var parentSignGradeId;
+    var parentSignNoteId;
 
-    function showParentCodeModal(gradeId) {
-        parentSignGradeId = gradeId;
+    function showParentCodeModal(noteId) {
+        parentSignNoteId = noteId;
         const parentSignConfirmationModal = new bootstrap.Modal(document.getElementById('kodeUnikModal'));
         parentSignConfirmationModal.show();
     }
@@ -36,7 +36,7 @@
         event.preventDefault();
         
         const kodeUnik = document.getElementById('kodeUnikInput').value;
-        const url = `{{ route('prayer-grade.parent-sign', ':id') }}`.replace(':id', parentSignGradeId);
+        const url = `{{ route('reading-activity.parent-sign', ':id') }}`.replace(':id', parentSignNoteId);
 
         fetch(url, {
             method: 'PUT',
@@ -55,9 +55,9 @@
             document.getElementById('kodeUnikForm').reset();
 
             if (data.success) {
-                window.showAlert(data.success, true, '#nilaiUjiGerakanSiswaTable');
+                window.showAlert(data.success, true, '#aktivitasMembacaSiswaTable');
             } else if (data.error) {
-                window.showAlert(data.error, false, '#nilaiUjiGerakanSiswaTable');
+                window.showAlert(data.error, false, '#aktivitasMembacaSiswaTable');
             }
         })
         .catch(error => {

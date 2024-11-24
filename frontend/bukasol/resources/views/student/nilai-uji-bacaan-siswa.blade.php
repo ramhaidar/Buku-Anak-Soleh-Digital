@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Lembar Nilai Uji Gerakan</h2>
+                    <h2 class="text-center mb-0">Lembar Nilai Uji Bacaan</h2>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
     
     <script>

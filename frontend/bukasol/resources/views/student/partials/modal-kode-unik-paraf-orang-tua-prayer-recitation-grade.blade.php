@@ -52,18 +52,19 @@
         .then(data => {
             const parentSignConfirmationModal = bootstrap.Modal.getInstance(document.getElementById('kodeUnikModal'));
             parentSignConfirmationModal.hide();
+            document.getElementById('kodeUnikForm').reset();
 
             if (data.success) {
-                window.showAlert(data.success, true, function () {
-                    setTimeout(() => window.location.reload(), 100);
-                });
+                window.showAlert(data.success, true, '#nilaiUjiBacaanSiswaDetailTable');
             } else if (data.error) {
-                window.showAlert(data.error, false, function () {
-                    setTimeout(() => window.location.reload(), 100);
-                });
+                window.showAlert(data.error, false, '#nilaiUjiBacaanSiswaDetailTable');
             }
         })
         .catch(error => {
+            const parentSignConfirmationModal = bootstrap.Modal.getInstance(document.getElementById('kodeUnikModal'));
+            parentSignConfirmationModal.hide();
+            document.getElementById('kodeUnikForm').reset();
+            
             window.showAlert('An error occurred while deleting the data. Please try again.', false);
         });
     });

@@ -205,7 +205,7 @@ class TeacherPrayerGradeController extends Controller
             'grade_semester1'  => $validatedData[ 'nilai_semester_1' ],
             'grade_semester2'  => $validatedData[ 'nilai_semester_2' ],
             'teacher_sign'     => false,
-            'teacher_sign'     => false,
+            'parent_sign'     => false,
         ] );
 
         return redirect()->route('teacher.nilai-uji-gerakan-siswa-detail.index', ['id' => $validatedData['studentId']])

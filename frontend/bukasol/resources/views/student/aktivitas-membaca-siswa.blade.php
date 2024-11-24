@@ -22,254 +22,104 @@
                 <div class="col container position-relative">
                     <h2 class="text-center mb-0">Aktivitas Membaca Siswa</h2>
                 </div>
-                <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-                    <button class="btn btn-outline-dark rounded-3 me-2">
-                        <i class="fa-solid fa-file-contract me-1"></i>
-                        <span class="d-none d-md-inline">Export Catatan</span>
-                    </button>
-                    <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index') }}">
-                        <i class="fa-solid fa-plus me-1"></i>
-                        <span class="d-none d-md-inline">Tambah Catatan</span>
-                    </a>
-                </div>
             </div>
+        </div>
+
+        <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
+            <button class="btn btn-outline-dark rounded-3 me-2">
+                <i class="fa-solid fa-file-contract me-1"></i>
+                <span class="d-none d-md-inline">Export Catatan</span>
+            </button>
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index', [ 'id' => $studentId ]) }}">
+                <i class="fa-solid fa-plus me-1"></i>
+                <span class="d-none d-md-inline">Tambah Catatan</span>
+            </a>
         </div>
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="aktivitasMembacaSiswaTable">
-                <thead class="text-center">
-                    <tr>
-                        <th>NISN</th>
-                        <th>Nama</th>
-                        <th>Total Aktivitas</th>
-                        <th>Paraf Orang Tua</th>
-                        <th>Paraf Guru</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td>10</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="showModal(this)">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-danger py-2 me-2" data-bs-toggle="modal" data-bs-target="#deleteAktivitasMembacaSiswaConfirmationModal">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
 
         @include('student.partials.aktivitas-membaca-siswa-delete')
-        @include('student.partials.modal-kode-unik-paraf-orang-tua')
+        @include('student.partials.modal-kode-unik-paraf-orang-tua-reading-activity')
     </div>
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+    
     <script>
         $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
+            $('#aktivitasMembacaSiswaTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('siswa.aktivitas-membaca.fetchData') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                });
+                },
+                columns: [{
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'bookTitle',
+                        name: 'bookTitle',
+                        title: 'Judul Buku'
+                    },
+                    {
+                        data: 'page',
+                        name: 'page',
+                        title: 'Halaman'
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        ${data ? 'checked' : ''}
+                                        onclick="showParentCodeModal(${row.id})">
+                                </div>`;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
     </script>
