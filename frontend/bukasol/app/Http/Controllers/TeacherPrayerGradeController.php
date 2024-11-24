@@ -255,7 +255,6 @@ class TeacherPrayerGradeController extends Controller
 
     public function teacher_sign_prayer_grade( Request $request, $gradeId )
     {
-        
         $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
 
         $prayerGrade->teacher_sign = ! $prayerGrade->teacher_sign;

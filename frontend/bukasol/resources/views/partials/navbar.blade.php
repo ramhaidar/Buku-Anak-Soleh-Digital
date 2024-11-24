@@ -168,7 +168,6 @@
                                 Nilai
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="nilaiDropdown">
-                                <!-- <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $className]) }}">Nilai Uji Gerakan Siswa</a></li> -->
                                 <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a></li>
                                 <li><a class="dropdown-item" href="{{ route('teacher.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a></li>
                             </ul>
@@ -226,7 +225,6 @@
                                 </h2>
                                 <div class="accordion-collapse collapse" id="collapseNilai" aria-labelledby="headingNilai">
                                     <div class="accordion-body">
-                                        <!-- <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index', ['className' => $className]) }}">Nilai Uji Gerakan Siswa</a> -->
                                         <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-gerakan-siswa-table.index') }}">Nilai Uji Gerakan Siswa</a>
                                         <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.nilai-uji-bacaan-siswa-table.index') }}">Nilai Uji Bacaan Siswa</a>
                                     </div>

@@ -21,6 +21,8 @@ use App\Http\Controllers\StudentReadingActivityController;
 use App\Http\Controllers\TeacherDashboardController;
 use App\Http\Controllers\TeacherPrayerGradeController;
 use App\Http\Controllers\TeacherPrayerRecitationGradeController;
+use App\Http\Controllers\TeacherActivityNotesController;
+use App\Http\Controllers\TeacherReadActivityController;
 
 Route::get ( '/', function ()
 {
@@ -401,42 +403,60 @@ Route::prefix ( 'teacher-dashboard' )
             ->name ( 'prayer-recitation-grade.teacher-sign' );
 
         // Teacher Notes Activity
-
-        Route::get (
-            '/aktivitas-membaca-siswa',
-            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
-        )
-            ->name ( 'teacher.aktivitas-membaca-siswa-table.index' );
-
-        Route::get (
-            '/aktivitas-membaca-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_detail_index' ]
-        )
-            ->name ( 'teacher.aktivitas-membaca-siswa-detail.index' );
-
         Route::get (
             '/catatan-harian-siswa',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_table_index' ]
+            [ TeacherActivityNotesController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.catatan-harian-siswa-table.index' );
 
         Route::get (
+            '/catatan-harian-siswa/{id}',
+            [ TeacherActivityNotesController::class, 'index_student' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa.index' );
+
+        Route::get (
             '/catatan-harian-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+            [ TeacherActivityNotesController::class, 'index_detail' ]
         )
             ->name ( 'teacher.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-detail-detail/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_index' ]
+            '/catatan-harian-siswa/pertanyaan-orangtua/{id}',
+            [ TeacherActivityNotesController::class, 'index_question' ]
         )
-            ->name ( 'teacher.catatan-harian-siswa-detail-detail.index' );
+            ->name ( 'teacher.jawaban-pertanyaan-orangtua.index' );
+
+        Route::put (
+            '/activity-notes/{id}',
+            [ TeacherActivityNotesController::class, 'answer_parent_question' ]
+        )
+            ->name ( 'activity-notes-parent-answer.update' );
+
+        Route::put (
+            '/activity-notes/teacher-sign/{id}',
+            [ TeacherActivityNotesController::class, 'teacher_sign_activity_notes' ]
+        )
+            ->name ( 'activity-notes.teacher-sign' );
+
+        // Teacher Read Activity
+        Route::get (
+            '/aktivitas-membaca-siswa',
+            [ TeacherReadActivityController::class, 'index_teacher' ]
+        )
+            ->name ( 'teacher.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/catatan-harian-siswa-detail-detail-answer/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_answer_index' ]
+            '/aktivitas-membaca-siswa/{id}',
+            [ TeacherReadActivityController::class, 'index_student' ]
         )
-            ->name ( 'teacher.catatan-harian-siswa-detail-detail-answer.index' );
+            ->name ( 'teacher.aktivitas-membaca-siswa.index' );
+
+        Route::put (
+            '/read-activity/teacher-sign/{id}',
+            [ TeacherReadActivityController::class, 'teacher_sign_read_activity' ]
+        )
+            ->name ( 'read-activity.teacher-sign' );
     } );
 
 Route::prefix ( 'admin-dashboard' )
@@ -547,9 +567,19 @@ Route::middleware ( 'auth' )
 
         // Activity Notes
         Route::post (
-            '/catatan-harian/fetchData',
+            '/siswa-catatan-harian/fetchData',
             [ StudentActivityNotesController::class, 'fetchData_catatan_harian_by_id_siswa' ]
         )->name ( 'siswa.catatan-harian.fetchData' );
+
+        Route::post (
+            '/catatan-harian/fetchData',
+            [ TeacherActivityNotesController::class, 'fetchData_catatan_harian_by_nama_kelas' ]
+        )->name ( 'catatan-harian.fetchData' );
+
+        Route::post (
+            '/catatan-harian/fetchData/{id}',
+            [ TeacherActivityNotesController::class, 'fetchData_catatan_harian_by_id_siswa' ]
+        )->name ( 'catatan-harian-detail.fetchData' );
 
         Route::get (
             '/activity-notes-report/{id}',
@@ -559,9 +589,19 @@ Route::middleware ( 'auth' )
 
         // Reading Activity
         Route::post (
-            '/aktivitas-membaca/fetchData',
+            '/siswa-aktivitas-membaca/fetchData',
             [ StudentReadingActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
         )->name ( 'siswa.aktivitas-membaca.fetchData' );
+
+        Route::post (
+            '/aktivitas-membaca/fetchData',
+            [ TeacherReadActivityController::class, 'fetchData_aktivitas_membaca_by_nama_kelas' ]
+        )->name ( 'aktivitas-membaca.fetchData' );
+
+        Route::post (
+            '/aktivitas-membaca/fetchData/{id}',
+            [ TeacherReadActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+        )->name ( 'aktivitas-membaca-siswa.fetchData' );
 
         Route::get (
             '/reading-activity-report/{id}',

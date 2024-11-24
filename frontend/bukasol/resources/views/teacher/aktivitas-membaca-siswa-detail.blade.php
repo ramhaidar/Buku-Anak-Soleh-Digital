@@ -20,143 +20,111 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Detail Aktivitas Membaca Siswa Abdan Syakuro</h2>
+                    <h2 class="text-center mb-0">Detail Aktivitas Membaca Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="aktivitasMembacaSiswaDetailTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Judul Buku</th>
-                        <th>Halaman</th>
-                        <th>Paraf Orang Tua</th>
-                        <th>Paraf Guru</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Bumi Manusia</td>
-                        <td>10-25</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
-
     </div>
 @endsection
+@push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#aktivitasMembacaSiswaDetailTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('aktivitas-membaca-siswa.fetchData', [ 'id' => $studentId ]) }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                },
+                columns: [{
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'bookTitle',
+                        name: 'bookTitle',
+                        title: 'Judul Buku'
+                    },
+                    {
+                        data: 'page',
+                        name: 'page',
+                        title: 'Halaman'
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        ${data ? 'checked' : ''}
+                                        onclick="updateTeacherSign(${row.id}, this.checked)">
+                                </div>`;
+                        }
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
+        function updateTeacherSign(noteId) {
+            const url = `{{ route('read-activity.teacher-sign', ':id') }}`.replace(':id', noteId);
 
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
-                    }
-                });
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#aktivitasMembacaSiswaDetailTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
             });
-        });
+        }
     </script>
 @endpush

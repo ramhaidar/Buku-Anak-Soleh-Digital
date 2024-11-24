@@ -27,7 +27,6 @@ class StudentActivityNotesController extends Controller
 
     public function index_detail( $noteId )
     {
-
         $activityNote = Note::find($noteId);
 
         $parentQuestion = $activityNote->parent_question;

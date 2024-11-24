@@ -20,234 +20,12 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Detail Catatan Harian Siswa Abdan Syakuro</h2>
+                    <h2 class="text-center mb-0">Catatan Harian Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="catatanHarianSiswaDetailTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Agenda</th>
-                        <th>Catatan</th>
-                        <th>Pertanyaan</th>
-                        <th>Paraf Guru</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>Apakah An...</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>Apakah An...</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>Apakah An...</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>Apakah An...</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td>Membaca Buku</td>
-                        <td>Hari ini saya.....</td>
-                        <td>-</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
 
@@ -255,30 +33,97 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
+            $('#catatanHarianSiswaDetailTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('catatan-harian-detail.fetchData', ['id' => $studentId]) }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                });
+                },
+                columns: [
+                    {
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'agenda',
+                        name: 'agenda',
+                        title: 'Agenda'
+                    },
+                    {
+                        data: 'content',
+                        name: 'content',
+                        title: 'Catatan'
+                    },
+                    {
+                        data: 'parentQuestion',
+                        name: 'parentQuestion',
+                        title: 'Pertanyaan'
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        ${data ? 'checked' : ''}
+                                        onclick="updateTeacherSign(${row.id}, this.checked)">
+                                </div>`;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function updateTeacherSign(noteId) {
+            const url = `{{ route('activity-notes.teacher-sign', ':id') }}`.replace(':id', noteId);
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#catatanHarianSiswaDetailTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
+        }
     </script>
 @endpush
