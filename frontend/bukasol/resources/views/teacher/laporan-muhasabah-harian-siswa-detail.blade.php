@@ -24,22 +24,22 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" type="text" value="Rabu, 11/09/2024" readonly>
+                    <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" type="text" value="{{ $muhasabahReport->time_stamp }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="mengaji">Mengaji</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="mengaji" type="text" value="Surat Al-Baqarah" readonly>
+                    <input class="form-control rounded-5 border-dark border-2" id="mengaji" type="text" value="{{ $surahName }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="ayat">Ayat</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="ayat" type="text" value="1-10" readonly>
+                    <input class="form-control rounded-5 border-dark border-2" id="ayat" type="text" value="{{ $surahAyat }}" readonly>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Shalat Sunnah</label>
-                    <input class="form-control rounded-5 border-danger text-danger border-2" type="text" value="Tidak Shalat" readonly>
+                    <input class="form-control rounded-5 {{ $muhasabahReport->isya_pray ? 'border-success' : 'border-danger' }} text-danger border-2" type="text" value="{{ $muhasabahReport->sunnah_pray ? 'Shalat' : 'Tidak Shalat' }}" readonly>
                 </div>
 
                 <div class="mb-4">
@@ -47,23 +47,34 @@
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Subuh
-                            <span class="badge bg-success rounded-pill px-3">Shalat</span>
+                            <span class="badge {{ $muhasabahReport->subuh_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
+                                {{ $muhasabahReport->subuh_pray ? 'Shalat' : 'Tidak Shalat' }}
+                            </span>
                         </li>
+                        
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Dzuhur
-                            <span class="badge bg-danger rounded-pill px-3">Tidak Shalat</span>
+                            <span class="badge {{ $muhasabahReport->dzuhur_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
+                                {{ $muhasabahReport->dzuhur_pray ? 'Shalat' : 'Tidak Shalat' }}
+                            </span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Ashar
-                            <span class="badge bg-success rounded-pill px-3">Shalat</span>
+                            <span class="badge {{ $muhasabahReport->ashar_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
+                                {{ $muhasabahReport->ashar_pray ? 'Shalat' : 'Tidak Shalat' }}
+                            </span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Maghrib
-                            <span class="badge bg-success rounded-pill px-3">Shalat</span>
+                            <span class="badge {{ $muhasabahReport->maghrib_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
+                                {{ $muhasabahReport->maghrib_pray ? 'Shalat' : 'Tidak Shalat' }}
+                            </span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Isya
-                            <span class="badge bg-danger rounded-pill px-3">Tidak Shalat</span>
+                            <span class="badge {{ $muhasabahReport->isya_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
+                                {{ $muhasabahReport->isya_pray ? 'Shalat' : 'Tidak Shalat' }}
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -73,11 +84,11 @@
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Guru
-                            <span class="badge bg-success rounded-pill px-3">Sudah</span>
+                            <span class="badge {{ $muhasabahReport->teacher_sign ? 'bg-success' : 'bg-danger' }}  rounded-pill px-3">{{ $muhasabahReport->teacher_sign ? 'Sudah' : 'Belum' }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Orang Tua
-                            <span class="badge bg-danger rounded-pill px-3">Belum</span>
+                            <span class="badge {{ $muhasabahReport->parent_sign ? 'bg-success' : 'bg-danger' }}  rounded-pill px-3">{{ $muhasabahReport->parent_sign ? 'Sudah' : 'Belum' }}</span>
                         </li>
                     </ul>
                 </div>

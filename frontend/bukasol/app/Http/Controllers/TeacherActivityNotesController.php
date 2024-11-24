@@ -36,7 +36,7 @@ class TeacherActivityNotesController extends Controller
             'studentId' => $studentId,
             'studentName' => $studentName,
             
-            'page' => 'Detail Nilai Uji Gerakan Siswa'
+            'page' => 'Detail Catatan Harian Siswa'
         ] );
     }
 
@@ -68,7 +68,7 @@ class TeacherActivityNotesController extends Controller
             'parentQuestion' => $parentQuestion,
             'teacherSign' => $teacherSign,
 
-            'page' => 'Catatan Harian Siswa Table'
+            'page' => 'Detail Detail Catatan Harian Siswa'
         ] );
     }
 

@@ -20,144 +20,139 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Laporan Muhasabah Harian Siswa Abdan Syakuro</h2>
+                    <h2 class="text-center mb-0">Laporan Muhasabah Harian Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="laporanMuhasabahHarianSiswaTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Mengaji</th>
-                        <th>Sholat Sunnah</th>
-                        <th>Sholat Fardhu</th>
-                        <th>Paraf Guru</th>
-                        <th>Paraf Orang Tua</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-belum">Tidak</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>4/5</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.laporan-muhasabah-siswa-detail-siswa.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>5/5</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.laporan-muhasabah-siswa-detail-siswa.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td class="status-belum">Tidak</td>
-                        <td>4/5</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" checked>
-                            </div>
-                        </td>
-                        <td class="status-belum">Belum</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.laporan-muhasabah-siswa-detail-siswa.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11/09/2024</td>
-                        <td class="status-belum">Tidak</td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>5/5</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td class="status-sudah">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.laporan-muhasabah-siswa-detail-siswa.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
+            $('#laporanMuhasabahHarianSiswaTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('laporan-muhasabah-siswa.fetchData', [ 'id' => $studentId ]) }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                });
+                },
+                columns: [
+                    {
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'mengaji',
+                        name: 'mengaji',
+                        title: 'Mengaji',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Mengaji</span>'
+                                    : '<span class="text-danger">Tidak</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'sholatSunnah',
+                        name: 'sholatSunnah',
+                        title: 'Sholat Sunnah',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sholat</span>'
+                                    : '<span class="text-danger">Tidak</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'sholatFardhu',
+                        name: 'sholatFardhu',
+                        title: 'Sholat Fardhu'
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            return `
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        ${data ? 'checked' : ''}
+                                        onclick="updateTeacherSign(${row.id}, this.checked)">
+                                </div>`;
+                        }
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function updateTeacherSign(reportId) {
+            const url = `{{ route('muhasabah-report.teacher-sign', ':id') }}`.replace(':id', reportId);
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#laporanMuhasabahHarianSiswaTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
+        }
     </script>
 @endpush
