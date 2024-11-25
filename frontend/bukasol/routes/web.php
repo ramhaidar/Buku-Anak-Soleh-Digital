@@ -71,55 +71,6 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'dashboard.student.index' );
 
-        Route::get (
-            '/laporan-pelanggaran-siswa',
-            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
-        )
-            ->name ( 'student.laporan-pelanggaran-siswa-table.index' );
-
-        Route::get (
-            '/laporan-pelanggaran-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_detail_index' ]
-        )
-            ->name ( 'student.laporan-pelanggaran-siswa-detail.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz01-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz01-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz01-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_add_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz01-siswa-add.index' );
-
-
-        Route::get (
-            '/laporan-bacaan-juz29-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_table_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz29-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz29-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_add_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz29-siswa-add.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz30-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_table_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz30-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz30-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_add_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
-
         // Student Muhasabah Report
         Route::get (
             '/laporan-muhasabah-siswa',
@@ -158,6 +109,17 @@ Route::prefix ( 'student-dashboard' )
             ->name ( 'muhasabah-report.parent-sign' );
 
         // Student Violation Report
+        Route::get (
+            '/laporan-pelanggaran-siswa',
+            [ StudentViolationReportController::class, 'index_table' ]
+        )
+            ->name ( 'student.laporan-pelanggaran-siswa-table.index' );
+
+        Route::get (
+            '/laporan-pelanggaran-siswa-detail/{id}',
+            [ StudentViolationReportController::class, 'index_detail' ]
+        )
+            ->name ( 'student.laporan-pelanggaran-siswa-detail.index' );
 
         // Student Juz Report
         Route::get (
@@ -619,6 +581,11 @@ Route::middleware ( 'auth' )
             '/laporan-pelanggaran/fetchData/{id}',
             [ TeacherViolationReportController::class, 'fetchData_laporan_pelanggaran_by_id_siswa' ]
         )->name ( 'laporan-pelanggaran-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-pelanggaran/fetchData',
+            [ StudentViolationReportController::class, 'fetchData_laporan_pelanggaran_by_id_siswa' ]
+        )->name ( 'siswa.laporan-pelanggaran-siswa.fetchData' );
 
         Route::get (
             '/violation-report/{id}',
