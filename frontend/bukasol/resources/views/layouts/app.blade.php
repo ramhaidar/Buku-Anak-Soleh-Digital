@@ -31,8 +31,6 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     {{-- @livewireStyles --}}
 
     <style>
