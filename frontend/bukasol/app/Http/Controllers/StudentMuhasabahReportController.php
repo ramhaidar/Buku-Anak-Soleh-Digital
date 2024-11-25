@@ -140,7 +140,6 @@ class StudentMuhasabahReportController extends Controller
                 'teacherSign' => $muhasabahReport->teacher_sign,
                 'parentSign' => $muhasabahReport->parent_sign,
                 'action' => view('student.partials.laporan-muhasabah-harian-action-button', ['reportId' => $muhasabahReport->id])->render()
-
             ];
         });
 

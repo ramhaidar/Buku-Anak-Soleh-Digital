@@ -90,6 +90,7 @@ class StudentJuzReportController extends Controller
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
                 'parentSign' => $juzReport->teacher_sign,
+                'action' => view('student.partials.laporan-juz-action-button', ['reportId' => $juzReport->id])->render()
             ];
         });
 

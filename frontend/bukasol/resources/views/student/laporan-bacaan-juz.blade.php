@@ -41,7 +41,7 @@
             </table>
         </div>
 
-        @include('student.partials.laporan-bacaan-juz-delete')
+        @include('student.partials.laporan-juz-delete')
         @include('student.partials.modal-kode-unik-paraf-orang-tua-juz-report')
     </div>
 @endsection
@@ -92,7 +92,12 @@
                                         onclick="showParentCodeModal(${row.id})">
                                 </div>`;
                         }
-                    }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    },
                 ],
                 language: {
                     paginate: {
