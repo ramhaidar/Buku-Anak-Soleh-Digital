@@ -21,13 +21,15 @@
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">
-                <form action="#" method="POST">
+                <form action="{{ route('prayer-grade.store') }}" method="POST">
                     @csrf
+                    
+                    <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
 
                     <!-- Name Input -->
                     <div class="mb-3">
-                        <label class="form-label fw-semibold" for="name">Nama</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="name" name="name" type="text" value="Abdan Syakuro" placeholder="Nama Siswa..." readonly disabled>
+                        <label class="form-label fw-semibold" for="nama">Nama</label>
+                        <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="text" value="{{ $studentName }}" placeholder="{{ $studentName }}" readonly disabled>
                     </div>
 
                     <!-- Jenis Gerakan Input -->
@@ -50,7 +52,7 @@
 
                     <!-- Buttons -->
                     <div class="d-flex justify-content-center pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ url()->previous() }}">Batal</a>
+                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('teacher.nilai-uji-gerakan-siswa-detail.index', ['id' => $studentId]) }}">Batal</a>
                         <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
                     </div>
                 </form>
@@ -59,32 +61,3 @@
 
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-@endpush

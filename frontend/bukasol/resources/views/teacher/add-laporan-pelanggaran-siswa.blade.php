@@ -17,26 +17,18 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Tambah Pelanggaran Siswa Abdan Syakuro</h2>
+            <h2 class="text-center mb-4">Tambah Pelanggaran Siswa {{ $studentName }}</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">
-                <form action="#" method="POST">
+                <form action="{{ route('violation-report.store') }}" method="POST">
                     @csrf
 
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold" for="nisn">NISN</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="nisn" name="nisn" type="text" value="123456" readonly>
-                    </div>
+                    <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="name">Nama</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="name" name="name" type="text" value="Abc" readonly>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold" for="class">Kelas</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="class" name="class" type="text" value="5 Dzad" readonly>
+                        <input class="form-control rounded-5 border-dark border-2" id="name" name="name" type="text" value="{{ $studentName }}" readonly disabled>
                     </div>
 
                     <div class="mb-3">
@@ -55,7 +47,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ url()->previous() }}">Batal</a>
+                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('teacher.laporan-pelanggaran-siswa.index', ['id' => $studentId]) }}">Batal</a>
                         <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
                     </div>
                 </form>

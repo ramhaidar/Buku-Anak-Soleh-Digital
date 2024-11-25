@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,22 +21,25 @@ class StudentController extends Controller
             // User data validation
             'name'        => 'required|string|max:255',
             'username'    => 'required|string|unique:users,username|max:50',
-            // 'password'    => 'required|string|min:8|confirmed',
-            // 'role'        => 'required|string|in:student',
 
             // Student data validation
             'nisn'        => 'required|string|unique:students,nisn|max:20',
-            'class_name'  => 'required|string|max:50',
             'parent_name' => 'required|string|max:255',
-            // 'parent_code' => 'required|string|max:50',
             'teacher_id'  => 'required|exists:teachers,id',
         ] );
+
+        $letters = strtolower(explode(' ', $validatedData['name'])[0]);
+        $numbers = substr($validatedData['nisn'], -4);
+        $password = $letters . $numbers;
+        
+        $teacher = Teacher::find($validatedData[ 'teacher_id' ]);
+        $className = $teacher->class_name;
 
         // Create the User first
         $user = User::create ( [ 
             'name'     => $validatedData[ 'name' ],
             'username' => $validatedData[ 'username' ],
-            'password' => Hash::make ( 'password' ),
+            'password' => Hash::make ( $password ),
             'role'     => "Student",
         ] );
 
@@ -43,15 +47,14 @@ class StudentController extends Controller
         Student::create ( [ 
             'user_id'     => $user->id,
             'nisn'        => $validatedData[ 'nisn' ],
-            'class_name'  => $validatedData[ 'class_name' ],
+            'class_name'  => $className,
             'parent_name' => $validatedData[ 'parent_name' ],
-            'parent_code' => Str::random ( 10 ),
+            'parent_code' => strtolower(substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 4)),
             'teacher_id'  => $validatedData[ 'teacher_id' ],
         ] );
 
-        return redirect ()->back ()->with ( 'success', 'Sukses Menambahkan Data Siswa Baru.' );
-
-        // return response ()->json ( [ 'error' => 'Gagal Menambahkan Data Siswa Baru.' ] );
+        return redirect()->route('admin.student-table.index')
+            ->with('success', 'Sukses Menambahkan Data Siswa Baru.');
     }
 
     /**
@@ -112,6 +115,14 @@ class StudentController extends Controller
         // Delete the related user, if it exists
         if ( $student->user )
         {
+            $student->juz()->delete();
+            $student->muhasabahReports()->delete();
+            $student->notes()->delete();
+            $student->prayerGrades()->delete();
+            $student->prayerRecitationGrades()->delete();
+            $student->readActivities()->delete();
+            $student->violationReports()->delete();
+
             $student->user->delete ();
         }
 

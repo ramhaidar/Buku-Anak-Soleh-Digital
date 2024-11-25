@@ -21,19 +21,21 @@
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">
-                <form action="#" method="POST">
+                <form action="{{ route('reading-activity.store') }}" method="POST">
                     @csrf
+
+                    <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
 
                     <!-- Nama Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="nama">Nama</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="nama" name="nama" type="text" value="Abdan Syakuro" readonly disabled>
+                        <input class="form-control rounded-5 border-dark border-2" id="nama" name="nama" type="text" value="{{ $studentName }}" readonly disabled>
                     </div>
 
                     <!-- Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="tanggal">Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="tanggal" name="tanggal" type="date" value="2024-11-09">
+                        <input class="form-control rounded-5 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
                     </div>
 
                     <!-- Judul Buku Input -->
@@ -50,7 +52,7 @@
 
                     <!-- Reset and Submit Buttons -->
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ url()->previous() }}">Batal</a>
+                        <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ route('student.aktivitas-membaca-siswa-table.index') }}">Batal</a>
                         <button class="btn btn-success rounded-5 px-4 w-50 mx-2" type="submit">Tambah</button>
                     </div>
                 </form>
@@ -59,32 +61,3 @@
 
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-@endpush

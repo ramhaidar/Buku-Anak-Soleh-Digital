@@ -1,0 +1,167 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ReadActivity;
+use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+
+class TeacherReadActivityController extends Controller
+{
+    public function index_teacher()
+    {
+        $teacher   = auth ()->user ()->teacher;
+        $className = $teacher->class_name;
+
+        return view ( 'teacher.aktivitas-membaca-siswa', [ 
+            'role' => auth ()->user ()->role,
+            'name' => auth ()->user ()->name,
+            'className' => $className,
+
+            'page' => 'Aktivitas Membaca Siswa Table'
+        ] );
+    }
+
+    public function index_student( $studentId )
+    {
+        $student = Student::find($studentId);
+        $studentName = $student ? $student->user->name : 'N/A';
+
+        return view ( 'teacher.aktivitas-membaca-siswa-detail', [ 
+            'role' => auth ()->user ()->role,
+            'name' => auth ()->user ()->name,
+            'studentId' => $studentId,
+            'studentName' => $studentName,
+            
+            'page' => 'Detail Nilai Uji Gerakan Siswa'
+        ] );
+    }
+
+    public function fetchData_aktivitas_membaca_by_nama_kelas( Request $request )
+    {
+        // Safely get the length and start, with default values if they're not set
+        $length = $request->input ( 'length', 10 ); // Number of records per page
+        $start  = $request->input ( 'start', 0 ); // Offset for pagination
+        $search = $request->input ( 'search.value', '' ); // Search term, if provided
+
+        $teacher   = auth ()->user ()->teacher;
+        $className = $teacher->class_name;
+
+        $query = Student::where ( 'class_name', $className )->with ( 'user', 'readActivities' );
+
+        // Apply search filter if available
+        if ( ! empty ( $search ) )
+        {
+            $query->where ( function ($q) use ($search)
+            {
+                $q->where ( 'nisn', 'like', "%{$search}%" )
+                    ->orWhereHas ( 'user', function ($subQuery) use ($search)
+                    {
+                        $subQuery->where ( 'name', 'like', "%{$search}%" );
+                    } );
+            } );
+        }
+
+        // Total records without filtering
+        $totalData = Student::where ( 'class_name', $className )->count ();
+
+        // Total records after filtering
+        $totalFiltered = $query->count ();
+
+        // Get paginated results
+        $students = $query->offset ( $start )->limit ( $length )->get ();
+
+        // Map data for DataTables response
+        $data = $students->map ( function ($student)
+        {
+            $readActivities = $student->readActivities;
+
+            $totalReadActivities = $readActivities->count();
+
+            $parentSignFalseCount  = $readActivities->where ( 'parent_sign', false )->count ();
+            $teacherSignFalseCount = $readActivities->where ( 'teacher_sign', false )->count ();
+
+            return [
+                'studentNisn'  => $student->nisn,
+                'studentName'  => $student->user->name,
+                'totalActivity' => $totalReadActivities,
+                'teacherSign'  => $teacherSignFalseCount === 0,
+                'parentSign'  => $parentSignFalseCount === 0,
+                'action' => view('teacher.partials.aktivitas-membaca-siswa-action-button', ['studentId' => $student->id])->render()
+            ];
+        } );
+
+        // Return JSON response
+        return response ()->json ( [
+            'draw'            => intval ( $request->input ( 'draw' ) ),
+            'recordsTotal'    => $totalData,
+            'recordsFiltered' => $totalFiltered,
+            'data'            => $data
+        ] );
+    }
+
+    public function fetchData_aktivitas_membaca_by_id_siswa( Request $request )
+    {
+        // Safely get the length and start for pagination
+        $length = $request->input('length', 10); // Number of records per page
+        $start = $request->input('start', 0); // Offset for pagination
+        $search = $request->input('search.value', ''); // Search term, if provided
+        $studentId = $request->route('id');
+
+        // Base query to fetch prayer grades for the given student
+        $query = ReadActivity::where('student_id', $studentId);
+
+        // Apply search filter if available
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('book_title', 'like', "%{$search}%");
+            });
+        }
+
+        // Total records without filtering
+        $totalData = ReadActivity::where('student_id', $studentId)->count();
+
+        // Total records after filtering
+        $totalFiltered = $query->count();
+
+        // Get paginated results
+        $readActivities = $query->offset($start)->limit($length)->get();
+
+        $data = $readActivities->map(function ($readActivity) {
+            return [
+                'id' => $readActivity->id,
+                'timeStamp' => $readActivity->time_stamp,
+                'bookTitle' => $readActivity->book_title,
+                'page' => $readActivity->page,
+                'teacherSign' => $readActivity->teacher_sign,
+                'parentSign' => $readActivity->parent_sign
+            ];
+        });
+
+        // Return JSON response
+        return response ()->json ( [
+            'draw'            => intval ( $request->input ( 'draw' ) ),
+            'recordsTotal'    => $totalData,
+            'recordsFiltered' => $totalFiltered,
+            'data'            => $data
+        ] );
+    }
+
+    public function teacher_sign_read_activity( Request $request, $noteId )
+    {
+        $readActivity = ReadActivity::findOrFail ( $noteId );
+
+        $readActivity->teacher_sign = ! $readActivity->teacher_sign;
+
+        $readActivity->save ();
+
+        if ( $readActivity->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
+    }
+}

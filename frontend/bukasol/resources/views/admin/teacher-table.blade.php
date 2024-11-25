@@ -39,32 +39,22 @@
                 <div class="col container position-relative">
                     <h2 class="text-center mb-0">Akun Guru</h2>
                 </div>
-                <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-                    <button class="btn btn-outline-dark rounded-3 me-2">
-                        <i class="fa-solid fa-file-contract me-1"></i>
-                        <span class="d-none d-md-inline">Export Akun</span>
-                    </button>
-                    <button class="btn btn-outline-dark rounded-3" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
-                        <i class="fa-solid fa-plus me-1"></i>
-                        <span class="d-none d-md-inline">Tambah Guru</span>
-                    </button>
-                </div>
             </div>
         </div>
 
-        <div class="text-center table-responsive">
+        <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
+            <button class="btn btn-outline-dark rounded-3 me-2">
+                <i class="fa-solid fa-file-contract me-1"></i>
+                <span class="d-none d-md-inline">Export Akun</span>
+            </button>
+            <button class="btn btn-outline-dark rounded-3" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+                <i class="fa-solid fa-plus me-1"></i>
+                <span class="d-none d-md-inline">Tambah Guru</span>
+            </button>
+        </div>
+
+        <div class="text-left table-responsive">
             <table class="table table-bordered table-striped table-sm" id="teacherTable">
-                <thead>
-                    <tr>
-                        <th>NIP</th>
-                        <th>Nama Pengguna</th>
-                        <th>Kelas</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- DataTables akan mengisi body tabel secara otomatis dengan data server-side -->
-                </tbody>
             </table>
         </div>
 
@@ -93,19 +83,38 @@
                 },
                 columns: [{
                         data: 'nip',
-                        name: 'nip'
+                        name: 'nip',
+                        title: 'NIP',
+                        className: 'text-start'
                     },
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        title: 'Nama',
+                        className: 'text-start'
                     },
                     {
                         data: 'class_name',
-                        name: 'class_name'
+                        name: 'class_name',
+                        title: 'Kelas',
+                        className: 'text-start'
+                    },
+                    {
+                        data: 'username',
+                        name: 'username',
+                        title: 'Username',
+                        className: 'text-start'
+                    },
+                    {
+                        data: 'password',
+                        name: 'password',
+                        title: 'Password',
+                        className: 'text-start'
                     },
                     {
                         data: 'action',
                         name: 'action',
+                        title: 'Action',
                         orderable: false,
                         searchable: false
                     }

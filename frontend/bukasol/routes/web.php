@@ -11,23 +11,29 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\StudentDashboardController;
-use App\Http\Controllers\TeacherDashboardController;
 
-// Route::get ( '/', function ()
-// {
-//     return view ( 'welcome' );
-// } );
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentPrayerGradeController;
+use App\Http\Controllers\StudentPrayerRecitationGradeController;
+use App\Http\Controllers\StudentActivityNotesController;
+use App\Http\Controllers\StudentReadingActivityController;
+use App\Http\Controllers\StudentJuzReportController;
+use App\Http\Controllers\StudentMuhasabahReportController;
+use App\Http\Controllers\StudentViolationReportController;
+
+use App\Http\Controllers\TeacherDashboardController;
+use App\Http\Controllers\TeacherPrayerGradeController;
+use App\Http\Controllers\TeacherPrayerRecitationGradeController;
+use App\Http\Controllers\TeacherActivityNotesController;
+use App\Http\Controllers\TeacherReadActivityController;
+use App\Http\Controllers\TeacherMuhasabahReportController;
+use App\Http\Controllers\TeacherViolationReportController;
+use App\Http\Controllers\TeacherJuzReportController;
 
 Route::get ( '/', function ()
 {
     return redirect ()->route ( 'login.index' );
 } );
-
-// Route::get ( '/dashboard', function ()
-// {
-//     return view ( 'dashboard' );
-// } );
 
 Route::get (
     '/login',
@@ -35,13 +41,6 @@ Route::get (
 )
     ->middleware ( 'Authenticated' )
     ->name ( 'login.index' );
-
-// Route::get (
-//     '/login',
-//     [ Login::class, 'render' ]
-// )
-//     ->middleware ( 'Authenticated' )
-//     ->name ( 'login.index' );
 
 Route::post (
     '/login',
@@ -54,16 +53,6 @@ Route::post (
     '/logout',
     [ UserController::class, 'logout' ]
 )->name ( 'logout' );
-
-Route::get (
-    '/logout',
-    [ UserController::class, 'logout' ]
-)->name ( 'logout' );
-
-// Route::get (
-//     '/check-cookie',
-//     [ UserController::class, 'checkCookie' ]
-// );
 
 Route::get (
     '/dashboard',
@@ -82,109 +71,174 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'dashboard.student.index' );
 
+        // Student Muhasabah Report
         Route::get (
             '/laporan-muhasabah-siswa',
-            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_table_index' ]
+            [ StudentMuhasabahReportController::class, 'index_table' ]
         )
             ->name ( 'student.laporan-muhasabah-siswa-table.index' );
 
         Route::get (
             '/laporan-muhasabah-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'laporan_muhasabah_siswa_detail_index' ]
+            [ StudentMuhasabahReportController::class, 'index_detail' ]
         )
             ->name ( 'student.laporan-muhasabah-siswa-detail.index' );
 
+        Route::get (
+            '/laporan-muhasabah-siswa-add',
+            [ StudentMuhasabahReportController::class, 'index_add_report' ]
+        )
+            ->name ( 'student.laporan-muhasabah-siswa-add.index' );
 
+        Route::post (
+            '/muhasabah-report',
+            [ StudentMuhasabahReportController::class, 'store_muhasabah_report' ]
+        )
+            ->name('muhasabah-report.store');
+
+        Route::delete (
+            '/muhasabah-report/{id}',
+            [ StudentMuhasabahReportController::class, 'delete_muhasabah_report' ]
+        )
+            ->name ( 'muhasabah-report.delete' );
+
+        Route::put (
+            '/muhasabah-report/parent-sign/{id}',
+            [ StudentMuhasabahReportController::class, 'parent_sign_muhasabah_report' ]
+        )
+            ->name ( 'muhasabah-report.parent-sign' );
+
+        // Student Violation Report
         Route::get (
             '/laporan-pelanggaran-siswa',
-            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
+            [ StudentViolationReportController::class, 'index_table' ]
         )
             ->name ( 'student.laporan-pelanggaran-siswa-table.index' );
 
         Route::get (
             '/laporan-pelanggaran-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'laporan_pelanggaran_siswa_detail_index' ]
+            [ StudentViolationReportController::class, 'index_detail' ]
         )
             ->name ( 'student.laporan-pelanggaran-siswa-detail.index' );
 
+        // Student Juz Report
         Route::get (
-            '/laporan-bacaan-juz01-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
+            '/laporan-juz{juzNumber}-siswa',
+            [ StudentJuzReportController::class, 'index_table' ]
         )
-            ->name ( 'student.laporan-bacaan-juz01-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz01-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz01_siswa_add_index' ]
-        )
-            ->name ( 'student.laporan-bacaan-juz01-siswa-add.index' );
-
+            ->name ( 'student.laporan-juz-siswa-table.index' );
 
         Route::get (
-            '/laporan-bacaan-juz29-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_table_index' ]
+            '/laporan-juz{juzNumber}-siswa-add',
+            [ StudentJuzReportController::class, 'index_add_report' ]
         )
-            ->name ( 'student.laporan-bacaan-juz29-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz29-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz29_siswa_add_index' ]
+            ->name ( 'student.laporan-juz-siswa-add.index' );
+        
+        Route::post (
+            '/juz-report',
+            [ StudentJuzReportController::class, 'store_juz_report' ]
         )
-            ->name ( 'student.laporan-bacaan-juz29-siswa-add.index' );
+            ->name('juz-report.store');
 
-        Route::get (
-            '/laporan-bacaan-juz30-siswa',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_table_index' ]
+        Route::delete (
+            '/juz-report/{id}',
+            [ StudentJuzReportController::class, 'delete_juz_report' ]
         )
-            ->name ( 'student.laporan-bacaan-juz30-siswa-table.index' );
+            ->name ( 'juz-report.delete' );
 
-        Route::get (
-            '/laporan-bacaan-juz30-siswa-add',
-            [ StudentDashboardController::class, 'laporan_bacaan_juz30_siswa_add_index' ]
+        Route::put (
+            '/juz-report/parent-sign/{id}',
+            [ StudentJuzReportController::class, 'parent_sign_juz_report' ]
         )
-            ->name ( 'student.laporan-bacaan-juz30-siswa-add.index' );
+            ->name ( 'juz-report.parent-sign' );
 
+        // Student Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
-            [ StudentDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+            [ StudentPrayerGradeController::class, 'index' ]
         )
             ->name ( 'student.nilai-uji-gerakan-siswa-table.index' );
 
+        Route::put (
+            '/prayer-grade/parent-sign/{id}',
+            [ StudentPrayerGradeController::class, 'parent_sign_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.parent-sign' );
+
+        // Student Prayer Recitation Grade
         Route::get (
             '/nilai-uji-bacaan-siswa',
-            [ StudentDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+            [ StudentPrayerRecitationGradeController::class, 'index' ]
         )
             ->name ( 'student.nilai-uji-bacaan-siswa-table.index' );
 
+        Route::put (
+            '/prayer-recitation-grade/parent-sign/{id}',
+            [ StudentPrayerRecitationGradeController::class, 'parent_sign_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.parent-sign' );
+
+        // Student Daily Activity Notes
         Route::get (
             '/catatan-harian-siswa',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_table_index' ]
+            [ StudentActivityNotesController::class, 'index_table' ]
         )
             ->name ( 'student.catatan-harian-siswa-table.index' );
 
         Route::get (
             '/catatan-harian-siswa-detail/{id}',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+            [ StudentActivityNotesController::class, 'index_detail' ]
         )
             ->name ( 'student.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-add',
-            [ StudentDashboardController::class, 'catatan_harian_siswa_add_index' ]
+            '/catatan-harian-siswa-add/{id}',
+            [ StudentActivityNotesController::class, 'index_add_notes' ]
         )
             ->name ( 'student.catatan-harian-siswa-add.index' );
 
+        Route::post (
+            '/activity-notes',
+            [ StudentActivityNotesController::class, 'store_activity_notes' ]
+        )
+            ->name('activity-notes.store');
+
+        Route::delete (
+            '/activity-notes/{id}',
+            [ StudentActivityNotesController::class, 'delete_activity_notes' ]
+        )
+            ->name ( 'activity-notes.delete' );
+
+        // Student Reading Activity Notes
         Route::get (
             '/aktivitas-membaca-siswa',
-            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
+            [ StudentReadingActivityController::class, 'index_table' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/aktivitas-membaca-siswa-add',
-            [ StudentDashboardController::class, 'aktivitas_membaca_siswa_add_index' ]
+            '/aktivitas-membaca-siswa-add/{id}',
+            [ StudentReadingActivityController::class, 'index_add_activity' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-add.index' );
+
+        Route::post (
+            '/activity-notes',
+            [ StudentReadingActivityController::class, 'store_reading_activity' ]
+        )
+            ->name('reading-activity.store');
+
+        Route::delete (
+            '/reading-activity/{id}',
+            [ StudentReadingActivityController::class, 'delete_reading_activity' ]
+        )
+            ->name ( 'reading-activity.delete' );
+
+        Route::put (
+            '/reading-activity/parent-sign/{id}',
+            [ StudentReadingActivityController::class, 'parent_sign_reading_activity' ]
+        )
+            ->name ( 'reading-activity.parent-sign' );
     } );
 
 Route::prefix ( 'teacher-dashboard' )
@@ -197,167 +251,240 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'dashboard.teacher.index' );
 
+        // Teacher Juz Report
         Route::get (
-            '/laporan-muhasabah-siswa',
-            [ TeacherDashboardController::class, 'laporan_muhasabah_siswa_table_index' ]
+            '/laporan-bacaan-juz{juzNumber}',
+            [ TeacherJuzReportController::class, 'index_teacher_juz' ]
         )
-            ->name ( 'teacher.laporan-muhasabah-siswa-table.index' );
+            ->name ( 'teacher.laporan-bacaan-juz-siswa-table.index' );
 
         Route::get (
-            '/laporan-muhasabah-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_muhasabah_siswa_detail_index' ]
+            '/laporan-bacaan-juz{juzNumber}-siswa/{id}',
+            [ TeacherJuzReportController::class, 'index_student_juz' ]
         )
-            ->name ( 'teacher.laporan-muhasabah-siswa-detail.index' );
+            ->name ( 'teacher.laporan-bacaan-juz-siswa.index' );
 
-        Route::get (
-            '/laporan-muhasabah-siswa-detail-siswa/{id}',
-            [ TeacherDashboardController::class, 'laporan_muhasabah_siswa_detail_siswa_index' ]
-        )
-            ->name ( 'teacher.laporan-muhasabah-siswa-detail-siswa.index' );
-
+        // Teacher Violation Report
         Route::get (
             '/laporan-pelanggaran-siswa',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_table_index' ]
+            [ TeacherViolationReportController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.laporan-pelanggaran-siswa-table.index' );
 
         Route::get (
+            '/laporan-pelanggaran-siswa/{id}',
+            [ TeacherViolationReportController::class, 'index_student' ]
+        )
+            ->name ( 'teacher.laporan-pelanggaran-siswa.index' );
+
+        Route::get (
             '/laporan-pelanggaran-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_detail_index' ]
+            [ TeacherViolationReportController::class, 'index_detail' ]
         )
             ->name ( 'teacher.laporan-pelanggaran-siswa-detail.index' );
 
         Route::get (
-            '/laporan-pelanggaran-siswa-detail-siswa/{id}',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_detail_siswa_index' ]
-        )
-            ->name ( 'teacher.laporan-pelanggaran-siswa-detail-siswa.index' );
-
-        Route::get (
-            '/laporan-pelanggaran-siswa-add',
-            [ TeacherDashboardController::class, 'laporan_pelanggaran_siswa_add_index' ]
+            '/laporan-pelanggaran-siswa-add/{id}',
+            [ TeacherViolationReportController::class, 'index_add_report' ]
         )
             ->name ( 'teacher.laporan-pelanggaran-siswa-add.index' );
 
-        Route::get (
-            '/laporan-bacaan-juz01-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz01_siswa_table_index' ]
+        Route::post (
+            '/violation-report',
+            [ TeacherViolationReportController::class, 'store_violation_report' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz01-siswa-table.index' );
+            ->name('violation-report.store');
+
+        Route::delete (
+            '/violation-report/{id}',
+            [ TeacherViolationReportController::class, 'delete_violation_report' ]
+        )
+            ->name ( 'violation-report.delete' );
+
+        Route::put (
+            '/violation-report/teacher-sign/{id}',
+            [ TeacherViolationReportController::class, 'teacher_sign_violation_report' ]
+        )
+            ->name ( 'violation-report.teacher-sign' );
+
+        // Teacher Muhasabah Report
+        Route::get (
+            '/laporan-muhasabah-siswa',
+            [ TeacherMuhasabahReportController::class, 'index_teacher' ]
+        )
+            ->name ( 'teacher.laporan-muhasabah-siswa-table.index' );
 
         Route::get (
-            '/laporan-bacaan-juz01-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz01_siswa_detail_index' ]
+            '/laporan-muhasabah-siswa/{id}',
+            [ TeacherMuhasabahReportController::class, 'index_student' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz01-siswa-detail.index' );
+            ->name ( 'teacher.laporan-muhasabah-siswa.index' );
 
         Route::get (
-            '/laporan-bacaan-juz29-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz29_siswa_table_index' ]
+            '/laporan-muhasabah-siswa-detail/{id}',
+            [ TeacherMuhasabahReportController::class, 'index_detail' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz29-siswa-table.index' );
+            ->name ( 'teacher.laporan-muhasabah-siswa-detail.index' );
 
-        Route::get (
-            '/laporan-bacaan-juz29-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz29_siswa_detail_index' ]
+        Route::put (
+            '/muhasabah-report/teacher-sign/{id}',
+            [ TeacherMuhasabahReportController::class, 'teacher_sign_muhasabah_report' ]
         )
-            ->name ( 'teacher.laporan-bacaan-juz29-siswa-detail.index' );
+            ->name ( 'muhasabah-report.teacher-sign' );
 
-        Route::get (
-            '/laporan-bacaan-juz30-siswa',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_table_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz30-siswa-table.index' );
-
-        Route::get (
-            '/laporan-bacaan-juz30-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'laporan_bacaan_juz30_siswa_detail_index' ]
-        )
-            ->name ( 'teacher.laporan-bacaan-juz30-siswa-detail.index' );
-
+        // Teacher Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_table_index' ]
+            [ TeacherPrayerGradeController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-table.index' );
 
         Route::get (
             '/nilai-uji-gerakan-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_detail_index' ]
+            [ TeacherPrayerGradeController::class, 'index_student' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-detail.index' );
 
         Route::get (
-            '/nilai-uji-gerakan-siswa-add',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_add_index' ]
+            '/nilai-uji-gerakan-siswa-add/{id}',
+            [ TeacherPrayerGradeController::class, 'index_add_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
 
+        Route::post (
+            '/prayer-grade',
+            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
+        )
+            ->name('prayer-grade.store');
+
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_gerakan_siswa_edit_index' ]
+            [ TeacherPrayerGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
 
+        Route::put (
+            '/prayer-grade/{id}',
+            [ TeacherPrayerGradeController::class, 'update_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.update' );
+
+        Route::delete (
+            '/prayer-grade/{id}',
+            [ TeacherPrayerGradeController::class, 'delete_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.delete' );
+
+        Route::put (
+            '/prayer-grade/teacher-sign/{id}',
+            [ TeacherPrayerGradeController::class, 'teacher_sign_prayer_grade' ]
+        )
+            ->name ( 'prayer-grade.teacher-sign' );
+
+        // Teacher Prayer Recitation Grade
         Route::get (
             '/nilai-uji-bacaan-siswa',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_table_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-table.index' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_detail_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_student' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-detail.index' );
 
         Route::get (
-            '/nilai-uji-bacaan-siswa-add',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_add_index' ]
+            '/nilai-uji-bacaan-siswa-add/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'index_add_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-add.index' );
 
+        Route::post (
+            '/prayer-recitation-grade',
+            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
+        )
+            ->name('prayer-recitation.store');
+
         Route::get (
             '/nilai-uji-bacaan-siswa-edit/{id}',
-            [ TeacherDashboardController::class, 'nilai_uji_bacaan_siswa_edit_index' ]
+            [ TeacherPrayerRecitationGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
 
-        Route::get (
-            '/aktivitas-membaca-siswa',
-            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_table_index' ]
+        Route::put (
+            '/prayer-recitation-grade/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'update_prayer_recitation_grade' ]
         )
-            ->name ( 'teacher.aktivitas-membaca-siswa-table.index' );
+            ->name ( 'prayer-recitation-grade.update' );
 
-        Route::get (
-            '/aktivitas-membaca-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'aktivitas_membaca_siswa_detail_index' ]
+        Route::delete (
+            '/prayer-recitation-grade/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'delete_prayer_recitation_grade' ]
         )
-            ->name ( 'teacher.aktivitas-membaca-siswa-detail.index' );
+            ->name ( 'prayer-recitation-grade.delete' );
 
+        Route::put (
+            '/prayer-recitation-grade/teacher-sign/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'teacher_sign_prayer_recitation_grade' ]
+        )
+            ->name ( 'prayer-recitation-grade.teacher-sign' );
+
+        // Teacher Notes Activity
         Route::get (
             '/catatan-harian-siswa',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_table_index' ]
+            [ TeacherActivityNotesController::class, 'index_teacher' ]
         )
             ->name ( 'teacher.catatan-harian-siswa-table.index' );
 
         Route::get (
+            '/catatan-harian-siswa/{id}',
+            [ TeacherActivityNotesController::class, 'index_student' ]
+        )
+            ->name ( 'teacher.catatan-harian-siswa.index' );
+
+        Route::get (
             '/catatan-harian-siswa-detail/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_index' ]
+            [ TeacherActivityNotesController::class, 'index_detail' ]
         )
             ->name ( 'teacher.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-detail-detail/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_index' ]
+            '/catatan-harian-siswa/pertanyaan-orangtua/{id}',
+            [ TeacherActivityNotesController::class, 'index_question' ]
         )
-            ->name ( 'teacher.catatan-harian-siswa-detail-detail.index' );
+            ->name ( 'teacher.jawaban-pertanyaan-orangtua.index' );
+
+        Route::put (
+            '/activity-notes/{id}',
+            [ TeacherActivityNotesController::class, 'answer_parent_question' ]
+        )
+            ->name ( 'activity-notes-parent-answer.update' );
+
+        Route::put (
+            '/activity-notes/teacher-sign/{id}',
+            [ TeacherActivityNotesController::class, 'teacher_sign_activity_notes' ]
+        )
+            ->name ( 'activity-notes.teacher-sign' );
+
+        // Teacher Read Activity
+        Route::get (
+            '/aktivitas-membaca-siswa',
+            [ TeacherReadActivityController::class, 'index_teacher' ]
+        )
+            ->name ( 'teacher.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/catatan-harian-siswa-detail-detail-answer/{id}',
-            [ TeacherDashboardController::class, 'catatan_harian_siswa_detail_detail_answer_index' ]
+            '/aktivitas-membaca-siswa/{id}',
+            [ TeacherReadActivityController::class, 'index_student' ]
         )
-            ->name ( 'teacher.catatan-harian-siswa-detail-detail-answer.index' );
+            ->name ( 'teacher.aktivitas-membaca-siswa.index' );
+
+        Route::put (
+            '/read-activity/teacher-sign/{id}',
+            [ TeacherReadActivityController::class, 'teacher_sign_read_activity' ]
+        )
+            ->name ( 'read-activity.teacher-sign' );
     } );
 
 Route::prefix ( 'admin-dashboard' )
@@ -421,12 +548,162 @@ Route::middleware ( 'auth' )
             '/student/fetchData',
             [ AdminDashboardController::class, 'fetchData_student' ]
         )->name ( 'student.fetchData' );
-    } );
 
-Route::get ( '/test', function ()
-{
-    return view ( 'test' );
-} );
+        // Muhasabah Report
+        Route::post (
+            '/laporan-muhasabah/fetchData',
+            [ TeacherMuhasabahReportController::class, 'fetchData_laporan_muhasabah_by_nama_kelas' ]
+        )->name ( 'laporan-muhasabah.fetchData' );
+
+        Route::post (
+            '/laporan-muhasabah/fetchData/{id}',
+            [ TeacherMuhasabahReportController::class, 'fetchData_laporan_muhasabah_by_id_siswa' ]
+        )->name ( 'laporan-muhasabah-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-muhasabah/fetchData',
+            [ StudentMuhasabahReportController::class, 'fetchData_laporan_muhasabah_by_id_siswa' ]
+        )->name ( 'siswa.laporan-muhasabah.fetchData' );
+
+        Route::get (
+            '/muhasabah-report/{id}',
+            [ TeacherMuhasabahReportController::class, 'muhasabah_report_pdf' ]
+        )
+            ->name ( 'muhasabah-report.convert-pdf' );
+
+        // Violation Report
+        Route::post (
+            '/laporan-pelanggaran/fetchData',
+            [ TeacherViolationReportController::class, 'fetchData_laporan_pelanggaran_by_nama_kelas' ]
+        )->name ( 'laporan-pelanggaran.fetchData' );
+
+        Route::post (
+            '/laporan-pelanggaran/fetchData/{id}',
+            [ TeacherViolationReportController::class, 'fetchData_laporan_pelanggaran_by_id_siswa' ]
+        )->name ( 'laporan-pelanggaran-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-pelanggaran/fetchData',
+            [ StudentViolationReportController::class, 'fetchData_laporan_pelanggaran_by_id_siswa' ]
+        )->name ( 'siswa.laporan-pelanggaran-siswa.fetchData' );
+
+        Route::get (
+            '/violation-report/{id}',
+            [ TeacherViolationReportController::class, 'violation_report_pdf' ]
+        )
+            ->name ( 'violation-report.convert-pdf' );
+
+        // Juz Report
+        Route::post (
+            '/laporan-juz{juzNumber}/fetchData',
+            [ TeacherJuzReportController::class, 'fetchData_laporan_juz_by_nama_kelas' ]
+        )->name ( 'laporan-juz.fetchData' );
+
+        Route::post (
+            '/laporan-juz{juzNumber}/fetchData/{id}',
+            [ TeacherJuzReportController::class, 'fetchData_laporan_juz_by_id_siswa' ]
+        )->name ( 'laporan-juz-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-juz{juzNumber}/fetchData',
+            [ StudentJuzReportController::class, 'fetchData_laporan_juz_by_id_siswa' ]
+        )->name ( 'siswa.laporan-juz-siswa.fetchData' );
+
+        Route::get (
+            '/juz-report/{id}',
+            [ TeacherJuzReportController::class, 'juz_report_pdf' ]
+        )
+            ->name ( 'juz-report.convert-pdf' );
+
+        // Prayer Grade
+        Route::post (
+            '/nilai-uji-gerakan/fetchData',
+            [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_nama_kelas' ]
+        )->name ( 'nilai_uji_gerakan.fetchData' );
+
+        Route::post (
+            '/nilai-uji-gerakan-detail/fetchData/{id}',
+            [ TeacherPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
+        )->name ( 'nilai_uji_gerakan_detail.fetchData' );
+
+        Route::post (
+            '/siswa-nilai-uji-gerakan/fetchData',
+            [ StudentPrayerGradeController::class, 'fetchData_nilai_uji_gerakan_by_id_siswa' ]
+        )->name ( 'siswa.nilai_uji_gerakan.fetchData' );
+
+        Route::get (
+            '/prayer-grade-report/{id}',
+            [ TeacherPrayerGradeController::class, 'prayer_grade_pdf' ]
+        )
+            ->name ( 'prayer-grade.convert-pdf' );
+
+        // Prayer Recitation Grade
+        Route::post (
+            '/nilai-uji-bacaan/fetchData',
+            [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_nama_kelas' ]
+        )->name ( 'nilai_uji_bacaan.fetchData' );
+
+        Route::post (
+            '/nilai-uji-bacaan-detail/fetchData/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_id_siswa' ]
+        )->name ( 'nilai_uji_bacaan_detail.fetchData' );
+
+        Route::post (
+            '/siswa-nilai-uji-bacaan/fetchData',
+            [ StudentPrayerRecitationGradeController::class, 'fetchData_nilai_uji_bacaan_by_id_siswa' ]
+        )->name ( 'siswa.nilai_uji_bacaan.fetchData' );
+
+        Route::get (
+            '/prayer-recitation-grade-report/{id}',
+            [ TeacherPrayerRecitationGradeController::class, 'prayer_recitation_grade_pdf' ]
+        )
+            ->name ( 'prayer-recitation-grade.convert-pdf' );
+
+        // Activity Notes
+        Route::post (
+            '/siswa-catatan-harian/fetchData',
+            [ StudentActivityNotesController::class, 'fetchData_catatan_harian_by_id_siswa' ]
+        )->name ( 'siswa.catatan-harian.fetchData' );
+
+        Route::post (
+            '/catatan-harian/fetchData',
+            [ TeacherActivityNotesController::class, 'fetchData_catatan_harian_by_nama_kelas' ]
+        )->name ( 'catatan-harian.fetchData' );
+
+        Route::post (
+            '/catatan-harian/fetchData/{id}',
+            [ TeacherActivityNotesController::class, 'fetchData_catatan_harian_by_id_siswa' ]
+        )->name ( 'catatan-harian-detail.fetchData' );
+
+        Route::get (
+            '/activity-notes-report/{id}',
+            [ StudentActivityNotesController::class, 'activity_notes_pdf' ]
+        )
+            ->name ( 'activity-notes.convert-pdf' );
+
+        // Reading Activity
+        Route::post (
+            '/siswa-aktivitas-membaca/fetchData',
+            [ StudentReadingActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+        )->name ( 'siswa.aktivitas-membaca.fetchData' );
+
+        Route::post (
+            '/aktivitas-membaca/fetchData',
+            [ TeacherReadActivityController::class, 'fetchData_aktivitas_membaca_by_nama_kelas' ]
+        )->name ( 'aktivitas-membaca.fetchData' );
+
+        Route::post (
+            '/aktivitas-membaca/fetchData/{id}',
+            [ TeacherReadActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+        )->name ( 'aktivitas-membaca-siswa.fetchData' );
+
+        Route::get (
+            '/reading-activity-report/{id}',
+            [ StudentReadingActivityController::class, 'reading_activity_pdf' ]
+        )
+            ->name ( 'reading-activity.convert-pdf' );
+
+    } );
 
 // Rute untuk menangani proses CRUD data Guru
 Route::middleware ( 'auth' )

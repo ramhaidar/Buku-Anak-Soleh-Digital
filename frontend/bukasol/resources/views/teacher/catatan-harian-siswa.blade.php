@@ -27,185 +27,6 @@
 
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="catatanHarianSiswaTable">
-                <thead class="text-center">
-                    <tr>
-                        <th>NISN</th>
-                        <th>Nama</th>
-                        <th>Pertanyaan</th>
-                        <th>Paraf Guru</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-danger">Tidak Ada</td>
-                        <td class="text-danger">Belum</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td>Abc</td>
-                        <td class="text-success">Ada</td>
-                        <td class="text-success">Sudah</td>
-                        <td>
-                            <div class="container-fluid w-100">
-                                <div class="d-flex justify-content-center w-100">
-                                    <!-- Detail Button to Trigger Detail Modal -->
-                                    <a class="btn btn-sm btn-primary py-2 me-2" href="{{ route('teacher.catatan-harian-siswa-detail.index', ['id' => 1]) }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <!-- Delete Button to Trigger Confirmation Modal -->
-                                    <button class="btn btn-sm btn-success py-2">
-                                        <i class="fa fa-file-export"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
 
@@ -213,29 +34,72 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            // Loop through each table element on the page
-            $('table').each(function() {
-                // Check if DataTable is already initialized for the current table
-                if ($.fn.DataTable.isDataTable(this)) {
-                    $(this).DataTable().destroy();
-                }
-
-                // Initialize DataTable for the current table
-                $(this).DataTable({
-                    info: true,
-                    ordering: true,
-                    order: [], // No default order
-                    language: {
-                        paginate: {
-                            first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
-                            previous: '<i class="bi bi-chevron-left container-fluid"></i>',
-                            next: '<i class="bi bi-chevron-right container-fluid"></i>',
-                            last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
-                        }
+            $('#catatanHarianSiswaTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('catatan-harian.fetchData') }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
-                });
+                },
+                columns: [{
+                        data: 'studentNisn',
+                        name: 'studentNisn',
+                        title: 'NISN'
+                    },
+                    {
+                        data: 'studentName',
+                        name: 'studentName',
+                        title: 'Nama'
+                    },
+                    {
+                        data: 'parentQuestion',
+                        name: 'parentQuestion',
+                        title: 'Pertanyaan',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-danger">Tidak Ada Pertanyaan</span>'
+                                    : '<span class="text-success">Ada Pertanyaan</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
             });
         });
     </script>

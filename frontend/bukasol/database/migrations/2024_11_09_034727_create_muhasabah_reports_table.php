@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id ();
             $table->unsignedBigInteger ( 'student_id' );
             $table->date ( 'time_stamp' );
-            $table->string ( 'surah_name' );
-            $table->string ( 'surah_ayat' );
+            $table->string ( 'surah_name' )->nullable ();
+            $table->string ( 'surah_ayat' )->nullable ();
             $table->boolean ( 'sunnah_pray' )->default ( false );
             $table->boolean ( 'subuh_pray' )->default ( false );
             $table->boolean ( 'dzuhur_pray' )->default ( false );

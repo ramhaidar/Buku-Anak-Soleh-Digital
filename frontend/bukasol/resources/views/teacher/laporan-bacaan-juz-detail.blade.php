@@ -1,0 +1,92 @@
+@extends('teacher.teacher-dashboard')
+
+@push('styles')
+    <link href="{{ asset('css/dashboardWithTable.css') }}" rel="stylesheet">
+
+    <style>
+        .form-check-input:checked {
+            background-color: green !important;
+        }
+
+        .form-check-input:focus {
+            border-color: green !important;
+        }
+    </style>
+@endpush
+
+@section('content_3')
+    <div class="p-0 m-0">
+
+        <div class="text-center p-0 m-0 pe-1">
+            <div class="row align-items-center mb-4">
+                <div class="col container position-relative">
+                    <h2 class="text-center mb-0">Detail Bacaan Juz {{ $juzNumber }} Siswa {{ $studentName }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center table-responsive">
+            <table class="table table-bordered table-striped table-sm" id="laporanBacaanJuzSiswaDetailTable">
+            </table>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#laporanBacaanJuzSiswaDetailTable').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                ajax: {
+                    url: '{{ route('laporan-juz-siswa.fetchData' , [ 'juzNumber' => $juzNumber, 'id' => $studentId ]) }}',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                },
+                columns: [{
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
+                        data: 'surahName',
+                        name: 'surahName',
+                        title: 'Surat'
+                    },
+                    {
+                        data: 'surahAyat',
+                        name: 'surahAyat',
+                        title: 'Ayat'
+                    },
+                    {
+                        data: 'parentSign',
+                        name: 'parentSign',
+                        title: 'Paraf Orang Tua',
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
+                        }
+                    }
+                ],
+                language: {
+                    paginate: {
+                        first: '<i class="bi bi-chevron-double-left container-fluid"></i>',
+                        previous: '<i class="bi bi-chevron-left container-fluid"></i>',
+                        next: '<i class="bi bi-chevron-right container-fluid"></i>',
+                        last: '<i class="bi bi-chevron-double-right container-fluid"></i>'
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

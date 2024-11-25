@@ -140,6 +140,10 @@
                             </div>
                         </div>
                     @elseif (isset($role) && $role == 'Teacher')
+                        @php
+                            $teacher = auth()->user()->teacher;
+                            $className = $teacher->class_name;
+                        @endphp
                         <!-- Dropdown Menu for Desktop View -->
                         <li class="dropdown px-2 mb-2" id="FirstItem">
                             <button class="nav-item btn btn-secondary navigation-button" id="laporanDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -151,9 +155,9 @@
                                 <li class="dropdown-submenu">
                                     <button class="dropdown-item submenu-toggle">Laporan Bacaan Juz &raquo;</button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -201,9 +205,9 @@
                                                 </h2>
                                                 <div class="accordion-collapse collapse" id="collapseJuz" aria-labelledby="headingJuz">
                                                     <div class="accordion-body">
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('teacher.laporan-bacaan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -254,9 +258,9 @@
                                 <li class="dropdown-submenu">
                                     <button class="dropdown-item submenu-toggle">Laporan Bacaan Juz &raquo;</button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -304,9 +308,9 @@
                                                 </h2>
                                                 <div class="accordion-collapse collapse" id="collapseJuz" aria-labelledby="headingJuz">
                                                     <div class="accordion-body">
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,15 +360,15 @@
                             <span class="ms-3">—</span>
                             <span class="ms-2 me-2">{{ isset($name) ? $name : 'NAME' }}</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="profileDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end text-start ms-1" aria-labelledby="profileDropdown">
                             <li class="">
                                 @if (isset($role) && $role == 'Admin')
-                                    <a class="dropdown-item p-1 m-0 my-0" href="{{ route('change-password.index') }}">Ganti Password</a>
+                                    <a class="dropdown-item p-1 m-0 my-0 ms-1" href="{{ route('change-password.index') }}">Ganti Password</a>
                                 @endif
-                                <div class="dropdown-divider border-0 bg-white p-0 m-0"></div>
+                                <div class="dropdown-divider border-0 bg-white p-0 m-0 ms-1"></div>
                                 <form class="p-0 m-0" method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button class=" p-1 m-0 my-0 dropdown-item" type="submit">Logout</button>
+                                    <button class=" p-1 m-0 my-0 dropdown-item ms-1" type="submit">Logout</button>
                                 </form>
                             </li>
                         </ul>
