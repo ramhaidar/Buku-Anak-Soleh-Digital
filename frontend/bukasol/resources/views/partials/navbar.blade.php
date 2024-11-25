@@ -258,9 +258,9 @@
                                 <li class="dropdown-submenu">
                                     <button class="dropdown-item submenu-toggle">Laporan Bacaan Juz &raquo;</button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -308,9 +308,9 @@
                                                 </h2>
                                                 <div class="accordion-collapse collapse" id="collapseJuz" aria-labelledby="headingJuz">
                                                     <div class="accordion-body">
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz01-siswa-table.index') }}">Laporan Bacaan Juz 1 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz29-siswa-table.index') }}">Laporan Bacaan Juz 29 Siswa</a>
-                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-bacaan-juz30-siswa-table.index') }}">Laporan Bacaan Juz 30 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 1]) }}">Laporan Bacaan Juz 1 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 29]) }}">Laporan Bacaan Juz 29 Siswa</a>
+                                                        <a class="dropdown-item accordion-item container-fluid p-3 w-100 h-100 border-secondary-subtle rounded-0 fs-6 bg-success-subtle" href="{{ route('student.laporan-juz-siswa-table.index', ['juzNumber' => 30]) }}">Laporan Bacaan Juz 30 Siswa</a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0 pe-1">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Laporan Muhasabah Harian</h2>
+                    <h2 class="text-center mb-0">Laporan Bacaan Juz {{ $juzNumber }}</h2>
                 </div>
             </div>
         </div>
@@ -28,22 +28,21 @@
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
             <button class="btn btn-outline-dark rounded-3 me-2">
                 <i class="fa-solid fa-file-contract me-1"></i>
-                <span class="d-none d-md-inline">Export Muhasabah Harian</span>
+                <span class="d-none d-md-inline">Export Bacaan Juz {{ $juzNumber }}</span>
             </button>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.laporan-muhasabah-siswa-add.index') }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.laporan-juz-siswa-add.index', ['juzNumber' => $juzNumber]) }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Laporan</span>
             </a>
         </div>
 
         <div class="text-center table-responsive">
-            <table class="table table-bordered table-striped table-sm" id="laporanMuhasabahHarianSiswaTable">
+            <table class="table table-bordered table-striped table-sm" id="laporanBacaanJuzSiswaTable">
             </table>
         </div>
 
-        @include('student.partials.modal-kode-unik-paraf-orang-tua-muhasabah-report')
-        @include('student.partials.laporan-muhasabah-harian-delete')
-
+        @include('student.partials.laporan-bacaan-juz-delete')
+        @include('student.partials.modal-kode-unik-paraf-orang-tua-juz-report')
     </div>
 @endsection
 
@@ -53,66 +52,31 @@
 
     <script>
         $(document).ready(function() {
-            $('#laporanMuhasabahHarianSiswaTable').DataTable({
+            $('#laporanBacaanJuzSiswaTable').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: true,
                 ajax: {
-                    url: '{{ route('siswa.laporan-muhasabah.fetchData') }}',
+                    url: '{{ route('siswa.laporan-juz-siswa.fetchData' , [ 'juzNumber' => $juzNumber ]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
                         title: 'Tanggal'
                     },
                     {
-                        data: 'mengaji',
-                        name: 'mengaji',
-                        title: 'Mengaji',
-                        render: function(data, type, row) {
-                            if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Mengaji</span>'
-                                    : '<span class="text-danger">Tidak</span>';
-                            }
-                            return data;
-                        }
+                        data: 'surahName',
+                        name: 'surahName',
+                        title: 'Surat'
                     },
                     {
-                        data: 'sholatSunnah',
-                        name: 'sholatSunnah',
-                        title: 'Sholat Sunnah',
-                        render: function(data, type, row) {
-                            if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sholat</span>'
-                                    : '<span class="text-danger">Tidak</span>';
-                            }
-                            return data;
-                        }
-                    },
-                    {
-                        data: 'sholatFardhu',
-                        name: 'sholatFardhu',
-                        title: 'Sholat Fardhu'
-                    },
-                    {
-                        data: 'teacherSign',
-                        name: 'teacherSign',
-                        title: 'Paraf Guru',
-                        render: function(data, type, row) {
-                            if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
-                            }
-                            return data;
-                        }
+                        data: 'surahAyat',
+                        name: 'surahAyat',
+                        title: 'Ayat'
                     },
                     {
                         data: 'parentSign',
@@ -128,11 +92,6 @@
                                         onclick="showParentCodeModal(${row.id})">
                                 </div>`;
                         }
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        title: 'Actions'
                     }
                 ],
                 language: {

@@ -92,7 +92,7 @@ class TeacherJuzReportController extends Controller
                 $surahAyat = $latestJuzReport->surah_ayat;
             }
 
-            $parentSignFalseCount = $juzReports->where ( 'parent_sign', false )->count ();
+            $parentSignFalseCount = $juzReports->where ( 'teacher_sign', false )->count ();
 
             return [
                 'studentNisn'  => $student->nisn,
@@ -152,7 +152,7 @@ class TeacherJuzReportController extends Controller
                 'timeStamp' => $juzReport->time_stamp,
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
-                'parentSign' => $juzReport->parent_sign,
+                'parentSign' => $juzReport->teacher_sign,
             ];
         });
 

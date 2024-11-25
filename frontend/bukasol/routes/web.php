@@ -160,6 +160,35 @@ Route::prefix ( 'student-dashboard' )
         // Student Violation Report
 
         // Student Juz Report
+        Route::get (
+            '/laporan-juz{juzNumber}-siswa',
+            [ StudentJuzReportController::class, 'index_table' ]
+        )
+            ->name ( 'student.laporan-juz-siswa-table.index' );
+
+        Route::get (
+            '/laporan-juz{juzNumber}-siswa-add',
+            [ StudentJuzReportController::class, 'index_add_report' ]
+        )
+            ->name ( 'student.laporan-juz-siswa-add.index' );
+        
+        Route::post (
+            '/juz-report',
+            [ StudentJuzReportController::class, 'store_juz_report' ]
+        )
+            ->name('juz-report.store');
+
+        Route::delete (
+            '/juz-report/{id}',
+            [ StudentJuzReportController::class, 'delete_juz_report' ]
+        )
+            ->name ( 'juz-report.delete' );
+
+        Route::put (
+            '/juz-report/parent-sign/{id}',
+            [ StudentJuzReportController::class, 'parent_sign_juz_report' ]
+        )
+            ->name ( 'juz-report.parent-sign' );
 
         // Student Prayer Grade
         Route::get (
@@ -607,6 +636,11 @@ Route::middleware ( 'auth' )
             '/laporan-juz{juzNumber}/fetchData/{id}',
             [ TeacherJuzReportController::class, 'fetchData_laporan_juz_by_id_siswa' ]
         )->name ( 'laporan-juz-siswa.fetchData' );
+
+        Route::post (
+            '/siswa-laporan-juz{juzNumber}/fetchData',
+            [ StudentJuzReportController::class, 'fetchData_laporan_juz_by_id_siswa' ]
+        )->name ( 'siswa.laporan-juz-siswa.fetchData' );
 
         Route::get (
             '/juz-report/{id}',
