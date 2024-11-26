@@ -26,28 +26,6 @@ class StudentJuzReportController extends Controller
         ] );
     }
 
-    public function index_add_report( $juzNumber )
-    {
-        $student = auth ()->user ()->student;
-        $studentId = $student->id;
-
-        $studentFind = Student::find($studentId);
-        $studentName = $studentFind->user->name;
-
-        $today = now()->toDateString();
-
-        return view ( 'student.add-laporan-bacaan-juz', [ 
-            'role' => auth ()->user ()->role,
-            'name' => auth ()->user ()->name,
-            'studentId' => $studentId,
-            'studentName' => $studentName,
-            'juzNumber' => $juzNumber,
-            'today' => $today,
-
-            'page' => 'Tambah Laporan Bacaan Juz Siswa'
-        ] );
-    }
-
     public function fetchData_laporan_juz_by_id_siswa( Request $request )
     {
         // Safely get the length and start for pagination
@@ -89,8 +67,7 @@ class StudentJuzReportController extends Controller
                 'timeStamp' => $juzReport->time_stamp,
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
-                'parentSign' => $juzReport->teacher_sign,
-                'action' => view('student.partials.laporan-juz-action-button', ['reportId' => $juzReport->id])->render()
+                'teacherSign' => $juzReport->teacher_sign
             ];
         });
 
@@ -101,72 +78,5 @@ class StudentJuzReportController extends Controller
             'recordsFiltered' => $totalFiltered,
             'data' => $data
         ]);
-    }
-
-    public function store_juz_report( Request $request )
-    {
-        $validatedData = $request->validate([
-            'studentId' => 'required|exists:students,id',
-            'juz' => 'required|integer',
-            'tanggal' => 'required|date',
-            'surah' => 'required|string|max:255',
-            'ayat' => 'required|string|max:255',
-        ]);
-
-        $existingReport = Juz::where('student_id', $validatedData['studentId'])
-            ->whereDate('time_stamp', $validatedData['tanggal'])
-            ->where('juz_number', $validatedData['juz'])
-            ->where('surah_name', $validatedData['tanggal'])
-            ->where('surah_ayat', $validatedData['tanggal'])
-            ->first();
-
-        if ($existingReport) {
-            return redirect ()->back ()->with ( 'error', 'Data Tersebut sudah Dibuat.' );
-        }
-
-        Juz::create ( [
-            'student_id' => $validatedData[ 'studentId' ],
-            'time_stamp' => $validatedData[ 'tanggal' ],
-            'juz_number' => $validatedData[ 'juz' ],
-            'surah_name' => $validatedData[ 'surah' ],
-            'surah_ayat' => $validatedData[ 'ayat' ],
-            'teacher_sign' => false,
-        ] );
-
-        return redirect()->route('student.laporan-juz-siswa-table.index' ,[ 'juzNumber' => $validatedData[ 'juz' ] ])
-            ->with('success', 'Sukses Menambahkan Data Laporan Baru.');
-    }
-    
-    public function delete_juz_report( Request $request, $reportId )
-    {
-        $juzReport = Juz::findOrFail ( $reportId );
-
-        $juzReport->delete ();
-
-        return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
-    }
-
-    public function parent_sign_juz_report( Request $request, $reportId )
-    {
-        $validated = $request->validate([
-            'parentCode' => 'required|string'
-        ]);
-
-        $student = auth ()->user ()->student;
-        $parentCode = $student->parent_code;
-
-        if ($validated['parentCode'] !== $parentCode) {
-            return response()->json([ 'error' => 'Kode Unik Salah.']);
-        }
-
-        $juzReport = Juz::findOrFail ( $reportId );
-        $juzReport->teacher_sign = ! $juzReport->teacher_sign;
-        $juzReport->save ();
-
-        if ( $juzReport->teacher_sign ) {
-            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
-        }
-
-        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 }

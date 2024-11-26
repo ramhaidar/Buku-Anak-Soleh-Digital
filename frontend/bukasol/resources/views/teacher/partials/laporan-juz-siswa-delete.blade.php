@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Batal</a>
-                    <button class="btn btn-danger" data-bs-dismiss="modal" type="button" onclick="confirmDelete(deleteReportId, '#laporanBacaanJuzSiswaTable')">Hapus</button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal" type="button" onclick="confirmDelete(deleteReportId, '#laporanBacaanJuzSiswaDetailTable')">Hapus</button>
             </div>
         </div>
     </div>

@@ -128,30 +128,6 @@ Route::prefix ( 'student-dashboard' )
         )
             ->name ( 'student.laporan-juz-siswa-table.index' );
 
-        Route::get (
-            '/laporan-juz{juzNumber}-siswa-add',
-            [ StudentJuzReportController::class, 'index_add_report' ]
-        )
-            ->name ( 'student.laporan-juz-siswa-add.index' );
-        
-        Route::post (
-            '/juz-report',
-            [ StudentJuzReportController::class, 'store_juz_report' ]
-        )
-            ->name('juz-report.store');
-
-        Route::delete (
-            '/juz-report/{id}',
-            [ StudentJuzReportController::class, 'delete_juz_report' ]
-        )
-            ->name ( 'juz-report.delete' );
-
-        Route::put (
-            '/juz-report/parent-sign/{id}',
-            [ StudentJuzReportController::class, 'parent_sign_juz_report' ]
-        )
-            ->name ( 'juz-report.parent-sign' );
-
         // Student Prayer Grade
         Route::get (
             '/nilai-uji-gerakan-siswa',
@@ -263,6 +239,30 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherJuzReportController::class, 'index_student_juz' ]
         )
             ->name ( 'teacher.laporan-bacaan-juz-siswa.index' );
+
+        Route::get (
+            '/laporan-juz{juzNumber}-siswa-add/{id}',
+            [ TeacherJuzReportController::class, 'index_add_report' ]
+        )
+            ->name ( 'teacher.laporan-juz-siswa-add.index' );
+        
+        Route::post (
+            '/juz-report',
+            [ TeacherJuzReportController::class, 'store_juz_report' ]
+        )
+            ->name('juz-report.store');
+
+        Route::delete (
+            '/juz-report/{id}',
+            [ TeacherJuzReportController::class, 'delete_juz_report' ]
+        )
+            ->name ( 'juz-report.delete' );
+
+        Route::put (
+            '/juz-report/teacher-sign/{id}',
+            [ TeacherJuzReportController::class, 'teacher_sign_juz_report' ]
+        )
+            ->name ( 'juz-report.teacher-sign' );
 
         // Teacher Violation Report
         Route::get (

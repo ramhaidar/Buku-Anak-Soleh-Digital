@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0 pe-1">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Laporan Bacaan Juz {{ $juzNumber }}</h2>
+                    <h2 class="text-center mb-0">Lembar Laporan Bacaan Juz {{ $juzNumber }}</h2>
                 </div>
             </div>
         </div>
@@ -30,10 +30,6 @@
                 <i class="fa-solid fa-file-contract me-1"></i>
                 <span class="d-none d-md-inline">Export Bacaan Juz {{ $juzNumber }}</span>
             </button>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.laporan-juz-siswa-add.index', ['juzNumber' => $juzNumber]) }}">
-                <i class="fa-solid fa-plus me-1"></i>
-                <span class="d-none d-md-inline">Tambah Laporan</span>
-            </a>
         </div>
 
         <div class="text-center table-responsive">
@@ -79,25 +75,18 @@
                         title: 'Ayat'
                     },
                     {
-                        data: 'parentSign',
-                        name: 'parentSign',
-                        title: 'Paraf Orang Tua',
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
                         render: function(data, type, row) {
-                            return `
-                                <div class="form-check form-switch">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        ${data ? 'checked' : ''}
-                                        onclick="showParentCodeModal(${row.id})">
-                                </div>`;
+                            if (type === 'display') {
+                                return data
+                                    ? '<span class="text-success">Sudah</span>'
+                                    : '<span class="text-danger">Belum</span>';
+                            }
+                            return data;
                         }
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        title: 'Actions'
-                    },
+                    }
                 ],
                 language: {
                     paginate: {
