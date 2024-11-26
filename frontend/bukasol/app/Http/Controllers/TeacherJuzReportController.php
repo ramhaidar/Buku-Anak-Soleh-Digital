@@ -42,6 +42,25 @@ class TeacherJuzReportController extends Controller
         ] );
     }
 
+    public function index_add_report( $juzNumber, $studentId )
+    {
+        $studentFind = Student::find($studentId);
+        $studentName = $studentFind->user->name;
+
+        $today = now()->toDateString();
+
+        return view ( 'teacher.add-laporan-bacaan-juz', [ 
+            'role' => auth ()->user ()->role,
+            'name' => auth ()->user ()->name,
+            'studentId' => $studentId,
+            'studentName' => $studentName,
+            'juzNumber' => $juzNumber,
+            'today' => $today,
+
+            'page' => 'Tambah Laporan Bacaan Juz Siswa'
+        ] );
+    }
+
     public function fetchData_laporan_juz_by_nama_kelas( Request $request )
     {
         // Safely get the length and start, with default values if they're not set
@@ -92,14 +111,14 @@ class TeacherJuzReportController extends Controller
                 $surahAyat = $latestJuzReport->surah_ayat;
             }
 
-            $parentSignFalseCount = $juzReports->where ( 'teacher_sign', false )->count ();
+            $teacherSignFalseCount = $juzReports->where ( 'teacher_sign', false )->count ();
 
             return [
                 'studentNisn'  => $student->nisn,
                 'studentName'  => $student->user->name,
                 'surahName' => $surahName,
                 'surahAyat' => $surahAyat,
-                'parentSign'  => $parentSignFalseCount === 0,
+                'teacherSign'  => $teacherSignFalseCount === 0,
                 'action' => view('teacher.partials.laporan-juz-action-button', [ 'juzNumber' => $juzNumber, 'studentId' => $student->id])->render()
             ];
         } );
@@ -152,7 +171,8 @@ class TeacherJuzReportController extends Controller
                 'timeStamp' => $juzReport->time_stamp,
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
-                'parentSign' => $juzReport->teacher_sign,
+                'teacherSign' => $juzReport->teacher_sign,
+                'action' => view('teacher.partials.laporan-juz-detail-action-button', [ 'reportId' => $juzReport->id ])->render()
             ];
         });
 
@@ -163,6 +183,64 @@ class TeacherJuzReportController extends Controller
             'recordsFiltered' => $totalFiltered,
             'data' => $data
         ]);
+    }
+
+    public function store_juz_report( Request $request )
+    {
+        $validatedData = $request->validate([
+            'studentId' => 'required|exists:students,id',
+            'juz' => 'required|integer',
+            'tanggal' => 'required|date',
+            'surah' => 'required|string|max:255',
+            'ayat' => 'required|string|max:255',
+        ]);
+
+        $existingReport = Juz::where('student_id', $validatedData['studentId'])
+            ->whereDate('time_stamp', $validatedData['tanggal'])
+            ->where('juz_number', $validatedData['juz'])
+            ->where('surah_name', $validatedData['tanggal'])
+            ->where('surah_ayat', $validatedData['tanggal'])
+            ->first();
+
+        if ($existingReport) {
+            return redirect ()->back ()->with ( 'error', 'Data Tersebut sudah Dibuat.' );
+        }
+
+        Juz::create ( [
+            'student_id' => $validatedData[ 'studentId' ],
+            'time_stamp' => $validatedData[ 'tanggal' ],
+            'juz_number' => $validatedData[ 'juz' ],
+            'surah_name' => $validatedData[ 'surah' ],
+            'surah_ayat' => $validatedData[ 'ayat' ],
+            'teacher_sign' => false,
+        ] );
+
+        return redirect()->route('teacher.laporan-bacaan-juz-siswa.index' ,[ 'juzNumber' => $validatedData[ 'juz' ], 'id' => $validatedData[ 'studentId' ] ])
+            ->with('success', 'Sukses Menambahkan Data Laporan Baru.');
+    }
+    
+    public function delete_juz_report( Request $request, $reportId )
+    {
+        $juzReport = Juz::findOrFail ( $reportId );
+
+        $juzReport->delete ();
+
+        return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
+    }
+
+    public function teacher_sign_juz_report( Request $request, $reportId )
+    {
+        $juzReport = Juz::findOrFail ( $reportId );
+
+        $juzReport->teacher_sign = ! $juzReport->teacher_sign;
+
+        $juzReport->save ();
+
+        if ( $juzReport->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
     public function juz_report_pdf()

@@ -70,9 +70,9 @@
                         title: 'Ayat'
                     },
                     {
-                        data: 'parentSign',
-                        name: 'parentSign',
-                        title: 'Paraf Orang Tua',
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
                                 return data

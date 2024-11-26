@@ -53,7 +53,7 @@
 
                     <!-- Reset and Submit Buttons -->
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ route('student.laporan-juz-siswa-table.index', [ 'juzNumber' => $juzNumber ]) }}">Batal</a>
+                        <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ route('teacher.laporan-bacaan-juz-siswa.index', [ 'juzNumber' => $juzNumber, 'id' => $studentId]) }}">Batal</a>
                         <button class="btn btn-success rounded-5 px-4 w-50 mx-2" type="submit">Tambah</button>
                     </div>
                 </form>

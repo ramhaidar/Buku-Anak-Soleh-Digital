@@ -5,7 +5,7 @@
             <i class="fa fa-eye"></i>
         </a>
 
-        <!-- Delete Button to Trigger Confirmation Modal -->
+        <!-- Export Button to Trigger Confirmation Modal -->
         <button class="btn btn-sm btn-success py-2">
             <i class="fa fa-file-export"></i>
         </button>

@@ -25,11 +25,20 @@
             </div>
         </div>
 
+        <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.laporan-juz-siswa-add.index', [ 'juzNumber' => $juzNumber, 'id' => $studentId ]) }}">
+                <i class="fa-solid fa-plus me-1"></i>
+                <span class="d-none d-md-inline">Tambah Laporan Juz</span>
+            </a>
+        </div>
+
         <div class="text-center table-responsive">
             <table class="table table-bordered table-striped table-sm" id="laporanBacaanJuzSiswaDetailTable">
             </table>
         </div>
     </div>
+
+    @include('teacher.partials.laporan-juz-siswa-delete')
 @endsection
 
 @push('scripts')
@@ -65,18 +74,25 @@
                         title: 'Ayat'
                     },
                     {
-                        data: 'parentSign',
-                        name: 'parentSign',
-                        title: 'Paraf Orang Tua',
+                        data: 'teacherSign',
+                        name: 'teacherSign',
+                        title: 'Paraf Guru',
                         render: function(data, type, row) {
-                            if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
-                            }
-                            return data;
+                            return `
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        ${data ? 'checked' : ''}
+                                        onclick="updateTeacherSign(${row.id}, this.checked)">
+                                </div>`;
                         }
-                    }
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        title: 'Actions'
+                    },
                 ],
                 language: {
                     paginate: {
@@ -88,5 +104,29 @@
                 }
             });
         });
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        function updateTeacherSign(reportId) {
+            const url = `{{ route('juz-report.teacher-sign', ':id') }}`.replace(':id', reportId);
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#laporanBacaanJuzSiswaDetailTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
+        }
     </script>
 @endpush
