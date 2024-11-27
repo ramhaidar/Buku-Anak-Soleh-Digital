@@ -133,7 +133,7 @@ class TeacherReadActivityController extends Controller
         $data = $readActivities->map(function ($readActivity) {
             return [
                 'id' => $readActivity->id,
-                'timeStamp' => $readActivity->time_stamp,
+                'timeStamp' => $readActivity->time_stamp->toDateString(),
                 'bookTitle' => $readActivity->book_title,
                 'page' => $readActivity->page,
                 'teacherSign' => $readActivity->teacher_sign,
@@ -163,5 +163,25 @@ class TeacherReadActivityController extends Controller
         }
 
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
+    }
+
+    public function reading_activity_pdf( $studentId )
+    {
+        $readActivities = ReadActivity::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'readActivities' => $readActivities,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.reading-activity-template', $data);
+        $fileName = "Lembar Aktivitas Membaca_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

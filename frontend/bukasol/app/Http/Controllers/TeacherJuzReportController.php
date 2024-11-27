@@ -243,8 +243,25 @@ class TeacherJuzReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function juz_report_pdf()
+    public function juz_report_pdf( $juzNumber, $studentId )
     {
-        
+        $juzReports = Juz::where('student_id', $studentId)
+                        ->where('juz_number', $juzNumber)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'juzReports' => $juzReports,
+            'juzNumber' => $juzNumber,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.juz-report-template', $data);
+        $fileName = "Lembar Laporan Juz ".$juzNumber."_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

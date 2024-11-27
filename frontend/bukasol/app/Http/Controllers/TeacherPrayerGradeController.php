@@ -288,10 +288,11 @@ class TeacherPrayerGradeController extends Controller
         ];
 
         $pdf = Pdf::loadView('convert.prayer-grade-template', $data);
+        $fileName = "Lembar Nilai Uji Gerakan_".$student->class_name."_".$student->user->name.".pdf";
 
         return Response::make($pdf->output(), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="grade-report.pdf"',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
     }
 }

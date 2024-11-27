@@ -220,8 +220,23 @@ class TeacherMuhasabahReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function muhasabah_report_pdf()
+    public function muhasabah_report_pdf( $studentId )
     {
-        
+        $muhasabahReports = MuhasabahReport::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'muhasabahReports' => $muhasabahReports,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.muhasabah-report-template', $data);
+        $fileName = "Lembar Muhasabah Ibadah Harian_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

@@ -16,7 +16,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentPrayerGradeController;
 use App\Http\Controllers\StudentPrayerRecitationGradeController;
 use App\Http\Controllers\StudentActivityNotesController;
-use App\Http\Controllers\StudentReadingActivityController;
+use App\Http\Controllers\StudentReadActivityController;
 use App\Http\Controllers\StudentJuzReportController;
 use App\Http\Controllers\StudentMuhasabahReportController;
 use App\Http\Controllers\StudentViolationReportController;
@@ -188,31 +188,31 @@ Route::prefix ( 'student-dashboard' )
         // Student Reading Activity Notes
         Route::get (
             '/aktivitas-membaca-siswa',
-            [ StudentReadingActivityController::class, 'index_table' ]
+            [ StudentReadActivityController::class, 'index_table' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
             '/aktivitas-membaca-siswa-add/{id}',
-            [ StudentReadingActivityController::class, 'index_add_activity' ]
+            [ StudentReadActivityController::class, 'index_add_activity' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-add.index' );
 
         Route::post (
-            '/activity-notes',
-            [ StudentReadingActivityController::class, 'store_reading_activity' ]
+            '/reading-activity',
+            [ StudentReadActivityController::class, 'store_reading_activity' ]
         )
             ->name('reading-activity.store');
 
         Route::delete (
             '/reading-activity/{id}',
-            [ StudentReadingActivityController::class, 'delete_reading_activity' ]
+            [ StudentReadActivityController::class, 'delete_reading_activity' ]
         )
             ->name ( 'reading-activity.delete' );
 
         Route::put (
             '/reading-activity/parent-sign/{id}',
-            [ StudentReadingActivityController::class, 'parent_sign_reading_activity' ]
+            [ StudentReadActivityController::class, 'parent_sign_reading_activity' ]
         )
             ->name ( 'reading-activity.parent-sign' );
     } );
@@ -610,7 +610,7 @@ Route::middleware ( 'auth' )
         )->name ( 'siswa.laporan-juz-siswa.fetchData' );
 
         Route::get (
-            '/juz-report/{id}',
+            '/juz{juzNumber}-report/{id}',
             [ TeacherJuzReportController::class, 'juz_report_pdf' ]
         )
             ->name ( 'juz-report.convert-pdf' );
@@ -677,14 +677,14 @@ Route::middleware ( 'auth' )
 
         Route::get (
             '/activity-notes-report/{id}',
-            [ StudentActivityNotesController::class, 'activity_notes_pdf' ]
+            [ TeacherActivityNotesController::class, 'activity_notes_pdf' ]
         )
             ->name ( 'activity-notes.convert-pdf' );
 
         // Reading Activity
         Route::post (
             '/siswa-aktivitas-membaca/fetchData',
-            [ StudentReadingActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+            [ StudentReadActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
         )->name ( 'siswa.aktivitas-membaca.fetchData' );
 
         Route::post (
@@ -699,7 +699,7 @@ Route::middleware ( 'auth' )
 
         Route::get (
             '/reading-activity-report/{id}',
-            [ StudentReadingActivityController::class, 'reading_activity_pdf' ]
+            [ TeacherReadActivityController::class, 'reading_activity_pdf' ]
         )
             ->name ( 'reading-activity.convert-pdf' );
 

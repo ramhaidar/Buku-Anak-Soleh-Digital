@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
-class StudentReadingActivityController extends Controller
+class StudentReadActivityController extends Controller
 {
     public function index_table()
     {
@@ -156,10 +156,5 @@ class StudentReadingActivityController extends Controller
         }
 
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
-    }
-
-    public function reading_activity_pdf()
-    {
-
     }
 }

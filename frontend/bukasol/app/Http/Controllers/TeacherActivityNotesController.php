@@ -244,4 +244,23 @@ class TeacherActivityNotesController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
+    public function activity_notes_pdf( $studentId )
+    {
+        $noteActivities = Note::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'noteActivities' => $noteActivities,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.activity-note-template', $data);
+        $fileName = "Lembar Catatan Harian_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
 }

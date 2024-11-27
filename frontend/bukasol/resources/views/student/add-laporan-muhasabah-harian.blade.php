@@ -17,7 +17,7 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Tambah Laporan Muhasabah Harian</h2>
+            <h2 class="text-center mb-4">Tambah Laporan Muhasabah Harian Siswa</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">

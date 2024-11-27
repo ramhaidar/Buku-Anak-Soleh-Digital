@@ -167,9 +167,4 @@ class StudentActivityNotesController extends Controller
 
         return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
     }
-
-    public function activity_notes_pdf() 
-    {
-
-    }
 }

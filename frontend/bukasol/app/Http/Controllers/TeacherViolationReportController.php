@@ -148,11 +148,11 @@ class TeacherViolationReportController extends Controller
 
         // Apply search filter if available
         if (!empty($search)) {
-        $query->where(function ($q) use ($search) {
-            $q->where('violation_details', 'like', "%{$search}%")
-            ->where('consequence', 'like', "%{$search}%");
-        });
-    }
+            $query->where(function ($q) use ($search) {
+                $q->where('violation_details', 'like', "%{$search}%")
+                ->where('consequence', 'like', "%{$search}%");
+            });
+        }
 
         // Total records without filtering
         $totalData = ViolationReport::where('student_id', $studentId)->count();
@@ -229,8 +229,23 @@ class TeacherViolationReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function violation_report_pdf()
+    public function violation_report_pdf( $studentId )
     {
-        
+        $violationReports = ViolationReport::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'violationReports' => $violationReports,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.violation-report-template', $data);
+        $fileName = "Lembar Pelanggaran_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }
