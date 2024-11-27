@@ -136,7 +136,9 @@
                 }
             })
             .then(response => response.json())
-            .then(data => {})
+            .then(data => {
+                window.showAlert(data.success, true, '#nilaiUjigerakanSiswaDetailTable');
+            })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while updating teacher sign.');

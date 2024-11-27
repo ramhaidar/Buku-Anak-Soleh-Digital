@@ -264,7 +264,11 @@ class TeacherPrayerRecitationGradeController extends Controller
 
         $prayerRecitationGrade->save ();
 
-        return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        if ( $prayerRecitationGrade->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
     public function prayer_recitation_grade_pdf( $studentId )

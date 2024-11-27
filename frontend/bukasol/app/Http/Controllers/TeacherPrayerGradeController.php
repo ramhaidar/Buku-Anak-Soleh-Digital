@@ -261,7 +261,11 @@ class TeacherPrayerGradeController extends Controller
 
         $prayerGrade->save ();
 
-        return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        if ( $prayerGrade->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
     public function prayer_grade_pdf( $studentId )
