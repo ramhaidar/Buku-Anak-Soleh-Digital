@@ -36,9 +36,6 @@
             <table class="table table-bordered table-striped table-sm" id="laporanBacaanJuzSiswaTable">
             </table>
         </div>
-
-        {{-- @include('student.partials.laporan-juz-delete') --}}
-        {{-- @include('student.partials.modal-kode-unik-paraf-orang-tua-juz-report') --}}
     </div>
 @endsection
 

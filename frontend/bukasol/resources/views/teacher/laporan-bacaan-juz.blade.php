@@ -43,7 +43,7 @@
                 serverSide: true,
                 paging: true,
                 ajax: {
-                    url: '{{ route('laporan-juz.fetchData' , [ 'juzNumber' => $juzNumber]) }}',
+                    url: '{{ route('laporan-juz.fetchData', ['juzNumber' => $juzNumber]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -75,9 +75,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }
