@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="nisn">NISN</label>
                     <div class="form-control rounded-5 border-dark bg-black text-white" id="nisn">{{ $student->nisn }}</div>
