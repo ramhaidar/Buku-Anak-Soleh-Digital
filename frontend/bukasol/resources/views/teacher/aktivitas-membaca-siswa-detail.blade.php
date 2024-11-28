@@ -56,7 +56,14 @@
                     {
                         data: 'bookTitle',
                         name: 'bookTitle',
-                        title: 'Judul Buku'
+                        title: 'Judul Buku',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'page',

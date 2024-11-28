@@ -67,12 +67,26 @@
                     {
                         data: 'violationDetails',
                         name: 'violationDetails',
-                        title: 'Pelanggaran'
+                        title: 'Pelanggaran',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'consequence',
                         name: 'consequence',
-                        title: 'Konskuensi'
+                        title: 'Konskuensi',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'teacherSign',

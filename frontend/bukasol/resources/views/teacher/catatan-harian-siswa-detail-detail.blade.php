@@ -26,7 +26,7 @@
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-50">
-                <form action="#" method="POST">
+                <form>
                     @csrf
 
                     <!-- Hari/Tanggal Input -->

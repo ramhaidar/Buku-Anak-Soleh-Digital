@@ -201,7 +201,7 @@ class AdminDashboardController extends Controller
             $numbers = substr($teacher->nip, -4);
             $password = $letters . $numbers;
 
-            return [ 
+            return [
                 'nip' => $teacher->nip,
                 'name' => $teacher->user->name ?? 'N/A',
                 'className' => $teacher->class_name,

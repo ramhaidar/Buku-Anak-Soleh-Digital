@@ -16,7 +16,7 @@ class TeacherReadActivityController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        return view ( 'teacher.aktivitas-membaca-siswa', [ 
+        return view ( 'teacher.aktivitas-membaca-siswa', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'className' => $className,
@@ -28,15 +28,15 @@ class TeacherReadActivityController extends Controller
     public function index_student( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student ? $student->user->name : 'N/A';
+        $studentName = $student->user->name;
 
-        return view ( 'teacher.aktivitas-membaca-siswa-detail', [ 
+        return view ( 'teacher.aktivitas-membaca-siswa-detail', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
             
-            'page' => 'Detail Nilai Uji Gerakan Siswa'
+            'page' => 'Aktivitas Membaca Siswa'
         ] );
     }
 
@@ -50,7 +50,11 @@ class TeacherReadActivityController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where ( 'class_name', $className )->with ( 'user', 'readActivities' );
+        $query = Student::where('class_name', $className)
+            ->with('user', 'readActivities')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name')
+            ->orderBy('user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -112,7 +116,8 @@ class TeacherReadActivityController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = ReadActivity::where('student_id', $studentId);
+        $query = ReadActivity::where('student_id', $studentId)
+            ->orderByDesc('time_stamp');
 
         // Apply search filter if available
         if (!empty($search)) {

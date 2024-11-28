@@ -25,7 +25,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="date">Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="date" name="date" type="text" value="{{ $violationReport->time_stamp }}" readonly disabled>
+                        <input class="form-control rounded-5 border-dark border-2" id="date" name="date" type="text" value="{{ $violationReport->time_stamp->toDateString() }}" readonly disabled>
                     </div>
 
                     <div class="mb-3">
@@ -36,6 +36,11 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="consequence">Konsekuensi</label>
                         <textarea class="form-control rounded-5 border-dark border-2" id="consequence" name="consequence" rows="3" readonly disabled>{{ $violationReport->consequence }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" for="paraf">Paraf Guru</label>
+                        <input class="form-control rounded-5 border-dark border-2" id="paraf" name="paraf" type="text" value="{{ $teacherSign }}" readonly disabled>
                     </div>
                 </form>
             </div>

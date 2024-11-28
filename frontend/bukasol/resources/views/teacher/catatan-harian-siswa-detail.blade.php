@@ -63,7 +63,14 @@
                     {
                         data: 'content',
                         name: 'content',
-                        title: 'Catatan'
+                        title: 'Catatan',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'parentQuestion',

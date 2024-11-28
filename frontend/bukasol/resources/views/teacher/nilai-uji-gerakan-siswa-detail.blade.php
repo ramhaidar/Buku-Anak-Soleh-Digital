@@ -96,10 +96,10 @@
                         render: function(data, type, row) {
                             return `
                                 <div class="form-check form-switch">
-                                    <input 
-                                        class="form-check-input" 
-                                        type="checkbox" 
-                                        ${data ? 'checked' : ''} 
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        ${data ? 'checked' : ''}
                                         onclick="updateTeacherSign(${row.id}, this.checked)">
                                 </div>`;
                         }

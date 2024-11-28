@@ -351,17 +351,17 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
 
-        Route::post (
-            '/prayer-grade',
-            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
-        )
-            ->name('prayer-grade.store');
-
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
             [ TeacherPrayerGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
+
+        Route::post (
+            '/prayer-grade',
+            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
+        )
+            ->name('prayer-grade.store');
 
         Route::put (
             '/prayer-grade/{id}',
@@ -400,17 +400,17 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-add.index' );
 
-        Route::post (
-            '/prayer-recitation-grade',
-            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
-        )
-            ->name('prayer-recitation.store');
-
         Route::get (
             '/nilai-uji-bacaan-siswa-edit/{id}',
             [ TeacherPrayerRecitationGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
+
+        Route::post (
+            '/prayer-recitation-grade',
+            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
+        )
+            ->name('prayer-recitation.store');
 
         Route::put (
             '/prayer-recitation-grade/{id}',
