@@ -94,7 +94,7 @@ Route::prefix ( 'student-dashboard' )
             '/muhasabah-report',
             [ StudentMuhasabahReportController::class, 'store_muhasabah_report' ]
         )
-            ->name('muhasabah-report.store');
+            ->name ( 'muhasabah-report.store' );
 
         Route::delete (
             '/muhasabah-report/{id}',
@@ -177,7 +177,7 @@ Route::prefix ( 'student-dashboard' )
             '/activity-notes',
             [ StudentActivityNotesController::class, 'store_activity_notes' ]
         )
-            ->name('activity-notes.store');
+            ->name ( 'activity-notes.store' );
 
         Route::delete (
             '/activity-notes/{id}',
@@ -195,14 +195,13 @@ Route::prefix ( 'student-dashboard' )
         Route::get (
             '/aktivitas-membaca-siswa-add/{id}',
             [ StudentReadingActivityController::class, 'index_add_activity' ]
-        )
-            ->name ( 'student.aktivitas-membaca-siswa-add.index' );
+        )->name ( 'student.aktivitas-membaca-siswa-add.index' );
 
         Route::post (
-            '/activity-notes',
+            '/reading-activity',
             [ StudentReadingActivityController::class, 'store_reading_activity' ]
         )
-            ->name('reading-activity.store');
+            ->name ( 'reading-activity.store' );
 
         Route::delete (
             '/reading-activity/{id}',
@@ -245,12 +244,12 @@ Route::prefix ( 'teacher-dashboard' )
             [ TeacherJuzReportController::class, 'index_add_report' ]
         )
             ->name ( 'teacher.laporan-juz-siswa-add.index' );
-        
+
         Route::post (
             '/juz-report',
             [ TeacherJuzReportController::class, 'store_juz_report' ]
         )
-            ->name('juz-report.store');
+            ->name ( 'juz-report.store' );
 
         Route::delete (
             '/juz-report/{id}',
@@ -293,7 +292,7 @@ Route::prefix ( 'teacher-dashboard' )
             '/violation-report',
             [ TeacherViolationReportController::class, 'store_violation_report' ]
         )
-            ->name('violation-report.store');
+            ->name ( 'violation-report.store' );
 
         Route::delete (
             '/violation-report/{id}',
@@ -355,7 +354,7 @@ Route::prefix ( 'teacher-dashboard' )
             '/prayer-grade',
             [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
         )
-            ->name('prayer-grade.store');
+            ->name ( 'prayer-grade.store' );
 
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
@@ -404,7 +403,7 @@ Route::prefix ( 'teacher-dashboard' )
             '/prayer-recitation-grade',
             [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
         )
-            ->name('prayer-recitation.store');
+            ->name ( 'prayer-recitation.store' );
 
         Route::get (
             '/nilai-uji-bacaan-siswa-edit/{id}',

@@ -20,7 +20,7 @@
             <h2 class="text-center mb-4">Tambah Laporan Muhasabah Harian</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 <form action="{{ route('muhasabah-report.store') }}" method="POST">
                     @csrf
 
@@ -86,9 +86,9 @@
                     </div>
 
                     <!-- Reset and Submit Buttons -->
-                    <div class="d-flex justify-content-between">
-                        <a class="btn btn-secondary rounded-5 px-4 w-50 mx-2" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Batal</a>
-                        <button class="btn btn-success rounded-5 px-4 w-50 mx-2" type="submit">Tambah</button>
+                    <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
+                        <a class="btn btn-secondary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('student.laporan-muhasabah-siswa-table.index') }}">Batal</a>
+                        <button class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="submit">Tambah</button>
                     </div>
                 </form>
             </div>

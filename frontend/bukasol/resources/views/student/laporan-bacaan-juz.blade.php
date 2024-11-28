@@ -36,9 +36,6 @@
             <table class="table table-bordered table-striped table-sm" id="laporanBacaanJuzSiswaTable">
             </table>
         </div>
-
-        @include('student.partials.laporan-juz-delete')
-        @include('student.partials.modal-kode-unik-paraf-orang-tua-juz-report')
     </div>
 @endsection
 
@@ -53,7 +50,7 @@
                 serverSide: true,
                 paging: true,
                 ajax: {
-                    url: '{{ route('siswa.laporan-juz-siswa.fetchData' , [ 'juzNumber' => $juzNumber ]) }}',
+                    url: '{{ route('siswa.laporan-juz-siswa.fetchData', ['juzNumber' => $juzNumber]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -80,9 +77,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }

@@ -7,9 +7,9 @@
                 <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="d-flex justify-content-around">
-                    <button class="btn btn-outline-primary" data-bs-dismiss="modal" type="button">Import Excel</button>
-                    <a class="btn btn-outline-success" type="button" href="{{ route('admin.teacher-add.index') }}">Tambah Manual</a>
+                <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
+                    <button class="btn btn-outline-primary flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" data-bs-dismiss="modal" type="button">Import Excel</button>
+                    <a class="btn btn-outline-success flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="button" href="{{ route('admin.teacher-add.index') }}">Tambah Manual</a>
                 </div>
             </div>
         </div>
