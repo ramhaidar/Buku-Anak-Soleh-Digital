@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Teacher;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 
 class AdminDashboardController extends Controller
 {
@@ -208,5 +209,51 @@ class AdminDashboardController extends Controller
             'recordsFiltered' => $totalFiltered,
             'data'            => $data,
         ] );
+    }
+
+    public function student_account_pdf()
+    {
+        $students = Student::orderBy('class_name')->get();
+
+        $students->each(function ($student) {
+            $letters = strtolower(explode(' ', $student->user->name)[0]);
+            $numbers = substr($student->nisn, -4);
+            $student->new_password = $letters . $numbers;
+        });
+
+        $data = [
+            'students' => $students,
+        ];
+
+        $pdf = Pdf::loadView('convert.student-account-template', $data);
+        $fileName = "Akun Siswa.pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
+
+    public function teacher_account_pdf()
+    {
+        $teachers = Teacher::orderBy('class_name')->get();
+
+        $teachers->each(function ($teacher) {
+            $letters = strtolower(explode(' ', $teacher->user->name)[0]);
+            $numbers = substr($teacher->nip, -4);
+            $teacher->new_password = $letters . $numbers;
+        });
+
+        $data = [
+            'teachers' => $teachers,
+        ];
+
+        $pdf = Pdf::loadView('convert.teacher-account-template', $data);
+        $fileName = "Akun Guru.pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

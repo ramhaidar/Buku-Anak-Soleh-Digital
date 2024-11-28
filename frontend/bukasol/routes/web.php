@@ -532,6 +532,18 @@ Route::prefix ( 'admin-dashboard' )
             [ AdminDashboardController::class, 'teacher_detail_index' ]
         )
             ->name ( 'admin.teacher-detail.index' );
+
+        Route::get (
+            '/export-akun-siswa',
+            [ AdminDashboardController::class, 'student_account_pdf' ]
+        )
+            ->name ( 'student-account.convert-pdf' );
+
+        Route::get (
+            '/export-akun-guru',
+            [ AdminDashboardController::class, 'teacher_account_pdf' ]
+        )
+            ->name ( 'teacher-account.convert-pdf' );
     } );
 
 
