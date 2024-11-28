@@ -25,7 +25,7 @@
             <h2 class="text-center mb-4">Detail Catatan Aktivitas Harian Siswa {{ $activityNote->student->user->name }}</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 <form>
                     @csrf
 
@@ -66,12 +66,18 @@
                     </div>
 
                     <!-- Button Placeholder -->
-                    <div class="d-flex justify-content-center pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('teacher.catatan-harian-siswa.index', ['id' => $activityNote->student->id]) }}">Batal</a>
+                    <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
+                        <a class="btn btn-secondary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('teacher.catatan-harian-siswa.index', ['id' => $activityNote->student->id]) }}">
+                            Batal
+                        </a>
                         @if (is_null($activityNote->parent_question))
-                            <a class="btn btn-success mx-1 w-50 rounded-5 disabled">Jawab Pertanyaan Orang Tua</a>
+                            <a class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2 disabled">
+                                Jawab Pertanyaan Orang Tua
+                            </a>
                         @else
-                            <a class="btn btn-success mx-1 w-50 rounded-5" href="{{ route('teacher.jawaban-pertanyaan-orangtua.index', ['id' => $activityNote->id]) }}">Jawab Pertanyaan Orang Tua</a>
+                            <a class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('teacher.jawaban-pertanyaan-orangtua.index', ['id' => $activityNote->id]) }}">
+                                Jawab Pertanyaan Orang Tua
+                            </a>
                         @endif
                     </div>
                 </form>

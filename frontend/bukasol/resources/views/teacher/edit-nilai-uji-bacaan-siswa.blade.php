@@ -20,7 +20,7 @@
             <h2 class="text-center mb-4">Ubah Nilai Uji Bacaan Siswa</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 <form action="{{ route('prayer-recitation-grade.update', ['id' => $gradeId]) }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -46,9 +46,9 @@
                     </div>
 
                     <!-- Buttons -->
-                    <div class="d-flex justify-content-center pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('teacher.nilai-uji-bacaan-siswa-detail.index', ['id' => $studentId]) }}">Batal</a>
-                        <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Ubah</button>
+                    <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
+                        <a class="btn btn-secondary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('teacher.nilai-uji-bacaan-siswa-detail.index', ['id' => $studentId]) }}">Batal</a>
+                        <button class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="submit">Ubah</button>
                     </div>
                 </form>
             </div>

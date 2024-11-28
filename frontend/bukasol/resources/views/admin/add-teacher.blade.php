@@ -6,7 +6,7 @@
             <h2 class="text-center mb-4">Tambah Akun Guru</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 {{-- <form action="{{ route('teacher.store') }}" method="POST"> --}}
                 <form action="{{ route('teachers.store') }}" method="POST">
                     @csrf
@@ -31,9 +31,9 @@
                         <input class="form-control rounded-5 border-dark border-2" id="username" name="username" type="text" placeholder="Username....." required>
                     </div>
 
-                    <div class="d-flex justify-content-between pt-3">
-                        <a class="btn btn-secondary mx-1 w-50 rounded-5" href="{{ route('admin.teacher-table.index') }}">Batal</a>
-                        <button class="btn btn-success mx-1 w-50 rounded-5" type="submit">Tambah</button>
+                    <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
+                        <a class="btn btn-secondary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('admin.teacher-table.index') }}">Batal</a>
+                        <button class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="submit">Tambah</button>
                     </div>
                 </form>
             </div>

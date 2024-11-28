@@ -20,7 +20,7 @@
             <h2 class="text-center mb-4">Detail Catatan Aktivitas Harian Siswa {{ $name }}</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <div class="p-4 rounded w-50">
+            <div class="p-4 rounded w-75">
                 <form id='catatanHarianDetailForm'>
 
                     <!-- Hari/Tanggal Input -->
