@@ -110,7 +110,9 @@ class AdminDashboardController extends Controller
         $start  = request ( 'start' ) ?? 0; // Offset for pagination
         $search = request ( 'search' )[ 'value' ] ?? ''; // Search term, if provided
 
-        $query = Student::query ();
+        $query = Student::query()
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -122,9 +124,11 @@ class AdminDashboardController extends Controller
                     $q->where ( 'name', 'like', "%{$search}%" );
                 } );
         }
+        $query->orderBy('students.class_name')->orderBy('users.name');
 
         // Total records without filtering
         $totalData = Student::count ();
+
         // Total records after filtering
         $totalFiltered = $query->count ();
 
@@ -139,12 +143,13 @@ class AdminDashboardController extends Controller
             $password = $letters . $numbers;
 
             return [ 
-                'nisn'       => $student->nisn,
-                'name'       => $student->user->name ?? 'N/A',
-                'class_name' => $student->class_name,
+                'nisn' => $student->nisn,
+                'name' => $student->user->name ?? 'N/A',
+                'className' => $student->class_name,
                 'username' => $student->user->username,
                 'password' => $password,
-                'action'     => view ( 'admin.partials.student-table-actions', [ 'student' => $student ] )->render (),
+                'parentCode' => $student->parent_code,
+                'action' => view ( 'admin.partials.student-table-actions', [ 'student' => $student ] )->render (),
             ];
         } );
 
@@ -164,7 +169,9 @@ class AdminDashboardController extends Controller
         $start  = request ( 'start' ) ?? 0; // Offset for pagination
         $search = request ( 'search' )[ 'value' ] ?? ''; // Search term, if provided
 
-        $query = Teacher::query ();
+        $query = Teacher::query()
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->select('teachers.*', 'users.name as user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -176,9 +183,11 @@ class AdminDashboardController extends Controller
                     $q->where ( 'name', 'like', "%{$search}%" );
                 } );
         }
+        $query->orderBy('teachers.class_name')->orderBy('users.name');
 
         // Total records without filtering
         $totalData = Teacher::count ();
+
         // Total records after filtering
         $totalFiltered = $query->count ();
 
@@ -193,12 +202,12 @@ class AdminDashboardController extends Controller
             $password = $letters . $numbers;
 
             return [ 
-                'nip'        => $teacher->nip,
-                'name'       => $teacher->user->name ?? 'N/A',
-                'class_name' => $teacher->class_name,
+                'nip' => $teacher->nip,
+                'name' => $teacher->user->name ?? 'N/A',
+                'className' => $teacher->class_name,
                 'username' => $teacher->user->username,
                 'password' => $password,
-                'action'     => view ( 'admin.partials.teacher-table-actions', [ 'teacher' => $teacher ] )->render (),
+                'action' => view ( 'admin.partials.teacher-table-actions', [ 'teacher' => $teacher ] )->render (),
             ];
         } );
 

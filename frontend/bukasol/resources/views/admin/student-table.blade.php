@@ -94,8 +94,8 @@
                         className: 'text-start'
                     },
                     {
-                        data: 'class_name',
-                        name: 'class_name',
+                        data: 'className',
+                        name: 'className',
                         title: 'Kelas',
                         className: 'text-start'
                     },
@@ -109,6 +109,11 @@
                         data: 'password',
                         name: 'password',
                         title: 'Password',
+                        className: 'text-start'
+                    },{
+                        data: 'parentCode',
+                        name: 'parentCode',
+                        title: 'Kode Orang Tua',
                         className: 'text-start'
                     },
                     {

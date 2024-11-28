@@ -94,8 +94,8 @@
                         className: 'text-start'
                     },
                     {
-                        data: 'class_name',
-                        name: 'class_name',
+                        data: 'className',
+                        name: 'className',
                         title: 'Kelas',
                         className: 'text-start'
                     },
