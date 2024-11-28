@@ -46,6 +46,7 @@ class StudentPrayerGradeController extends Controller
                 $q->where('motion_category', 'like', "%{$search}%");
             });
         }
+        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = PrayerGrade::where('student_id', $studentId)->count();
@@ -59,7 +60,7 @@ class StudentPrayerGradeController extends Controller
         $data = $prayerGrades->map(function ($prayerGrade) {
             return [
                 'id' => $prayerGrade->id,
-                'timeStamp'      => $prayerGrade->time_stamp,
+                'timeStamp'      => $prayerGrade->time_stamp->toDateString(),
                 'motionCategory' => $prayerGrade->motion_category,
                 'gradeSemester1' => number_format($prayerGrade->grade_semester1, 2),
                 'gradeSemester2' => number_format($prayerGrade->grade_semester2, 2),

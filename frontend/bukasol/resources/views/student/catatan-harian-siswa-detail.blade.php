@@ -17,7 +17,7 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Detail Catatan Harian Siswa {{ $name }}</h2>
+            <h2 class="text-center mb-4">Detail Catatan Aktivitas Harian Siswa {{ $name }}</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-75">
@@ -26,7 +26,7 @@
                     <!-- Hari/Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ $activityNote->time_stamp }}" readonly disabled>
+                        <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ $activityNote->time_stamp->toDateString() }}" readonly disabled>
                     </div>
 
                     <!-- Agenda Input -->

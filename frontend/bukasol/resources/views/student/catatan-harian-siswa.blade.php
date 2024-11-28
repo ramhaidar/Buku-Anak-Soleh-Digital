@@ -20,19 +20,19 @@
         <div class="text-center p-0 m-0 pe-1">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Lembar Catatan Harian Siswa</h2>
+                    <h2 class="text-center mb-0">Lembar Aktivitas Catatan Harian Siswa</h2>
                 </div>
             </div>
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <button class="btn btn-outline-dark rounded-3 me-2">
+            <a class="btn btn-outline-dark rounded-3 me-2" href="{{ route('activity-notes.convert-pdf', [ 'id' => $studentId ]) }}">
                 <i class="fa-solid fa-file-contract me-1"></i>
-                <span class="d-none d-md-inline">Export Catatan</span>
-            </button>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.catatan-harian-siswa-add.index', ['id' => $studentId]) }}">
+                <span class="d-none d-md-inline">Export Catatan Aktivitas</span>
+            </a>
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.catatan-harian-siswa-add.index') }}">
                 <i class="fa-solid fa-plus me-1"></i>
-                <span class="d-none d-md-inline">Tambah Catatan</span>
+                <span class="d-none d-md-inline">Tambah Catatan Aktivitas</span>
             </a>
         </div>
 
@@ -75,7 +75,14 @@
                     {
                         data: 'content',
                         name: 'content',
-                        title: 'Catatan'
+                        title: 'Catatan',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'teacherAnswer',

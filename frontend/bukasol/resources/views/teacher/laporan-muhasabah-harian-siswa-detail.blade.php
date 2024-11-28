@@ -17,14 +17,14 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Detail Muhasabah Siswa</h2>
+            <h2 class="text-center mb-4">Detail Laporan Muhasabah Harian Siswa</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 mb-5 rounded w-50 border border-2">
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" type="text" value="{{ $muhasabahReport->time_stamp }}" readonly>
+                    <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" type="text" value="{{ $muhasabahReport->time_stamp->toDateString() }}" readonly>
                 </div>
 
                 <div class="mb-3">

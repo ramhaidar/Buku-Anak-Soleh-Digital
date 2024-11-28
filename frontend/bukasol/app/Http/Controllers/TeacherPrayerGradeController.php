@@ -27,21 +27,21 @@ class TeacherPrayerGradeController extends Controller
     public function index_student ( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student ? $student->user->name : 'N/A';
+        $studentName = $student->user->name;
 
         return view ( 'teacher.nilai-uji-gerakan-siswa-detail', [ 
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
-            'page' => 'Detail Nilai Uji Gerakan Siswa'
+            'page' => 'Nilai Uji Gerakan Siswa'
         ] );
     }
 
     public function index_add_grade ( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student ? $student->user->name : 'N/A';
+        $studentName = $student->user->name;
 
         return view ( 'teacher.add-nilai-uji-gerakan-siswa', [ 
             'role' => auth ()->user ()->role,
@@ -78,7 +78,11 @@ class TeacherPrayerGradeController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where ( 'class_name', $className )->with ( 'user', 'prayerGrades' );
+        $query = Student::where('class_name', $className)
+            ->with('user', 'prayerGrades')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name')
+            ->orderBy('user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -95,6 +99,7 @@ class TeacherPrayerGradeController extends Controller
 
         // Total records without filtering
         $totalData = Student::where ( 'class_name', $className )->count ();
+
         // Total records after filtering
         $totalFiltered = $query->count ();
 
@@ -112,19 +117,19 @@ class TeacherPrayerGradeController extends Controller
             $parentSignFalseCount  = $prayerGrades->where ( 'parent_sign', false )->count ();
             $teacherSignFalseCount = $prayerGrades->where ( 'teacher_sign', false )->count ();
 
-            return [ 
+            return [
                 'studentNisn'  => $student->nisn,
                 'studentName'  => $student->user->name,
                 'avgSemester1' => number_format ( $avgSemester1, 2 ),
                 'avgSemester2' => number_format ( $avgSemester2, 2 ),
                 'parentSign'   => $parentSignFalseCount === 0,
                 'teacherSign'  => $teacherSignFalseCount === 0,
-                'action' => view('teacher.partials.nilai-uji-gerakan-siswa-action-button', ['studentId' => $student->id])->render() 
+                'action' => view('teacher.partials.nilai-uji-gerakan-siswa-action-button', ['studentId' => $student->id])->render()
             ];
         } );
 
         // Return JSON response
-        return response ()->json ( [ 
+        return response ()->json ( [
             'draw'            => intval ( $request->input ( 'draw' ) ),
             'recordsTotal'    => $totalData,
             'recordsFiltered' => $totalFiltered,
@@ -141,7 +146,8 @@ class TeacherPrayerGradeController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = PrayerGrade::where('student_id', $studentId);
+        $query = PrayerGrade::where('student_id', $studentId)
+            ->orderByDesc('time_stamp');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -162,7 +168,7 @@ class TeacherPrayerGradeController extends Controller
         $data = $prayerGrades->map(function ($prayerGrade) {
             return [
                 'id' => $prayerGrade->id,
-                'timeStamp'      => $prayerGrade->time_stamp,
+                'timeStamp'      => $prayerGrade->time_stamp->toDateString(),
                 'motionCategory' => $prayerGrade->motion_category,
                 'gradeSemester1' => number_format($prayerGrade->grade_semester1, 2),
                 'gradeSemester2' => number_format($prayerGrade->grade_semester2, 2),
@@ -261,7 +267,11 @@ class TeacherPrayerGradeController extends Controller
 
         $prayerGrade->save ();
 
-        return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        if ( $prayerGrade->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
     public function prayer_grade_pdf( $studentId )
@@ -288,10 +298,11 @@ class TeacherPrayerGradeController extends Controller
         ];
 
         $pdf = Pdf::loadView('convert.prayer-grade-template', $data);
+        $fileName = "Lembar Nilai Uji Gerakan_".$student->class_name."_".$student->user->name.".pdf";
 
         return Response::make($pdf->output(), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="grade-report.pdf"',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
     }
 }
