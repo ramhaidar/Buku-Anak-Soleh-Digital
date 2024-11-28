@@ -25,7 +25,7 @@ class StudentViolationReportController extends Controller
             'studentId' => $studentId,
             'studentName' => $studentName,
             
-            'page' => 'Laporan Pelanggaran Siswa'
+            'page' => 'Laporan Pelanggaran Siswa Table'
         ] );
     }
 
@@ -64,11 +64,12 @@ class StudentViolationReportController extends Controller
 
         // Apply search filter if available
         if (!empty($search)) {
-        $query->where(function ($q) use ($search) {
-            $q->where('violation_details', 'like', "%{$search}%")
-            ->where('consequence', 'like', "%{$search}%");
-        });
-    }
+            $query->where(function ($q) use ($search) {
+                $q->where('violation_details', 'like', "%{$search}%")
+                ->where('consequence', 'like', "%{$search}%");
+            });
+        }
+        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = ViolationReport::where('student_id', $studentId)->count();
@@ -83,7 +84,7 @@ class StudentViolationReportController extends Controller
 
             return [
                 'id' => $violationReport->id,
-                'timeStamp' => $violationReport->time_stamp,
+                'timeStamp' => $violationReport->time_stamp->toDateString(),
                 'violationDetails' => $violationReport->violation_details,
                 'consequence' => $violationReport->consequence,
                 'teacherSign'    => $violationReport->teacher_sign,

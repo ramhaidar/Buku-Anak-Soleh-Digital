@@ -30,7 +30,7 @@
                 <i class="fa-solid fa-file-contract me-1"></i>
                 <span class="d-none d-md-inline">Export Catatan Aktivitas</span>
             </a>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.catatan-harian-siswa-add.index', ['id' => $studentId]) }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.catatan-harian-siswa-add.index') }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Catatan Aktivitas</span>
             </a>
@@ -75,7 +75,14 @@
                     {
                         data: 'content',
                         name: 'content',
-                        title: 'Catatan'
+                        title: 'Catatan',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'teacherAnswer',

@@ -25,14 +25,15 @@ class StudentReadActivityController extends Controller
         ] );
     }
 
-    public function index_add_activity( $studentId )
+    public function index_add_activity()
     {
-        $student = Student::find($studentId);
+        $student = auth ()->user ()->student;
+        $studentId = $student->id;
         $studentName = $student->user->name;
 
         $today = now()->toDateString();
 
-        return view ( 'student.add-aktivitas-membaca-siswa', [ 
+        return view ( 'student.add-aktivitas-membaca-siswa', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
@@ -62,6 +63,7 @@ class StudentReadActivityController extends Controller
                 $q->where('book_title', 'like', "%{$search}%");
             });
         }
+        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = ReadActivity::where('student_id', $studentId)->count();
@@ -75,7 +77,7 @@ class StudentReadActivityController extends Controller
         $data = $readActivities->map(function ($readActivity) {
             return [
                 'id' => $readActivity->id,
-                'timeStamp' => $readActivity->time_stamp,
+                'timeStamp' => $readActivity->time_stamp->toDateString(),
                 'bookTitle' => $readActivity->book_title,
                 'page' => $readActivity->page,
                 'teacherSign' => $readActivity->teacher_sign,

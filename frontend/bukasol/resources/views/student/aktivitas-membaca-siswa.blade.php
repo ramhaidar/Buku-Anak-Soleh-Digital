@@ -30,7 +30,7 @@
                 <i class="fa-solid fa-file-contract me-1"></i>
                 <span class="d-none d-md-inline">Export Aktivitas Membaca</span>
             </a>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index', [ 'id' => $studentId ]) }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index') }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Aktivitas Membaca</span>
             </a>
@@ -71,7 +71,14 @@
                     {
                         data: 'bookTitle',
                         name: 'bookTitle',
-                        title: 'Judul Buku'
+                        title: 'Judul Buku',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'page',

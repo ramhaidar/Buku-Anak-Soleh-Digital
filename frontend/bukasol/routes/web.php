@@ -168,7 +168,7 @@ Route::prefix ( 'student-dashboard' )
             ->name ( 'student.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-add/{id}',
+            '/catatan-harian-siswa-add',
             [ StudentActivityNotesController::class, 'index_add_notes' ]
         )
             ->name ( 'student.catatan-harian-siswa-add.index' );
@@ -193,7 +193,7 @@ Route::prefix ( 'student-dashboard' )
             ->name ( 'student.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/aktivitas-membaca-siswa-add/{id}',
+            '/aktivitas-membaca-siswa-add',
             [ StudentReadActivityController::class, 'index_add_activity' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-add.index' );
