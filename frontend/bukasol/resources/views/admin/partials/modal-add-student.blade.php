@@ -55,7 +55,7 @@
                 window.showAlert('Error uploading file:', error, false);
             });
         } else {
-            alert('Please select an Excel file.');
+            window.showAlert('Please select an Excel file.', false);
         }
     }
 </script>
