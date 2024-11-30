@@ -10,5 +10,3 @@
         </button>
     </div>
 </div>
-
-<!-- deleteCatatanHarianSiswaConfirmationModal -->
