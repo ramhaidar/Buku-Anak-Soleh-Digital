@@ -32,7 +32,7 @@
                     <!-- Hari/Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ $activityNote->time_stamp }}" readonly disabled>
+                        <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ \Carbon\Carbon::parse($activityNote->time_stamp)->format('d-m-Y') }}" readonly disabled>
                     </div>
 
                     <!-- Agenda Input -->

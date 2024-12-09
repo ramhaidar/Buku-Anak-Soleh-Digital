@@ -30,7 +30,7 @@
                 <i class="fa-solid fa-file-contract me-1"></i>
                 <span class="d-none d-md-inline">Export Catatan</span>
             </button>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index', [ 'id' => $studentId ]) }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index', ['id' => $studentId]) }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Catatan</span>
             </a>
@@ -49,7 +49,7 @@
 @push('scripts')
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#aktivitasMembacaSiswaTable').DataTable({
@@ -66,7 +66,17 @@
                 columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'bookTitle',
@@ -84,9 +94,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }
@@ -97,13 +107,13 @@
                         title: 'Paraf Orang Tua',
                         render: function(data, type, row) {
                             return `
-                                <div class="form-check form-switch">
-                                    <input 
-                                        class="form-check-input" 
-                                        type="checkbox" 
-                                        ${data ? 'checked' : ''}
-                                        onclick="showParentCodeModal(${row.id})">
-                                </div>`;
+                <div class="form-check form-switch">
+                    <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        ${data ? 'checked' : ''} 
+                        onclick="showParentCodeModal(${row.id})">
+                </div>`;
                         }
                     },
                     {
