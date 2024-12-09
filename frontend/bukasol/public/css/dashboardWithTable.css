@@ -43,3 +43,8 @@ label:has(+ textarea[required])::after {
     color: red;
     font-weight: bold;
 }
+
+textarea {
+    overflow: hidden;
+    resize: none;
+}
