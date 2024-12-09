@@ -96,3 +96,13 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === "visible") {
+                location.reload(); // Reload the page when it becomes visible
+            }
+        });
+    </script>
+@endpush

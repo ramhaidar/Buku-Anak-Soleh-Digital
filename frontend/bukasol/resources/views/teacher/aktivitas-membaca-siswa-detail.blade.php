@@ -31,11 +31,18 @@
         </div>
     </div>
 @endsection
+
 @push('scripts')
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === "visible") {
+                location.reload(); // Reload the page when it becomes visible
+            }
+        });
+        
         $(document).ready(function() {
             $('#aktivitasMembacaSiswaDetailTable').DataTable({
                 processing: true,

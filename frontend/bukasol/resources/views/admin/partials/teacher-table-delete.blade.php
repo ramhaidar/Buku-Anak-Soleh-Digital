@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <p class="p-0 m-0">Apakah Anda yakin ingin menghapus data guru ini?</p>
-                <p class="p-0 m-0">Peringatan: Aksi ini tidak dapat dibatalkan!</p>
+                <p class="p-0 m-0">Peringatan: Data yg sudah dihapus tidak dapat dikembalikan!</p>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-secondary flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" data-bs-dismiss="modal" type="button">Batal</a>
