@@ -30,11 +30,7 @@
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="mengaji">Mengaji</label>
                     <input class="form-control rounded-5 border-dark border-2" id="mengaji" type="text" value="{{ $surahName }}" readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold" for="ayat">Ayat</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="ayat" type="text" value="{{ $surahAyat }}" readonly>
+                    <input class="form-control rounded-5 border-dark border-2 mt-1" id="ayat" type="text" value="{{ $surahAyat }}" readonly>
                 </div>
 
                 <div class="mb-4">
