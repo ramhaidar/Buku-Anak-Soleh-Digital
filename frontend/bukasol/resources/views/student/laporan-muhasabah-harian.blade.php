@@ -57,6 +57,8 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
+                searching: false,
                 ajax: {
                     url: '{{ route('siswa.laporan-muhasabah.fetchData') }}',
                     method: 'POST',
@@ -64,11 +66,20 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'mengaji',
@@ -76,9 +87,9 @@
                         title: 'Mengaji',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Mengaji</span>'
-                                    : '<span class="text-danger">Tidak</span>';
+                                return data ?
+                                    '<span class="text-success">Mengaji</span>' :
+                                    '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
@@ -89,9 +100,9 @@
                         title: 'Sholat Sunnah',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sholat</span>'
-                                    : '<span class="text-danger">Tidak</span>';
+                                return data ?
+                                    '<span class="text-success">Sholat</span>' :
+                                    '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
@@ -107,9 +118,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }

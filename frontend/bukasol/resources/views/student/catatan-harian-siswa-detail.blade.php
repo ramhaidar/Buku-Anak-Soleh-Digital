@@ -26,37 +26,37 @@
                     <!-- Hari/Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ $activityNote->time_stamp->toDateString() }}" readonly disabled>
+                        <input class="form-control rounded-3 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="text" value="{{ \Carbon\Carbon::parse($activityNote->time_stamp)->format('d-m-Y') }}" readonly disabled>
                     </div>
 
                     <!-- Agenda Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="agenda">Agenda</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="agenda" name="agenda" type="text" value="{{ $activityNote->agenda }}" readonly disabled>
+                        <input class="form-control rounded-3 border-dark border-2" id="agenda" name="agenda" type="text" value="{{ $activityNote->agenda }}" readonly disabled>
                     </div>
 
                     <!-- Catatan Harian Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="catatan_harian">Catatan Harian</label>
-                        <textarea class="form-control rounded-5 border-dark border-2" id="catatan_harian" name="catatan_harian" rows="3" readonly disabled>{{ $activityNote->content }}</textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="catatan_harian" name="catatan_harian" rows="3" readonly disabled>{{ $activityNote->content }}</textarea>
                     </div>
 
                     <!-- Pertanyaan Orang Tua Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="pertanyaan_orang_tua">Pertanyaan Orang Tua</label>
-                        <textarea class="form-control rounded-5 border-dark border-2" id="pertanyaan_orang_tua" name="pertanyaan_orang_tua" rows="3" readonly disabled>{{ $parentQuestion }}</textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="pertanyaan_orang_tua" name="pertanyaan_orang_tua" rows="3" readonly disabled>{{ $parentQuestion }}</textarea>
                     </div>
 
                     <!-- Jawaban Guru Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="jawaban_guru">Jawaban Guru</label>
-                        <textarea class="form-control rounded-5 border-dark border-2" id="jawaban_guru" name="jawaban_guru" rows="3" readonly disabled>{{ $teacherAnswer }}</textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="jawaban_guru" name="jawaban_guru" rows="3" readonly disabled>{{ $teacherAnswer }}</textarea>
                     </div>
 
                     <!-- Paraf Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="paraf">Paraf Guru</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="paraf" name="paraf" type="text" value="{{ $teacherSign }}" readonly disabled>
+                        <input class="form-control rounded-3 border-dark border-2" id="paraf" name="paraf" type="text" value="{{ $teacherSign }}" readonly disabled>
                     </div>
                 </form>
             </div>

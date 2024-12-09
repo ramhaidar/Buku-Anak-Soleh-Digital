@@ -24,22 +24,18 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="hari_tanggal" type="text" value="{{ $muhasabahReport->time_stamp->toDateString() }}" readonly>
+                    <input class="form-control rounded-3 border-dark border-2" id="hari_tanggal" type="text" value="{{ \Carbon\Carbon::parse($muhasabahReport->time_stamp)->format('d-m-Y') }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="mengaji">Mengaji</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="mengaji" type="text" value="{{ $surahName }}" readonly>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold" for="ayat">Ayat</label>
-                    <input class="form-control rounded-5 border-dark border-2" id="ayat" type="text" value="{{ $surahAyat }}" readonly>
+                    <input class="form-control rounded-3 border-dark border-2" id="mengaji" type="text" value="{{ $surahName }}" readonly>
+                    <input class="form-control rounded-3 border-dark border-2 mt-1" id="ayat" type="text" value="{{ $surahAyat }}" readonly>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Shalat Sunnah</label>
-                    <input class="form-control rounded-5 {{ $muhasabahReport->isya_pray ? 'border-success' : 'border-danger' }} text-danger border-2" type="text" value="{{ $muhasabahReport->sunnah_pray ? 'Shalat' : 'Tidak Shalat' }}" readonly>
+                    <input class="form-control rounded-3 {{ $muhasabahReport->isya_pray ? 'border-success' : 'border-danger' }} text-danger border-2" type="text" value="{{ $muhasabahReport->sunnah_pray ? 'Shalat' : 'Tidak Shalat' }}" readonly>
                 </div>
 
                 <div class="mb-4">
@@ -51,7 +47,7 @@
                                 {{ $muhasabahReport->subuh_pray ? 'Shalat' : 'Tidak Shalat' }}
                             </span>
                         </li>
-                        
+
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Dzuhur
                             <span class="badge {{ $muhasabahReport->dzuhur_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">

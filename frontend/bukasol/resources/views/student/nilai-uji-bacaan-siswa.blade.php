@@ -44,13 +44,14 @@
 @push('scripts')
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#nilaiUjiBacaanSiswaDetailTable').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('siswa.nilai_uji_bacaan.fetchData') }}',
                     method: 'POST',
@@ -99,9 +100,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }

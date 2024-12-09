@@ -17,7 +17,7 @@
 
             <div class="modal-footer">
                 <a class="btn btn-secondary flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" data-bs-dismiss="modal" type="button">Batal</a>
-                <button class="btn btn-primary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" form="kodeUnikForm" type="submit">Kirim</button>
+                <button class="btn btn-primary rounded-3 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" form="kodeUnikForm" type="submit">Kirim</button>
             </div>
         </div>
     </div>

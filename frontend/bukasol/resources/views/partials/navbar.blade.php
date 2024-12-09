@@ -361,7 +361,7 @@
                             <span class="ms-2 me-2">{{ isset($name) ? $name : 'NAME' }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-start ms-1" aria-labelledby="profileDropdown">
-                            <li class="">
+                            <li class="ms-1 me-3">
                                 @if (isset($role) && $role == 'Admin')
                                     <a class="dropdown-item p-1 m-0 my-0 ms-1" href="{{ route('change-password.index') }}">Ganti Password</a>
                                 @endif

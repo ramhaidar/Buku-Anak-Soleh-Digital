@@ -88,6 +88,24 @@
 
     <!-- Additional Scripts -->
     @stack('scripts')
+
+    <!-- Auto Adjust Textarea Height -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textareas = document.querySelectorAll('textarea');
+
+            textareas.forEach(textarea => {
+                const adjustHeight = (element) => {
+                    element.style.height = 'auto';
+                    element.style.height = element.scrollHeight + 13 + 'px';
+                };
+
+                adjustHeight(textarea);
+
+                textarea.addEventListener('input', () => adjustHeight(textarea));
+            });
+        });
+    </script>
 </body>
 
 </html>
