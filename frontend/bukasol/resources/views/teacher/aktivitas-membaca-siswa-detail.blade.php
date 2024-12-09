@@ -41,6 +41,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('aktivitas-membaca-siswa.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',

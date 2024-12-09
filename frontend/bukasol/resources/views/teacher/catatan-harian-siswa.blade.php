@@ -43,6 +43,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('catatan-harian.fetchData') }}',
                     method: 'POST',
@@ -66,9 +67,9 @@
                         title: 'Pertanyaan',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-danger">Tidak Ada Pertanyaan</span>'
-                                    : '<span class="text-success">Ada Pertanyaan</span>';
+                                return data ?
+                                    '<span class="text-danger">Tidak Ada Pertanyaan</span>' :
+                                    '<span class="text-success">Ada Pertanyaan</span>';
                             }
                             return data;
                         }
@@ -79,9 +80,9 @@
                         title: 'Paraf Guru',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }

@@ -55,6 +55,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('siswa.catatan-harian.fetchData') }}',
                     method: 'POST',

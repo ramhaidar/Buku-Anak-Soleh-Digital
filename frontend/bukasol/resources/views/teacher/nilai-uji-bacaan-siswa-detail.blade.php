@@ -49,6 +49,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('nilai_uji_bacaan_detail.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',

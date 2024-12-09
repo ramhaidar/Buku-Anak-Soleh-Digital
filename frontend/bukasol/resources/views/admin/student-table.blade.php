@@ -74,6 +74,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('student.fetchData') }}',
                     method: 'POST',

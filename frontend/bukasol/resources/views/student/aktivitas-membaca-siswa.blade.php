@@ -56,6 +56,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('siswa.aktivitas-membaca.fetchData') }}',
                     method: 'POST',

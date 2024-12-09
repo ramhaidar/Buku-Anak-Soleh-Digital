@@ -50,6 +50,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('siswa.laporan-pelanggaran-siswa.fetchData') }}',
                     method: 'POST',

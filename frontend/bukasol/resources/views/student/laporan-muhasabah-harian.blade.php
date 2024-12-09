@@ -57,6 +57,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('siswa.laporan-muhasabah.fetchData') }}',
                     method: 'POST',

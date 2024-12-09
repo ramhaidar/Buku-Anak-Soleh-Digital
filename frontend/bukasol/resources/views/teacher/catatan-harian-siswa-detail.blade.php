@@ -42,6 +42,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('catatan-harian-detail.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',

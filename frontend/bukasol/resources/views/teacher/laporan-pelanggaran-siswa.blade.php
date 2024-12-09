@@ -51,6 +51,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('laporan-pelanggaran-siswa.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',

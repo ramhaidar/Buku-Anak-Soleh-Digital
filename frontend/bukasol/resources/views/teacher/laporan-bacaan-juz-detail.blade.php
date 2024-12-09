@@ -51,6 +51,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('laporan-juz-siswa.fetchData', ['juzNumber' => $juzNumber, 'id' => $studentId]) }}',
                     method: 'POST',
