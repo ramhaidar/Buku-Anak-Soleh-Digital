@@ -31,19 +31,19 @@
                     <!-- Detail Pelanggaran Field -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="violation_details">Detail Pelanggaran</label>
-                        <textarea class="form-control rounded-5 border-dark border-2" id="violation_details" name="violation_details" rows="3" readonly disabled>{{ $violationReport->violation_details }}</textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="violation_details" name="violation_details" rows="3" readonly disabled>{{ $violationReport->violation_details }}</textarea>
                     </div>
 
                     <!-- Konsekuensi Field -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="consequence">Konsekuensi</label>
-                        <textarea class="form-control rounded-5 border-dark border-2" id="consequence" name="consequence" rows="3" readonly disabled>{{ $violationReport->consequence }}</textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="consequence" name="consequence" rows="3" readonly disabled>{{ $violationReport->consequence }}</textarea>
                     </div>
 
                     <!-- Paraf Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="paraf">Paraf Guru</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="paraf" name="paraf" type="text" value="{{ $teacherSign }}" readonly disabled>
+                        <input class="form-control rounded-3 border-dark border-2" id="paraf" name="paraf" type="text" value="{{ $teacherSign }}" readonly disabled>
                     </div>
                 </form>
             </div>

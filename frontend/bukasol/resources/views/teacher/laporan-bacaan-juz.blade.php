@@ -42,6 +42,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('laporan-juz.fetchData', ['juzNumber' => $juzNumber]) }}',
                     method: 'POST',

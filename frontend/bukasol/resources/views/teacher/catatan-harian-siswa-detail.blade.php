@@ -42,6 +42,7 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
                     url: '{{ route('catatan-harian-detail.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',
@@ -49,11 +50,20 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'agenda',
@@ -117,20 +127,20 @@
             const url = `{{ route('activity-notes.teacher-sign', ':id') }}`.replace(':id', noteId);
 
             fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                window.showAlert(data.success, true, '#catatanHarianSiswaDetailTable');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating teacher sign.');
-            });
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    window.showAlert(data.success, true, '#catatanHarianSiswaDetailTable');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating teacher sign.');
+                });
         }
     </script>
 @endpush

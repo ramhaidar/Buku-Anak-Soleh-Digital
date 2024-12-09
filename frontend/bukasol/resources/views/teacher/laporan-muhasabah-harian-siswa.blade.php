@@ -42,18 +42,29 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
+                searching: false,
                 ajax: {
-                    url: '{{ route('laporan-muhasabah-siswa.fetchData', [ 'id' => $studentId ]) }}',
+                    url: '{{ route('laporan-muhasabah-siswa.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'mengaji',
@@ -61,9 +72,9 @@
                         title: 'Mengaji',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Mengaji</span>'
-                                    : '<span class="text-danger">Tidak</span>';
+                                return data ?
+                                    '<span class="text-success">Mengaji</span>' :
+                                    '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
@@ -74,9 +85,9 @@
                         title: 'Sholat Sunnah',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sholat</span>'
-                                    : '<span class="text-danger">Tidak</span>';
+                                return data ?
+                                    '<span class="text-success">Sholat</span>' :
+                                    '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
@@ -107,9 +118,9 @@
                         title: 'Paraf Orang Tua',
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return data
-                                    ? '<span class="text-success">Sudah</span>'
-                                    : '<span class="text-danger">Belum</span>';
+                                return data ?
+                                    '<span class="text-success">Sudah</span>' :
+                                    '<span class="text-danger">Belum</span>';
                             }
                             return data;
                         }
@@ -139,20 +150,20 @@
             const url = `{{ route('muhasabah-report.teacher-sign', ':id') }}`.replace(':id', reportId);
 
             fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                window.showAlert(data.success, true, '#laporanMuhasabahHarianSiswaTable');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating teacher sign.');
-            });
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    window.showAlert(data.success, true, '#laporanMuhasabahHarianSiswaTable');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating teacher sign.');
+                });
         }
     </script>
 @endpush

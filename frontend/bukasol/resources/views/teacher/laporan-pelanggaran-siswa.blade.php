@@ -26,7 +26,7 @@
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.laporan-pelanggaran-siswa-add.index', [ 'id' => $studentId]) }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.laporan-pelanggaran-siswa-add.index', ['id' => $studentId]) }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Pelanggaran</span>
             </a>
@@ -51,18 +51,28 @@
                 processing: true,
                 serverSide: true,
                 paging: true,
+                ordering: false,
                 ajax: {
-                    url: '{{ route('laporan-pelanggaran-siswa.fetchData', [ 'id' => $studentId]) }}',
+                    url: '{{ route('laporan-pelanggaran-siswa.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'violationDetails',
@@ -128,20 +138,20 @@
             const url = `{{ route('violation-report.teacher-sign', ':id') }}`.replace(':id', reportId);
 
             fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                window.showAlert(data.success, true, '#laporanPelanggaranSiswaDetailTable');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating teacher sign.');
-            });
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    window.showAlert(data.success, true, '#laporanPelanggaranSiswaDetailTable');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating teacher sign.');
+                });
         }
     </script>
 @endpush
