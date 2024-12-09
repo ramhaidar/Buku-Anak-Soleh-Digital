@@ -24,37 +24,37 @@
                 <form action="{{ route('juz-report.store') }}" method="POST">
                     @csrf
 
-                    <input class="form-control rounded-5 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
-                    <input class="form-control rounded-5 border-dark border-2" id="juz" name="juz" type="hidden" value="{{ $juzNumber }}" readonly>
+                    <input class="form-control rounded-3 border-dark border-2" id="studentId" name="studentId" type="hidden" value="{{ $studentId }}" readonly>
+                    <input class="form-control rounded-3 border-dark border-2" id="juz" name="juz" type="hidden" value="{{ $juzNumber }}" readonly>
 
                     <!-- Nama Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="nama">Nama</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="nama" name="nama" type="text" value="{{ $studentName }}" readonly disabled>
+                        <input class="form-control rounded-3 border-dark border-2" id="nama" name="nama" type="text" value="{{ $studentName }}" readonly disabled>
                     </div>
 
                     <!-- Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="tanggal">Tanggal</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
+                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
                     </div>
 
                     <!-- Surah Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="surah">Surah</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="surah" name="surah" type="text" placeholder="Surah...">
+                        <input class="form-control rounded-3 border-dark border-2" id="surah" name="surah" type="text" placeholder="Surah...">
                     </div>
 
                     <!-- Ayat Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="ayat">Ayat</label>
-                        <input class="form-control rounded-5 border-dark border-2" id="ayat" name="ayat" type="text" placeholder="Ayat...">
+                        <input class="form-control rounded-3 border-dark border-2" id="ayat" name="ayat" type="text" placeholder="Ayat...">
                     </div>
 
                     <!-- Reset and Submit Buttons -->
                     <div class="d-flex justify-content-center align-items-stretch pt-3 gap-3">
-                        <a class="btn btn-secondary rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('teacher.laporan-bacaan-juz-siswa.index', ['juzNumber' => $juzNumber, 'id' => $studentId]) }}">Batal</a>
-                        <button class="btn btn-success rounded-5 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="submit">Tambah</button>
+                        <a class="btn btn-secondary rounded-3 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" href="{{ route('teacher.laporan-bacaan-juz-siswa.index', ['juzNumber' => $juzNumber, 'id' => $studentId]) }}">Batal</a>
+                        <button class="btn btn-success rounded-3 flex-fill d-flex justify-content-center align-items-center text-center px-3 py-2" type="submit">Tambah</button>
                     </div>
                 </form>
             </div>
