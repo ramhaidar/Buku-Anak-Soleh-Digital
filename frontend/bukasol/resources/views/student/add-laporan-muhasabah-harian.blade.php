@@ -35,7 +35,7 @@
                     <!-- Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="tanggal">Tanggal</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
+                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}" required>
                     </div>
 
                     <!-- Mengaji Input -->
@@ -49,7 +49,7 @@
                     <!-- Shalat Sunnah Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="shalat_sunnah">Shalat Sunnah</label>
-                        <select class="form-select rounded-3 border-dark border-2" id="shalat_sunnah" name="shalat_sunnah">
+                        <select class="form-select rounded-3 border-dark border-2" id="shalat_sunnah" name="shalat_sunnah" required>
                             <option value="" disabled selected>Apakah Shalat Sunnah?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
@@ -59,27 +59,27 @@
                     <!-- Shalat Fardhu Inputs -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Shalat Fardhu</label>
-                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="subuh" name="subuh">
+                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="subuh" name="subuh" required>
                             <option value="" disabled selected>Apakah Shalat Subuh?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
                         </select>
-                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="dzuhur" name="dzuhur">
+                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="dzuhur" name="dzuhur" required>
                             <option value="" disabled selected>Apakah Shalat Dzuhur?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
                         </select>
-                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="ashar" name="ashar">
+                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="ashar" name="ashar" required>
                             <option value="" disabled selected>Apakah Shalat Ashar?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
                         </select>
-                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="maghrib" name="maghrib">
+                        <select class="form-select rounded-3 border-dark border-2 mb-2" id="maghrib" name="maghrib" required>
                             <option value="" disabled selected>Apakah Shalat Maghrib?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
                         </select>
-                        <select class="form-select rounded-3 border-dark border-2" id="isya" name="isya">
+                        <select class="form-select rounded-3 border-dark border-2" id="isya" name="isya" required>
                             <option value="" disabled selected>Apakah Shalat Isya?</option>
                             <option value="Sudah">Shalat</option>
                             <option value="Tidak">Tidak Shalat</option>
