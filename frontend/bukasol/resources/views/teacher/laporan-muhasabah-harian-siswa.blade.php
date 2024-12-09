@@ -43,6 +43,7 @@
                 serverSide: true,
                 paging: true,
                 ordering: false,
+                searching: false,
                 ajax: {
                     url: '{{ route('laporan-muhasabah-siswa.fetchData', ['id' => $studentId]) }}',
                     method: 'POST',
