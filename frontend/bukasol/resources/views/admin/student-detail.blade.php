@@ -13,47 +13,47 @@
             <div class="p-4 rounded w-75">
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="nisn">NISN</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="nisn">{{ $student->nisn }}</div>
+                    <input class="form-control rounded-5" id="nisn" type="text" value="{{ $student->nisn }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="name">Nama</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="name">{{ $student->user->name }}</div>
+                    <input class="form-control rounded-5" id="name" type="text" value="{{ $student->user->name }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="class_name">Kelas</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="class_name">{{ $student->class_name }}</div>
+                    <input class="form-control rounded-5" id="class_name" type="text" value="{{ $student->class_name }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="username">Username</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="username">{{ $student->user->username }}</div>
+                    <input class="form-control rounded-5" id="username" type="text" value="{{ $student->user->username }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="password">Password</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="password">{{ $password }}</div>
+                    <input class="form-control rounded-5" id="password" type="text" value="{{ $password }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="parent_name">Nama Orang Tua</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="parent_name">{{ $student->parent_name }}</div>
+                    <input class="form-control rounded-5" id="parent_name" type="text" value="{{ $student->parent_name }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="parent_code">Kode Orang Tua</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="parent_code">{{ $student->parent_code }}</div>
+                    <input class="form-control rounded-5" id="parent_code" type="text" value="{{ $student->parent_code }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="teacher_nip">NIP Wali Kelas</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="teacher_nip">{{ $student->teacher->nip }}</div>
+                    <input class="form-control rounded-5" id="teacher_nip" type="text" value="{{ $student->teacher->nip }}" readonly>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="teacher_name">Nama Wali Kelas</label>
-                    <div class="form-control rounded-5 border-dark bg-black text-white" id="teacher_name">{{ $student->teacher->user->name }}</div>
+                    <input class="form-control rounded-5" id="teacher_name" type="text" value="{{ $student->teacher->user->name }}" readonly>
                 </div>
             </div>
         </div>

@@ -26,3 +26,13 @@ td:last-child {
 .status-belum {
     color: red !important;
 }
+
+.form-control-disabled,
+input[disabled],
+input[readonly],
+textarea[disabled],
+textarea[readonly] {
+    border: 1px solid #000 !important;
+    background-color: #000 !important;
+    color: #fff !important;
+}
