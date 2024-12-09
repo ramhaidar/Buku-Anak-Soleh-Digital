@@ -36,3 +36,10 @@ textarea[readonly] {
     background-color: #000 !important;
     color: #fff !important;
 }
+
+label:has(+ input[required])::after,
+label:has(+ textarea[required])::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
