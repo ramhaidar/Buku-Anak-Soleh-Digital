@@ -3,6 +3,8 @@
 @push('styles')
     <!-- DataTables 2.1.8 -->
     <link href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    <link href="{{ asset('css/dashboardWithTable.css') }}" rel="stylesheet">
 @endpush
 
 @section('content_2')

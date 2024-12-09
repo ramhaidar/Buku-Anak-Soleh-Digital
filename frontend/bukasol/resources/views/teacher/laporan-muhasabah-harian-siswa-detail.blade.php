@@ -51,7 +51,7 @@
                                 {{ $muhasabahReport->subuh_pray ? 'Shalat' : 'Tidak Shalat' }}
                             </span>
                         </li>
-                        
+
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Dzuhur
                             <span class="badge {{ $muhasabahReport->dzuhur_pray ? 'bg-success' : 'bg-danger' }} rounded-pill px-3">
