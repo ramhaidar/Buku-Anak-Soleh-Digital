@@ -60,6 +60,11 @@
                     }
                 },
                 columns: [{
+                        data: 'timeStamp',
+                        name: 'timeStamp',
+                        title: 'Tanggal'
+                    },
+                    {
                         data: 'motionCategory',
                         name: 'motionCategory',
                         title: 'Jenis Gerakan'

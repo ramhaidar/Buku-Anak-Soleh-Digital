@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id ();
             $table->unsignedBigInteger ( 'student_id' );
             $table->date ( 'time_stamp' );
-            $table->string ( 'violation_details' );
-            $table->string ( 'consequence' );
+            $table->text ( 'violation_details' );
+            $table->text ( 'consequence' );
             $table->boolean ( 'teacher_sign' )->default ( false );
             $table->timestamps ();
 

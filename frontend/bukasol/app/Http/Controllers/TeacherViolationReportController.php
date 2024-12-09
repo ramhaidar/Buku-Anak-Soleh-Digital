@@ -21,14 +21,14 @@ class TeacherViolationReportController extends Controller
             'name' => auth ()->user ()->name,
             'className' => $className,
 
-            'page' => 'Laporan Pelanggaran Table'
+            'page' => 'Laporan Pelanggaran Siswa Table'
         ] );
     }
 
     public function index_student( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student ? $student->user->name : 'N/A';
+        $studentName = $student->user->name;
 
         return view ( 'teacher.laporan-pelanggaran-siswa', [
             'role' => auth ()->user ()->role,
@@ -85,7 +85,11 @@ class TeacherViolationReportController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where ( 'class_name', $className )->with ( 'user', 'violationReports' );
+        $query = Student::where('class_name', $className)
+            ->with('user', 'violationReports')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name')
+            ->orderBy('user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -144,15 +148,16 @@ class TeacherViolationReportController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = ViolationReport::where('student_id', $studentId);
+        $query = ViolationReport::where('student_id', $studentId)
+            ->orderByDesc('time_stamp');
 
         // Apply search filter if available
         if (!empty($search)) {
-        $query->where(function ($q) use ($search) {
-            $q->where('violation_details', 'like', "%{$search}%")
-            ->where('consequence', 'like', "%{$search}%");
-        });
-    }
+            $query->where(function ($q) use ($search) {
+                $q->where('violation_details', 'like', "%{$search}%")
+                ->where('consequence', 'like', "%{$search}%");
+            });
+        }
 
         // Total records without filtering
         $totalData = ViolationReport::where('student_id', $studentId)->count();
@@ -167,7 +172,7 @@ class TeacherViolationReportController extends Controller
 
             return [
                 'id' => $violationReport->id,
-                'timeStamp' => $violationReport->time_stamp,
+                'timeStamp' => $violationReport->time_stamp->toDateString(),
                 'violationDetails' => $violationReport->violation_details,
                 'consequence' => $violationReport->consequence,
                 'teacherSign'    => $violationReport->teacher_sign,
@@ -229,8 +234,23 @@ class TeacherViolationReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function violation_report_pdf()
+    public function violation_report_pdf( $studentId )
     {
-        
+        $violationReports = ViolationReport::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'violationReports' => $violationReports,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.violation-report-template', $data);
+        $fileName = "Lembar Pelanggaran_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

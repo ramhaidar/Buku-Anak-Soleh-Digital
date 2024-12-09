@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Teacher;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 
 class AdminDashboardController extends Controller
 {
@@ -109,7 +110,9 @@ class AdminDashboardController extends Controller
         $start  = request ( 'start' ) ?? 0; // Offset for pagination
         $search = request ( 'search' )[ 'value' ] ?? ''; // Search term, if provided
 
-        $query = Student::query ();
+        $query = Student::query()
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -121,9 +124,11 @@ class AdminDashboardController extends Controller
                     $q->where ( 'name', 'like', "%{$search}%" );
                 } );
         }
+        $query->orderBy('students.class_name')->orderBy('users.name');
 
         // Total records without filtering
         $totalData = Student::count ();
+
         // Total records after filtering
         $totalFiltered = $query->count ();
 
@@ -138,12 +143,13 @@ class AdminDashboardController extends Controller
             $password = $letters . $numbers;
 
             return [ 
-                'nisn'       => $student->nisn,
-                'name'       => $student->user->name ?? 'N/A',
-                'class_name' => $student->class_name,
+                'nisn' => $student->nisn,
+                'name' => $student->user->name ?? 'N/A',
+                'className' => $student->class_name,
                 'username' => $student->user->username,
                 'password' => $password,
-                'action'     => view ( 'admin.partials.student-table-actions', [ 'student' => $student ] )->render (),
+                'parentCode' => $student->parent_code,
+                'action' => view ( 'admin.partials.student-table-actions', [ 'student' => $student ] )->render (),
             ];
         } );
 
@@ -163,7 +169,9 @@ class AdminDashboardController extends Controller
         $start  = request ( 'start' ) ?? 0; // Offset for pagination
         $search = request ( 'search' )[ 'value' ] ?? ''; // Search term, if provided
 
-        $query = Teacher::query ();
+        $query = Teacher::query()
+            ->join('users', 'teachers.user_id', '=', 'users.id')
+            ->select('teachers.*', 'users.name as user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -175,9 +183,11 @@ class AdminDashboardController extends Controller
                     $q->where ( 'name', 'like', "%{$search}%" );
                 } );
         }
+        $query->orderBy('teachers.class_name')->orderBy('users.name');
 
         // Total records without filtering
         $totalData = Teacher::count ();
+
         // Total records after filtering
         $totalFiltered = $query->count ();
 
@@ -191,13 +201,13 @@ class AdminDashboardController extends Controller
             $numbers = substr($teacher->nip, -4);
             $password = $letters . $numbers;
 
-            return [ 
-                'nip'        => $teacher->nip,
-                'name'       => $teacher->user->name ?? 'N/A',
-                'class_name' => $teacher->class_name,
+            return [
+                'nip' => $teacher->nip,
+                'name' => $teacher->user->name ?? 'N/A',
+                'className' => $teacher->class_name,
                 'username' => $teacher->user->username,
                 'password' => $password,
-                'action'     => view ( 'admin.partials.teacher-table-actions', [ 'teacher' => $teacher ] )->render (),
+                'action' => view ( 'admin.partials.teacher-table-actions', [ 'teacher' => $teacher ] )->render (),
             ];
         } );
 
@@ -208,5 +218,51 @@ class AdminDashboardController extends Controller
             'recordsFiltered' => $totalFiltered,
             'data'            => $data,
         ] );
+    }
+
+    public function student_account_pdf()
+    {
+        $students = Student::orderBy('class_name')->get();
+
+        $students->each(function ($student) {
+            $letters = strtolower(explode(' ', $student->user->name)[0]);
+            $numbers = substr($student->nisn, -4);
+            $student->new_password = $letters . $numbers;
+        });
+
+        $data = [
+            'students' => $students,
+        ];
+
+        $pdf = Pdf::loadView('convert.student-account-template', $data);
+        $fileName = "Akun Siswa.pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
+
+    public function teacher_account_pdf()
+    {
+        $teachers = Teacher::orderBy('class_name')->get();
+
+        $teachers->each(function ($teacher) {
+            $letters = strtolower(explode(' ', $teacher->user->name)[0]);
+            $numbers = substr($teacher->nip, -4);
+            $teacher->new_password = $letters . $numbers;
+        });
+
+        $data = [
+            'teachers' => $teachers,
+        ];
+
+        $pdf = Pdf::loadView('convert.teacher-account-template', $data);
+        $fileName = "Akun Guru.pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
     }
 }

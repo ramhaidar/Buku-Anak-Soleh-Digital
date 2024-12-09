@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Catatan Harian Siswa {{ $studentName }}</h2>
+                    <h2 class="text-center mb-0">Lembar Catatan Aktivitas Harian Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
@@ -73,7 +73,14 @@
                     {
                         data: 'content',
                         name: 'content',
-                        title: 'Catatan'
+                        title: 'Catatan',
+                        render: function (data, type, row) {
+                            const maxLength = 50;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'parentQuestion',

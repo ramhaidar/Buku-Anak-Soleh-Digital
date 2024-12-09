@@ -16,7 +16,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentPrayerGradeController;
 use App\Http\Controllers\StudentPrayerRecitationGradeController;
 use App\Http\Controllers\StudentActivityNotesController;
-use App\Http\Controllers\StudentReadingActivityController;
+use App\Http\Controllers\StudentReadActivityController;
 use App\Http\Controllers\StudentJuzReportController;
 use App\Http\Controllers\StudentMuhasabahReportController;
 use App\Http\Controllers\StudentViolationReportController;
@@ -168,7 +168,7 @@ Route::prefix ( 'student-dashboard' )
             ->name ( 'student.catatan-harian-siswa-detail.index' );
 
         Route::get (
-            '/catatan-harian-siswa-add/{id}',
+            '/catatan-harian-siswa-add',
             [ StudentActivityNotesController::class, 'index_add_notes' ]
         )
             ->name ( 'student.catatan-harian-siswa-add.index' );
@@ -188,30 +188,31 @@ Route::prefix ( 'student-dashboard' )
         // Student Reading Activity Notes
         Route::get (
             '/aktivitas-membaca-siswa',
-            [ StudentReadingActivityController::class, 'index_table' ]
+            [ StudentReadActivityController::class, 'index_table' ]
         )
             ->name ( 'student.aktivitas-membaca-siswa-table.index' );
 
         Route::get (
-            '/aktivitas-membaca-siswa-add/{id}',
-            [ StudentReadingActivityController::class, 'index_add_activity' ]
-        )->name ( 'student.aktivitas-membaca-siswa-add.index' );
+            '/aktivitas-membaca-siswa-add',
+            [ StudentReadActivityController::class, 'index_add_activity' ]
+        )
+            ->name ( 'student.aktivitas-membaca-siswa-add.index' );
 
         Route::post (
             '/reading-activity',
-            [ StudentReadingActivityController::class, 'store_reading_activity' ]
+            [ StudentReadActivityController::class, 'store_reading_activity' ]
         )
             ->name ( 'reading-activity.store' );
 
         Route::delete (
             '/reading-activity/{id}',
-            [ StudentReadingActivityController::class, 'delete_reading_activity' ]
+            [ StudentReadActivityController::class, 'delete_reading_activity' ]
         )
             ->name ( 'reading-activity.delete' );
 
         Route::put (
             '/reading-activity/parent-sign/{id}',
-            [ StudentReadingActivityController::class, 'parent_sign_reading_activity' ]
+            [ StudentReadActivityController::class, 'parent_sign_reading_activity' ]
         )
             ->name ( 'reading-activity.parent-sign' );
     } );
@@ -350,17 +351,17 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-add.index' );
 
-        Route::post (
-            '/prayer-grade',
-            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
-        )
-            ->name ( 'prayer-grade.store' );
-
         Route::get (
             '/nilai-uji-gerakan-siswa-edit/{id}',
             [ TeacherPrayerGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-gerakan-siswa-edit.index' );
+
+        Route::post (
+            '/prayer-grade',
+            [ TeacherPrayerGradeController::class, 'store_prayer_grade' ]
+        )
+            ->name('prayer-grade.store');
 
         Route::put (
             '/prayer-grade/{id}',
@@ -399,17 +400,17 @@ Route::prefix ( 'teacher-dashboard' )
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-add.index' );
 
-        Route::post (
-            '/prayer-recitation-grade',
-            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
-        )
-            ->name ( 'prayer-recitation.store' );
-
         Route::get (
             '/nilai-uji-bacaan-siswa-edit/{id}',
             [ TeacherPrayerRecitationGradeController::class, 'index_edit_grade' ]
         )
             ->name ( 'teacher.nilai-uji-bacaan-siswa-edit.index' );
+
+        Route::post (
+            '/prayer-recitation-grade',
+            [ TeacherPrayerRecitationGradeController::class, 'store_prayer_recitation_grade' ]
+        )
+            ->name('prayer-recitation.store');
 
         Route::put (
             '/prayer-recitation-grade/{id}',
@@ -531,6 +532,18 @@ Route::prefix ( 'admin-dashboard' )
             [ AdminDashboardController::class, 'teacher_detail_index' ]
         )
             ->name ( 'admin.teacher-detail.index' );
+
+        Route::get (
+            '/export-akun-siswa',
+            [ AdminDashboardController::class, 'student_account_pdf' ]
+        )
+            ->name ( 'student-account.convert-pdf' );
+
+        Route::get (
+            '/export-akun-guru',
+            [ AdminDashboardController::class, 'teacher_account_pdf' ]
+        )
+            ->name ( 'teacher-account.convert-pdf' );
     } );
 
 
@@ -609,7 +622,7 @@ Route::middleware ( 'auth' )
         )->name ( 'siswa.laporan-juz-siswa.fetchData' );
 
         Route::get (
-            '/juz-report/{id}',
+            '/juz{juzNumber}-report/{id}',
             [ TeacherJuzReportController::class, 'juz_report_pdf' ]
         )
             ->name ( 'juz-report.convert-pdf' );
@@ -676,14 +689,14 @@ Route::middleware ( 'auth' )
 
         Route::get (
             '/activity-notes-report/{id}',
-            [ StudentActivityNotesController::class, 'activity_notes_pdf' ]
+            [ TeacherActivityNotesController::class, 'activity_notes_pdf' ]
         )
             ->name ( 'activity-notes.convert-pdf' );
 
         // Reading Activity
         Route::post (
             '/siswa-aktivitas-membaca/fetchData',
-            [ StudentReadingActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
+            [ StudentReadActivityController::class, 'fetchData_aktivitas_membaca_by_id_siswa' ]
         )->name ( 'siswa.aktivitas-membaca.fetchData' );
 
         Route::post (
@@ -698,7 +711,7 @@ Route::middleware ( 'auth' )
 
         Route::get (
             '/reading-activity-report/{id}',
-            [ StudentReadingActivityController::class, 'reading_activity_pdf' ]
+            [ TeacherReadActivityController::class, 'reading_activity_pdf' ]
         )
             ->name ( 'reading-activity.convert-pdf' );
 
