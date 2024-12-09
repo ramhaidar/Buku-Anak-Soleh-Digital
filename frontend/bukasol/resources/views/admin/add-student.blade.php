@@ -22,11 +22,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold" for="username">Username</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="username" name="username" type="text" placeholder="Username....." required>
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label fw-semibold" for="parent_name">Nama Orang Tua</label>
                         <input class="form-control rounded-3 border-dark border-2" id="parent_name" name="parent_name" type="text" placeholder="Nama Orang Tua....." required>
                     </div>

@@ -36,19 +36,20 @@
                     <!-- Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="tanggal">Tanggal</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
+                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}" required>
                     </div>
 
                     <!-- Surah Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="surah">Surah</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="surah" name="surah" type="text" placeholder="Surah...">
+                        <input class="form-control rounded-3 border-dark border-2" id="surah" name="surah" type="text" placeholder="Surah..." required>
                     </div>
 
                     <!-- Ayat Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="ayat">Ayat</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="ayat" name="ayat" type="text" placeholder="Ayat...">
+                        <input class="form-control rounded-3 border-dark border-2 mb-2" id="ayat_awal" name="ayat_awal" type="text" placeholder="Ayat Awal Bacaan Juz..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="ayat_akhir" name="ayat_akhir" type="text" placeholder="Ayat Akhir Bacaan Juz..." required>
                     </div>
 
                     <!-- Reset and Submit Buttons -->

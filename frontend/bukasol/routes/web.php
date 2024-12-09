@@ -544,6 +544,18 @@ Route::prefix ( 'admin-dashboard' )
             [ AdminDashboardController::class, 'teacher_account_pdf' ]
         )
             ->name ( 'teacher-account.convert-pdf' );
+
+        Route::post (
+            '/import-akun-siswa',
+            [ AdminDashboardController::class, 'student_import_account' ]
+        )
+            ->name ( 'student-account.import-excel' );
+
+        Route::post (
+            '/import-akun-guru',
+            [ AdminDashboardController::class, 'teacher_import_account' ]
+        )
+            ->name ( 'teacher-account.import-excel' );
     } );
 
 

@@ -35,19 +35,19 @@
                     <!-- Hari/Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="hari_tanggal">Hari/Tanggal</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="date" value="{{ $today }}">
+                        <input class="form-control rounded-3 border-dark border-2" id="hari_tanggal" name="hari_tanggal" type="date" value="{{ $today }}" required>
                     </div>
 
                     <!-- Agenda Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="agenda">Agenda</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="agenda" name="agenda" type="text" placeholder="Masukkan Agenda">
+                        <input class="form-control rounded-3 border-dark border-2" id="agenda" name="agenda" type="text" placeholder="Masukkan Agenda" required>
                     </div>
 
                     <!-- Catatan Harian Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="catatan_harian">Catatan Harian</label>
-                        <textarea class="form-control rounded-3 border-dark border-2" id="catatan_harian" name="catatan_harian" rows="3" placeholder="Masukkan Catatan Harian"></textarea>
+                        <textarea class="form-control rounded-3 border-dark border-2" id="catatan_harian" name="catatan_harian" rows="3" placeholder="Masukkan Catatan Harian" required></textarea>
                     </div>
 
                     <!-- Pertanyaan Orang Tua Input -->

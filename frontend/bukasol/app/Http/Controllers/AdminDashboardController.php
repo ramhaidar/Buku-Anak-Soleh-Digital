@@ -265,4 +265,26 @@ class AdminDashboardController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
     }
+
+    public function student_import_account( Request $request )
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls|max:2048',
+        ]);
+
+        $file = $request->file('file');
+
+        return response()->json(['success' => $file->getClientOriginalName()]);
+    }
+
+    public function teacher_import_account( Request $request )
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls|max:2048',
+        ]);
+
+        $file = $request->file('file');
+
+        return response()->json(['success' => $file->getClientOriginalName()]);
+    }
 }
