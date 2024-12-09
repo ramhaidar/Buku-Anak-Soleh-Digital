@@ -26,7 +26,7 @@
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.laporan-juz-siswa-add.index', ['juzNumber' => $juzNumber, 'id' => $studentId]) }}">
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('teacher.laporan-juz-siswa-add.index', [ 'juzNumber' => $juzNumber, 'id' => $studentId ]) }}">
                 <i class="fa-solid fa-plus me-1"></i>
                 <span class="d-none d-md-inline">Tambah Laporan Juz</span>
             </a>
@@ -52,7 +52,7 @@
                 serverSide: true,
                 paging: true,
                 ajax: {
-                    url: '{{ route('laporan-juz-siswa.fetchData', ['juzNumber' => $juzNumber, 'id' => $studentId]) }}',
+                    url: '{{ route('laporan-juz-siswa.fetchData' , [ 'juzNumber' => $juzNumber, 'id' => $studentId ]) }}',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -64,12 +64,14 @@
                         title: 'Tanggal'
                     },
                     {
-                        data: null,
-                        name: 'surah',
-                        title: 'Surat',
-                        render: function(data, type, row) {
-                            return `${row.surahName} - ${row.surahAyat}`;
-                        }
+                        data: 'surahName',
+                        name: 'surahName',
+                        title: 'Surat'
+                    },
+                    {
+                        data: 'surahAyat',
+                        name: 'surahAyat',
+                        title: 'Ayat'
                     },
                     {
                         data: 'teacherSign',
@@ -111,20 +113,20 @@
             const url = `{{ route('juz-report.teacher-sign', ':id') }}`.replace(':id', reportId);
 
             fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    window.showAlert(data.success, true, '#laporanBacaanJuzSiswaDetailTable');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while updating teacher sign.');
-                });
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#laporanBacaanJuzSiswaDetailTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
         }
     </script>
 @endpush
