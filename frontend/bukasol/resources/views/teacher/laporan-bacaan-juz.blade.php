@@ -60,14 +60,12 @@
                         title: 'Nama'
                     },
                     {
-                        data: 'surahName',
-                        name: 'surahName',
-                        title: 'Surat'
-                    },
-                    {
-                        data: 'surahAyat',
-                        name: 'surahAyat',
-                        title: 'Ayat'
+                        data: null,
+                        name: 'surah',
+                        title: 'Surat',
+                        render: function(data, type, row) {
+                            return `${row.surahName} - ${row.surahAyat}`;
+                        }
                     },
                     {
                         data: 'teacherSign',
