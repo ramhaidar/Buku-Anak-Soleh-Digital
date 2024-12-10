@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Laporan Muhasabah Harian Siswa {{ $studentName }}</h2>
+                    <h2 class="text-center mb-0">Lembar Laporan Muhasabah Harian {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
@@ -80,22 +80,22 @@
                         }
                     },
                     {
-                        data: 'sholatSunnah',
-                        name: 'sholatSunnah',
-                        title: 'Sholat Sunnah',
+                        data: 'shalatSunnah',
+                        name: 'shalatSunnah',
+                        title: 'Shalat Sunnah',
                         render: function(data, type, row) {
                             if (type === 'display') {
                                 return data ?
-                                    '<span class="text-success">Sholat</span>' :
+                                    '<span class="text-success">Shalat</span>' :
                                     '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
                     },
                     {
-                        data: 'sholatFardhu',
-                        name: 'sholatFardhu',
-                        title: 'Sholat Fardhu'
+                        data: 'shalatFardhu',
+                        name: 'shalatFardhu',
+                        title: 'Shalat Fardhu'
                     },
                     {
                         data: 'teacherSign',

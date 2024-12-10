@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -20,13 +21,20 @@ class StudentController extends Controller
         $validatedData = $request->validate ( [ 
             // User data validation
             'name'        => 'required|string|max:255',
-            'username'    => 'required|string|unique:users,username|max:50',
 
             // Student data validation
             'nisn'        => 'required|string|unique:students,nisn|max:20',
             'parent_name' => 'required|string|max:255',
             'teacher_id'  => 'required|exists:teachers,id',
         ] );
+
+        $countStudent = Student::count() + 1;
+        $username = strtolower(explode(' ', $validatedData['name'])[0]).$countStudent;
+
+        Validator::make(
+            ['username' => $username],
+            ['username' => 'required|string|unique:users,username|max:50']
+        )->validate();
 
         $letters = strtolower(explode(' ', $validatedData['name'])[0]);
         $numbers = substr($validatedData['nisn'], -4);
@@ -38,7 +46,7 @@ class StudentController extends Controller
         // Create the User first
         $user = User::create ( [ 
             'name'     => $validatedData[ 'name' ],
-            'username' => $validatedData[ 'username' ],
+            'username' => $username,
             'password' => Hash::make ( $password ),
             'role'     => "Student",
         ] );
