@@ -49,7 +49,6 @@ class StudentJuzReportController extends Controller
                 ->where('surah_ayat', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = Juz::where('student_id', $studentId)
@@ -65,7 +64,7 @@ class StudentJuzReportController extends Controller
         $data = $juzReports->map(function ($juzReport) {
             return [
                 'id' => $juzReport->id,
-                'timeStamp' => $juzReport->time_stamp->toDateString(),
+                'timeStamp' => $juzReport->time_stamp,
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
                 'teacherSign' => $juzReport->teacher_sign

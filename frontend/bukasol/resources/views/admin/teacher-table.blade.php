@@ -43,13 +43,13 @@
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <a class="btn btn-outline-dark rounded-3 me-2" href="{{ route('teacher-account.convert-pdf') }}">
+            <button class="btn btn-outline-dark rounded-3 me-2">
                 <i class="fa-solid fa-file-contract me-1"></i>
-                <span class="d-none d-md-inline">Export Akun Guru</span>
-            </a>
+                <span class="d-none d-md-inline">Export Akun</span>
+            </button>
             <button class="btn btn-outline-dark rounded-3" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
                 <i class="fa-solid fa-plus me-1"></i>
-                <span class="d-none d-md-inline">Tambah Akun Guru</span>
+                <span class="d-none d-md-inline">Tambah Guru</span>
             </button>
         </div>
 
@@ -95,8 +95,8 @@
                         className: 'text-start'
                     },
                     {
-                        data: 'className',
-                        name: 'className',
+                        data: 'class_name',
+                        name: 'class_name',
                         title: 'Kelas',
                         className: 'text-start'
                     },

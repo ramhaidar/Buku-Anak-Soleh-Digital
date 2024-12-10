@@ -5,7 +5,7 @@
             <i class="fa fa-eye"></i>
         </a>
 
-        <!-- Export Button -->
+        <!-- Delete Button to Trigger Confirmation Modal -->
         <a class="btn btn-sm btn-success py-2 me-2" href="{{ route('prayer-recitation-grade.convert-pdf', ['id' => $studentId]) }}">
             <i class="fa fa-file-export"></i>
         </a>

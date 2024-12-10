@@ -16,7 +16,7 @@ class TeacherReadActivityController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        return view ( 'teacher.aktivitas-membaca-siswa', [
+        return view ( 'teacher.aktivitas-membaca-siswa', [ 
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'className' => $className,
@@ -28,15 +28,15 @@ class TeacherReadActivityController extends Controller
     public function index_student( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student->user->name;
+        $studentName = $student ? $student->user->name : 'N/A';
 
-        return view ( 'teacher.aktivitas-membaca-siswa-detail', [
+        return view ( 'teacher.aktivitas-membaca-siswa-detail', [ 
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
             
-            'page' => 'Aktivitas Membaca Siswa'
+            'page' => 'Detail Nilai Uji Gerakan Siswa'
         ] );
     }
 
@@ -50,11 +50,7 @@ class TeacherReadActivityController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where('class_name', $className)
-            ->with('user', 'readActivities')
-            ->join('users', 'students.user_id', '=', 'users.id')
-            ->select('students.*', 'users.name as user_name')
-            ->orderBy('user_name');
+        $query = Student::where ( 'class_name', $className )->with ( 'user', 'readActivities' );
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -116,8 +112,7 @@ class TeacherReadActivityController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = ReadActivity::where('student_id', $studentId)
-            ->orderByDesc('time_stamp');
+        $query = ReadActivity::where('student_id', $studentId);
 
         // Apply search filter if available
         if (!empty($search)) {
@@ -138,7 +133,7 @@ class TeacherReadActivityController extends Controller
         $data = $readActivities->map(function ($readActivity) {
             return [
                 'id' => $readActivity->id,
-                'timeStamp' => $readActivity->time_stamp->toDateString(),
+                'timeStamp' => $readActivity->time_stamp,
                 'bookTitle' => $readActivity->book_title,
                 'page' => $readActivity->page,
                 'teacherSign' => $readActivity->teacher_sign,
@@ -168,25 +163,5 @@ class TeacherReadActivityController extends Controller
         }
 
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
-    }
-
-    public function reading_activity_pdf( $studentId )
-    {
-        $readActivities = ReadActivity::where('student_id', $studentId)->get();
-
-        $student = Student::find($studentId);
-
-        $data = [
-            'readActivities' => $readActivities,
-            'student' => $student,
-        ];
-
-        $pdf = Pdf::loadView('convert.reading-activity-template', $data);
-        $fileName = "Lembar Aktivitas Membaca_".$student->class_name."_".$student->user->name.".pdf";
-
-        return Response::make($pdf->output(), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-        ]);
     }
 }

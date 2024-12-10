@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
-class StudentReadActivityController extends Controller
+class StudentReadingActivityController extends Controller
 {
     public function index_table()
     {
@@ -25,15 +25,14 @@ class StudentReadActivityController extends Controller
         ] );
     }
 
-    public function index_add_activity()
+    public function index_add_activity( $studentId )
     {
-        $student = auth ()->user ()->student;
-        $studentId = $student->id;
+        $student = Student::find($studentId);
         $studentName = $student->user->name;
 
         $today = now()->toDateString();
 
-        return view ( 'student.add-aktivitas-membaca-siswa', [
+        return view ( 'student.add-aktivitas-membaca-siswa', [ 
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
@@ -63,7 +62,6 @@ class StudentReadActivityController extends Controller
                 $q->where('book_title', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = ReadActivity::where('student_id', $studentId)->count();
@@ -77,7 +75,7 @@ class StudentReadActivityController extends Controller
         $data = $readActivities->map(function ($readActivity) {
             return [
                 'id' => $readActivity->id,
-                'timeStamp' => $readActivity->time_stamp->toDateString(),
+                'timeStamp' => $readActivity->time_stamp,
                 'bookTitle' => $readActivity->book_title,
                 'page' => $readActivity->page,
                 'teacherSign' => $readActivity->teacher_sign,
@@ -159,5 +157,10 @@ class StudentReadActivityController extends Controller
         }
 
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
+    }
+
+    public function reading_activity_pdf()
+    {
+
     }
 }

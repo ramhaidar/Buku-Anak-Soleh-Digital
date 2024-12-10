@@ -20,19 +20,19 @@
         <div class="text-center p-0 m-0 pe-1">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Lembar Laporan Muhasabah Harian Siswa</h2>
+                    <h2 class="text-center mb-0">Laporan Muhasabah Harian</h2>
                 </div>
             </div>
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <a class="btn btn-outline-dark rounded-3 me-2" href="{{ route('muhasabah-report.convert-pdf', [ 'id' => $studentId ]) }}">
+            <button class="btn btn-outline-dark rounded-3 me-2">
                 <i class="fa-solid fa-file-contract me-1"></i>
-                <span class="d-none d-md-inline">Export Laporan Muhasabah</span>
-            </a>
+                <span class="d-none d-md-inline">Export Muhasabah Harian</span>
+            </button>
             <a class="btn btn-outline-dark rounded-3" href="{{ route('student.laporan-muhasabah-siswa-add.index') }}">
                 <i class="fa-solid fa-plus me-1"></i>
-                <span class="d-none d-md-inline">Tambah Laporan Muhasabah</span>
+                <span class="d-none d-md-inline">Tambah Laporan</span>
             </a>
         </div>
 

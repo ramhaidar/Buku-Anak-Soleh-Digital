@@ -21,7 +21,7 @@ class StudentActivityNotesController extends Controller
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
 
-            'page' => 'Aktivitas Catatan Harian Siswa Table'
+            'page' => 'Catatan Harian Siswa Table'
         ] );
     }
 
@@ -45,7 +45,7 @@ class StudentActivityNotesController extends Controller
             $teacherSign = "Sudah";
         }
 
-        return view ( 'student.catatan-harian-siswa-detail', [
+        return view ( 'student.catatan-harian-siswa-detail', [ 
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'activityNote' => $activityNote,
@@ -53,14 +53,13 @@ class StudentActivityNotesController extends Controller
             'parentQuestion' => $parentQuestion,
             'teacherSign' => $teacherSign,
 
-            'page' => 'Detail Aktivitas Catatan Harian Siswa'
+            'page' => 'Catatan Harian Siswa Table'
         ] );
     }
 
-    public function index_add_notes()
+    public function index_add_notes( $studentId )
     {
-        $student = auth ()->user ()->student;
-        $studentId = $student->id;
+        $student = Student::find($studentId);
         $studentName = $student->user->name;
 
         $today = now()->toDateString();
@@ -72,11 +71,11 @@ class StudentActivityNotesController extends Controller
             'studentName' => $studentName,
             'today' => $today,
 
-            'page' => 'Tambah Aktivitas Catatan Harian Siswa'
+            'page' => 'Tambah Catatan Harian Siswa'
         ] );
     }
 
-    public function fetchData_catatan_harian_by_id_siswa( Request $request )
+    public function fetchData_catatan_harian_by_id_siswa( Request $request ) 
     {
         // Safely get the length and start for pagination
         $length = $request->input('length', 10); // Number of records per page
@@ -96,7 +95,6 @@ class StudentActivityNotesController extends Controller
                 ->orWhere('content', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = Note::where('student_id', $studentId)->count();
@@ -110,7 +108,7 @@ class StudentActivityNotesController extends Controller
         $data = $activityNotes->map(function ($activityNote) {
             return [
                 'id' => $activityNote->id,
-                'timeStamp' => $activityNote->time_stamp->toDateString(),
+                'timeStamp' => $activityNote->time_stamp,
                 'agenda' => $activityNote->agenda,
                 'content' => $activityNote->content,
                 'teacherAnswer' => !is_null($activityNote->teacher_answer),
@@ -128,7 +126,7 @@ class StudentActivityNotesController extends Controller
         ] );
     }
 
-    public function store_activity_notes( Request $request )
+    public function store_activity_notes( Request $request ) 
     {
         $validatedData = $request->validate ( [ 
             'studentId'      => 'required|exists:students,id',
@@ -168,5 +166,10 @@ class StudentActivityNotesController extends Controller
         $activityNote->delete ();
 
         return response ()->json ( [ 'success' => 'Data Siswa Berhasil Dihapus.' ] );
+    }
+
+    public function activity_notes_pdf() 
+    {
+
     }
 }

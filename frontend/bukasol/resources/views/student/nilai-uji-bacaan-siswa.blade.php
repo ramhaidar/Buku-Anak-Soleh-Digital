@@ -60,11 +60,6 @@
                     }
                 },
                 columns: [{
-                        data: 'timeStamp',
-                        name: 'timeStamp',
-                        title: 'Tanggal'
-                    },
-                    {
                         data: 'readingCategory',
                         name: 'readingCategory',
                         title: 'Jenis Bacaan'
@@ -86,9 +81,9 @@
                         render: function(data, type, row) {
                             return `
                                 <div class="form-check form-switch">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
                                         ${data ? 'checked' : ''}
                                         onclick="showParentCodeModal(${row.id})">
                                 </div>`;

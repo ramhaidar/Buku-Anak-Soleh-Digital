@@ -21,14 +21,14 @@ class TeacherMuhasabahReportController extends Controller
             'name' => auth ()->user ()->name,
             'className' => $className,
 
-            'page' => 'Laporan Muhasabah Siswa Table'
+            'page' => 'Laporan Muhasabah Table'
         ] );
     }
 
     public function index_student( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student->user->name;
+        $studentName = $student ? $student->user->name : 'N/A';
 
         return view ( 'teacher.laporan-muhasabah-harian-siswa', [
             'role' => auth ()->user ()->role,
@@ -62,7 +62,7 @@ class TeacherMuhasabahReportController extends Controller
             'surahName' => $surahName,
             'surahAyat' => $surahAyat,
 
-            'page' => 'Detail Laporan Muhasabah Siswa'
+            'page' => 'Detail Detail Laporan Muhasabah Siswa'
         ] );
     }
 
@@ -76,11 +76,7 @@ class TeacherMuhasabahReportController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where('class_name', $className)
-            ->with('user', 'muhasabahReports')
-            ->join('users', 'students.user_id', '=', 'users.id')
-            ->select('students.*', 'users.name as user_name')
-            ->orderBy('user_name');
+        $query = Student::where ( 'class_name', $className )->with ( 'user', 'muhasabahReports' );
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -139,8 +135,7 @@ class TeacherMuhasabahReportController extends Controller
          $studentId = $request->route('id');
  
          // Base query to fetch prayer grades for the given student
-         $query = MuhasabahReport::where('student_id', $studentId)
-            ->orderByDesc('time_stamp');
+         $query = MuhasabahReport::where('student_id', $studentId);
  
          // Apply search filter if available
          if (!empty($search)) {
@@ -190,7 +185,7 @@ class TeacherMuhasabahReportController extends Controller
 
             return [
                 'id' => $muhasabahReport->id,
-                'timeStamp' => $muhasabahReport->time_stamp->toDateString(),
+                'timeStamp' => $muhasabahReport->time_stamp,
                 'mengaji' => $mengaji,
                 'shalatSunnah' => $muhasabahReport->sunnah_pray,
                 'shalatFardhu' => $fardhuPray,
@@ -225,23 +220,8 @@ class TeacherMuhasabahReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function muhasabah_report_pdf( $studentId )
+    public function muhasabah_report_pdf()
     {
-        $muhasabahReports = MuhasabahReport::where('student_id', $studentId)->get();
-
-        $student = Student::find($studentId);
-
-        $data = [
-            'muhasabahReports' => $muhasabahReports,
-            'student' => $student,
-        ];
-
-        $pdf = Pdf::loadView('convert.muhasabah-report-template', $data);
-        $fileName = "Lembar Muhasabah Ibadah Harian_".$student->class_name."_".$student->user->name.".pdf";
-
-        return Response::make($pdf->output(), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-        ]);
+        
     }
 }

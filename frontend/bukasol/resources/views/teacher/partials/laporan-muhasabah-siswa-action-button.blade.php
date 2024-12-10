@@ -5,9 +5,9 @@
             <i class="fa fa-eye"></i>
         </a>
 
-        <!-- Export Button -->
-        <a class="btn btn-sm btn-success py-2 me-2" href="{{ route('muhasabah-report.convert-pdf', ['id' => $studentId]) }}">
+        <!-- Delete Button to Trigger Confirmation Modal -->
+        <button class="btn btn-sm btn-success py-2">
             <i class="fa fa-file-export"></i>
-        </a>
+        </button>
     </div>
 </div>

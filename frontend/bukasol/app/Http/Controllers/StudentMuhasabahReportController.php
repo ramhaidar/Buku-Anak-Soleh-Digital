@@ -47,7 +47,7 @@ class StudentMuhasabahReportController extends Controller
             'surahName' => $surahName,
             'surahAyat' => $surahAyat,
 
-            'page' => 'Detail Laporan Muhasabah Siswa'
+            'page' => 'Detail Detail Laporan Muhasabah Siswa'
         ] );
     }
 
@@ -55,7 +55,9 @@ class StudentMuhasabahReportController extends Controller
     {
         $student = auth ()->user ()->student;
         $studentId = $student->id;
-        $studentName = $student->user->name;
+
+        $studentFind = Student::find($studentId);
+        $studentName = $studentFind->user->name;
 
         $today = now()->toDateString();
 
@@ -88,7 +90,6 @@ class StudentMuhasabahReportController extends Controller
             $query->where(function ($q) use ($search) {
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = MuhasabahReport::where('student_id', $studentId)->count();
@@ -132,7 +133,7 @@ class StudentMuhasabahReportController extends Controller
 
             return [
                 'id' => $muhasabahReport->id,
-                'timeStamp' => $muhasabahReport->time_stamp->toDateString(),
+                'timeStamp' => $muhasabahReport->time_stamp,
                 'mengaji' => $mengaji,
                 'shalatSunnah' => $muhasabahReport->sunnah_pray,
                 'shalatFardhu' => $fardhuPray,

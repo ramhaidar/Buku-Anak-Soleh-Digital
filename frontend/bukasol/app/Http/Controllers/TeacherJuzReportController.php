@@ -29,7 +29,7 @@ class TeacherJuzReportController extends Controller
     public function index_student_juz( $juzNumber, $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student->user->name;
+        $studentName = $student ? $student->user->name : 'N/A';
 
         return view ( 'teacher.laporan-bacaan-juz-detail', [
             'role' => auth ()->user ()->role,
@@ -72,11 +72,7 @@ class TeacherJuzReportController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where('class_name', $className)
-            ->with('user', 'juz')
-            ->join('users', 'students.user_id', '=', 'users.id')
-            ->select('students.*', 'users.name as user_name')
-            ->orderBy('user_name');
+        $query = Student::where ( 'class_name', $className )->with ( 'user', 'juz' );
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -148,8 +144,7 @@ class TeacherJuzReportController extends Controller
 
         // Base query to fetch prayer grades for the given student
         $query = Juz::where('student_id', $studentId)
-                    ->where('juz_number', $juzNumber)
-                    ->orderByDesc('time_stamp');
+                    ->where('juz_number', $juzNumber);
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -173,7 +168,7 @@ class TeacherJuzReportController extends Controller
         $data = $juzReports->map(function ($juzReport) {
             return [
                 'id' => $juzReport->id,
-                'timeStamp' => $juzReport->time_stamp->toDateString(),
+                'timeStamp' => $juzReport->time_stamp,
                 'surahName' => $juzReport->surah_name,
                 'surahAyat' => $juzReport->surah_ayat,
                 'teacherSign' => $juzReport->teacher_sign,
@@ -249,25 +244,8 @@ class TeacherJuzReportController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
-    public function juz_report_pdf( $juzNumber, $studentId )
+    public function juz_report_pdf()
     {
-        $juzReports = Juz::where('student_id', $studentId)
-                        ->where('juz_number', $juzNumber)->get();
-
-        $student = Student::find($studentId);
-
-        $data = [
-            'juzReports' => $juzReports,
-            'juzNumber' => $juzNumber,
-            'student' => $student,
-        ];
-
-        $pdf = Pdf::loadView('convert.juz-report-template', $data);
-        $fileName = "Lembar Laporan Juz ".$juzNumber."_".$student->class_name."_".$student->user->name.".pdf";
-
-        return Response::make($pdf->output(), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-        ]);
+        
     }
 }

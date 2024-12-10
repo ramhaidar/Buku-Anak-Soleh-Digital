@@ -27,6 +27,7 @@ class StudentPrayerRecitationGradeController extends Controller
 
     public function fetchData_nilai_uji_bacaan_by_id_siswa( Request $request )
     {
+        
         // Safely get the length and start for pagination
         $length = $request->input('length', 10); // Number of records per page
         $start = $request->input('start', 0); // Offset for pagination
@@ -44,7 +45,6 @@ class StudentPrayerRecitationGradeController extends Controller
                 $q->where('reading_category', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = PrayerRecitationGrade::where('student_id', $studentId)->count();
@@ -58,7 +58,7 @@ class StudentPrayerRecitationGradeController extends Controller
         $data = $prayerRecitationGrades->map(function ($prayerRecitationGrade) {
             return [
                 'id' => $prayerRecitationGrade->id,
-                'timeStamp'      => $prayerRecitationGrade->time_stamp->toDateString(),
+                'timeStamp'      => $prayerRecitationGrade->time_stamp,
                 'readingCategory' => $prayerRecitationGrade->reading_category,
                 'gradeSemester1' => number_format($prayerRecitationGrade->grade_semester1, 2),
                 'gradeSemester2' => number_format($prayerRecitationGrade->grade_semester2, 2),
