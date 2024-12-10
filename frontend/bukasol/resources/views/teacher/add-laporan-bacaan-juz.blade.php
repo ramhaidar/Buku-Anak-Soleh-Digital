@@ -3,6 +3,7 @@
 @push('styles')
     <link href="{{ asset('css/dashboardWithTable.css') }}" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .form-check-input:checked {
             background-color: green !important;
@@ -10,6 +11,16 @@
 
         .form-check-input:focus {
             border-color: green !important;
+        }
+    </style>
+
+    <style>
+        .select2-container--default .select2-selection--single {
+            border: 2px solid black;
+            border-radius: 7px;
+            height: 125%;
+            align-content: center;
+            padding-left: 7px
         }
     </style>
 @endpush
@@ -42,7 +53,70 @@
                     <!-- Surah Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="surah">Surah</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="surah" name="surah" type="text" placeholder="Surah..." required>
+                        <div class="input-group" id="select2container" required>
+                            <select class="form-select rounded-3 border-dark border-2" id="surah" name="surah">
+                                <option value="" disabled selected>Pilih Surat</option>
+
+                                <!-- Options dynamically generated based on the Juz -->
+                                @if ($juzNumber == 1)
+                                    <option value="Al-Fatihah">Al-Fatihah</option>
+                                    <option value="Al-Baqarah">Al-Baqarah</option>
+                                    <!-- Add more Surahs as needed -->
+                                @elseif ($juzNumber == 29)
+                                    <option value="Al-Mulk">Al-Mulk</option>
+                                    <option value="Al-Qalam">Al-Qalam</option>
+                                    <option value="Al-Haqqah">Al-Haqqah</option>
+                                    <option value="Al-Ma'arij">Al-Ma'arij</option>
+                                    <option value="Nuh">Nuh</option>
+                                    <option value="Al-Jinn">Al-Jinn</option>
+                                    <option value="Al-Muzzammil">Al-Muzzammil</option>
+                                    <option value="Al-Muddathir">Al-Muddathir</option>
+                                    <option value="Al-Qiyamah">Al-Qiyamah</option>
+                                    <option value="Al-Insan">Al-Insan</option>
+                                    <option value="Al-Mursalat">Al-Mursalat</option>
+                                    <!-- Add more Surahs as needed -->
+                                @elseif ($juzNumber == 30)
+                                    <option value="An-Naba'">An-Naba'</option>
+                                    <option value="An-Nazi'at">An-Nazi'at</option>
+                                    <option value="Abasa">Abasa</option>
+                                    <option value="At-Takwir">At-Takwir</option>
+                                    <option value="Al-Infitar">Al-Infitar</option>
+                                    <option value="Al-Mutaffifin">Al-Mutaffifin</option>
+                                    <option value="Al-Inshiqaq">Al-Inshiqaq</option>
+                                    <option value="Al-Buruj">Al-Buruj</option>
+                                    <option value="At-Tariq">At-Tariq</option>
+                                    <option value="Al-A'la">Al-A'la</option>
+                                    <option value="Al-Ghashiyah">Al-Ghashiyah</option>
+                                    <option value="Al-Fajr">Al-Fajr</option>
+                                    <option value="Al-Balad">Al-Balad</option>
+                                    <option value="Ash-Shams">Ash-Shams</option>
+                                    <option value="Al-Lail">Al-Lail</option>
+                                    <option value="Ad-Duhaa">Ad-Duhaa</option>
+                                    <option value="Ash-Sharh">Ash-Sharh</option>
+                                    <option value="At-Tin">At-Tin</option>
+                                    <option value="Al-'Alaq">Al-'Alaq</option>
+                                    <option value="Al-Qadr">Al-Qadr</option>
+                                    <option value="Al-Bayyina">Al-Bayyina</option>
+                                    <option value="Az-Zalzalah">Az-Zalzalah</option>
+                                    <option value="Al-'Adiyat">Al-'Adiyat</option>
+                                    <option value="Al-Qari'ah">Al-Qari'ah</option>
+                                    <option value="At-Takathur">At-Takathur</option>
+                                    <option value="Al-'Asr">Al-'Asr</option>
+                                    <option value="Al-Humazah">Al-Humazah</option>
+                                    <option value="Al-Fil">Al-Fil</option>
+                                    <option value="Quraysh">Quraysh</option>
+                                    <option value="Al-Ma'un">Al-Ma'un</option>
+                                    <option value="Al-Kawthar">Al-Kawthar</option>
+                                    <option value="Al-Kafirun">Al-Kafirun</option>
+                                    <option value="An-Nasr">An-Nasr</option>
+                                    <option value="Al-Masad">Al-Masad</option>
+                                    <option value="Al-Ikhlas">Al-Ikhlas</option>
+                                    <option value="Al-Falaq">Al-Falaq</option>
+                                    <option value="An-Nas">An-Nas</option>
+                                    <!-- Add more Surahs as needed -->
+                                @endif
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Ayat Input -->
@@ -60,9 +134,23 @@
                 </form>
             </div>
         </div>
-
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            $('#surah').select2({
+                placeholder: 'Pilih Surah',
+                allowClear: true,
+                width: '100%',
+                // dropdownCssClass: "",
+                selectionCssClass: "",
+            });
+        });
+    </script>
+@endpush
 
 @push('scripts')
     <script>
