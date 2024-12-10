@@ -54,9 +54,10 @@
 
 @push('scripts')
     <script>
-        document.addEventListener("visibilitychange", function() {
-            if (document.visibilityState === "visible") {
-                location.reload(); // Reload the page when it becomes visible
+        window.addEventListener("pageshow", function(event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+                // Reload the page when navigating forward or back in history
+                location.reload();
             }
         });
     </script>

@@ -44,9 +44,10 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        document.addEventListener("visibilitychange", function() {
-            if (document.visibilityState === "visible") {
-                location.reload(); // Reload the page when it becomes visible
+        window.addEventListener("pageshow", function(event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+                // Reload the page when navigating forward or back in history
+                location.reload();
             }
         });
         
