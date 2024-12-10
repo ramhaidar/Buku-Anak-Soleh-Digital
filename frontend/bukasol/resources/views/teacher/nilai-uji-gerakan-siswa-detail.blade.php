@@ -43,6 +43,13 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+        window.addEventListener("pageshow", function(event) {
+            if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+                // Reload the page when navigating forward or back in history
+                location.reload();
+            }
+        });
+        
         $(document).ready(function() {
             $('#nilaiUjigerakanSiswaDetailTable').DataTable({
                 processing: true,
