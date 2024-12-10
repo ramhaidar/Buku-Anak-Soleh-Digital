@@ -95,22 +95,22 @@
                         }
                     },
                     {
-                        data: 'sholatSunnah',
-                        name: 'sholatSunnah',
-                        title: 'Sholat Sunnah',
+                        data: 'shalatSunnah',
+                        name: 'shalatSunnah',
+                        title: 'Shalat Sunnah',
                         render: function(data, type, row) {
                             if (type === 'display') {
                                 return data ?
-                                    '<span class="text-success">Sholat</span>' :
+                                    '<span class="text-success">Shalat</span>' :
                                     '<span class="text-danger">Tidak</span>';
                             }
                             return data;
                         }
                     },
                     {
-                        data: 'sholatFardhu',
-                        name: 'sholatFardhu',
-                        title: 'Sholat Fardhu'
+                        data: 'shalatFardhu',
+                        name: 'shalatFardhu',
+                        title: 'Shalat Fardhu'
                     },
                     {
                         data: 'teacherSign',

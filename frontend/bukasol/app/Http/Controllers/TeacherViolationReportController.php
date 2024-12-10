@@ -65,11 +65,14 @@ class TeacherViolationReportController extends Controller
         $student = Student::find($studentId);
         $studentName = $student->user->name;
 
+        $today = now()->toDateString();
+
         return view ( 'teacher.add-laporan-pelanggaran-siswa', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
+            'today' => $today,
 
             'page' => 'Tambah Laporan Pelanggaran Siswa'
         ] );

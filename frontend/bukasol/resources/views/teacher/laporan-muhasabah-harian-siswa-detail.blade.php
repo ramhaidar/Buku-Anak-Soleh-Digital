@@ -17,7 +17,7 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Detail Muhasabah Siswa</h2>
+            <h2 class="text-center mb-4">Detail Laporan Muhasabah Harian {{ $muhasabahReport->student->user->name }}</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 mb-5 rounded w-50 border border-2">
@@ -35,7 +35,7 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold">Shalat Sunnah</label>
-                    <input class="form-control rounded-3 {{ $muhasabahReport->isya_pray ? 'border-success' : 'border-danger' }} text-danger border-2" type="text" value="{{ $muhasabahReport->sunnah_pray ? 'Shalat' : 'Tidak Shalat' }}" readonly>
+                    <input style="{{ $muhasabahReport->sunnah_pray ? 'background-color: #198754 !important; border: 1px solid #198754 !important;' : 'background-color: #dc3545 !important; border: 1px solid #dc3545 !important;' }}" class="form-control rounded-3 border-dark border-2" type="text" value="{{ $muhasabahReport->sunnah_pray ? 'Shalat' : 'Tidak Shalat' }}" readonly>
                 </div>
 
                 <div class="mb-4">

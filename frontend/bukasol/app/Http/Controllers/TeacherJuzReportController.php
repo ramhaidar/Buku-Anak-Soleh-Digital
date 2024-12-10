@@ -192,14 +192,15 @@ class TeacherJuzReportController extends Controller
             'juz' => 'required|integer',
             'tanggal' => 'required|date',
             'surah' => 'required|string|max:255',
-            'ayat' => 'required|string|max:255',
+            'ayat_awal' => 'required|string|max:255',
+            'ayat_akhir' => 'required|string|max:255',
         ]);
 
         $existingReport = Juz::where('student_id', $validatedData['studentId'])
             ->whereDate('time_stamp', $validatedData['tanggal'])
             ->where('juz_number', $validatedData['juz'])
-            ->where('surah_name', $validatedData['tanggal'])
-            ->where('surah_ayat', $validatedData['tanggal'])
+            ->where('surah_name', $validatedData['surah'])
+            ->where('surah_ayat', $validatedData['ayat_awal']."-".$validatedData['ayat_akhir'])
             ->first();
 
         if ($existingReport) {
@@ -211,7 +212,7 @@ class TeacherJuzReportController extends Controller
             'time_stamp' => $validatedData[ 'tanggal' ],
             'juz_number' => $validatedData[ 'juz' ],
             'surah_name' => $validatedData[ 'surah' ],
-            'surah_ayat' => $validatedData[ 'ayat' ],
+            'surah_ayat' => $validatedData['ayat_awal']."-".$validatedData['ayat_akhir'],
             'teacher_sign' => false,
         ] );
 
