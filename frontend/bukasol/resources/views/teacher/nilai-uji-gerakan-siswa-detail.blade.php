@@ -19,7 +19,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Lembar Nilai Uji Gerakan Siswa {{ $studentName }}</h2>
+                    <h2 class="text-center mb-0">Detail Nilai Uji Gerakan Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
@@ -106,10 +106,10 @@
                         render: function(data, type, row) {
                             return `
                                 <div class="form-check form-switch">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        ${data ? 'checked' : ''}
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        ${data ? 'checked' : ''} 
                                         onclick="updateTeacherSign(${row.id}, this.checked)">
                                 </div>`;
                         }
@@ -139,20 +139,18 @@
             const url = `{{ route('prayer-grade.teacher-sign', ':id') }}`.replace(':id', gradeId);
 
             fetch(url, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                window.showAlert(data.success, true, '#nilaiUjigerakanSiswaDetailTable');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating teacher sign.');
-            });
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {})
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating teacher sign.');
+                });
         }
     </script>
 @endpush

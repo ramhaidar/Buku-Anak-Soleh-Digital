@@ -26,13 +26,13 @@
         </div>
 
         <div class="col d-flex justify-content-end align-items-end mt-3 mt-md-0">
-            <a class="btn btn-outline-dark rounded-3 me-2" href="{{ route('reading-activity.convert-pdf', [ 'id' => $studentId ]) }}">
+            <button class="btn btn-outline-dark rounded-3 me-2">
                 <i class="fa-solid fa-file-contract me-1"></i>
-                <span class="d-none d-md-inline">Export Aktivitas Membaca</span>
-            </a>
-            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index') }}">
+                <span class="d-none d-md-inline">Export Catatan</span>
+            </button>
+            <a class="btn btn-outline-dark rounded-3" href="{{ route('student.aktivitas-membaca-siswa-add.index', ['id' => $studentId]) }}">
                 <i class="fa-solid fa-plus me-1"></i>
-                <span class="d-none d-md-inline">Tambah Aktivitas Membaca</span>
+                <span class="d-none d-md-inline">Tambah Catatan</span>
             </a>
         </div>
 
@@ -82,14 +82,7 @@
                     {
                         data: 'bookTitle',
                         name: 'bookTitle',
-                        title: 'Judul Buku',
-                        render: function (data, type, row) {
-                            const maxLength = 50;
-                            if (data && data.length > maxLength) {
-                                return data.substring(0, maxLength) + '...';
-                            }
-                            return data;
-                        }
+                        title: 'Judul Buku'
                     },
                     {
                         data: 'page',
