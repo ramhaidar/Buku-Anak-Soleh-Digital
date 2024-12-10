@@ -21,22 +21,22 @@ class TeacherActivityNotesController extends Controller
             'name' => auth ()->user ()->name,
             'className' => $className,
 
-            'page' => 'Catatan Harian Siswa Table'
+            'page' => 'Catatan Aktivitas Harian Siswa Table'
         ] );
     }
 
     public function index_student( $studentId )
     {
         $student = Student::find($studentId);
-        $studentName = $student ? $student->user->name : 'N/A';
+        $studentName =  $student->user->name;
 
-        return view ( 'teacher.catatan-harian-siswa-detail', [ 
+        return view ( 'teacher.catatan-harian-siswa-detail', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
             
-            'page' => 'Detail Catatan Harian Siswa'
+            'page' => 'Catatan Aktivitas Harian Siswa'
         ] );
     }
 
@@ -68,7 +68,7 @@ class TeacherActivityNotesController extends Controller
             'parentQuestion' => $parentQuestion,
             'teacherSign' => $teacherSign,
 
-            'page' => 'Detail Detail Catatan Harian Siswa'
+            'page' => 'Detail Catatan Aktivitas Harian Siswa'
         ] );
     }
 
@@ -85,7 +85,7 @@ class TeacherActivityNotesController extends Controller
             'name' => auth ()->user ()->name,
             'activityNote' => $activityNote,
             
-            'page' => 'Detail Nilai Uji Gerakan Siswa'
+            'page' => 'Jawaban Pertanyaan Orang Tua'
         ] );
     }
 
@@ -99,7 +99,11 @@ class TeacherActivityNotesController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where ( 'class_name', $className )->with ( 'user', 'notes' );
+        $query = Student::where('class_name', $className)
+            ->with ('user', 'notes')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name')
+            ->orderBy('user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -159,7 +163,8 @@ class TeacherActivityNotesController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = Note::where('student_id', $studentId);
+        $query = Note::where('student_id', $studentId)
+            ->orderByDesc('time_stamp');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -194,12 +199,12 @@ class TeacherActivityNotesController extends Controller
 
             return [
                 'id' => $activityNote->id,
-                'timeStamp' => $activityNote->time_stamp,
+                'timeStamp' => $activityNote->time_stamp->toDateString(),
                 'agenda' => $activityNote->agenda,
                 'content' => $activityNote->content,
                 'parentQuestion' => "<span class='{$parentQuestionClass}'>{$parentQuestion}</span>",
                 'teacherSign'    => $activityNote->teacher_sign,
-                'action' => view('teacher.partials.catatan-harian-siswa-detail-action-button', ['noteId' => $activityNote->id])->render() 
+                'action' => view('teacher.partials.catatan-harian-siswa-detail-action-button', ['noteId' => $activityNote->id])->render()
             ];
         });
 
@@ -244,4 +249,23 @@ class TeacherActivityNotesController extends Controller
         return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
+    public function activity_notes_pdf( $studentId )
+    {
+        $noteActivities = Note::where('student_id', $studentId)->get();
+
+        $student = Student::find($studentId);
+
+        $data = [
+            'noteActivities' => $noteActivities,
+            'student' => $student,
+        ];
+
+        $pdf = Pdf::loadView('convert.activity-note-template', $data);
+        $fileName = "Lembar Catatan Harian_".$student->class_name."_".$student->user->name.".pdf";
+
+        return Response::make($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
 }

@@ -36,7 +36,7 @@ class TeacherPrayerRecitationGradeController extends Controller
             'name' => auth ()->user ()->name,
             'studentId' => $studentId,
             'studentName' => $studentName,
-            'page' => 'Detail Nilai Uji Bacaan Siswa'
+            'page' => 'Nilai Uji Bacaan Siswa'
         ] );
     }
 
@@ -58,7 +58,7 @@ class TeacherPrayerRecitationGradeController extends Controller
     {
         $prayerRecitationGrade = PrayerRecitationGrade::find($gradeId);
 
-        return view ( 'teacher.edit-nilai-uji-bacaan-siswa', [ 
+        return view ( 'teacher.edit-nilai-uji-bacaan-siswa', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
             'studentName' => $prayerRecitationGrade->student->user->name,
@@ -81,7 +81,11 @@ class TeacherPrayerRecitationGradeController extends Controller
         $teacher   = auth ()->user ()->teacher;
         $className = $teacher->class_name;
 
-        $query = Student::where ( 'class_name', $className )->with ( 'user', 'prayerRecitationGrades' );
+        $query = Student::where('class_name', $className)
+            ->with('user', 'prayerRecitationGrades')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.name as user_name')
+            ->orderBy('user_name');
 
         // Apply search filter if available
         if ( ! empty ( $search ) )
@@ -144,7 +148,8 @@ class TeacherPrayerRecitationGradeController extends Controller
         $studentId = $request->route('id');
 
         // Base query to fetch prayer grades for the given student
-        $query = PrayerRecitationGrade::where('student_id', $studentId);
+        $query = PrayerRecitationGrade::where('student_id', $studentId)
+            ->orderByDesc('time_stamp');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -165,7 +170,7 @@ class TeacherPrayerRecitationGradeController extends Controller
         $data = $prayerRecitationGrades->map(function ($prayerRecitationGrade) {
             return [
                 'id' => $prayerRecitationGrade->id,
-                'timeStamp'      => $prayerRecitationGrade->time_stamp,
+                'timeStamp'      => $prayerRecitationGrade->time_stamp->toDateString(),
                 'readingCategory' => $prayerRecitationGrade->reading_category,
                 'gradeSemester1' => number_format($prayerRecitationGrade->grade_semester1, 2),
                 'gradeSemester2' => number_format($prayerRecitationGrade->grade_semester2, 2),
@@ -265,7 +270,11 @@ class TeacherPrayerRecitationGradeController extends Controller
 
         $prayerRecitationGrade->save ();
 
-        return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        if ( $prayerRecitationGrade->teacher_sign ) {
+            return response ()->json ( [ 'success' => 'Data Sudah Ditandatangani.' ] );
+        }
+
+        return response ()->json ( [ 'success' => 'Data Tidak Jadi Ditandatangani.' ] );
     }
 
     public function prayer_recitation_grade_pdf( $studentId )
@@ -292,10 +301,11 @@ class TeacherPrayerRecitationGradeController extends Controller
         ];
 
         $pdf = Pdf::loadView('convert.prayer-recitation-grade-template', $data);
+        $fileName = "Lembar Nilai Uji Bacaan".$student->class_name."_".$student->user->name.".pdf";
 
         return Response::make($pdf->output(), 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="recitation-grade-report.pdf"',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
     }
 
