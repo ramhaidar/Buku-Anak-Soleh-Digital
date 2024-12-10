@@ -35,20 +35,19 @@
                     <!-- Tanggal Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="tanggal">Tanggal</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}" required>
+                        <input class="form-control rounded-3 border-dark border-2" id="tanggal" name="tanggal" type="date" value="{{ $today }}">
                     </div>
 
                     <!-- Judul Buku Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="judul_buku">Judul Buku</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="judul_buku" name="judul_buku" type="text" placeholder="Judul Buku..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="judul_buku" name="judul_buku" type="text" placeholder="Judul Buku...">
                     </div>
 
                     <!-- Halaman Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="halaman">Halaman</label>
-                        <input class="form-control rounded-3 border-dark border-2 mb-2" id="halaman_awal" name="halaman_awal" type="text" placeholder="Halaman Awal Membaca..." required>
-                        <input class="form-control rounded-3 border-dark border-2" id="halaman_akhir" name="halaman_akhir" type="text" placeholder="Halaman Akhir Membaca..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="halaman" name="halaman" type="text" placeholder="Halaman...">
                     </div>
 
                     <!-- Reset and Submit Buttons -->

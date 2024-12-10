@@ -12,31 +12,31 @@
                 <!-- NIP -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="nip">NIP</label>
-                    <input class="form-control rounded-3 border-dark border-2" id="nip" name="nip" type="text" value="{{ $teacher->nip }}" readonly disabled>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="nip">{{ $teacher->nip }}</div>
                 </div>
-                
+
                 <!-- Nama -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="name">Nama</label>
-                    <input class="form-control rounded-3 border-dark border-2" id="name" name="name" type="text" value="{{ $teacher->user->name }}" readonly disabled>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="name">{{ $teacher->user->name }}</div>
                 </div>
 
                 <!-- Kelas -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="class_name">Kelas</label>
-                    <input class="form-control rounded-3 border-dark border-2" id="class_name" name="class_name" type="text" value="{{ $teacher->class_name }}" readonly disabled>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="class_name">{{ $teacher->class_name }}</div>
                 </div>
 
                 <!-- Username -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="username">Username</label>
-                    <input class="form-control rounded-3 border-dark border-2" id="username" name="username" type="text" value="{{ $teacher->user->username }}" readonly disabled>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="username">{{ $teacher->user->username }}</div>
                 </div>
 
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold" for="password">Password</label>
-                    <input class="form-control rounded-3 border-dark border-2" id="password" name="password" type="text" value="{{ $password }}" readonly disabled>
+                    <div class="form-control bg-black text-white rounded-pill border-0" id="password">{{ $password }}</div>
                 </div>
 
                 <!-- End of the form -->

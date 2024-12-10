@@ -103,7 +103,7 @@
                         render: function(data, type, row) {
                             if (type === 'display') {
                                 return data ?
-                                    '<span class="text-success">Sudah</span>':
+                                    '<span class="text-success">Sudah</span>' :
                                     '<span class="text-danger">Belum</span>';
                             }
                             return data;
@@ -115,13 +115,13 @@
                         title: 'Paraf Orang Tua',
                         render: function(data, type, row) {
                             return `
-                                <div class="form-check form-switch">
-                                    <input 
-                                        class="form-check-input" 
-                                        type="checkbox" 
-                                        ${data ? 'checked' : ''}
-                                        onclick="showParentCodeModal(${row.id})">
-                                </div>`;
+                <div class="form-check form-switch">
+                    <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        ${data ? 'checked' : ''} 
+                        onclick="showParentCodeModal(${row.id})">
+                </div>`;
                         }
                     },
                     {

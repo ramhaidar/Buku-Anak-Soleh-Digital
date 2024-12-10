@@ -101,14 +101,13 @@ class StudentReadActivityController extends Controller
             'studentId'      => 'required|exists:students,id',
             'tanggal' => 'required|date',
             'judul_buku' => 'required|string|max:255',
-            'halaman_awal' => 'required|string|max:255',
-            'halaman_akhir' => 'required|string|max:255',
+            'halaman' => 'required|string|max:255',
         ] );
         
         $existingActivity = ReadActivity::where('student_id', $validatedData['studentId'])
             ->whereDate('time_stamp', $validatedData['tanggal'])
             ->where('book_title', $validatedData['judul_buku'])
-            ->where('page', $validatedData['halaman_awal']."-".$validatedData['halaman_akhir'])
+            ->where('page', $validatedData['halaman'])
             ->first();
 
         if ($existingActivity) {
@@ -119,7 +118,7 @@ class StudentReadActivityController extends Controller
             'student_id' => $validatedData[ 'studentId' ],
             'time_stamp' => $validatedData[ 'tanggal' ],
             'book_title'  => $validatedData[ 'judul_buku' ],
-            'page'  => $validatedData[ 'halaman_awal' ]."-".$validatedData[ 'halaman_akhir' ],
+            'page'  => $validatedData[ 'halaman' ],
             'teacher_sign' => false,
             'parent_sign' => false,
         ] );

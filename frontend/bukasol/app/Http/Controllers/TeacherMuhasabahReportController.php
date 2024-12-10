@@ -192,8 +192,8 @@ class TeacherMuhasabahReportController extends Controller
                 'id' => $muhasabahReport->id,
                 'timeStamp' => $muhasabahReport->time_stamp->toDateString(),
                 'mengaji' => $mengaji,
-                'shalatSunnah' => $muhasabahReport->sunnah_pray,
-                'shalatFardhu' => $fardhuPray,
+                'sholatSunnah' => $muhasabahReport->sunnah_pray,
+                'sholatFardhu' => $fardhuPray,
                 'teacherSign' => $muhasabahReport->teacher_sign,
                 'parentSign' => $muhasabahReport->parent_sign,
                 'action' => view('teacher.partials.laporan-muhasabah-siswa-detail-action-button', ['reportId' => $muhasabahReport->id])->render()

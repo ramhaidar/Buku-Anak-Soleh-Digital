@@ -33,7 +33,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="date">Tanggal</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="date" name="date" type="date" value="{{ $today }}" required>
+                        <input class="form-control rounded-3 border-dark border-2" id="date" name="date" type="date" required>
                     </div>
 
                     <div class="mb-3">

@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Lembar Laporan Pelanggaran {{ $studentName }}</h2>
+                    <h2 class="text-center mb-0">Laporan Pelanggaran Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
@@ -77,26 +77,12 @@
                     {
                         data: 'violationDetails',
                         name: 'violationDetails',
-                        title: 'Pelanggaran',
-                        render: function (data, type, row) {
-                            const maxLength = 50;
-                            if (data && data.length > maxLength) {
-                                return data.substring(0, maxLength) + '...';
-                            }
-                            return data;
-                        }
+                        title: 'Pelanggaran'
                     },
                     {
                         data: 'consequence',
                         name: 'consequence',
-                        title: 'Konskuensi',
-                        render: function (data, type, row) {
-                            const maxLength = 50;
-                            if (data && data.length > maxLength) {
-                                return data.substring(0, maxLength) + '...';
-                            }
-                            return data;
-                        }
+                        title: 'Konskuensi'
                     },
                     {
                         data: 'teacherSign',

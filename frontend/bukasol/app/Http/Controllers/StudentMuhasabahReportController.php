@@ -134,8 +134,8 @@ class StudentMuhasabahReportController extends Controller
                 'id' => $muhasabahReport->id,
                 'timeStamp' => $muhasabahReport->time_stamp->toDateString(),
                 'mengaji' => $mengaji,
-                'shalatSunnah' => $muhasabahReport->sunnah_pray,
-                'shalatFardhu' => $fardhuPray,
+                'sholatSunnah' => $muhasabahReport->sunnah_pray,
+                'sholatFardhu' => $fardhuPray,
                 'teacherSign' => $muhasabahReport->teacher_sign,
                 'parentSign' => $muhasabahReport->parent_sign,
                 'action' => view('student.partials.laporan-muhasabah-harian-action-button', ['reportId' => $muhasabahReport->id])->render()
@@ -157,9 +157,8 @@ class StudentMuhasabahReportController extends Controller
             'studentId' => 'required|exists:students,id',
             'tanggal' => 'required|date',
             'surah' => 'nullable|string|max:255',
-            'ayat_awal' => 'nullable|string|max:255',
-            'ayat_akhir' => 'nullable|string|max:255',
-            'shalat_sunnah' => 'required|string|in:Sudah,Tidak',
+            'ayat' => 'nullable|string|max:255',
+            'sholat_sunnah' => 'required|string|in:Sudah,Tidak',
             'subuh' => 'required|string|in:Sudah,Tidak',
             'dzuhur' => 'required|string|in:Sudah,Tidak',
             'ashar' => 'required|string|in:Sudah,Tidak',
@@ -175,10 +174,10 @@ class StudentMuhasabahReportController extends Controller
             return redirect ()->back ()->with ( 'error', 'Data dengan Tanggal Tersebut sudah Dibuat.' );
         }
 
-        if( $validatedData['shalat_sunnah'] === "Sudah" ) {
-            $validatedData['shalat_sunnah'] = true;
+        if( $validatedData['sholat_sunnah'] === "Sudah" ) {
+            $validatedData['sholat_sunnah'] = true;
         } else {
-            $validatedData['shalat_sunnah'] = false;
+            $validatedData['sholat_sunnah'] = false;
         }
 
         if( $validatedData['subuh'] === "Sudah" ) {
@@ -215,8 +214,8 @@ class StudentMuhasabahReportController extends Controller
             'student_id' => $validatedData[ 'studentId' ],
             'time_stamp' => $validatedData[ 'tanggal' ],
             'surah_name' => $validatedData[ 'surah' ],
-            'surah_ayat' => $validatedData[ 'ayat_awal' ]."-".$validatedData[ 'ayat_akhir' ],
-            'sunnah_pray' => $validatedData[ 'shalat_sunnah' ],
+            'surah_ayat' => $validatedData[ 'ayat' ],
+            'sunnah_pray' => $validatedData[ 'sholat_sunnah' ],
             'subuh_pray' => $validatedData[ 'subuh' ],
             'dzuhur_pray' => $validatedData[ 'dzuhur' ],
             'ashar_pray' => $validatedData[ 'ashar' ],

@@ -17,7 +17,7 @@
 @section('content_3')
     <div class="p-0 m-0">
         <div class="text-center p-0 m-0">
-            <h2 class="text-center mb-4">Ubah Nilai Uji Bacaan {{ $studentName }}</h2>
+            <h2 class="text-center mb-4">Ubah Nilai Uji Bacaan Siswa</h2>
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="p-4 rounded w-75">
@@ -30,7 +30,7 @@
                     <!-- Jenis Bacaan Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="jenis_bacaan">Jenis Bacaan</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="jenis_bacaan" name="jenis_bacaan" type="text" value="{{ $readingCategory }}" placeholder="Jenis Bacaan..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="jenis_bacaan" name="jenis_bacaan" type="text" value="{{ $readingCategory }}" placeholder="Jenis Bacaan..." readonly disabledrequired>
                     </div>
 
                     <!-- Nilai Semester 1 Input -->

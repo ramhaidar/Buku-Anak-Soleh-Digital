@@ -61,7 +61,6 @@ class TeacherPrayerRecitationGradeController extends Controller
         return view ( 'teacher.edit-nilai-uji-bacaan-siswa', [
             'role' => auth ()->user ()->role,
             'name' => auth ()->user ()->name,
-            'studentName' => $prayerRecitationGrade->student->user->name,
             'gradeId' => $gradeId,
             'readingCategory' => $prayerRecitationGrade->reading_category,
             'gradeSemester1' => $prayerRecitationGrade->grade_semester1,
