@@ -20,7 +20,7 @@
         <div class="text-center p-0 m-0">
             <div class="row align-items-center mb-4">
                 <div class="col container position-relative">
-                    <h2 class="text-center mb-0">Detail Nilai Uji Bacaan Siswa {{ $studentName }}</h2>
+                    <h2 class="text-center mb-0">Lembar Nilai Uji Bacaan Siswa {{ $studentName }}</h2>
                 </div>
             </div>
         </div>
@@ -140,18 +140,20 @@
             const url = `{{ route('prayer-recitation-grade.teacher-sign', ':id') }}`.replace(':id', gradeId);
 
             fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {})
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while updating teacher sign.');
-                });
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.showAlert(data.success, true, '#nilaiUjiBacaanSiswaDetailTable');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating teacher sign.');
+            });
         }
     </script>
 @endpush
