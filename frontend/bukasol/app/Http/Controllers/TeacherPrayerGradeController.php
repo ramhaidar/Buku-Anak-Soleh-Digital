@@ -148,7 +148,8 @@ class TeacherPrayerGradeController extends Controller
 
         // Base query to fetch prayer grades for the given student
         $query = PrayerGrade::where('student_id', $studentId)
-            ->orderByDesc('time_stamp');
+            ->orderByDesc('time_stamp')
+            ->orderBy('motion_category');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -278,7 +279,10 @@ class TeacherPrayerGradeController extends Controller
     public function prayer_grade_pdf( $studentId )
     {
 
-        $prayerGrades = PrayerGrade::where('student_id', $studentId)->get();
+        $prayerGrades = PrayerGrade::where('student_id', $studentId)
+            ->orderBy('time_stamp')
+            ->orderBy('motion_category')
+            ->get();
 
         $student = Student::find($studentId);
 
@@ -295,7 +299,7 @@ class TeacherPrayerGradeController extends Controller
             'student' => $student,
             'teacherSign' => $teacherSign,
             'parentSign' => $parentSign,
-            'dateToday' => now()->toDateString(),
+            'dateToday' => now(),
         ];
 
         $pdf = Pdf::loadView('convert.prayer-grade-template', $data);

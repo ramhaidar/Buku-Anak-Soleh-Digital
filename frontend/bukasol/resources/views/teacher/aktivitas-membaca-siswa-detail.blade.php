@@ -77,7 +77,7 @@
                         name: 'bookTitle',
                         title: 'Judul Buku',
                         render: function (data, type, row) {
-                            const maxLength = 50;
+                            const maxLength = 75;
                             if (data && data.length > maxLength) {
                                 return data.substring(0, maxLength) + '...';
                             }

@@ -77,7 +77,7 @@
         @foreach ($muhasabahReports as $index => $report)
         <tr>
             <td>{{ $index + 1 }}</td>
-            <td>{{ $report->time_stamp->toDateString() }}</td>
+            <td>{{ \Carbon\Carbon::parse($report->time_stamp)->locale('id')->translatedFormat('l, d-m-Y') }}</td>
             <td>{{ $report->surah_name ? $report->surah_name : '-' }}</td>
             <td>{{ $report->surah_ayat ? $report->surah_ayat : '-'}}</td>
             <td class="{{ $report->sunnah_pray ? 'green-v' : 'red-x' }}">{{ $report->sunnah_pray ? 'V' : 'X' }}</td>

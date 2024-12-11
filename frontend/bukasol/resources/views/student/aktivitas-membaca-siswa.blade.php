@@ -91,7 +91,7 @@
                         name: 'bookTitle',
                         title: 'Judul Buku',
                         render: function (data, type, row) {
-                            const maxLength = 50;
+                            const maxLength = 75;
                             if (data && data.length > maxLength) {
                                 return data.substring(0, maxLength) + '...';
                             }
@@ -123,9 +123,9 @@
                         render: function(data, type, row) {
                             return `
                                 <div class="form-check form-switch">
-                                    <input 
-                                        class="form-check-input" 
-                                        type="checkbox" 
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
                                         ${data ? 'checked' : ''}
                                         onclick="showParentCodeModal(${row.id})">
                                 </div>`;

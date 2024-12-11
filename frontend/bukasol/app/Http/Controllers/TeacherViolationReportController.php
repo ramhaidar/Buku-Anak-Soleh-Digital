@@ -239,7 +239,9 @@ class TeacherViolationReportController extends Controller
 
     public function violation_report_pdf( $studentId )
     {
-        $violationReports = ViolationReport::where('student_id', $studentId)->get();
+        $violationReports = ViolationReport::where('student_id', $studentId)
+            ->orderBy('time_stamp')
+            ->get();
 
         $student = Student::find($studentId);
 

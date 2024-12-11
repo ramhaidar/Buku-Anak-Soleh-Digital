@@ -20,9 +20,12 @@
         th, td {
             padding: 10px;
             text-align: left;
+            word-wrap: break-word;
+            word-break: break-word;
+            vertical-align: top;
         }
-        .tanggal {
-            text-align: right;
+        th:first-child, td:first-child {
+            width: 6%;
         }
         hr {
             border: 1px solid #000;
@@ -54,7 +57,7 @@
         @foreach ($noteActivities as $index => $activity)
         <tr>
             <td>{{ $index + 1 }}</td>
-            <td>{{ $activity->time_stamp->toDateString() }}</td>
+            <td>{{ \Carbon\Carbon::parse($activity->time_stamp)->locale('id')->translatedFormat('l, d-m-Y') }}</td>
             <td>{{ $activity->agenda }}</td>
             <td>{{ $activity->content }}</td>
             <td>{{ $activity->parent_question ? $activity->parent_question : '-' }}</td>

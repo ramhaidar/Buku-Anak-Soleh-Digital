@@ -149,7 +149,8 @@ class TeacherPrayerRecitationGradeController extends Controller
 
         // Base query to fetch prayer grades for the given student
         $query = PrayerRecitationGrade::where('student_id', $studentId)
-            ->orderByDesc('time_stamp');
+            ->orderByDesc('time_stamp')
+            ->orderBy('reading_category');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -280,7 +281,10 @@ class TeacherPrayerRecitationGradeController extends Controller
     public function prayer_recitation_grade_pdf( $studentId )
     {
 
-        $prayerRecitationGrades = PrayerRecitationGrade::where('student_id', $studentId)->get();
+        $prayerRecitationGrades = PrayerRecitationGrade::where('student_id', $studentId)
+            ->orderBy('time_stamp')
+            ->orderBy('reading_category')
+            ->get();
 
         $student = Student::find($studentId);
 
@@ -297,7 +301,7 @@ class TeacherPrayerRecitationGradeController extends Controller
             'student' => $student,
             'teacherSign' => $teacherSign,
             'parentSign' => $parentSign,
-            'dateToday' => now()->toDateString(),
+            'dateToday' => now(),
         ];
 
         $pdf = Pdf::loadView('convert.prayer-recitation-grade-template', $data);
@@ -307,45 +311,5 @@ class TeacherPrayerRecitationGradeController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
-    }
-
-    public function parentSignPrayerGrade ( $gradeId, Request $request )
-    {
-
-        $request->validate ( [ 
-            'parent_code' => 'required|string',
-        ] );
-
-        $prayerGrade = PrayerGrade::findOrFail ( $gradeId );
-
-        $student = $prayerGrade->student;
-
-        if ( $student->parent_code === $request->input ( 'parent_code' ) )
-        {
-            // Toggle the parent_sign field
-            $prayerGrade->parent_sign = ! $prayerGrade->parent_sign;
-
-            // Save the updated PrayerGrade
-            $prayerGrade->save ();
-
-            $response = [ 
-                'id'              => $prayerGrade->id,
-                'student_id'      => $prayerGrade->student_id,
-                'time_stamp'      => $prayerGrade->time_stamp,
-                'motion_category' => $prayerGrade->motion_category,
-                'grade_semester1' => $prayerGrade->grade_semester1,
-                'grade_semester2' => $prayerGrade->grade_semester2,
-                'teacher_sign'    => $prayerGrade->teacher_sign,
-                'parent_sign'     => $prayerGrade->parent_sign,
-            ];
-
-            return response ()->json ( $response, 200 );
-        }
-        else
-        {
-            return response ()->json ( [ 
-                'message' => 'Wrong Parent Code'
-            ], 403 );
-        }
     }
 }

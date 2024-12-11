@@ -40,7 +40,8 @@ class StudentJuzReportController extends Controller
 
         // Base query to fetch prayer grades for the given student
         $query = Juz::where('student_id', $studentId)
-                    ->where('juz_number', $juzNumber);
+                    ->where('juz_number', $juzNumber)
+                    ->orderByDesc('time_stamp');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -49,7 +50,6 @@ class StudentJuzReportController extends Controller
                 ->where('surah_ayat', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = Juz::where('student_id', $studentId)

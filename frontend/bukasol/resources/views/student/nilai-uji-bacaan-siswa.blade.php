@@ -69,7 +69,17 @@
                 columns: [{
                         data: 'timeStamp',
                         name: 'timeStamp',
-                        title: 'Tanggal'
+                        title: 'Tanggal',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                const date = new Date(data); // Konversi string ke objek Date
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+                                const year = date.getFullYear();
+                                return `${day}-${month}-${year}`; // Format dd-mm-yyyy
+                            }
+                            return data; // Untuk mode selain display, kembalikan data asli
+                        }
                     },
                     {
                         data: 'readingCategory',

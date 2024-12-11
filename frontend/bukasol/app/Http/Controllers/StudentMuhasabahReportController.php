@@ -81,14 +81,13 @@ class StudentMuhasabahReportController extends Controller
         $studentId = $student->id;
  
         // Base query to fetch prayer grades for the given student
-        $query = MuhasabahReport::where('student_id', $studentId);
+        $query = MuhasabahReport::where('student_id', $studentId)->orderByDesc('time_stamp');
 
         // Apply search filter if available
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = MuhasabahReport::where('student_id', $studentId)->count();

@@ -36,7 +36,9 @@ class StudentPrayerRecitationGradeController extends Controller
         $studentId = $student->id;
 
         // Base query to fetch prayer grades for the given student
-        $query = PrayerRecitationGrade::where('student_id', $studentId);
+        $query = PrayerRecitationGrade::where('student_id', $studentId)
+            ->orderByDesc('time_stamp')
+            ->orderBy('reading_category');
 
          // Apply search filter if available
         if (!empty($search)) {
@@ -44,7 +46,6 @@ class StudentPrayerRecitationGradeController extends Controller
                 $q->where('reading_category', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = PrayerRecitationGrade::where('student_id', $studentId)->count();

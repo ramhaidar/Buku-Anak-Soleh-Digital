@@ -88,14 +88,21 @@
                     {
                         data: 'agenda',
                         name: 'agenda',
-                        title: 'Agenda'
+                        title: 'Agenda',
+                        render: function (data, type, row) {
+                            const maxLength = 25;
+                            if (data && data.length > maxLength) {
+                                return data.substring(0, maxLength) + '...';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'content',
                         name: 'content',
                         title: 'Catatan',
                         render: function (data, type, row) {
-                            const maxLength = 50;
+                            const maxLength = 25;
                             if (data && data.length > maxLength) {
                                 return data.substring(0, maxLength) + '...';
                             }

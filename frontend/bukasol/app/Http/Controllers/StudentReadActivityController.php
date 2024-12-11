@@ -55,7 +55,7 @@ class StudentReadActivityController extends Controller
         $studentId = $student->id;
 
         // Base query to fetch prayer grades for the given student
-        $query = ReadActivity::where('student_id', $studentId);
+        $query = ReadActivity::where('student_id', $studentId)->orderByDesc('time_stamp');
 
         // Apply search filter if available
         if (!empty($search)) {
@@ -63,7 +63,6 @@ class StudentReadActivityController extends Controller
                 $q->where('book_title', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = ReadActivity::where('student_id', $studentId)->count();

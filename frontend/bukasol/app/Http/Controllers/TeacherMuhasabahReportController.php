@@ -227,7 +227,9 @@ class TeacherMuhasabahReportController extends Controller
 
     public function muhasabah_report_pdf( $studentId )
     {
-        $muhasabahReports = MuhasabahReport::where('student_id', $studentId)->get();
+        $muhasabahReports = MuhasabahReport::where('student_id', $studentId)
+            ->orderBy('time_stamp')
+            ->get();
 
         $student = Student::find($studentId);
 

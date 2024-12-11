@@ -251,7 +251,9 @@ class TeacherActivityNotesController extends Controller
 
     public function activity_notes_pdf( $studentId )
     {
-        $noteActivities = Note::where('student_id', $studentId)->get();
+        $noteActivities = Note::where('student_id', $studentId)
+                            ->orderBy('time_stamp')
+                            ->get();
 
         $student = Student::find($studentId);
 

@@ -105,7 +105,7 @@ class TeacherJuzReportController extends Controller
         {
             $juzReports = $student->juz->where ( 'juz_number', $juzNumber );
 
-            $latestJuzReport = $juzReports->sortByDesc('time_stamp')->first();
+            $latestJuzReport = $juzReports->last();
 
             $surahName = "-";
             $surahAyat = "-";
@@ -252,7 +252,9 @@ class TeacherJuzReportController extends Controller
     public function juz_report_pdf( $juzNumber, $studentId )
     {
         $juzReports = Juz::where('student_id', $studentId)
-                        ->where('juz_number', $juzNumber)->get();
+                        ->where('juz_number', $juzNumber)
+                        ->orderBy('time_stamp')
+                        ->get();
 
         $student = Student::find($studentId);
 

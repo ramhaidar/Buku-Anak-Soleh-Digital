@@ -172,8 +172,10 @@ class TeacherReadActivityController extends Controller
 
     public function reading_activity_pdf( $studentId )
     {
-        $readActivities = ReadActivity::where('student_id', $studentId)->get();
-
+        $readActivities = ReadActivity::where('student_id', $studentId)
+                                ->orderBy('time_stamp')
+                                ->get();
+                                
         $student = Student::find($studentId);
 
         $data = [

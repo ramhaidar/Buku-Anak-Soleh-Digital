@@ -54,7 +54,8 @@
                         <label class="form-label fw-semibold" for="mengaji">Mengaji</label>
                         <div class="input-group mb-3" id="select2container">
                             <select class="form-select rounded-3 border-dark border-2" id="surah" name="surah">
-                                <option value="" disabled selected>Pilih Surat</option>
+                                <option value="" selected>Pilih Surat</option>
+                                
                                 <!-- Options dynamically generated based on the Juz -->
                                 <option value="Al-Fatihah">Al-Fatihah</option>
                                 <option value="Al-Baqarah">Al-Baqarah</option>

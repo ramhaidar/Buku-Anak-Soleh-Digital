@@ -20,6 +20,12 @@
         th, td {
             padding: 10px;
             text-align: left;
+            word-wrap: break-word;
+            word-break: break-word;
+            vertical-align: top;
+        }
+        th:first-child, td:first-child {
+            width: 6%;
         }
         .tanggal {
             text-align: right;
@@ -73,7 +79,7 @@
         </span>
     </p>
 
-    <p class="tanggal">Bandung, <span>{{ $dateToday }}</span></p>
+    <p class="tanggal">Bandung, <span>{{ \Carbon\Carbon::parse($dateToday)->format('d-m-Y') }}</span></p>
 
     <table style="width: 100%; border: none;">
         <tr>

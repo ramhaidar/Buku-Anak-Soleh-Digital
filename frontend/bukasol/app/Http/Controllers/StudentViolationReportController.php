@@ -60,7 +60,7 @@ class StudentViolationReportController extends Controller
         $studentId = $student->id;
 
         // Base query to fetch prayer grades for the given student
-        $query = ViolationReport::where('student_id', $studentId);
+        $query = ViolationReport::where('student_id', $studentId)->orderByDesc('time_stamp');
 
         // Apply search filter if available
         if (!empty($search)) {
@@ -69,7 +69,6 @@ class StudentViolationReportController extends Controller
                 ->where('consequence', 'like', "%{$search}%");
             });
         }
-        $query->orderByDesc('time_stamp');
 
         // Total records without filtering
         $totalData = ViolationReport::where('student_id', $studentId)->count();
