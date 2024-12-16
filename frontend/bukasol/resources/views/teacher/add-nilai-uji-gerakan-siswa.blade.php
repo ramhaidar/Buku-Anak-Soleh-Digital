@@ -41,13 +41,13 @@
                     <!-- Nilai Semester 1 Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="nilai_semester_1">Nilai Semester 1</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="nilai_semester_1" name="nilai_semester_1" type="text" placeholder="Nilai Semester 1..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="nilai_semester_1" name="nilai_semester_1" type="text" value=0 placeholder="Nilai Semester 1..." required>
                     </div>
 
                     <!-- Nilai Semester 2 Input -->
                     <div class="mb-3">
                         <label class="form-label fw-semibold" for="nilai_semester_2">Nilai Semester 2</label>
-                        <input class="form-control rounded-3 border-dark border-2" id="nilai_semester_2" name="nilai_semester_2" type="text" placeholder="Nilai Semester 2..." required>
+                        <input class="form-control rounded-3 border-dark border-2" id="nilai_semester_2" name="nilai_semester_2" type="text" value=0 placeholder="Nilai Semester 2..." required>
                     </div>
 
                     <!-- Buttons -->
