@@ -1,2 +1,3 @@
 
 frontend/bukasol/resources/views/test.blade.php
+server/bukasol/seeder/admin_token.txt
